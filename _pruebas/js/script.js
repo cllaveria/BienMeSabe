@@ -7,7 +7,7 @@ $(document).ready(function () {
     * Definim les restriccions de mida per al formulari de registre tant de l'usuari 
     * com del nutricionista. 
     */
-    
+    console.log('prueba')
     $('#name').attr('maxlength', '100');
     $('#surnames').attr('maxlength', '200');
     $('#phone').attr('maxlength', '9');
