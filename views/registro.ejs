@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
+</head>
+
+<body>
     <%- include('./header'); %>
     <h1>Registro de usuarios:</h1>
-    
+
     <form action="ejemplo.php" method="get">
         <div id="registerUser">
             <div>
@@ -17,33 +19,37 @@
                 <p>Alias <input type='text' id='alias'></p>
                 <p>Email <input type="email" id='email'></p>
                 <p>Contraseña: <input type="password" id='pswrd'>
-                
                     Quieres ver la contraseña?
-                    <input type="radio" name="viewPass" id="viewPass" value="yes" /> Si
-                    <input type="radio" name="viewPass" id="viewPass" value="no" /> No
+                    <input type="radio" name="viewPass" value="yes" /> Si
+                    <input type="radio" name="viewPass" value="no" /> No
                 </p>
                 <p>
-                    
                     <input type="checkbox" name="nutritionist" value="yes" /> Soy nutricionista
                 </p>
             </div>
         </div>
         <div id="registerNutritionist">
         </div>
-        <button id='submit'>Registrar</button>
+        <input type="button" value='Registrar' id='submit' />
     </form>
-    
     <%- include('./footer'); %>
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <!-- Encriptador MD5 -->
+    <script src="http://pajhome.org.uk/crypt/md5/2.2/md5-min.js"></script>
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="../javascripts/script.js"></script>
+</body>
 
-      <!-- JavaScript -->
-      <script src="../pruebas/js/script.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-          integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-      </script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-          integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-      </script>
-  </body>
 
-    
 </html>

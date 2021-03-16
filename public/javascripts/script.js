@@ -13,7 +13,7 @@ $(document).ready(function () {
     $('#phone').attr('maxlength', '9');
     $('#alias').attr('maxlength', '50');
     $('#email').attr('maxlength', '100');
-    $('#password').attr('maxlength', '9');
+    $('#pswrd').attr('maxlength', '9');
     $('#nif').attr('maxlength', '90');
     $('#pc').attr('maxlength', '5');
     $('#city').attr('maxlength', '45');
@@ -24,17 +24,16 @@ $(document).ready(function () {
     // Botón para ver pass (BORRAR)
     $(document).on('change', '[name="viewPass"]:checked', () => {
         if ($('[name="viewPass"]:checked').val() == 'yes') {
-            $('#password').attr('type', '');
+            $('#pswrd').attr('type', '');
         }else{
-            $('#password').attr('type', 'password');
+            $('#pswrd').attr('type', 'password');
         }
     })
     // FIN botón ver pass
 
-    // Si l'usuari que es registra cambia l'opció de si o no, aquest mostra un formulari o un altre.
-    $('.nutritionist').on('click', () => {
+    // Si l'usuari que es registra cambia l'opció de si es nutricionista, aquest mostra un formulari o un altre.
+    $('[name="nutritionist"]').on('click', () => {
         // Si l'usuari selecciona que si, entrem al if.
-        console.log('si')
         if ($('[name="nutritionist"]:checked').val() == 'yes') {
             // Insertem el formulari per registrar el nutricionista.
             $('#registerNutritionist').prepend("<p>NIF: <input type='text' id='nif'></p>\
@@ -55,7 +54,7 @@ $(document).ready(function () {
         let $phone = $('#phone').val();
         let $alias = $('#alias').val();
         let $email = $('#email').val();
-        let $pass = $('#password').val();
+        let $pass = $('#pswrd').val();
         // Encriptem la password.
         let $passEncrypted = hex_md5($pass);
         // Si el checkbox esta seleccionat com Si.
@@ -76,7 +75,7 @@ $(document).ready(function () {
                 Teléfono: $phone,
                 Alias: $alias,
                 Correo: $email,
-                ContraseñaSinEncriptar: $password,
+                ContraseñaSinEncriptar: $pass,
                 ContraseñaEncriptada: $passEncrypted,
                 NIF: $nif,
                 CódigoPostal: $pc,
@@ -88,6 +87,8 @@ $(document).ready(function () {
         } else {
             // Emmagatzemem en la variable info les dades a mostrar per consola de l'usuari.
             info = {
+
+                
                 Nombre: $name,
                 Apellidos: $surnames,
                 Teléfono: $phone,
@@ -100,7 +101,7 @@ $(document).ready(function () {
         // Mostrem per consola les dades introduides.
         console.table(info)
 
-        $.post('ActionServlet', {
+/*         $.post('ActionServlet', {
             nombre: $name,
             apellidos: $surnames,
             telefono: $phone
@@ -113,13 +114,14 @@ $(document).ready(function () {
                 'apellidos': $surnames,
                 'telefono': $phone},
             type: 'POST',
+
             success: function (data){
                 
             },
             error: function(){
                 alert('No conecta')
             }
-        });
+        }); */
     });
     // Fem la funció per comprovar que el NIF sigui correcte.
     function comprovarNif($nif) {
@@ -215,7 +217,7 @@ $(document).ready(function () {
                 $lletraComparar = 'E';
                 break;
         }
-        // Comprovem si el resultat coincideix amb el resutlat.
+        // Comprovem si la lletra obtinguda coincideix amb la lletra del NIF.
         if($lletraComparar != $lletra){
             // Si no coincideix, el boolean es false.
             $nifCorrecte = false;
