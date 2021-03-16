@@ -9,17 +9,41 @@
     <h1>Registro de usuarios:</h1>
     
     <form action="ejemplo.php" method="get">
-        <p>Nombre: <input type="text" name="nombre" size="40"></p>
-        <p>Año de nacimiento: <input type="number" name="nacido" min="1900"></p>
-        <p>Sexo:
-          <input type="radio" name="hm" value="h"> Hombre
-          <input type="radio" name="hm" value="m"> Mujer
-        </p>
-        <p>
-          <input type="submit" value="Enviar">
-        </p>
+        <div id="registerUser">
+            <div>
+                <p>Nombre: <input type='text' id='name'></p>
+                <p>Apellidos: <input type='text' id='surnames'> (opcional)</p>
+                <p>Teléfono: <input type='text' id='phone'> (opcional)</p>
+                <p>Alias <input type='text' id='alias'></p>
+                <p>Email <input type="email" id='email'></p>
+                <p>Contraseña: <input type="password" id='pswrd'>
+                
+                    Quieres ver la contraseña?
+                    <input type="radio" name="viewPass" id="viewPass" value="yes" /> Si
+                    <input type="radio" name="viewPass" id="viewPass" value="no" /> No
+                </p>
+                <p>
+                    
+                    <input type="checkbox" name="nutritionist" value="yes" /> Soy nutricionista
+                </p>
+            </div>
+        </div>
+        <div id="registerNutritionist">
+        </div>
+        <button id='submit'>Registrar</button>
     </form>
     
     <%- include('./footer'); %>
+
+      <!-- JavaScript -->
+      <script src="../pruebas/js/script.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+          integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+      </script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+          integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+      </script>
   </body>
+
+    
 </html>
