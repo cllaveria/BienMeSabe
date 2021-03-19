@@ -3,6 +3,8 @@ $(document).ready(function () {
     // Definim les variables globals.
     let info, $name, $phone, $alias, $email, $pass, $nif, $pc, $city, $company, $direction, $businessPhone;
     let $booleanNif, $booleanEmail;
+    // Connexió amb el servidor.
+    let $url = 'http://localhost:8080/api/user/';
 
     // Si l'usuari que es registra cambia l'opció de si es nutricionista, aquest mostra un formulari o un altre.
     $(document).on('change', 'input[name="nutritionist"]', () => {
@@ -166,27 +168,40 @@ $(document).ready(function () {
         // Mostrem per consola les dades introduides.
         console.table(info)
 
-
-        /* $.post('ActionServlet', {
-            nombre: $name,
-            apellidos: $surnames,
-            telefono: $phone
+        $.ajax({
+            url: $url+'getUsers',
+            /* data: {
+                'nombre':$name,
+                'apellidos': $surnames,
+                'telefono': $phone},
+            type: 'POST', */
+            success: function (data){
+                console.log(data[0])
+                console.log(data[0].name);              
+            },
+            error: function(){
+                alert('No conecta');
+            }
         });
 
-        $.ajax({
-            url: 'http://localhost:8080/mavenproject2/ActionServlet',
+        /* $.ajax({
+            url: 'http://localhost:8080/api/user/addUser',
             data: {
                 'nombre':$name,
                 'apellidos': $surnames,
                 'telefono': $phone},
             type: 'POST',
             success: function (data){
-                
+                console.log(data[0])
+                console.log(data[0].name);              
             },
             error: function(){
-                alert('No conecta')
+                alert('No conecta');
             }
         }); */
+
+        
+        e.preventDefault()
     });
 
     // Fem la funció per comprovar que el NIF/DNI sigui correcte.
