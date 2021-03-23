@@ -39,25 +39,25 @@ public class NutricionistController {
     @GetMapping("/getNutricionistById/{ID}")
     public Nutricionist findUserById(@PathVariable Long id){
         Nutricionist nutricionist = nutricionistService.findNutricionistById(id);
-        if(nutricionist == null){
-            throw new RuntimeException("Nutricionist id not found - " + id);
-        }
+//        if(nutricionist == null){
+//            throw new RuntimeException("Nutricionist id not found - " + id);
+//        }
         return nutricionist;
     }
     @GetMapping("/findNutricionistByCP/{cp}")
     public Nutricionist findNutricionistByCP(@PathVariable String cp){
         Nutricionist nutricionist = nutricionistService.findNutricionistByCP(cp);
-        if(nutricionist == null){
-            throw new RuntimeException("Nutricionist id not found - " + cp);
-        }
+//        if(nutricionist == null){
+//            throw new RuntimeException("Nutricionist id not found - " + cp);
+//        }
         return nutricionist;
     }
     @GetMapping("/findNutricionistByCPRange/{cpMin/{cpMax}")
     public List<Nutricionist> findNutricionistByCPRange(@PathVariable String cpMin, @PathVariable String cpMax){
         List<Nutricionist> nutricionists = nutricionistService.findNutricionistByCPRange(cpMin, cpMax);
-        if(nutricionists == null){
-            throw new RuntimeException("Nutricionist id not found - ");
-        }
+//        if(nutricionists == null){
+//            throw new RuntimeException("Nutricionist id not found - ");
+//        }
         return nutricionists;
     }
     
@@ -78,10 +78,10 @@ public class NutricionistController {
     @DeleteMapping("deleteUserById/{id}")
     public String deleteUserById(@PathVariable Long id){
         Nutricionist nutricionist = nutricionistService.findNutricionistById(id);
-        if(nutricionist == null) {
-            throw new RuntimeException("User id not found -"+id);
-        }
-        nutricionistService.deleteNutricionistById(id);
+        if(nutricionist != null) {
+            nutricionistService.deleteNutricionistById(id);
         return "Deleted nutricionist id - "+id;
+        }
+        return null;
     }
 }
