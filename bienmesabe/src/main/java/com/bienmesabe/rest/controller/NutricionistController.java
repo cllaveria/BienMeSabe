@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 @RequestMapping("/api/nutricionist")
 public class NutricionistController {
+    
     @Autowired
     private NutricionistService nutricionistService;
     
