@@ -27,32 +27,36 @@ public class NutricionistServiceImpl implements NutricionistService {
 
     @Override
     public Nutricionist findNutricionistById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Nutricionist nutricionist = nutricionistDAO.findNutricionistById(id);
+        return nutricionist;
     }
 
     @Override
     public Nutricionist findNutricionistByCP(String cp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Nutricionist nutricionist = nutricionistDAO.findNutricionistByCP(cp);
+        return nutricionist;
     }
 
     @Override
     public List<Nutricionist> findNutricionistByCPRange(String cpMin, String cpMax) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Nutricionist> listNutricionists = nutricionistDAO.findNutricionistByCPRange(cpMin, cpMax);
+        return listNutricionists;
     }
 
     @Override
     public Long createNutricionist(Nutricionist nutricionist) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Long id = nutricionistDAO.createNutricionist(nutricionist);
+        return id;
     }
 
     @Override
     public void modifyNutricionist(Nutricionist nutricionist) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        nutricionistDAO.modifyNutricionist(nutricionist);
     }
 
     @Override
     public void deleteNutricionistById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        nutricionistDAO.deleteNutricionistById(id);
     }
     
 }
