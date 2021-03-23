@@ -1,10 +1,10 @@
 $(document).ready(function () {
-    
+
     // Definim les variables globals.
     let info, $name, $phone, $alias, $email, $pass, $nif, $pc, $city, $company, $direction, $businessPhone;
     let $booleanNif, $booleanEmail, $booleanAlias;
     let $document = 'nif';
-    // Connexió amb el servidor.
+    // Variable per emmagatzemar la ruta de connexió amb el servidor.
     let $url = 'http://localhost:8080/api/user/';
 
     // Si l'usuari que es registra cambia l'opció de si es nutricionista, aquest mostra un formulari o un altre.
@@ -116,15 +116,15 @@ $(document).ready(function () {
             $('#inputErrorEmail').remove();
             // Fem la crida Ajax per comprovar si l'email està registrat en la BBDD.
             $.ajax({
-                url: $url+'findUserByEmail/'+$email,
+                url: $url + 'findUserByEmail/' + $email,
                 type: 'GET',
-                success: function (data){
+                success: function (data) {
                     // Si coincideix l'email retornat amb l'email escrit, entrem a fer el if.
-                    if(data.email == $email){
+                    if (data.email == $email) {
                         // Inserim el span amb el text.
                         $('#email').after("<span style='display: block; color:red;'id='inputErrorEmail'>El email introducido ya está registrado.</span>");
-                    // Si no hi ha coincidència, fem el else.
-                    }else{
+                        // Si no hi ha coincidència, fem el else.
+                    } else {
                         // El boolean de comprovació de l'email passa a true.
                         $booleanEmail = true;
                     }
@@ -138,11 +138,11 @@ $(document).ready(function () {
         $alias = $('#alias').val();
         // Fem la crida Ajax per comprovar si l'alias està registrat en la BBDD.
         $.ajax({
-            url: $url+'findUserByAlias/'+$alias,
+            url: $url + 'findUserByAlias/' + $alias,
             type: 'GET',
-            success: function (data){
+            success: function (data) {
                 // Si coincideix l'email retornat amb l'email escrit, entrem a fer el if.
-                if(data.alias == $alias){
+                if (data.alias == $alias) {
                     // Esborrem el span amb el text.
                     $('#inputErrorAlias').remove();
                     // Inserim el span amb el text.
@@ -151,12 +151,22 @@ $(document).ready(function () {
                     $booleanAlias = false;
                 }
             },
-            error: function(){
+            error: function () {
                 // Esborrem el span amb el text.
                 $('#inputErrorAlias').remove();
                 // El boolean de comprovació de l'email passa a true.
                 $booleanAlias = true;
             }
+        });
+    });
+
+    $('#nif').blur(() => {
+        GeoAPI.comunidades({
+            //Sin argumentos
+        }).then(function ($respuesta) {
+            console.log($respuesta);
+        }, function ($error) {
+            console.log($error);
         });
     });
 
@@ -236,7 +246,7 @@ $(document).ready(function () {
             if ($booleanNif == false) {
                 $insertText = $insertText.concat('', '<p class="errors">- Modifica el NIF/DNI</p>');
             }
-            if($booleanAlias == false) {
+            if ($booleanAlias == false) {
                 $insertText = $insertText.concat('', '<p class="errors">- Modifica el alias</p>');
             }
             $insertText = $insertText.concat('', '</div>');
