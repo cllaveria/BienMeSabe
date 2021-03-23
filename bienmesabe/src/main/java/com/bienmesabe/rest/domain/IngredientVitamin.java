@@ -19,8 +19,8 @@ import javax.persistence.Table;
  * @author RAUL
  */
 @Entity
-@Table(name="ingredient_minerals")
-public class IngredientMineral implements Serializable{
+@Table(name="ingredients_vitamins")
+public class IngredientVitamin implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID", updatable = false, nullable = false)
@@ -28,24 +28,19 @@ public class IngredientMineral implements Serializable{
     @ManyToOne
     @Column(name="INGREDIENT_ID")
     private float ingredientId;
-    @Column(name="MINERAL_QTY")
+    @Column(name="VITAMIN_QTY")
     private float qty;
     @ManyToOne
-    @Column(name="MINERAL_ID")
-    private String mineralId;
+    @Column(name="VITAMIN_ID")
+    private String vitaminId;
 
-    public IngredientMineral() {
+    public IngredientVitamin() {
     }
 
-    public IngredientMineral(float ingredientId, String mineralId) {
-        this.ingredientId = ingredientId;
-        this.mineralId = mineralId;
-    }
-
-    public IngredientMineral(float ingredientId, float qty, String mineralId) {
+    public IngredientVitamin(float ingredientId, float qty, String vitaminId) {
         this.ingredientId = ingredientId;
         this.qty = qty;
-        this.mineralId = mineralId;
+        this.vitaminId = vitaminId;
     }
 
     public Long getId() {
@@ -72,12 +67,12 @@ public class IngredientMineral implements Serializable{
         this.qty = qty;
     }
 
-    public String getMineralId() {
-        return mineralId;
+    public String getVitaminId() {
+        return vitaminId;
     }
 
-    public void setMineralId(String mineralId) {
-        this.mineralId = mineralId;
+    public void setVitaminId(String vitaminId) {
+        this.vitaminId = vitaminId;
     }
     
     

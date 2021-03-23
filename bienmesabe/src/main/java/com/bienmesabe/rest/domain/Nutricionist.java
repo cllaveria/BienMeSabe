@@ -7,12 +7,14 @@ package com.bienmesabe.rest.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 /**
  *
  * @author RAUL
  */
 @Entity
+@Table(name="nutricionists")
 @PrimaryKeyJoinColumn(name="ID")
 public class Nutricionist extends User{
     
