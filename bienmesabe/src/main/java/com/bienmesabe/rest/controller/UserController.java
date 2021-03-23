@@ -41,34 +41,34 @@ public class UserController {
     @GetMapping("/getUserById/{ID}")
     public User findUserById(@PathVariable Long id){
         User user = userService.findUserById(id);
-        if(user == null){
-            throw new RuntimeException("User id not found - " + id);
-        }
+//        if(user == null){
+//            throw new RuntimeException("User id not found - " + id);
+//        }
         return user;
     }
     @GetMapping("/findUserByName/{name}")
     public User findUserByName(@PathVariable String name){
         User user = userService.findUserByName(name);
-        if(user == null){
-            throw new RuntimeException("User id not found - " + name);
-        }
+//        if(user == null){
+//            throw new RuntimeException("User id not found - " + name);
+//        }
         return user;
     }
     @GetMapping("/findUserByEmail/{email}")
     public User findUserByEmail(@PathVariable String email){
         User user = userService.findUserByEmail(email);
-        if(user == null){
-            throw new RuntimeException("User id not found - " + email);
-        }
+//        if(user == null){
+//            throw new RuntimeException("User id not found - " + email);
+//        }
         return user;
     }
     
     @GetMapping("/findUserByAlias/{alias}")
     public User findUserByAlias(@PathVariable String alias){
         User user = userService.findUserByAlias(alias);
-        if(user == null){
-            throw new RuntimeException("User id not found - " + alias);
-        }
+//        if(user == null){
+//            throw new RuntimeException("User id not found - " + alias);
+//        }
         return user;
     }
     
@@ -89,20 +89,21 @@ public class UserController {
     @DeleteMapping("deleteUserById/{id}")
     public String deleteUserById(@PathVariable Long id){
         User user = userService.findUserById(id);
-        if(user == null) {
-            throw new RuntimeException("User id not found -"+id);
+        if(user != null) {
+           userService.deleteUserById(id);
+           return "Deleted user id - "+id;
         }
-        userService.deleteUserById(id);
-        return "Deleted user id - "+id;
+        
+        return null;
     }
     @DeleteMapping("deleteUserByAlias/{alias}")
     public String deleteUserByAlias(@PathVariable String alias){
         User user = userService.findUserByAlias(alias);
-        if(user == null) {
-            throw new RuntimeException("User id not found -" + alias);
-        }
-        userService.deleteUserByAlias(alias);
+        if(user != null) {
+            userService.deleteUserByAlias(alias);
         return "Deleted user id - " + alias;
+        }
+        return null;
     }
     
 
