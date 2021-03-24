@@ -5,6 +5,7 @@
  */
 package com.bienmesabe.rest.DAO.impl;
 
+import com.bienmesabe.rest.DAO.NutricionistDAO;
 import com.bienmesabe.rest.domain.Nutricionist;
 import com.bienmesabe.rest.domain.User;
 import java.util.List;
@@ -13,7 +14,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.bienmesabe.rest.DAO.NutricionistDAO;
+
 import org.springframework.stereotype.Repository;
 
 /**
