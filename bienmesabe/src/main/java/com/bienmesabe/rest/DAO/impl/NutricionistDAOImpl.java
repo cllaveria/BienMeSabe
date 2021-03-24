@@ -6,6 +6,7 @@
 package com.bienmesabe.rest.DAO.impl;
 
 import com.bienmesabe.rest.domain.Nutricionist;
+import com.bienmesabe.rest.domain.User;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.Session;
