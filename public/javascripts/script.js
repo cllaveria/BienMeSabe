@@ -6,6 +6,25 @@ $(document).ready(function () {
     let $document = 'nif';
     // Variable per emmagatzemar la ruta de connexió amb el servidor.
     let $url = 'http://localhost:8080/api/user/';
+   
+    /* define(['require', 'bcrypt'], function (require) {
+        const bcrypt = require('bcrypt');
+
+    bcrypt.hash('123456', 10, function(err, hash) {
+        console.log(hash)
+      });
+    }); */
+
+    require(['bcrypt'], function (require) {
+        const bcrypt = require('bcrypt');
+
+    bcrypt.hash('123456', 10, function(err, hash) {
+        console.log(hash)
+      });
+    });
+
+    
+   
 
     // Si l'usuari que es registra cambia l'opció de si es nutricionista, aquest mostra un formulari o un altre.
     $(document).on('change', 'input[name="nutritionist"]', () => {
