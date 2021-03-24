@@ -37,10 +37,10 @@ public class Recipe implements Serializable{
     private int type;
     @Column(name="USER_ID")
     private Long userId;
-    @OneToMany
-    private List<RecipeIngredients> recipeIngredients;
-    @OneToMany
-    private List<RecipeStep> recipeSteps;
+    //@OneToMany
+//    private List<RecipeIngredients> recipeIngredients;
+//    //@OneToMany
+//    private List<RecipeStep> recipeSteps;
 
         public Recipe() {
         }
@@ -98,20 +98,20 @@ public class Recipe implements Serializable{
             this.userId = userId;
         }
 
-        public List<RecipeIngredients> getRecipeIngredients() {
-            return recipeIngredients;
-        }
-
-        public void setRecipeIngredients(List<RecipeIngredients> recipeIngredients) {
-            this.recipeIngredients = recipeIngredients;
-        }
-
-        public List<RecipeStep> getRecipeSteps() {
-            return recipeSteps;
-        }
-
-        public void setRecipeSteps(List<RecipeStep> recipeSteps) {
-            this.recipeSteps = recipeSteps;
-        }
+//        public List<RecipeIngredients> getRecipeIngredients() {
+//            return recipeIngredients;
+//        }
+//
+//        public void setRecipeIngredients(List<RecipeIngredients> recipeIngredients) {
+//            this.recipeIngredients = recipeIngredients;
+//        }
+//
+//        public List<RecipeStep> getRecipeSteps() {
+//            return recipeSteps;
+//        }
+//
+//        public void setRecipeSteps(List<RecipeStep> recipeSteps) {
+//            this.recipeSteps = recipeSteps;
+//        }
 
 }

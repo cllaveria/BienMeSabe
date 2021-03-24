@@ -25,12 +25,12 @@ public class IngredientVitamin implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID", updatable = false, nullable = false)
     private Long id;
-    @ManyToOne
+    //@ManyToOne
     @Column(name="INGREDIENT_ID")
     private float ingredientId;
     @Column(name="VITAMIN_QTY")
     private float qty;
-    @ManyToOne
+    //@ManyToOne
     @Column(name="VITAMIN_ID")
     private String vitaminId;
 

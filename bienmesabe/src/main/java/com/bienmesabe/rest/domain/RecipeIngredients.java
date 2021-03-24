@@ -28,11 +28,11 @@ public class RecipeIngredients implements Serializable{
     private Long id;
     
     @Column(name="RECIPE_ID")
-    @ManyToOne
+    //@ManyToOne
     private long recipeId;
     
     @Column(name="INGREDIENT_ID")
-    @ManyToOne
+    //@ManyToOne
     private long ingredientId;
     @Column(name="INGREDIENT_QTY")
     private float ingredientQTY;

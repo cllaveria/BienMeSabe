@@ -7,7 +7,6 @@ package com.bienmesabe.rest.service;
 
 import com.bienmesabe.rest.domain.User;
 import java.util.List;
-import org.springframework.data.jpa.repository.Query;
 
 /**
  *

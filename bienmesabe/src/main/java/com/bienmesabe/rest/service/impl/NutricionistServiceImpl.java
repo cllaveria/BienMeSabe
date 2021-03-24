@@ -5,20 +5,23 @@
  */
 package com.bienmesabe.rest.service.impl;
 
-import com.bienmesabe.rest.DAO.NutricionistDao;
 import com.bienmesabe.rest.domain.Nutricionist;
 import com.bienmesabe.rest.service.NutricionistService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.bienmesabe.rest.DAO.NutricionistDAO;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author RAUL
  */
+@Service
 public class NutricionistServiceImpl implements NutricionistService {
 
     @Autowired
-    private NutricionistDao nutricionistDAO;
+    private NutricionistDAO nutricionistDAO;
+    
     @Override
     public List<Nutricionist> findAllNutricionist() {
         List<Nutricionist> listNutricionists = nutricionistDAO.findAllNutricionist();
