@@ -7,11 +7,13 @@ package com.bienmesabe.rest.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -35,6 +37,10 @@ public class Recipe implements Serializable{
     private int type;
     @Column(name="USER_ID")
     private Long userId;
+    @OneToMany
+    private List<RecipeIngredients> recipeIngredients;
+    @OneToMany
+    private List<RecipeStep> recipeSteps;
 
         public Recipe() {
         }
@@ -91,6 +97,21 @@ public class Recipe implements Serializable{
         public void setUserId(Long userId) {
             this.userId = userId;
         }
-    
-    
+
+        public List<RecipeIngredients> getRecipeIngredients() {
+            return recipeIngredients;
+        }
+
+        public void setRecipeIngredients(List<RecipeIngredients> recipeIngredients) {
+            this.recipeIngredients = recipeIngredients;
+        }
+
+        public List<RecipeStep> getRecipeSteps() {
+            return recipeSteps;
+        }
+
+        public void setRecipeSteps(List<RecipeStep> recipeSteps) {
+            this.recipeSteps = recipeSteps;
+        }
+
 }
