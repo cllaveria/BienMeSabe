@@ -6,7 +6,10 @@ $(document).ready(function () {
     let $document = 'nif';
     // Variable per emmagatzemar la ruta de connexió amb el servidor.
     let $url = 'http://localhost:8080/api/user/';
-   
+
+
+
+
     /* define(['require', 'bcrypt'], function (require) {
         const bcrypt = require('bcrypt');
 
@@ -15,16 +18,16 @@ $(document).ready(function () {
       });
     }); */
 
-    require(['bcrypt'], function (require) {
+    /* require(['bcrypt'], function (require) {
         const bcrypt = require('bcrypt');
 
     bcrypt.hash('123456', 10, function(err, hash) {
         console.log(hash)
       });
     });
+     */
 
-    
-   
+
 
     // Si l'usuari que es registra cambia l'opció de si es nutricionista, aquest mostra un formulari o un altre.
     $(document).on('change', 'input[name="nutritionist"]', () => {
@@ -32,9 +35,9 @@ $(document).ready(function () {
         if ($('[name="nutritionist"]:checked').val() == 'yes') {
             // Insertem el formulari per registrar el nutricionista.
             // TODO: una vez esté comprobado lo del DNI/NIF insertar aquí.
-            $('#registerNutritionist').prepend("<p><span style='color:red;font-size:15px'>* </span>NIF/DNI: <input type='text' id='nif' minlength='9' maxlength='9' required></p>\
-                <p><span style='color:red;font-size:15px'>* </span>Código postal: <input type='text' id='pc' minlength='5' maxlength='5' required></p>\
-                <p><span style='color:red;font-size:15px'>* </span>Población: <input type='text' id='city' minlength='3' maxlength='50'required></p>\
+            $('#registerNutritionist').prepend("<p><text style='color:red;font-size:15px'>* </text>NIF/DNI: <input type='text' id='nif' minlength='9' maxlength='9' required></p>\
+                <p><text style='color:red;font-size:15px'>* </text>Código postal: <input type='text' id='pc' minlength='5' maxlength='5' required></p>\
+                <p><text style='color:red;font-size:15px'>* </text>Población: <input type='text' id='city' minlength='3' maxlength='50'required></p>\
                 <p>Dirección: <input type='text' id='direction' minlength='5' maxlength='100'></p>\
                 <p>Compañia: <input type='text' id='company' minlength='2' maxlength='50'></p>\
                 <p>Teléfono de empresa: <input type='text' id='business_phone' minlength='9' maxlength='9'></p>");
@@ -138,6 +141,7 @@ $(document).ready(function () {
                 url: $url + 'findUserByEmail/' + $email,
                 type: 'GET',
                 success: function (data) {
+                    console.log(data.email)
                     // Si coincideix l'email retornat amb l'email escrit, entrem a fer el if.
                     if (data.email == $email) {
                         // Inserim el span amb el text.
@@ -178,7 +182,7 @@ $(document).ready(function () {
             }
         });
     });
-
+    //TODO: REVISAR
     $('#nif').blur(() => {
         GeoAPI.comunidades({
             //Sin argumentos
@@ -188,6 +192,14 @@ $(document).ready(function () {
             console.log($error);
         });
     });
+
+    $.ajax({
+        url: $url + 'getUsers',
+        type: 'GET',
+        success: function (data) {
+            console.log(data)
+        }
+    })
 
     $('#registrationForm').on('submit', (e) => {
 
@@ -223,6 +235,7 @@ $(document).ready(function () {
             $company = $('#company').val();
             $direction = $('#direction').val();
             $businessPhone = $('#business_phone').val();
+
             // Si l'input de la companyia és vuit, aquest passa a ser valor Null.
             if ($company == '') {
                 $company = null;
@@ -236,7 +249,7 @@ $(document).ready(function () {
                 $businessPhone = null;
             }
         }
-
+        //TODO: BORRAR
         // Emmagatzemem en la variable info les dades a mostrar per consola.
         info = {
             Nombre: $name,
@@ -277,6 +290,57 @@ $(document).ready(function () {
         // Mostrem per consola les dades introduides.
         console.table(info)
         e.preventDefault();
+        if ($('[name="nutritionist"]:checked').val() == 'yes') {
+            $.ajax({
+                url: $url + 'addUser/?',
+                data: {
+                    NIF: $nif,
+                    password: $pass,
+                    name: $name,
+                    email: $email,
+                    surname: $surnames,
+                    alias: $alias,
+                    phone: $phone,
+                    type: '2',
+                },
+                method: 'POST',
+                success: function (data) {
+                    console.log(data.id)
+                    $.ajax({
+                        url: $url + 'addNutricionist/?',
+                        data: {
+                            companyName: $company,
+                            companyPostalCode: $pc
+                        },
+                        method: 'POST',
+                        success: function () {
+                            console.log('nutricionista insertado')
+                        }
+                    })
+                    //console.log('insertado correctamente')
+                    e.preventDefault();
+                }
+            });
+        } else {
+            $.ajax({
+                url: $url + 'addUser/?',
+                data: {
+                    NIF: $nif,
+                    password: $pass,
+                    name: $name,
+                    email: $email,
+                    surname: $surnames,
+                    alias: $alias,
+                    phone: $phone,
+                    type: '1'
+                },
+                method: 'POST',
+                success: function (data) {
+                    console.log('insertado correctamente')
+                    e.preventDefault();
+                }
+            });
+        }
     });
 
     // Fem la funció per comprovar que el NIF/DNI sigui correcte.
