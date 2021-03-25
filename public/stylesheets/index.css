@@ -1,1 +1,9 @@
 @import 'common.css';
+
+.containerCarousel{
+    padding-top: 122px;
+    width:auto;
+    height:300px;
+    margin-left: 24px;
+    margin-right: 24px;
+}

@@ -1,13 +1,6 @@
 @import 'reset.css';
 
 /*---HEADER...*/
-header {
-}
-
-.logo {
-  margin-left: 179px;
-}
-
 .menu {
   position: fixed;
   background-color: rgb(236, 143, 82);
@@ -22,9 +15,13 @@ header {
   font-size: 24px;
 }
 
-span {
+.item {
   margin-right: 46px;
   cursor: pointer;
+}
+
+.logo {
+    margin-left: 179px;
 }
 
 .login {
@@ -41,7 +38,6 @@ body {
   font-family: "Roboto";
   background-color: rgba(250, 249, 222);
 }
-
 
 h1 {
   padding-top: 122px;
