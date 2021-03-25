@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author RAUL
  */
-public interface NutricionistDao {
+public interface NutricionistDAO {
     public List<Nutricionist> findAllNutricionist();
     public Nutricionist findNutricionistById(Long id);
     public Nutricionist findNutricionistByCP(String cp);
