@@ -1,10 +1,10 @@
 @import "reset.css";
 
-/*---HEADER...*/
+/*---HEADER---*/
 .menu {
   background-color: rgb(236, 143, 82);
   width: 100%;
-  height: 122px;
+  height: 70px;
   position: fixed;
   top:0;
   right: 0;
@@ -13,10 +13,10 @@
 }
 
 .items {
-  margin-top: 69px;
+  margin-top: 40px;
   margin-left: 73px;
   display: inline-block;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .item {
@@ -25,29 +25,33 @@
 }
 
 .logo {
-  margin-left: 179px;
+  margin-left: 90px;
+  
 }
 
 .login {
-  margin-top: 69px;
+  margin-top: 40px;
   margin-right: 73px;
   float: right;
-  font-size: 24px;
+  font-size: 18px;
   cursor: pointer;
 }
 
-/*---BODY...*/
+
+/*---BODY---*/
 body {
   font-family: "Roboto";
   background-color: rgba(250, 249, 222);
   position: relative;
+  display:block;
 }
 
 h1 {
   padding-top: 122px;
 }
 
-/*---FOOTER...*/
+
+/*---FOOTER---*/
 footer {
   margin-top: 50px;
 }

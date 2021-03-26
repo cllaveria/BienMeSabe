@@ -1,9 +1,69 @@
-@import 'common.css';
+@import "common.css";
 
-.containerCarousel{
-    margin-top: 150px;
-    width:auto;
-    height:500px;
-    margin-left: 24px;
-    margin-right: 24px;
+/*---Carousel---*/
+.containerCarousel {
+  margin-top: 100px;
+  width: auto;
+  height: 350px;
+  margin-left: 75px;
+  margin-right: 75px;
 }
+
+/*---Selects---*/
+.selectors {
+  align-items: center;
+  margin-top: 19px;
+  margin-left: 100px;
+  display: grid;
+  grid-template-columns: 2fr 2fr 0.5fr;
+  grid-auto-rows: minmax(100px, auto);
+  font-size: 14px;
+  width: 600px;
+  grid-gap: 35px;
+}
+
+.sel_ingredientes {
+  float: left;
+  display: grid;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.input_ingredientes {
+  height: 58px;
+  background-color: #ded4c1;
+  border: solid 1px #a6aa9c;
+}
+
+.sel_tipoPlato,
+.sel_valorEner {
+  gap: 0.6rem;
+  display: grid;
+  flex-wrap: wrap;
+}
+
+#tipoPlato {
+  width: 100%;  
+}
+
+#ingredientes {
+  border-radius: 3px;
+}
+
+#valorE,
+#tipoPlato,
+#ingrediente {
+  background-color: #ded4c1;
+  border: solid 1px #a6aa9c;
+  height: 35px;
+  width: 100%;
+  border-radius: 3px;
+}
+
+.submit {
+  background-color: rgb(236, 143, 82);
+  border: solid 1px #a6aa9c;
+  border-radius: 3px;
+  height: 27px;
+}
+
