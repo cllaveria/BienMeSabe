@@ -69,7 +69,8 @@ legend {
   border-radius: 3px;
 }
 
-#valorE,
+#valorMin,
+#valorMax,
 #tipoPlato,
 #ingrediente {
   background-color: #ded4c1;
@@ -79,7 +80,8 @@ legend {
   border-radius: 3px;
 }
 
-#valorE:focus,
+#valorMin:focus,
+#valorMax:focus,
 #tipoPlato:focus,
 #ingrediente:focus,
 #ingredientes:focus {
