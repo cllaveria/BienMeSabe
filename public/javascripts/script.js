@@ -211,6 +211,8 @@ $(document).ready(function () {
         $email = $('#email').val();
         $pass = $('#pswrd').val();
         $nif = $('#nif').val().toUpperCase();
+
+        let data = new URLSearchParams('NIF='+$nif+'&password='+$pass)
         // Si l'input dels cognoms és vuit, aquest passa a ser valor Null.
         if ($surnames == '') {
             $surnames = null;
@@ -321,9 +323,9 @@ $(document).ready(function () {
                     e.preventDefault();
                 }
             });
+        
         } else {
-            $.ajax({
-                url: $url + 'addUser/?',
+            $.ajax($url + 'addUser/?', {
                 data: {
                     NIF: $nif,
                     password: $pass,
@@ -334,12 +336,23 @@ $(document).ready(function () {
                     phone: $phone,
                     type: '1'
                 },
-                method: 'POST',
-                success: function (data) {
+                type: 'POST',
+                dataType: 'json',
+                /* success: function (data) {
                     console.log('insertado correctamente')
                     e.preventDefault();
-                }
+                } */
+            }).then(function(data){
+                console.log(data);
             });
+
+            /* fetch($url + 'addUser/'),{
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            } */
         }
     });
 
