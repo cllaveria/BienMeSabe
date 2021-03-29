@@ -94,8 +94,8 @@
         <div class="sel_valorEner">
           <label for="valorE">Buscar por valor energético (Kcal)</label>
           <div class="sel_MinMax">
-            <input list="valorEner" name="valorE" id="valorE" placeholder="Mínimo">
-            <input list="valorEner" name="valorE" id="valorE" placeholder="Máximo">
+            <input list="valorEner" name="valorMin" id="valorMin" placeholder="Mínimo">
+            <input list="valorEner" name="valorMax" id="valorMax" placeholder="Máximo">
           </div>
 
           <div class="sel_tipoPlato">
@@ -121,7 +121,7 @@
 
       <!-- Anuncio registro -->
       <div class="registrarse">
-        <h2>Quieres subir tus própias recetas?</h2>
+        <h2>¿Quieres subir tus própias recetas?</h2>
         <p>Regístrate y podrás subir todas las recetas que quieras y votar por las de otros usuarios.</p>
         <button class="registrate" type="button" onclick="location.href='/registro';">Regístrate</button>
       </div>
@@ -148,8 +148,6 @@
         <h1 class="desc">Postres</h1>
       </div>
     </div>
-
-
 
     <!-- Footer -->
     <%- include('./footer'); %>
