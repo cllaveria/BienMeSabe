@@ -1,9 +1,188 @@
-@import 'common.css';
+@import "common.css";
 
-.containerCarousel{
-    padding-top: 122px;
-    width:auto;
-    height:300px;
-    margin-left: 24px;
-    margin-right: 24px;
+/*---Carousel---*/
+.containerCarousel {
+  margin-top: 100px;
+  width: auto;
+  height: 450px;
+  margin-left: 75px;
+  margin-right: 75px;
+}
+
+/*---Selects---*/
+.sel_container {
+  border: solid 1px #ec8f52;
+  margin-top: 25px;
+  margin-left: 120px;
+  padding-bottom: 20px;
+  width: 760px;
+  background-color: #f7f3cd;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+legend {
+  margin-left: 10px;
+  width: auto;
+  color: #ec8f52;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.selectors {
+  align-items: center;
+  margin-top: 19px;
+  margin-left: 25px;
+  display: grid;
+  grid-template-columns: 2fr 2fr 0.5fr;
+  font-size: 18px;
+  width: 700px;
+  grid-gap: 35px;
+}
+
+.sel_ingredientes {
+  float: left;
+  display: grid;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.input_ingredientes {
+  height: 58px;
+  background-color: #ded4c1;
+  border: solid 1px #a6aa9c;
+}
+
+.sel_tipoPlato,
+.sel_valorEner {
+  gap: 0.6rem;
+  display: grid;
+  flex-wrap: wrap;
+}
+
+#tipoPlato {
+  width: 100%;
+  cursor: pointer;
+}
+
+#ingredientes {
+  border-radius: 3px;
+}
+
+#valorE,
+#tipoPlato,
+#ingrediente {
+  background-color: #ded4c1;
+  border: solid 1px #a6aa9c;
+  height: 35px;
+  width: 100%;
+  border-radius: 3px;
+}
+
+#valorE:focus,
+#tipoPlato:focus,
+#ingrediente:focus,
+#ingredientes:focus {
+  border: solid 2px #ec8f52;
+  outline: 0;
+}
+
+.sel_MinMax {
+  display: inline-flex;
+  gap: 30px;
+}
+
+.submit {
+  background-color: #f0ad80;
+  border: solid 1px #ec8f52;
+  border-radius: 3px;
+  height: 35px;
+}
+
+.submit:focus {
+  border: solid 3px #ec8f52;
+  outline: 0;
+}
+
+/*---Publicidad---*/
+.anuncios {
+  display: inline-grid;
+  margin-left: 100px;
+  position: absolute;
+}
+
+.publicidad {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: right;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: 230px;
+  height: 378px;
+  background-color: #f7f3cd;
+  border-radius: 3px;
+  border: solid 1px #ec8f52;
+}
+
+.registrarse {
+  padding: 20px;
+  float: right;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: 230px;
+  background-color: #f7f3cd;
+  border-radius: 3px;
+  border: solid 1px #ec8f52;
+  align-content: center;
+  justify-items: center;
+  display: grid;
+}
+
+.registrate {
+  background-color: #f0ad80;
+  border: solid 1px #ec8f52;
+  border-radius: 3px;
+  height: 35px;
+}
+
+.registrate:focus {
+  border: solid 3px #ec8f52;
+  outline: 0;
+}
+
+/*---Recetas---*/
+.rec_container {
+  width: 830px;
+  height: 500px;
+  margin-top: 35px;
+  margin-left: 90px;
+  grid-template-columns: 3fr 3fr;
+  grid-template-rows: 3fr 3fr;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.recetas {
+  width: 412px;
+  height: 245px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.recetas:hover > img {
+  opacity: 0.5;
+}
+
+.recetas:hover > .desc {
+  color:black;
+  font-weight: bold;
+}
+
+.desc {
+  position: absolute;
+  font-size: 36px;
+  color: white;  
 }

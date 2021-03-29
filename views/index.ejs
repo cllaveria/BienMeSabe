@@ -1,53 +1,68 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/index.css' />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  </head>
-  <body>
-    <%- include('./header'); %>
-    
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel='stylesheet' href='/stylesheets/index.css' />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+  <!-- Header -->
+  <%- include('./header'); %>
+
     <!-- Carousel -->
     <div class="containerCarousel">
-      <h2>Carousel Example</h2>  
       <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
           <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
           <li data-target="#myCarousel" data-slide-to="1"></li>
           <li data-target="#myCarousel" data-slide-to="2"></li>
+          <li data-target="#myCarousel" data-slide-to="3"></li>
         </ol>
-    
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
-          <div class="item active">
-            <img src="/images/hamburguesa-beyond-meat-scaled-e1577396155298.jpg" alt="Los Angeles" style="width:100%; height:203px;">
+          <div class="item active" style="margin:0">
+            <img src="/images/recetas-generales-comidas-1024x512-1.jpg" alt="Los Angeles"
+              style="width:100%; height:450px;">
             <div class="carousel-caption">
-              <h3>Los Angeles</h3>
-              <p>LA is always so much fun!</p>
+              <div class="title">Título receta</div>
+              <h2>Descripción de la receta</h2>
+              <h5>Nombre del autor</h5>
             </div>
           </div>
-    
-          <div class="item">
-            <img src="/images/lasana-comida.jpg" alt="Chicago" style="width:auto; height:203px;">
+          <div class="item" style="margin:0">
+            <img src="/images/lasana-comida.jpg" alt="Chicago" style="width:100%; height:450px;">
             <div class="carousel-caption">
-              <h3>Los Angeles</h3>
-              <p>LA is always so much fun!</p>
+              <div class="title">Título receta</div>
+              <h2>Descripción de la receta</h2>
+              <h5>Nombre del autor</h5>
             </div>
           </div>
-        
-          <div class="item">
-            <img src="/images/recetas-generales-comidas-1024x512-1.jpg" alt="New york" style="width:auto; height:203px;">
+          <div class="item" style="margin:0">
+            <img src="/images/recetas-generales-comidas-1024x512-1.jpg" alt="Los Angeles"
+              style="width:100%; height:450px;">
             <div class="carousel-caption">
-              <h3>Los Angeles</h3>
-              <p>LA is always so much fun!</p>
+              <div class="title">Título receta</div>
+              <h2>Descripción de la receta</h2>
+              <h5>Nombre del autor</h5>
+            </div>
+          </div>
+          <div class="item" style="margin:0">
+            <img src="/images/hamburguesa-beyond-meat-scaled-e1577396155298.jpg" alt="New york"
+              style="width:100%; height:450px;">
+            <div class="carousel-caption">
+              <div class="title">Título receta</div>
+              <h2>Descripción de la receta</h2>
+              <h5>Nombre del autor</h5>
             </div>
           </div>
         </div>
-    
         <!-- Left and right controls -->
         <a class="left carousel-control" href="#myCarousel" data-slide="prev">
           <span class="glyphicon glyphicon-chevron-left"></span>
@@ -60,6 +75,82 @@
       </div>
     </div>
 
+    <!-- Selects -->
+    <fieldset class="sel_container">
+      <legend>Buscador de recetas</legend>
+      <div class="selectors">
+        <div class="sel_ingredientes">
+          <label for="ingrediente">Buscar por ingredientes</label>
+          <input list="ingredientes" name="ingrediente" id="ingrediente"
+            placeholder="Introduce los ingredientes deseados">
+          <datalist id="ingredientes">
+            <option value="Espaguetis">
+            <option value="Macarrones">
+            <option value="Galets">
+          </datalist>
+          <input class="input_ingredientes type=" text" name="ingredientes" id="ingredientes">
+        </div>
+
+        <div class="sel_valorEner">
+          <label for="valorE">Buscar por valor energético (Kcal)</label>
+          <div class="sel_MinMax">
+            <input list="valorEner" name="valorMin" id="valorMin" placeholder="Mínimo">
+            <input list="valorEner" name="valorMax" id="valorMax" placeholder="Máximo">
+          </div>
+
+          <div class="sel_tipoPlato">
+            <label for="tipoPlato">Buscar por tipo de plato</label>
+            <select name="tipoPlato" id="tipoPlato">
+              <option value="Selecciona">Selecciona una opción</option>
+              <option value="Entrante">Entrante</option>
+              <option value="Principal">Primero</option>
+              <option value="Segundo">Segundo</option>
+              <option value="Postre">Postre</option>
+            </select>
+          </div>
+        </div>
+        <input class="submit" type="submit" value="Buscar">
+      </div>
+    </fieldset>
+
+    <div class="anuncios">
+      <!-- Publicidad -->
+      <div class="publicidad">
+        <img src="/images/publi.jpg" alt="Publicidad" style="width:100%; height:100%;">
+      </div>
+
+      <!-- Anuncio registro -->
+      <div class="registrarse">
+        <h2>¿Quieres subir tus própias recetas?</h2>
+        <p>Regístrate y podrás subir todas las recetas que quieras y votar por las de otros usuarios.</p>
+        <button class="registrate" type="button" onclick="location.href='/registro';">Regístrate</button>
+      </div>
+    </div>
+
+    <!-- Recetas muestra -->
+    <div class="rec_container">
+      <div class="recetas" onclick="location.href='/recetas/entrantes';">
+        <img src="/images/hamburguesa-beyond-meat-scaled-e1577396155298.jpg" alt="New york"
+          style="width:100%; height:100%;">
+        <h1 class="desc">Entrantes</h1>
+      </div>
+      <div class="recetas" onclick="location.href='/recetas/primeros';">
+        <img src="/images/lasana-comida.jpg" alt="New york" style="width:100%; height:100%;">
+        <h1 class="desc">Primeros</h1>
+      </div>
+      <div class="recetas" onclick="location.href='/recetas/segundos';">
+        <img src="/images/recetas-generales-comidas-1024x512-1.jpg" alt="New york" style="width:100%; height:100%;">
+        <h1 class="desc">Segundos</h1>
+      </div>
+      <div class="recetas" onclick="location.href='/recetas/postres';">
+        <img src="/images/hamburguesa-beyond-meat-scaled-e1577396155298.jpg" alt="New york"
+          style="width:100%; height:100%;">
+        <h1 class="desc">Postres</h1>
+      </div>
+    </div>
+
+    <!-- Footer -->
     <%- include('./footer'); %>
-  </body>
+</body>
+
 </html>

@@ -1,11 +1,23 @@
 <header>
     <div class="menu">
         <div class="items">
-            <span class="item" type="button" onclick="location.href='/';">Inicio</span>
-            <span class="item" type="button" onclick="location.href='/recetas';">Recetas</span>
-            <span class="item" type="button" onclick="location.href='/Nutricionistas';">Nutricionistas</span>
+            <div class="item_block">
+                <span class="glyphicon glyphicon-home item_icon"></span>
+                <span class="item" type="button" onclick="location.href='/';">Inicio</span>
+            </div>
+            <div class="item_block">
+                <span class="glyphicon glyphicon-cutlery item_icon"></span>
+                <span class="item" type="button" onclick="location.href='/recetas';">Recetas</span>
+            </div>
+            <div class="item_block">
+                <span class="glyphicon glyphicon-apple item_icon"></span>
+                <span class="item" type="button" onclick="location.href='/Nutricionistas';">Nutricionistas</span>
+            </div>
         </div>
-        <img class="logo" alt="logo">
-        <span class="login" type="button" onclick="location.href='/registro';" >Login</span>
+        <img class="logo" src="/images/logo1.jpg" alt="logo" style="width: 90px; ">
+        <div class="item_block">
+            <span class="login" type="button" onclick="location.href='/registro';">Login</span>
+            <span class="glyphicon glyphicon-user login_icon"></span>
+        </div>
     </div>
-</header>
+</header
