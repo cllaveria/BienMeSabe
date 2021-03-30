@@ -75,78 +75,81 @@
       </div>
     </div>
 
-    <!-- Selects -->
-    <fieldset class="sel_container">
-      <legend>Buscador de recetas</legend>
-      <div class="selectors">
-        <div class="sel_ingredients">
-          <label for="ingredient">Buscar por ingredientes</label>
-          <input list="list_ingredient" name="ingredient" id="inp_ingredient"
-            placeholder="Introduce los ingredientes deseados">
-          <datalist id="list_ingredient">
-            <option value="Espaguetis">
-            <option value="Macarrones">
-            <option value="Galets">
-          </datalist>
-          <input class="inp_ingredients" type=" text" name="ingredients" id="ingredients">
-        </div>
-
-        <div class="sel_valEnergetic">
-          <label for="valEner">Buscar por valor energético (Kcal)</label>
-          <div class="sel_minMax">
-            <input list="valEnergetic" name="valueMin" id="valueMin" placeholder="Mínimo">
-            <input list="valEnergetic" name="valueMax" id="valueMax" placeholder="Máximo">
+    <!-- Body -->
+    <div class="body">
+      <!-- Selects -->
+      <fieldset class="sel_container">
+        <legend>Buscador de recetas</legend>
+        <div class="selectors">
+          <div class="sel_ingredients">
+            <label for="ingredient">Buscar por ingredientes</label>
+            <input list="list_ingredient" name="ingredient" id="inp_ingredient"
+              placeholder="Introduce los ingredientes deseados">
+            <datalist id="list_ingredient">
+              <option value="Espaguetis">
+              <option value="Macarrones">
+              <option value="Galets">
+            </datalist>
+            <input class="inp_ingredients" type=" text" name="ingredients" id="ingredients">
           </div>
 
-          <div class="sel_typePlate">
-            <label for="tPlate">Buscar por tipo de plato</label>
-            <select name="typePlate" id="typePlate">
-              <option value="choose">Selecciona una opción</option>
-              <option value="starters">Entrante</option>
-              <option value="first">Primeros</option>
-              <option value="seconds">Segundos</option>
-              <option value="desserts">Postres</option>
-              <option value="cakeShop">Repostería</option>
-            </select>
+          <div class="sel_valEnergetic">
+            <label for="valEner">Buscar por valor energético (Kcal)</label>
+            <div class="sel_minMax">
+              <input list="valEnergetic" name="valueMin" id="valueMin" placeholder="Mínimo">
+              <input list="valEnergetic" name="valueMax" id="valueMax" placeholder="Máximo">
+            </div>
+
+            <div class="sel_typePlate">
+              <label for="tPlate">Buscar por tipo de plato</label>
+              <select name="typePlate" id="typePlate">
+                <option value="choose">Selecciona una opción</option>
+                <option value="starters">Entrante</option>
+                <option value="first">Primeros</option>
+                <option value="seconds">Segundos</option>
+                <option value="desserts">Postres</option>
+                <option value="cakeShop">Repostería</option>
+              </select>
+            </div>
           </div>
+          <input class="submit" type="submit" value="Buscar">
         </div>
-        <input class="submit" type="submit" value="Buscar">
-      </div>
-    </fieldset>
+      </fieldset>
 
-    <div class="advertisements">
-      <!-- Publicidad -->
-      <div class="advertising">
-        <img src="/images/publi.jpg" alt="Publicidad" style="width:100%; height:100%;">
+      <div class="advertisements">
+        <!-- Publicidad -->
+        <div class="advertising">
+          <img src="/images/publi.jpg" alt="Publicidad" style="width:100%; height:100%;">
+        </div>
+
+        <!-- Anuncio registro -->
+        <div class="checkIn">
+          <h2>¿Quieres subir tus própias recetas?</h2>
+          <p>Regístrate y podrás subir todas las recetas que quieras y votar por las de otros usuarios.</p>
+          <button class="btn_checkIn" type="button" onclick="location.href='/registro';">Regístrate</button>
+        </div>
       </div>
 
-      <!-- Anuncio registro -->
-      <div class="checkIn">
-        <h2>¿Quieres subir tus própias recetas?</h2>
-        <p>Regístrate y podrás subir todas las recetas que quieras y votar por las de otros usuarios.</p>
-        <button class="btn_checkIn" type="button" onclick="location.href='/registro';">Regístrate</button>
-      </div>
-    </div>
-
-    <!-- Recetas muestra -->
-    <div class="rec_container">
-      <div class="recipe" onclick="location.href='/recetas/entrantes';">
-        <img src="/images/hamburguesa-beyond-meat-scaled-e1577396155298.jpg" alt="Entrantes"
-          style="width:100%; height:100%;">
-        <h1 class="title_recipe">Entrantes</h1>
-      </div>
-      <div class="recipe" onclick="location.href='/recetas/primeros';">
-        <img src="/images/lasana-comida.jpg" alt="Primeros" style="width:100%; height:100%;">
-        <h1 class="title_recipe">Primeros</h1>
-      </div>
-      <div class="recipe" onclick="location.href='/recetas/segundos';">
-        <img src="/images/recetas-generales-comidas-1024x512-1.jpg" alt="Segundos" style="width:100%; height:100%;">
-        <h1 class="title_recipe">Segundos</h1>
-      </div>
-      <div class="recipe" onclick="location.href='/recetas/postres';">
-        <img src="/images/hamburguesa-beyond-meat-scaled-e1577396155298.jpg" alt="Postres"
-          style="width:100%; height:100%;">
-        <h1 class="title_recipe">Postres</h1>
+      <!-- Recetas muestra -->
+      <div class="rec_container">
+        <div class="recipe" onclick="location.href='/recetas/entrantes';">
+          <img src="/images/hamburguesa-beyond-meat-scaled-e1577396155298.jpg" alt="Entrantes"
+            style="width:100%; height:100%;">
+          <h1 class="title_recipe">Entrantes</h1>
+        </div>
+        <div class="recipe" onclick="location.href='/recetas/primeros';">
+          <img src="/images/lasana-comida.jpg" alt="Primeros" style="width:100%; height:100%;">
+          <h1 class="title_recipe">Primeros</h1>
+        </div>
+        <div class="recipe" onclick="location.href='/recetas/segundos';">
+          <img src="/images/recetas-generales-comidas-1024x512-1.jpg" alt="Segundos" style="width:100%; height:100%;">
+          <h1 class="title_recipe">Segundos</h1>
+        </div>
+        <div class="recipe" onclick="location.href='/recetas/postres';">
+          <img src="/images/hamburguesa-beyond-meat-scaled-e1577396155298.jpg" alt="Postres"
+            style="width:100%; height:100%;">
+          <h1 class="title_recipe">Postres</h1>
+        </div>
       </div>
     </div>
 

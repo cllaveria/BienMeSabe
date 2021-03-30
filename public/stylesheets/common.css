@@ -2,7 +2,7 @@
 
 /*---HEADER---*/
 .menu {
-  background-color: #ec8f52;
+  background-color: white;
   width: 100%;
   height: 80px;
   position: fixed;
@@ -14,11 +14,13 @@
   grid-template-columns: 4fr 1fr 4fr;
   font-size: 22px;
   color:black;
+  border-bottom: solid 2px #868685;
+  align-self: center;
 }
 
 .items {
   margin-top: 40px;
-  margin-left: 73px;  
+  justify-self: right; 
 }
 
 .item_block{
@@ -27,7 +29,7 @@
 }
 
 .item_block:hover{
-  color: white;
+  color: #ec8f52;
 }
 
 .item {
@@ -47,16 +49,14 @@
 
 .login {
   margin-top: 40px;
-  margin-right: 73px;
-  float: right;
-  justify-self: flex-end;
+  justify-self: left; 
 }
 
 .login_icon{
   font-size: 18px;
-  float: right;
-  margin-right: 5px;
   margin-top: 40px;
+  justify-self: left; 
+  margin-left: 46px;
 }
 
 
@@ -64,9 +64,12 @@
 /*---BODY---*/
 body {
   font-family: "Roboto";
-  background-color: #fffef0;
   position: relative;
-  display: block;
+}
+
+.body{
+  margin: auto;
+  width: 1300px;
 }
 
 .title {
@@ -107,7 +110,7 @@ p {
 /*---FOOTER---*/
 .footer {
   margin-top: 50px;
-  background-color: #ec8f52;
+  background-color: black;
   width: 100%;
   height: 122px;
   display: grid;
@@ -127,8 +130,9 @@ p {
   cursor: pointer;
   align-self: center;
   padding: 2px;
+  color: white;
 }
 
 .item_footer:hover{
-  color: white;
+  color: #ec8f52;
 }
