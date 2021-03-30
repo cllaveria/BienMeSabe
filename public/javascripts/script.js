@@ -338,21 +338,7 @@ $(document).ready(function () {
                 },
                 type: 'POST',
                 dataType: 'json',
-                /* success: function (data) {
-                    console.log('insertado correctamente')
-                    e.preventDefault();
-                } */
-            }).then(function(data){
-                console.log(data);
             });
-
-            /* fetch($url + 'addUser/'),{
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            } */
         }
     });
 
