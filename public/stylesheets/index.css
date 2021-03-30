@@ -2,11 +2,9 @@
 
 /*---Carousel---*/
 .containerCarousel {
-  margin-top: 100px;
-  width: auto;
+  width: 1349px;
   height: 450px;
-  margin-left: 75px;
-  margin-right: 75px;
+  margin: auto;
 }
 
 /*---Selects---*/
@@ -40,39 +38,39 @@ legend {
   grid-gap: 35px;
 }
 
-.sel_ingredientes {
+.sel_ingredients {
   float: left;
   display: grid;
   flex-wrap: wrap;
   gap: 0.8rem;
 }
 
-.input_ingredientes {
+.inp_ingredients {
   height: 58px;
   background-color: #ded4c1;
   border: solid 1px #a6aa9c;
 }
 
-.sel_tipoPlato,
-.sel_valorEner {
+.sel_typePlate,
+.sel_valEnergetic {
   gap: 0.6rem;
   display: grid;
   flex-wrap: wrap;
 }
 
-#tipoPlato {
+#typePlate {
   width: 100%;
   cursor: pointer;
 }
 
-#ingredientes {
+#ingredients {
   border-radius: 3px;
 }
 
-#valorMin,
-#valorMax,
-#tipoPlato,
-#ingrediente {
+#valueMin,
+#valueMax,
+#typePlate,
+#inp_ingredient {
   background-color: #ded4c1;
   border: solid 1px #a6aa9c;
   height: 35px;
@@ -80,16 +78,16 @@ legend {
   border-radius: 3px;
 }
 
-#valorMin:focus,
-#valorMax:focus,
-#tipoPlato:focus,
-#ingrediente:focus,
-#ingredientes:focus {
+#valueMin:focus,
+#valueMax:focus,
+#typePlate:focus,
+#inp_ingredient:focus,
+#ingredients:focus {
   border: solid 2px #ec8f52;
   outline: 0;
 }
 
-.sel_MinMax {
+.sel_minMax {
   display: inline-flex;
   gap: 30px;
 }
@@ -107,13 +105,13 @@ legend {
 }
 
 /*---Publicidad---*/
-.anuncios {
+.advertisements {
   display: inline-grid;
   margin-left: 100px;
   position: absolute;
 }
 
-.publicidad {
+.advertising {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,7 +125,7 @@ legend {
   border: solid 1px #ec8f52;
 }
 
-.registrarse {
+.checkIn {
   padding: 20px;
   float: right;
   margin-top: 25px;
@@ -141,14 +139,14 @@ legend {
   display: grid;
 }
 
-.registrate {
+.btn_checkIn {
   background-color: #f0ad80;
   border: solid 1px #ec8f52;
   border-radius: 3px;
   height: 35px;
 }
 
-.registrate:focus {
+.btn_checkIn:focus {
   border: solid 3px #ec8f52;
   outline: 0;
 }
@@ -165,7 +163,7 @@ legend {
   gap: 0.6rem;
 }
 
-.recetas {
+.recipe {
   width: 412px;
   height: 245px;
   display: flex;
@@ -174,16 +172,16 @@ legend {
   cursor: pointer;
 }
 
-.recetas:hover > img {
+.recipe:hover > img {
   opacity: 0.5;
 }
 
-.recetas:hover > .desc {
+.recipe:hover > .desc {
   color:black;
   font-weight: bold;
 }
 
-.desc {
+.title_recipe {
   position: absolute;
   font-size: 36px;
   color: white;  
