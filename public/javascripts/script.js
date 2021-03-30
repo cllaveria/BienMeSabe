@@ -5,7 +5,7 @@ $(document).ready(function () {
     let $booleanNif, $booleanEmail, $booleanAlias;
     let $document = 'nif';
     // Variable per emmagatzemar la ruta de connexió amb el servidor.
-    let $url = 'http://localhost:8080/api/user/';
+    let $url = 'http://localhost:8080/api/';
 
 
 
@@ -138,7 +138,7 @@ $(document).ready(function () {
             $('#inputErrorEmail').remove();
             // Fem la crida Ajax per comprovar si l'email està registrat en la BBDD.
             $.ajax({
-                url: $url + 'findUserByEmail/' + $email,
+                url: $url + 'user/findUserByEmail/' + $email,
                 type: 'GET',
                 success: function (data) {
                     console.log(data.email)
@@ -161,7 +161,7 @@ $(document).ready(function () {
         $alias = $('#alias').val();
         // Fem la crida Ajax per comprovar si l'alias està registrat en la BBDD.
         $.ajax({
-            url: $url + 'findUserByAlias/' + $alias,
+            url: $url + 'user/findUserByAlias/' + $alias,
             type: 'GET',
             success: function (data) {
                 // Si coincideix l'email retornat amb l'email escrit, entrem a fer el if.
@@ -182,25 +182,8 @@ $(document).ready(function () {
             }
         });
     });
-    //TODO: REVISAR
-    $('#nif').blur(() => {
-        GeoAPI.comunidades({
-            //Sin argumentos
-        }).then(function ($respuesta) {
-            console.log($respuesta);
-        }, function ($error) {
-            console.log($error);
-        });
-    });
 
-    $.ajax({
-        url: $url + 'getUsers',
-        type: 'GET',
-        success: function (data) {
-            console.log(data)
-        }
-    })
-
+    // Quan prenem el botó de registrar comencem el procés d'inserció a la BBDD.
     $('#registrationForm').on('submit', (e) => {
 
         // Recuperem les dades del formulari de l'usuari.
@@ -212,7 +195,6 @@ $(document).ready(function () {
         $pass = $('#pswrd').val();
         $nif = $('#nif').val().toUpperCase();
 
-        let data = new URLSearchParams('NIF='+$nif+'&password='+$pass)
         // Si l'input dels cognoms és vuit, aquest passa a ser valor Null.
         if ($surnames == '') {
             $surnames = null;
@@ -270,7 +252,6 @@ $(document).ready(function () {
         };
 
         if ($booleanEmail == false || $booleanNif == false || $booleanAlias == false) {
-            //<div id="errors" style="text-align: right;display: inline-table;width: 200px;font-size: 16px; background-color: rgba(255, 115, 115, 0.789); border: 1px solid #000000; display:none;"></div>
             e.preventDefault();
             $('#errors').remove();
             let $insertText = "<div id='errors' style='text-align: left;margin:15px 0px 15px 0px; padding-left:5px; display: inline-table;width: 200px;font-size: 16px; background-color: rgba(255, 115, 115, 0.789); border: 1px solid #000000;'>";
@@ -288,13 +269,15 @@ $(document).ready(function () {
         } else {
             $('#errors').hide();
         }
-
+        // TODO: BORRAR
         // Mostrem per consola les dades introduides.
         console.table(info)
         e.preventDefault();
+
+        // Comprovem si el check del nutricionista està seleccionat. Si es que si, entrem a fer el if per realitzar la inserció a la BBDD.
         if ($('[name="nutritionist"]:checked').val() == 'yes') {
             $.ajax({
-                url: $url + 'addUser/?',
+                url: $url + 'nutricionist/addNutricionist/?',
                 data: {
                     NIF: $nif,
                     password: $pass,
@@ -304,28 +287,21 @@ $(document).ready(function () {
                     alias: $alias,
                     phone: $phone,
                     type: '2',
+                    companyName: $company,
+                    companyPostalCode: $pc,
+                    companyDirection: $direction,
+                    companyCity: $city,
+                    companyPhone: $businessPhone
                 },
                 method: 'POST',
-                success: function (data) {
-                    console.log(data.id)
-                    $.ajax({
-                        url: $url + 'addNutricionist/?',
-                        data: {
-                            companyName: $company,
-                            companyPostalCode: $pc
-                        },
-                        method: 'POST',
-                        success: function () {
-                            console.log('nutricionista insertado')
-                        }
-                    })
-                    //console.log('insertado correctamente')
-                    e.preventDefault();
+                dataType: 'json',
+                success: function () {
+                    
                 }
             });
-        
+        // Si el ckeck no està seleccionat, entrem al else per inserir l'usuari a la BBDD.
         } else {
-            $.ajax($url + 'addUser/?', {
+            $.ajax($url + 'user/addUser/?', {
                 data: {
                     NIF: $nif,
                     password: $pass,
@@ -338,6 +314,9 @@ $(document).ready(function () {
                 },
                 type: 'POST',
                 dataType: 'json',
+                success: function () {
+                    
+                }
             });
         }
     });
