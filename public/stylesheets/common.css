@@ -1,6 +1,6 @@
 @import "reset.css";
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@400;500;700&display=swap');
 
 /*---HEADER---*/
 .menu {
@@ -76,7 +76,7 @@ body {
 }
 
 .title {
-  font-size: 42px;
+  font-size: 36px;
   padding-bottom: 15px;
   font-weight: bold;
 }
