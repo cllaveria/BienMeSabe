@@ -1,10 +1,12 @@
 @import "reset.css";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 /*---HEADER---*/
 .menu {
   background-color: white;
   width: 100%;
-  height: 80px;
+  height: 100px;
   position: fixed;
   top: 0;
   right: 0;
@@ -12,14 +14,14 @@
   z-index: 1030;
   display: grid;
   grid-template-columns: 4fr 1fr 4fr;
-  font-size: 22px;
+  font-size: 12px;
+  font-weight: bold;
   color:black;
   border-bottom: solid 2px #868685;
   align-self: center;
 }
 
 .items {
-  margin-top: 40px;
   justify-self: right; 
 }
 
@@ -37,9 +39,9 @@
 }
 
 .item_icon{
-  font-size: 18px;
-  float: left;
+  font-size: 12px;
   margin-right: 5px;
+  margin-top: 55px;
 }
 
 .logo {
@@ -53,17 +55,18 @@
 }
 
 .login_icon{
-  font-size: 18px;
-  margin-top: 40px;
+  font-size: 12px;
+  margin-top: 55px;
   justify-self: left; 
   margin-left: 46px;
+  margin-right: 5px;
 }
 
 
 
 /*---BODY---*/
-body {
-  font-family: "Roboto";
+body {  
+  font-family: 'Montserrat', sans-serif;
   position: relative;
 }
 
@@ -73,8 +76,9 @@ body {
 }
 
 .title {
-  font-size: 36px;
+  font-size: 42px;
   padding-bottom: 15px;
+  font-weight: bold;
 }
 
 h1 {

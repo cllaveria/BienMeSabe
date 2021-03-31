@@ -4,38 +4,50 @@
 .containerCarousel {
   width: 1349px;
   height: 450px;
-  margin: auto;
+  margin: 80px auto auto;
+}
+
+.carousel-caption {
+  margin-bottom: 150px;
+  width: 350px;
+  left: 37%;
+  background-color: rgba(0, 0, 0, 0.4);
+  font-family: "Montserrat", sans-serif;
 }
 
 /*---Selects---*/
 .sel_container {
-  border: solid 1px #ec8f52;
-  margin-top: 25px;
-  margin-left: 120px;
-  padding-bottom: 20px;
-  width: 760px;
-  background-color: #f7f3cd;
-  border-radius: 3px;
-  display: inline-block;
-}
-
-legend {
-  margin-left: 10px;
-  width: auto;
-  color: #ec8f52;
-  font-weight: bold;
-  font-size: 24px;
-}
-
-.selectors {
-  align-items: center;
-  margin-top: 19px;
-  margin-left: 25px;
+  margin: 40px auto;
   display: grid;
-  grid-template-columns: 2fr 2fr 0.5fr;
-  font-size: 18px;
+  grid-template-columns: 2fr;
   width: 700px;
-  grid-gap: 35px;
+}
+
+.sel_title {
+  display: inline-flex;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+}
+.sel_title > h2 {
+  margin-top: 10px;
+  position: absolute;
+}
+.sel_title > img {
+  width: 100px;
+  height: 120px;
+  margin-left: 275px;
+  margin-top: 8px;
+}
+
+.selectores {
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 14px;
+  font-weight: bold;
+  width: 700px;
+  gap: 45px;
 }
 
 .sel_ingredients {
@@ -47,15 +59,24 @@ legend {
 
 .inp_ingredients {
   height: 58px;
-  background-color: #ded4c1;
-  border: solid 1px #a6aa9c;
+  background-color: #f2efff;
+  border: none;
+  padding-left: 7px;
 }
 
 .sel_typePlate,
 .sel_valEnergetic {
-  gap: 0.6rem;
+  gap: 0.8rem;
   display: grid;
   flex-wrap: wrap;
+}
+
+.sel_typePlate {
+  margin-top: 14.6px;
+}
+
+.sel_minMax {
+  margin-top: 2px;
 }
 
 #typePlate {
@@ -67,17 +88,22 @@ legend {
   border-radius: 3px;
 }
 
+#numPer,
 #valueMin,
 #valueMax,
 #typePlate,
 #inp_ingredient {
-  background-color: #ded4c1;
-  border: solid 1px #a6aa9c;
+  background-color: #f2efff;
+  border: none;
   height: 35px;
   width: 100%;
   border-radius: 3px;
+  font-size: 12px;
+  font-weight: lighter;
+  padding-left: 7px;
 }
 
+#numPer:focus,
 #valueMin:focus,
 #valueMax:focus,
 #typePlate:focus,
@@ -87,28 +113,32 @@ legend {
   outline: 0;
 }
 
-.sel_minMax {
-  display: inline-flex;
-  gap: 30px;
+#valueMin,
+#valueMax {
+  margin-bottom: 15px;
 }
 
 .submit {
-  background-color: #f0ad80;
-  border: solid 1px #ec8f52;
+  background-color: white;
+  border: solid 2px #fca035;
   border-radius: 3px;
+  font-size: 12px;
+  font-weight: bold;
+  width: 100px;
   height: 35px;
+  margin: 40px auto;
 }
 
+.submit:hover,
 .submit:focus {
-  border: solid 3px #ec8f52;
+  background-color: #fbc76f;
   outline: 0;
 }
 
 /*---Publicidad---*/
 .advertisements {
   display: inline-grid;
-  margin-left: 100px;
-  position: absolute;
+  float: right;
 }
 
 .advertising {
@@ -154,7 +184,6 @@ legend {
 /*---Recetas---*/
 .rec_container {
   width: 830px;
-  height: 500px;
   margin-top: 35px;
   margin-left: 90px;
   grid-template-columns: 3fr 3fr;
@@ -164,7 +193,6 @@ legend {
 }
 
 .recipe {
-  width: 412px;
   height: 245px;
   display: flex;
   justify-content: center;
@@ -177,12 +205,17 @@ legend {
 }
 
 .recipe:hover > .desc {
-  color:black;
+  color: black;
   font-weight: bold;
 }
 
 .title_recipe {
   position: absolute;
   font-size: 36px;
-  color: white;  
+  color: white;
+}
+
+.repos{
+  grid-column: 1/3;
+  grid-row: 3;
 }
