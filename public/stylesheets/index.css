@@ -34,6 +34,10 @@
   height: 700px;
 }
 
+.carousel-inner{
+  cursor: pointer;
+}
+
 /*---Selects---*/
 .sel_container {
   margin: 40px auto;
@@ -128,7 +132,7 @@
 #typePlate:focus,
 #inp_ingredient:focus,
 #ingredients:focus {
-  border: solid 2px #ec8f52;
+  border: solid 2px #fca035;
   outline: 0;
 }
 
@@ -166,7 +170,7 @@
 .advertising {
   width: 230px;
   border-radius: 3px;
-  border: solid 1px #ec8f52;
+  border: solid 1px #fca035;
 }
 
 /*---Recetas---*/
@@ -197,7 +201,7 @@
 }
 
 .recipe:hover > .title_recipe {
-  color: #ec8f52;
+  color: #fca035;
 }
 
 .title_recipe {
@@ -268,6 +272,14 @@
   gap: 20px;
   margin-top: 20px;
   margin-bottom: 30px;
+}
+
+.last_rec > img{
+  cursor: pointer;
+}
+
+.last_rec > img:hover{
+  opacity: 0.6;
 }
 
 .rec_desc{

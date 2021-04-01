@@ -31,7 +31,7 @@
 }
 
 .item_block:hover {
-  color: #ec8f52;
+  color: #fca035;
 }
 
 .item {
@@ -134,14 +134,11 @@ p {
   align-self: center;
   padding: 2px;
   color: white;
+  margin-bottom: 7px;
 }
 
 .item_footer:hover {
-  color: #ec8f52;
-}
-
-.items_footer > span {
-  margin-bottom: 7px;
+  color: #fca035;
 }
 
 .logo_footer {
@@ -174,6 +171,6 @@ p {
 }
 
 .icons_footer:hover{
-  background-color: #ec8f52;
+  background-color: #fca035;
   border-radius: 10px;
 }
