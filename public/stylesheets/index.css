@@ -1,14 +1,33 @@
 @import "common.css";
 
 /*---Carousel---*/
-.containerCarousel {
-  height: 530px;
-  margin: auto;
-  overflow: hidden;
-}
-
 .carousel {
   height: 530px;
+  overflow: hidden;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.carousel-inner {
+  cursor: pointer;
+}
+
+.carousel-inner > .item > img {
+  width: 100%;
+  height: 700px;
+}
+
+/* @media screen and (min-width: 700px) {
+  .carousel-inner > .item > img {
+    width: 100%;
+    height: 600px;
+  }
+} */
+
+.carousel-desc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .carousel-caption {
@@ -23,20 +42,12 @@
   text-align: center;
 }
 
-.carousel-desc {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.carousel-inner > .item > img {
-  width: 100%;
-  height: 700px;
-}
-
-.carousel-inner{
-  cursor: pointer;
-}
+/* @media screen and (min-width: 700px) {
+  .carousel-caption {
+    bottom: 40%;
+    width: 350px;
+  }
+} */
 
 /*---Selects---*/
 .sel_container {
@@ -70,52 +81,22 @@
   font-size: 14px;
   font-weight: bold;
   width: 700px;
-  gap: 45px;
+  gap: 20px 45px;
 }
 
-.sel_ingredients {
-  float: left;
-  display: grid;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-}
-
-.inp_ingredients {
-  height: 58px;
-  background-color: #f2efff;
-  border: none;
-  padding-left: 7px;
-}
-
-.sel_typePlate,
-.sel_valEnergetic {
-  gap: 0.8rem;
-  display: grid;
-  flex-wrap: wrap;
-}
-
+.sel_ingredients,
+.sel_valEnergetic,
+.sel_persons,
 .sel_typePlate {
-  margin-top: 14.6px;
+  display: grid;
+  gap: 0.8rem;
 }
 
-.sel_minMax {
-  margin-top: 2px;
-}
-
-#typePlate {
-  width: 100%;
-  cursor: pointer;
-}
-
-#ingredients {
-  border-radius: 3px;
-}
-
-#numPer,
+#inp_ingredient,
 #valueMin,
 #valueMax,
-#typePlate,
-#inp_ingredient {
+#numPer,
+#typePlate {
   background-color: #f2efff;
   border: none;
   height: 35px;
@@ -126,19 +107,31 @@
   padding-left: 7px;
 }
 
-#numPer:focus,
-#valueMin:focus,
-#valueMax:focus,
-#typePlate:focus,
-#inp_ingredient:focus,
-#ingredients:focus {
-  border: solid 2px #fca035;
-  outline: 0;
+#ingredients {
+  height: 58px;
+  background-color: #f2efff;
+  border: none;
+  padding-left: 7px;
+  border-radius: 3px;
 }
 
 #valueMin,
 #valueMax {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
+}
+
+#typePlate {
+  cursor: pointer;
+}
+
+#inp_ingredient:focus,
+#ingredients:focus,
+#valueMin:focus,
+#valueMax:focus,
+#numPer:focus,
+#typePlate:focus {
+  border: solid 2px #fca035;
+  outline: 0;
 }
 
 .submit {
@@ -234,9 +227,6 @@
   color: white;
   width: 500px;
 }
-.checkIn > .desc > img {
-  position: relative;
-}
 
 .btn_checkIn {
   width: 100px;
@@ -274,15 +264,15 @@
   margin-bottom: 30px;
 }
 
-.last_rec > img{
+.last_rec > img {
   cursor: pointer;
 }
 
-.last_rec > img:hover{
+.last_rec > img:hover {
   opacity: 0.6;
 }
 
-.rec_desc{
+.rec_desc {
   margin-top: 25px;
 }
 
