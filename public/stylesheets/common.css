@@ -47,6 +47,7 @@
 .logo {
   align-self: center;
   justify-self: center;
+  width: 90px;
 }
 
 .login {
@@ -116,15 +117,15 @@ p {
   margin-top: 50px;
   background-color: black;
   width: 100%;
-  height: 122px;
+  height: 200px;
   display: grid;
-  grid-template-columns: 4fr 1fr 4fr;
-  font-size: 18px;
+  grid-template-columns: repeat(5, 1fr);
+  font-size: 12px;
+  font-weight: bold;
 }
 
 .items_footer {
   display: grid;
-  margin-left: 73px;
   align-self: center;
 }
 
@@ -139,4 +140,14 @@ p {
 
 .item_footer:hover{
   color: #ec8f52;
+}
+
+.items_footer > span{
+  margin-bottom: 7px;
+}
+
+.logo_footer {
+  align-self: center;
+  justify-self: center;
+  width: 170px;
 }
