@@ -1,6 +1,6 @@
 @import "reset.css";
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@400;500;700&display=swap");
 
 /*---HEADER---*/
 .menu {
@@ -16,21 +16,21 @@
   grid-template-columns: 4fr 1fr 4fr;
   font-size: 12px;
   font-weight: bold;
-  color:black;
+  color: black;
   border-bottom: solid 2px #868685;
   align-self: center;
 }
 
 .items {
-  justify-self: right; 
+  justify-self: right;
 }
 
-.item_block{
-  display: inline-block; 
+.item_block {
+  display: inline-block;
   cursor: pointer;
 }
 
-.item_block:hover{
+.item_block:hover {
   color: #ec8f52;
 }
 
@@ -38,7 +38,7 @@
   margin-right: 46px;
 }
 
-.item_icon{
+.item_icon {
   font-size: 12px;
   margin-right: 5px;
   margin-top: 55px;
@@ -52,26 +52,24 @@
 
 .login {
   margin-top: 40px;
-  justify-self: left; 
+  justify-self: left;
 }
 
-.login_icon{
+.login_icon {
   font-size: 12px;
   margin-top: 55px;
-  justify-self: left; 
+  justify-self: left;
   margin-left: 46px;
   margin-right: 5px;
 }
 
-
-
 /*---BODY---*/
-body {  
-  font-family: 'Montserrat', sans-serif;
+body {
+  font-family: "Montserrat", sans-serif;
   position: relative;
 }
 
-.body{
+.body {
   margin: auto;
   width: 1300px;
 }
@@ -138,16 +136,44 @@ p {
   color: white;
 }
 
-.item_footer:hover{
+.item_footer:hover {
   color: #ec8f52;
 }
 
-.items_footer > span{
+.items_footer > span {
   margin-bottom: 7px;
 }
 
 .logo_footer {
   align-self: center;
   justify-self: center;
+  cursor: pointer;
   width: 170px;
+}
+
+.item_footer.contact {
+  pointer-events: none;
+}
+
+.item_footer.contact:hover {
+  color: white;
+}
+
+.items_net{
+  margin-top: 20%;
+}
+
+.items_net > span {
+  margin-bottom: 7px;
+}
+
+.icons_footer{
+  display: inline-flex;
+  width: 30px;
+  cursor: pointer;
+}
+
+.icons_footer:hover{
+  background-color: #ec8f52;
+  border-radius: 10px;
 }
