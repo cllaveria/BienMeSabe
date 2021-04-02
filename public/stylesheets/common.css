@@ -67,11 +67,14 @@
 body {
   font-family: "Montserrat", sans-serif;
   position: relative;
+  margin: auto;
+  padding: auto;
+  width: 100%;
 }
 
 .body {
-  margin: auto;
-  width: 1300px;
+  
+  /* width: 1300px; */
 }
 
 .title {
