@@ -8,6 +8,12 @@
   margin-left: auto;
 }
 
+@media screen and (min-width: 1500px) {
+  .carousel {
+    height: 700px;
+  }
+}
+
 .carousel-inner {
   cursor: pointer;
 }
@@ -17,12 +23,11 @@
   height: 700px;
 }
 
-/* @media screen and (min-width: 700px) {
+@media screen and (min-width: 1500px) {
   .carousel-inner > .item > img {
-    width: 100%;
-    height: 600px;
+    height: 1000px;
   }
-} */
+}
 
 .carousel-desc {
   display: flex;
@@ -42,12 +47,20 @@
   text-align: center;
 }
 
-/* @media screen and (min-width: 700px) {
+@media only screen and (orientation: portrait) {
   .carousel-caption {
-    bottom: 40%;
-    width: 350px;
+    padding: 25px;
+    width: 400px; 
   }
-} */
+
+  .carousel-caption > .title{
+    font-size: 44px;
+  }
+
+  .carousel-caption > h3{
+    font-size: 30px;
+  }
+}
 
 /*---Selects---*/
 .sel_container {
@@ -84,6 +97,13 @@
   gap: 20px 45px;
 }
 
+@media only screen and (orientation: portrait) {
+  .selectores {
+    grid-template-columns: 1fr;
+    width: 400px;
+  }
+}
+
 .sel_ingredients,
 .sel_valEnergetic,
 .sel_persons,
@@ -97,7 +117,7 @@
 #valueMax,
 #numPer,
 #typePlate {
-  background-color: #f2efff;
+  background-color: #f0f8ff;
   border: none;
   height: 35px;
   width: 100%;
@@ -109,7 +129,7 @@
 
 #ingredients {
   height: 58px;
-  background-color: #f2efff;
+  background-color: #f0f8ff;
   border: none;
   padding-left: 7px;
   border-radius: 3px;
@@ -151,13 +171,18 @@
   outline: 0;
 }
 
+.block_container{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
 /*---Publicidad---*/
 .advertisements {
   display: inline-grid;
   gap: 10px;
   float: right;
-  margin-right: 40px;
-  margin-top: 90px;
+  margin-left: 40px;
 }
 
 .advertising {
@@ -296,3 +321,4 @@
   background-color: #fbc76f;
   outline: 0;
 }
+
