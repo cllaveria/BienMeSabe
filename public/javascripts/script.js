@@ -92,10 +92,23 @@ $(document).ready(function () {
         // Desem en una variable password introduït en l'input.
         $pass = $('#pswrd').val();
         //Verifiquem amb una expressió regular si compleix les condicions. Si es que no, entrem a fer el if.
+        /*
+         * Expressió regular per verificar el password: 
+         * · ^ - Començament de la cadena.
+         * · () - Obrim el grup per crear la restricció del fragment.
+         * · \b - Inidiquem que coincideixi amb al començament de la cadena.
+         * · [] - Creem el joc de caràcters.
+         * · {1} - Indiquem el Mínim de paraules que ha de tenir la cadena.
+         * · \w - Caràcters alfanumèrics (A-Z,a-z,0-9,_).
+         * · \W - El contrari que \W. 
+        */
         if(!/^(\b[A-Z]{1})\w{5,}\d{2,}\W{1,}$/.test($pass)){
+            // Esborrem el span amb el text.
             $('#inputErrorPass').remove();
-            $('#pswrd').after("<span style='display: block; color:red;'id='inputErrorPass'>ELa contraseña introducida no es correcta.</span>");
+            // Inserim el span amb el text.
+            $('#pswrd').after("<span style='display: block; color:red;'id='inputErrorPass'>La contraseña introducida no es correcta.</span>");
         }else{
+            // Esborrem el span amb el text.
             $('#inputErrorPass').remove();
         }
     })
@@ -196,9 +209,8 @@ $(document).ready(function () {
         }
 
         // TODO: Conectar API para recibir las poblaciones por CP.
-        // TODO: Hacer expresión regular para las PASS.
-        // Encriptem la password.
-        let $passEncrypted = hex_md5($pass);
+        
+        
 
         // Si el checkbox esta seleccionat com Si entrem a fer el if.
         if ($('[name="nutritionist"]:checked').val() == 'yes') {
@@ -223,6 +235,13 @@ $(document).ready(function () {
                 $businessPhone = null;
             }
         }
+        // Encriptem la password.
+        let $passEncrypted = hex_md5($pass);
+        // Encriptem el nif.
+        let $nifEncrypted = hex_md5($nif);
+        // Encriptem el teléfon.
+        let $phoneEncrypted = hex_md5($phone);
+
         //TODO: BORRAR
         // Emmagatzemem en la variable info les dades a mostrar per consola.
         info = {
@@ -269,13 +288,13 @@ $(document).ready(function () {
             $.ajax({
                 url: $url + 'nutricionist/addNutricionist/?',
                 data: {
-                    NIF: $nif,
-                    password: $pass,
+                    NIF: $nifEncrypted,
+                    password: $passEncrypted,
                     name: $name,
                     email: $email,
                     surname: $surnames,
                     alias: $alias,
-                    phone: $phone,
+                    phone: $phoneEncrypted,
                     type: '2',
                     companyName: $company,
                     companyPostalCode: $pc,
@@ -286,26 +305,25 @@ $(document).ready(function () {
                 method: 'POST',
                 dataType: 'json',
                 success: function () {
-                    
                 }
             });
         // Si el ckeck no està seleccionat, entrem al else per inserir l'usuari a la BBDD.
         } else {
             $.ajax($url + 'user/addUser/?', {
                 data: {
-                    NIF: $nif,
-                    password: $pass,
+                    //TODO: Comprobar si se tiene que borrar el NIF de aquí. 
+                    NIF: $nifEncrypted,
+                    password: $passEncrypted,
                     name: $name,
                     email: $email,
                     surname: $surnames,
                     alias: $alias,
-                    phone: $phone,
+                    phone: $phoneEncrypted,
                     type: '1'
                 },
                 type: 'POST',
                 dataType: 'json',
                 success: function () {
-                    
                 }
             });
         }
