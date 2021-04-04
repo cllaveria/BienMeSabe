@@ -7,28 +7,6 @@ $(document).ready(function () {
     // Variable per emmagatzemar la ruta de connexió amb el servidor.
     let $url = 'http://localhost:8080/api/';
 
-
-
-
-    /* define(['require', 'bcrypt'], function (require) {
-        const bcrypt = require('bcrypt');
-
-    bcrypt.hash('123456', 10, function(err, hash) {
-        console.log(hash)
-      });
-    }); */
-
-    /* require(['bcrypt'], function (require) {
-        const bcrypt = require('bcrypt');
-
-    bcrypt.hash('123456', 10, function(err, hash) {
-        console.log(hash)
-      });
-    });
-     */
-
-
-
     // Si l'usuari que es registra cambia l'opció de si es nutricionista, aquest mostra un formulari o un altre.
     $(document).on('change', 'input[name="nutritionist"]', () => {
         // Si l'usuari selecciona que si, entrem al if.
@@ -109,6 +87,18 @@ $(document).ready(function () {
             }
         }
     });
+    // Quan sortim de l'input del password, comprovem si aquest està ven escrit i compleix les condicions.
+    $('#pswrd').blur(() => {
+        // Desem en una variable password introduït en l'input.
+        $pass = $('#pswrd').val();
+        //Verifiquem amb una expressió regular si compleix les condicions. Si es que no, entrem a fer el if.
+        if(!/^(\b[A-Z]{1})\w{5,}\d{2,}\W{1,}$/.test($pass)){
+            $('#inputErrorPass').remove();
+            $('#pswrd').after("<span style='display: block; color:red;'id='inputErrorPass'>ELa contraseña introducida no es correcta.</span>");
+        }else{
+            $('#inputErrorPass').remove();
+        }
+    })
 
     // Quan sortim de l'input del email, comprovem si aquest està ven escrit i si es correcte, si existeix en la BBDD.
     $('#email').blur(() => {
@@ -126,6 +116,7 @@ $(document).ready(function () {
          * · @ - Separem el primer grup amb el @.
          * · {} - Mínim de paraules que ha de tenir la cadena.
          * */
+
         if (!/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/.test($email)) {
             // Esborrem el span amb el text.
             $('#inputErrorEmail').remove();
@@ -204,7 +195,6 @@ $(document).ready(function () {
             $phone = null;
         }
 
-        // TODO: Buscar otro encriptador.
         // TODO: Conectar API para recibir las poblaciones por CP.
         // TODO: Hacer expresión regular para las PASS.
         // Encriptem la password.
