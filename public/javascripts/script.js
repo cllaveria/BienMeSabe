@@ -208,10 +208,6 @@ $(document).ready(function () {
             $phone = null;
         }
 
-        // TODO: Conectar API para recibir las poblaciones por CP.
-        
-        
-
         // Si el checkbox esta seleccionat com Si entrem a fer el if.
         if ($('[name="nutritionist"]:checked').val() == 'yes') {
             // Recuperem les dades del formulari del nutricionista.
