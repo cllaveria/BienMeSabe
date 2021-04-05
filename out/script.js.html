@@ -1,12 +1,40 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: script.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: script.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @fileoverview Formulari de registre d'usuaris i nutricionistes amb les següents característiques: 
- * <p> 1) Comprovació amb expressió regular amb email i password.</p>
- * <p> 2) Comprovació de si el NIF/DNI, NIE o CIF estan correctament introduïts.</p>
- * <p> 3) Encriptació del NIF/DNI, NIE o CIF, del telèfon i del password.</p>
- * <p> 4) Comprovació amb la BBDD de si l'Àlies i l'email estan ja introduïts.</p>
- * <p> 5) Inserció a la BBDD de l'usuari o nutricionista que es registri.</p>
+ * &lt;p> 1) Comprovació amb expressió regular amb email i password.&lt;/p>
+ * &lt;p> 2) Comprovació de si el NIF/DNI, NIE o CIF estan correctament introduïts.&lt;/p>
+ * &lt;p> 3) Encriptació del NIF/DNI, NIE o CIF, del telèfon i del password.&lt;/p>
+ * &lt;p> 4) Comprovació amb la BBDD de si l'Àlies i l'email estan ja introduïts.&lt;/p>
+ * &lt;p> 5) Inserció a la BBDD de l'usuari o nutricionista que es registri.&lt;/p>
  * 
- * <p> History</p>
+ * &lt;p> History&lt;/p>
  * 0.1 - Implementació del formulari.  
  *  
  * @version     0.1
@@ -95,12 +123,12 @@ $(document).ready(function () {
         // Si l'usuari selecciona que si, entrem al if.
         if ($('[name="nutritionist"]:checked').val() == 'yes') {
             // Insertem el formulari per registrar el nutricionista.
-            $('#registerNutritionist').prepend("<p><text style='color:red;font-size:15px'>* </text>NIF/DNI: <input type='text' id='nif' minlength='9' maxlength='9' required></p>\
-                <p><text style='color:red;font-size:15px'>* </text>Código postal: <input type='text' id='pc' minlength='5' maxlength='5' required></p>\
-                <p><text style='color:red;font-size:15px'>* </text>Población: <input type='text' id='city' minlength='3' maxlength='50'required></p>\
-                <p>Dirección: <input type='text' id='direction' minlength='5' maxlength='100'></p>\
-                <p>Compañia: <input type='text' id='company' minlength='2' maxlength='50'></p>\
-                <p>Teléfono de empresa: <input type='text' id='business_phone' minlength='9' maxlength='9'></p>");
+            $('#registerNutritionist').prepend("&lt;p>&lt;text style='color:red;font-size:15px'>* &lt;/text>NIF/DNI: &lt;input type='text' id='nif' minlength='9' maxlength='9' required>&lt;/p>\
+                &lt;p>&lt;text style='color:red;font-size:15px'>* &lt;/text>Código postal: &lt;input type='text' id='pc' minlength='5' maxlength='5' required>&lt;/p>\
+                &lt;p>&lt;text style='color:red;font-size:15px'>* &lt;/text>Población: &lt;input type='text' id='city' minlength='3' maxlength='50'required>&lt;/p>\
+                &lt;p>Dirección: &lt;input type='text' id='direction' minlength='5' maxlength='100'>&lt;/p>\
+                &lt;p>Compañia: &lt;input type='text' id='company' minlength='2' maxlength='50'>&lt;/p>\
+                &lt;p>Teléfono de empresa: &lt;input type='text' id='business_phone' minlength='9' maxlength='9'>&lt;/p>");
         } else {
             $('#registerNutritionist').empty();
         }
@@ -157,11 +185,11 @@ $(document).ready(function () {
                 // Esborrem el span amb el text.
                 $('#inputErrorNif').remove();
                 // Inserim el span amb el text
-                $('#nif').after("<span style='display: block; color:red;'id='inputErrorNif'>El NIF introducido no es correcto.</span>")
+                $('#nif').after("&lt;span style='display: block; color:red;'id='inputErrorNif'>El NIF introducido no es correcto.&lt;/span>")
                 $booleanNif = false;
             } else {
                 $('#inputErrorNif').remove();
-                $('#nif').after("<span style='display: block; color:green;'id='inputErrorNif'>El NIF introducido es correcto.</span>")
+                $('#nif').after("&lt;span style='display: block; color:green;'id='inputErrorNif'>El NIF introducido es correcto.&lt;/span>")
                 $booleanNif = true;
             }
         } else if ($document == 'nie') {
@@ -171,11 +199,11 @@ $(document).ready(function () {
                 // Esborrem el span amb el text.
                 $('#inputErrorNif').remove();
                 // Inserim el span amb el text
-                $('#nif').after("<span style='display: block; color:red;'id='inputErrorNif'>El NIE introducido no es correcto.</span>")
+                $('#nif').after("&lt;span style='display: block; color:red;'id='inputErrorNif'>El NIE introducido no es correcto.&lt;/span>")
                 $booleanNif = false;
             } else {
                 $('#inputErrorNif').remove();
-                $('#nif').after("<span style='display: block; color:green;'id='inputErrorNif'>El NIE introducido es correcto.</span>")
+                $('#nif').after("&lt;span style='display: block; color:green;'id='inputErrorNif'>El NIE introducido es correcto.&lt;/span>")
                 $booleanNif = true;
             }
         } else if ($document == 'cif') {
@@ -185,11 +213,11 @@ $(document).ready(function () {
                 // Esborrem el span amb el text.
                 $('#inputErrorNif').remove()
                 // Inserim el span amb el text
-                $('#nif').after("<span style='display: block; color:red;'id='inputErrorNif'>El CIF introducido no es correcto.</span>")
+                $('#nif').after("&lt;span style='display: block; color:red;'id='inputErrorNif'>El CIF introducido no es correcto.&lt;/span>")
                 $booleanNif = false;
             } else {
                 $('#inputErrorNif').remove();
-                $('#nif').after("<span style='display: block; color:green;'id='inputErrorNif'>El CIF introducido es correcto.</span>")
+                $('#nif').after("&lt;span style='display: block; color:green;'id='inputErrorNif'>El CIF introducido es correcto.&lt;/span>")
                 $booleanNif = true;
             }
         }
@@ -219,14 +247,10 @@ $(document).ready(function () {
             // Esborrem el span amb el text.
             $('#inputErrorPass').remove();
             // Inserim el span amb el text.
-            $('#pswrd').after("<span style='display: block; color:red;'id='inputErrorPass'>La contraseña introducida no es correcta.</span>");
-            // El boolean de comprovació del password passa a false.
-            $booleanPassword = false;
+            $('#pswrd').after("&lt;span style='display: block; color:red;'id='inputErrorPass'>La contraseña introducida no es correcta.&lt;/span>");
         } else {
             // Esborrem el span amb el text.
             $('#inputErrorPass').remove();
-            // El boolean de comprovació del password passa a true.
-            $booleanPassword = true;
         }
     });
 
@@ -256,7 +280,7 @@ $(document).ready(function () {
             // Esborrem el span amb el text.
             $('#inputErrorEmail').remove();
             // Inserim el span amb el text.
-            $('#email').after("<span style='display: block; color:red;'id='inputErrorEmail'>El email introducido no es correcto.</span>");
+            $('#email').after("&lt;span style='display: block; color:red;'id='inputErrorEmail'>El email introducido no es correcto.&lt;/span>");
             // El boolean de comprovació de l'email passa a false.
             $booleanEmail = false;
         } else {
@@ -271,7 +295,7 @@ $(document).ready(function () {
                     // Si coincideix l'email retornat amb l'email escrit, entrem a fer el if.
                     if (data.email == $email) {
                         // Inserim el span amb el text.
-                        $('#email').after("<span style='display: block; color:red;'id='inputErrorEmail'>El email introducido ya está registrado.</span>");
+                        $('#email').after("&lt;span style='display: block; color:red;'id='inputErrorEmail'>El email introducido ya está registrado.&lt;/span>");
                         // Si no hi ha coincidència, fem el else.
                     } else {
                         // El boolean de comprovació de l'email passa a true.
@@ -301,7 +325,7 @@ $(document).ready(function () {
                     // Esborrem el span amb el text.
                     $('#inputErrorAlias').remove();
                     // Inserim el span amb el text.
-                    $('#alias').after("<span style='display: block; color:red;'id='inputErrorAlias'>El alias introducido ya está registrado.</span>");
+                    $('#alias').after("&lt;span style='display: block; color:red;'id='inputErrorAlias'>El alias introducido ya está registrado.&lt;/span>");
                     // El boolean de comprovació de l'alias passa a false.
                     $booleanAlias = false;
                 }
@@ -390,23 +414,20 @@ $(document).ready(function () {
             TeléfonoEmpresa: $businessPhone
         };
 
-        if ($booleanEmail == false || $booleanNif == false || $booleanAlias == false || booleanPassword == false) {
+        if ($booleanEmail == false || $booleanNif == false || $booleanAlias == false) {
             e.preventDefault();
             $('#errors').remove();
-            let $insertText = "<div id='errors' style='text-align: left;margin:15px 0px 15px 0px; padding-left:5px; display: inline-table;width: 200px;font-size: 16px; background-color: rgba(255, 115, 115, 0.789); border: 1px solid #000000;'>";
+            let $insertText = "&lt;div id='errors' style='text-align: left;margin:15px 0px 15px 0px; padding-left:5px; display: inline-table;width: 200px;font-size: 16px; background-color: rgba(255, 115, 115, 0.789); border: 1px solid #000000;'>";
             if ($booleanEmail == false) {
-                $insertText = $insertText.concat('', '<p class="errors">- Modifica el email</p>');
+                $insertText = $insertText.concat('', '&lt;p class="errors">- Modifica el email&lt;/p>');
             }
             if ($booleanNif == false) {
-                $insertText = $insertText.concat('', '<p class="errors">- Modifica el NIF/DNI</p>');
+                $insertText = $insertText.concat('', '&lt;p class="errors">- Modifica el NIF/DNI&lt;/p>');
             }
             if ($booleanAlias == false) {
-                $insertText = $insertText.concat('', '<p class="errors">- Modifica el alias</p>');
+                $insertText = $insertText.concat('', '&lt;p class="errors">- Modifica el alias&lt;/p>');
             }
-            if (booleanPassword == false) {
-                $insertText = $insertText.concat('', '<p class="errors">- Modifica la contraseña</p>');
-            }
-            $insertText = $insertText.concat('', '</div>');
+            $insertText = $insertText.concat('', '&lt;/div>');
             $('#registrationForm').prepend($insertText);
         } else {
             $('#errors').hide();
@@ -611,7 +632,7 @@ $(document).ready(function () {
         // Guardem l'últim dígit del CIF.
         let $letterOrNumber = $cif.charAt($cif.length - 1);
         // Comprovem si el resultat és numèric.
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i &lt; 10; i++) {
             // Si el resultat coincideix amb un número, aquest s'avaluara com a número.
             if ($letterOrNumber == i) {
                 $letterOrNumber = eval($letterOrNumber);
@@ -630,7 +651,7 @@ $(document).ready(function () {
         // Creem un array per separar la numeració del CIF i poder fer les operacions corresponents.
         let $arrayNumeration = $numeration.split('');
         // Fem el for per recórrer l'array creat a vans.
-        for (let i = 0; i < $arrayNumeration.length; i++) {
+        for (let i = 0; i &lt; $arrayNumeration.length; i++) {
             // Entrem a fer el if només amb les posicions pars del array.
             if (i % 2 == 0) {
                 // Parsejem el número de l'array i fem l'operació.
@@ -646,7 +667,7 @@ $(document).ready(function () {
                     // Passem la variable a 0.
                     $firstOddResult = 0;
                     // Fem el for per recórrer l'array creat a vans.
-                    for (let i = 0; i < $arrayResult.length; i++) {
+                    for (let i = 0; i &lt; $arrayResult.length; i++) {
                         // Parsejem el número de l'array i el sumem amb la variable.
                         $innerOddSum += parseInt($arrayResult[i]);
                     }
@@ -725,4 +746,26 @@ $(document).ready(function () {
             }
         }
     }
-});
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#$alias">$alias</a></li><li><a href="global.html#$booleanAlias">$booleanAlias</a></li><li><a href="global.html#$booleanEmail">$booleanEmail</a></li><li><a href="global.html#$booleanNif">$booleanNif</a></li><li><a href="global.html#$booleanPassword">$booleanPassword</a></li><li><a href="global.html#$businessPhone">$businessPhone</a></li><li><a href="global.html#$city">$city</a></li><li><a href="global.html#$company">$company</a></li><li><a href="global.html#$direction">$direction</a></li><li><a href="global.html#$document">$document</a></li><li><a href="global.html#$email">$email</a></li><li><a href="global.html#$name">$name</a></li><li><a href="global.html#$nif">$nif</a></li><li><a href="global.html#$pass">$pass</a></li><li><a href="global.html#$pc">$pc</a></li><li><a href="global.html#$phone">$phone</a></li><li><a href="global.html#$url">$url</a></li><li><a href="global.html#blur">blur</a></li><li><a href="global.html#checkCif">checkCif</a></li><li><a href="global.html#checkLetter">checkLetter</a></li><li><a href="global.html#checkNie">checkNie</a></li><li><a href="global.html#checkNif">checkNif</a></li><li><a href="global.html#on">on</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Apr 05 2021 15:21:14 GMT+0200 (hora de verano de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
