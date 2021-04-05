@@ -5,29 +5,31 @@
   <title>
     <%= title %>
   </title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <link rel='stylesheet' href='/stylesheets/index.css' />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="50">
+<body>
   <!-- Header -->
   <%- include('./header'); %>
 
 
     <!-- Carousel -->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div id="carouselMulti" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-        <li data-target="#myCarousel" data-slide-to="3"></li>
+        <li data-target="#carouselMulti" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselMulti" data-slide-to="1"></li>
+        <li data-target="#carouselMulti" data-slide-to="2"></li>
+        <li data-target="#carouselMulti" data-slide-to="3"></li>
       </ol>
       <!-- Wrapper for slides -->
       <div class="carousel-inner">
-        <div class="item active" style="margin:0" onclick="location.href='/';">
+        <div class="carousel-item active" onclick="location.href='/';">
           <img src="/images/recetas-generales-comidas-1024x512-1.jpg" alt="Los Angeles">
           <div class="carousel-desc">
             <div class="carousel-caption">
@@ -41,7 +43,7 @@
             </div>
           </div>
         </div>
-        <div class="item" style="margin:0" onclick="location.href='/';">
+        <div class="carousel-item" onclick="location.href='/';">
           <img src="/images/lasana-comida.jpg" alt="Chicago">
           <div class="carousel-desc">
             <div class="carousel-caption">
@@ -55,7 +57,7 @@
             </div>
           </div>
         </div>
-        <div class="item" style="margin:0" onclick="location.href='/';">
+        <div class="carousel-item" onclick="location.href='/';">
           <img src="/images/foto-slide.jpg" alt="Los Angeles">
           <div class="carousel-desc">
             <div class="carousel-caption">
@@ -69,7 +71,7 @@
             </div>
           </div>
         </div>
-        <div class="item" style="margin:0" onclick="location.href='/';">
+        <div class="carousel-item" onclick="location.href='/';">
           <img src="/images/hamburguesa-beyond-meat-scaled-e1577396155298.jpg" alt="New york">
           <div class="carousel-desc">
             <div class="carousel-caption">
@@ -85,13 +87,11 @@
         </div>
       </div>
       <!-- Left and right controls -->
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-        <span class="sr-only">Previous</span>
+      <a class="carousel-control-prev" href="#carouselMulti" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
       </a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-        <span class="sr-only">Next</span>
+      <a class="carousel-control-next" href="#carouselMulti" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
       </a>
     </div>
 
@@ -141,6 +141,11 @@
         <input class="submit" type="submit" value="BUSCAR">
       </div>
 
+      <!-- Publicidad -->
+      <div class="adverti_resp">
+        <img src="/images/anuncio-vert.png" alt="Publicidad" style="width:100%; height:100%;">
+      </div>
+
       <div class="block_container">
         <!-- Recetas muestra -->
         <div class="rec_container">
@@ -182,7 +187,8 @@
 
       <!-- Checkin -->
       <div class="checkIn">
-        <img src="/images/CTA-subir-receta.jpg" alt="subir-receta" style="width:100%; height:100%;">
+        <img class="img-resp" src="/images/CTA-subir-receta-resp.jpg" alt="subir-receta" style="width:100%; height:100%;">
+        <img class="img" src="/images/CTA-subir-receta.jpg" alt="subir-receta" style="width:100%; height:100%;">
         <div class="desc">
           <h2>¿Quieres subir tus propias recetas?</h2>
           <p>Regístrate y podrás subir todas las recetas que quieras y votar por las de otros usuarios.</p>
@@ -237,7 +243,7 @@
     </div>
 
     <!-- Footer -->
-    <%- include('./footer'); %>
+    <!-- <%- include('./footer'); %> -->
 </body>
 
 </html>
