@@ -84,6 +84,7 @@ $(document).ready(function () {
      * @constant $url
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor.
      */
+    //TODO: Borrar el info
     let info, $name, $phone, $alias, $email, $pass, $nif, $pc, $city, $company, $direction, $businessPhone;
     let $booleanNif, $booleanEmail, $booleanAlias, $booleanPassword;
     let $document = 'nif';
@@ -390,7 +391,7 @@ $(document).ready(function () {
             TeléfonoEmpresa: $businessPhone
         };
 
-        if ($booleanEmail == false || $booleanNif == false || $booleanAlias == false || booleanPassword == false) {
+        if ($booleanEmail == false || $booleanNif == false || $booleanAlias == false || $booleanPassword == false) {
             e.preventDefault();
             $('#errors').remove();
             let $insertText = "<div id='errors' style='text-align: left;margin:15px 0px 15px 0px; padding-left:5px; display: inline-table;width: 200px;font-size: 16px; background-color: rgba(255, 115, 115, 0.789); border: 1px solid #000000;'>";
@@ -403,7 +404,7 @@ $(document).ready(function () {
             if ($booleanAlias == false) {
                 $insertText = $insertText.concat('', '<p class="errors">- Modifica el alias</p>');
             }
-            if (booleanPassword == false) {
+            if ($booleanPassword == false) {
                 $insertText = $insertText.concat('', '<p class="errors">- Modifica la contraseña</p>');
             }
             $insertText = $insertText.concat('', '</div>');
