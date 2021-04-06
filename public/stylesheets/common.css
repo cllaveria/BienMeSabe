@@ -76,10 +76,6 @@
   margin-left: auto !important;
 }
 
-.items_left {
-  justify-self: right;
-}
-
 .item_block {
   display: inline-block;
   cursor: pointer;
@@ -91,8 +87,7 @@
 
 .item {
   margin-right: 46px;
-  justify-self: left;
-  margin-top: 55px;
+  margin-top: 40px;
 }
 
 .item_icon {
@@ -110,7 +105,24 @@
   width: 90px;
 }
 
+.login {
+  margin-top: 40px;
+  margin-left: 46px;
+}
+
+.login_icon {
+  font-size: 12px;
+  margin-top: 55px;
+  justify-self: left;
+  margin-left: 46px;
+  margin-right: 5px;
+}
+
 @media (max-width: 900px) {
+  .navbar-nav {
+    margin-bottom: 10px;
+  }
+
   .logo-toggler {
     margin: 10px 30px;
     width: 50px;
@@ -120,19 +132,37 @@
   .logo {
     display: none;
   }
+
+  .item {
+    margin-right: 35px;
+  }
+
+  .login {
+    margin-left: 35px;
+  }
+
 }
 
-.login {
-  margin-top: 40px;
-  justify-self: left;
-}
+@media (max-width: 750px) {
+  /* .navbar-expand-sm .navbar-collapse {
+    display: grid!important;
+  } */
 
-.login_icon {
-  font-size: 12px;
-  margin-top: 55px;
-  justify-self: left;
-  margin-left: 46px;
-  margin-right: 5px;
+  .menu{
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  .item_block{
+    display: block;
+    text-align: center;
+  }
+
+  .login,
+  .item {
+    margin: 10px 0;
+  }
+
 }
 
 /*---BODY---*/
@@ -187,16 +217,23 @@ p {
   margin-top: 50px;
   background-color: black;
   width: 100%;
-  height: 200px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   font-size: 12px;
   font-weight: bold;
+  padding: 30px;
 }
 
 .items_footer {
+  margin-top: 20%;
+}
+
+.items_footer1 {
+  display: none;
+}
+
+.items_footerResp {
   display: grid;
-  align-self: center;
 }
 
 .item_footer {
@@ -245,4 +282,38 @@ p {
 .icons_footer:hover {
   background-color: #fca035;
   border-radius: 10px;
+}
+
+@media screen and (min-width: 900px) {
+  .footer {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .items_footer1,
+  .items_footer {
+    display: grid;
+    align-self: center;
+  }
+
+  .items_footerResp {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .footer {
+    grid-template-columns: repeat(2, 1fr);
+    align-self: center;
+  }
+
+  .logo_footer {
+    width: 100px;
+  }
+
+  .items_footer,
+  .items_net,
+  .items_footerResp {
+    text-align: center;
+    margin-top: 10%;
+  }
 }
