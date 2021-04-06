@@ -29,7 +29,10 @@ CREATE TABLE `recipeingredients` (
   `INGREDIENT_QTY` decimal(32,16) NOT NULL,
   `INGREDIENT_UNITY` varchar(50) NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `fk_recipe_ingredients_id` (`INGREDIENT_ID`)
+  KEY `fk_recipe_id_recipeingredients` (`RECIPE_ID`),
+  KEY `fk_ingredient_id_recipeingredients` (`INGREDIENT_ID`),
+  CONSTRAINT `fk_ingredient_id_recipeingredients` FOREIGN KEY (`INGREDIENT_ID`) REFERENCES `ingredients` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_recipe_id_recipeingredients` FOREIGN KEY (`RECIPE_ID`) REFERENCES `recipe` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-05 19:27:47
+-- Dump completed on 2021-04-06 22:09:43

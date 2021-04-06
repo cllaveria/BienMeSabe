@@ -34,8 +34,9 @@ CREATE TABLE `recipe` (
   `RECIPE_DINNERS` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_user_id_recipe` (`USER_ID`),
-  KEY `fk_recipe_type` (`TYPE`),
-  CONSTRAINT `fk_recipe_type` FOREIGN KEY (`TYPE`) REFERENCES `recipetypes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_recipe_type_recipe` (`TYPE`),
+  CONSTRAINT `fk_recipe_type_recipe` FOREIGN KEY (`TYPE`) REFERENCES `recipetypes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_user_id_recipe` FOREIGN KEY (`USER_ID`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -57,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-05 19:27:47
+-- Dump completed on 2021-04-06 22:09:43

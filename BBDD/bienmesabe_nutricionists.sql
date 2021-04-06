@@ -30,7 +30,7 @@ CREATE TABLE `nutricionists` (
   `COMPANY_CITY` varchar(45) DEFAULT NULL,
   `COMPANY_TELEPHONE` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `FK1fa154qdn4l8fl0pycmtcneak` FOREIGN KEY (`ID`) REFERENCES `users` (`ID`)
+  CONSTRAINT `fk_user_id_nutricionist` FOREIGN KEY (`ID`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-05 19:27:47
+-- Dump completed on 2021-04-06 22:09:43

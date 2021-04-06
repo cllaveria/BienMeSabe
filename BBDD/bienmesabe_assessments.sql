@@ -28,8 +28,9 @@ CREATE TABLE `assessments` (
   `ASSESSMENT` decimal(2,2) NOT NULL,
   `USER_TYPE` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_ASESSMENT_RECIPE_ID` (`RECIPE_ID`),
   KEY `FK_USER_TYPE_ASSESSMENT` (`USER_TYPE`),
+  KEY `fk_recipe_id_assessments` (`RECIPE_ID`),
+  CONSTRAINT `fk_recipe_id_assessments` FOREIGN KEY (`RECIPE_ID`) REFERENCES `recipe` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_USER_TYPE_ASSESSMENT` FOREIGN KEY (`USER_TYPE`) REFERENCES `usertypes` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-05 19:27:47
+-- Dump completed on 2021-04-06 22:09:42

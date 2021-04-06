@@ -28,8 +28,10 @@ CREATE TABLE `ingredient_minerals` (
   `MINERAL_QTY` float DEFAULT NULL,
   `MINERAL_ID` bigint NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `FK_INGREDIENT_MINERALS_INGREDIENT` (`INGREDIENT_ID`),
-  KEY `FK_INGREDIENT_MINERALS_MINERAL` (`MINERAL_ID`)
+  KEY `fk_ingredient_id_ingredient_minerals` (`INGREDIENT_ID`),
+  KEY `fk_mineral_id_ingredient_minerals` (`MINERAL_ID`),
+  CONSTRAINT `fk_ingredient_id_ingredient_minerals` FOREIGN KEY (`INGREDIENT_ID`) REFERENCES `ingredients` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_mineral_id_ingredient_minerals` FOREIGN KEY (`MINERAL_ID`) REFERENCES `minerals` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-05 19:27:48
+-- Dump completed on 2021-04-06 22:09:43

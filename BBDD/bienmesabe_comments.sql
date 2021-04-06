@@ -28,8 +28,10 @@ CREATE TABLE `comments` (
   `USER_ID` bigint NOT NULL,
   `COMMENT` varchar(9000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_RECIPE_ID` (`RECIPE_ID`),
-  KEY `fk_user_id_comment` (`USER_ID`)
+  KEY `fk_user_id_comments` (`USER_ID`),
+  KEY `fk_recipe_id_comments` (`RECIPE_ID`),
+  CONSTRAINT `fk_recipe_id_comments` FOREIGN KEY (`RECIPE_ID`) REFERENCES `recipe` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_user_id_comments` FOREIGN KEY (`USER_ID`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-05 19:27:48
+-- Dump completed on 2021-04-06 22:09:43

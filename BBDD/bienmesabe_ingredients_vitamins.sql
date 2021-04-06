@@ -28,9 +28,10 @@ CREATE TABLE `ingredients_vitamins` (
   `VITAMIN_QTY` float DEFAULT NULL,
   `VITAMIN_ID` varchar(5) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `FK_INGREDIENT_VITAMINS_INGREDIENT` (`INGREDIENT_ID`),
-  KEY `FK_INGREDIENTS_VITAMINS_VITAMIN` (`VITAMIN_ID`),
-  CONSTRAINT `FK_INGREDIENTS_VITAMINS_VITAMIN` FOREIGN KEY (`VITAMIN_ID`) REFERENCES `vitamins` (`ID`)
+  KEY `fk_vitamin_id_ingredient_vitamins` (`VITAMIN_ID`),
+  KEY `fk_ingredient_id_ingredient_vitamins` (`INGREDIENT_ID`),
+  CONSTRAINT `fk_ingredient_id_ingredient_vitamins` FOREIGN KEY (`INGREDIENT_ID`) REFERENCES `ingredients` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_vitamin_id_ingredient_vitamins` FOREIGN KEY (`VITAMIN_ID`) REFERENCES `vitamins` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-05 19:27:47
+-- Dump completed on 2021-04-06 22:09:43
