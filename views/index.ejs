@@ -13,6 +13,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <link rel='stylesheet' href='/stylesheets/index.css' />
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="../javascripts/search.js"></script>
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -20,173 +27,160 @@
   <%- include('./header'); %>
 
 
-    <!-- Carousel -->
-    <div id="carouselMulti" class="carousel slide" data-ride="carousel">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#carouselMulti" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselMulti" data-slide-to="1"></li>
-        <li data-target="#carouselMulti" data-slide-to="2"></li>
-        <li data-target="#carouselMulti" data-slide-to="3"></li>
-      </ol>
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner">
-        <div class="carousel-item active" onclick="location.href='/';">
-          <img src="/images/recetas-generales-comidas-1024x512-1.jpg" alt="Los Angeles">
-          <div class="carousel-desc">
-            <div class="carousel-caption">
-              <div class="title">Título receta</div>
-              <h3>Nombre del autor</h3>
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item" onclick="location.href='/';">
-          <img src="/images/lasana-comida.jpg" alt="Chicago">
-          <div class="carousel-desc">
-            <div class="carousel-caption">
-              <div class="title">Título receta</div>
-              <h3>Nombre del autor</h3>
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item" onclick="location.href='/';">
-          <img src="/images/foto-slide.jpg" alt="Los Angeles">
-          <div class="carousel-desc">
-            <div class="carousel-caption">
-              <div class="title">Título receta</div>
-              <h3>Nombre del autor</h3>
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item" onclick="location.href='/';">
-          <img src="/images/hamburguesa-beyond-meat-scaled-e1577396155298.jpg" alt="New york">
-          <div class="carousel-desc">
-            <div class="carousel-caption">
-              <div class="title">Título receta</div>
-              <h3>Nombre del autor</h3>
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-            </div>
+  <!-- Carousel -->
+  <div id="carouselMulti" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#carouselMulti" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselMulti" data-slide-to="1"></li>
+      <li data-target="#carouselMulti" data-slide-to="2"></li>
+      <li data-target="#carouselMulti" data-slide-to="3"></li>
+    </ol>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="carousel-item active" onclick="location.href='/';">
+        <img src="/images/recetas-generales-comidas-1024x512-1.jpg" alt="Los Angeles">
+        <div class="carousel-desc">
+          <div class="carousel-caption">
+            <div class="title">Título receta</div>
+            <h3>Nombre del autor</h3>
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
           </div>
         </div>
       </div>
-      <!-- Left and right controls -->
-      <a class="carousel-control-prev" href="#carouselMulti" data-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </a>
-      <a class="carousel-control-next" href="#carouselMulti" data-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </a>
+      <div class="carousel-item" onclick="location.href='/';">
+        <img src="/images/lasana-comida.jpg" alt="Chicago">
+        <div class="carousel-desc">
+          <div class="carousel-caption">
+            <div class="title">Título receta</div>
+            <h3>Nombre del autor</h3>
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item" onclick="location.href='/';">
+        <img src="/images/foto-slide.jpg" alt="Los Angeles">
+        <div class="carousel-desc">
+          <div class="carousel-caption">
+            <div class="title">Título receta</div>
+            <h3>Nombre del autor</h3>
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item" onclick="location.href='/';">
+        <img src="/images/hamburguesa-beyond-meat-scaled-e1577396155298.jpg" alt="New york">
+        <div class="carousel-desc">
+          <div class="carousel-caption">
+            <div class="title">Título receta</div>
+            <h3>Nombre del autor</h3>
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Left and right controls -->
+    <a class="carousel-control-prev" href="#carouselMulti" data-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#carouselMulti" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </a>
+  </div>
+
+  <!-- Body -->
+  <div class="body">
+    <!-- Selects -->
+    <div class="sel_container">
+      <div class="sel_title">
+        <h2>BUSCADOR DE RECETAS</h2>
+        <img src="/images/lupa.svg" alt="lupa">
+      </div>
+      <div class="selectores">
+        <div class="sel_ingredients">
+          <label for="ingredient">¿Qué ingredientes tienes?</label>
+          <input list="list_ingredient" name="ingredient" id="inp_ingredient"
+            placeholder="Introduce los ingredientes deseados">
+          <datalist id="list_ingredient">
+            <option value="Espaguetis">
+            <option value="Macarrones">
+            <option value="Galets">
+          </datalist>
+          <input type=" text" name="ingredients" id="ingredients">
+        </div>
+        <div class="sel_valEnergetic">
+          <label for="valEner">Valor energético (Kcal)</label>
+          <div class="inp_minMax">
+            <input list="valEnergetic" name="valueMin" id="valueMin" placeholder="Valor mínimo">
+            <input list="valEnergetic" name="valueMax" id="valueMax" placeholder="Valor máximo">
+          </div>
+        </div>
+        <div class="sel_persons">
+          <label for="numPer">¿Para cuantas personas?</label>
+          <input name="numPer" id="numPer" placeholder="Introduce número de personas">
+        </div>
+        <div class="sel_typePlate">
+          <label for="tPlate">¿Qué tipo de plato buscas?</label>
+          <select name="typePlate" id="typePlate">
+            <option value="choose">Selecciona una opción</option>
+            <option value="starters">Entrante</option>
+            <option value="first">Primeros</option>
+            <option value="seconds">Segundos</option>
+            <option value="desserts">Postres</option>
+            <option value="cakeShop">Repostería</option>
+          </select>
+        </div>
+      </div>
+      <input class="submit" type="submit" value="BUSCAR">
     </div>
 
-    <!-- Body -->
-    <div class="body">
-      <!-- Selects -->
-      <div class="sel_container">
-        <div class="sel_title">
-          <h2>BUSCADOR DE RECETAS</h2>
-          <img src="/images/lupa.svg" alt="lupa">
-        </div>
-        <div class="selectores">
-          <div class="sel_ingredients">
-            <label for="ingredient">¿Qué ingredientes tienes?</label>
-            <input list="list_ingredient" name="ingredient" id="inp_ingredient"
-              placeholder="Introduce los ingredientes deseados">
-            <datalist id="list_ingredient">
-              <option value="Espaguetis">
-              <option value="Macarrones">
-              <option value="Galets">
-            </datalist>
-            <input type=" text" name="ingredients" id="ingredients">
-          </div>
-          <div class="sel_valEnergetic">
-            <label for="valEner">Valor energético (Kcal)</label>
-            <div class="inp_minMax">
-              <input list="valEnergetic" name="valueMin" id="valueMin" placeholder="Valor mínimo">
-              <input list="valEnergetic" name="valueMax" id="valueMax" placeholder="Valor máximo">
-            </div>
-          </div>
-          <div class="sel_persons">
-            <label for="numPer">¿Para cuantas personas?</label>
-            <input name="numPer" id="numPer" placeholder="Introduce número de personas">
-          </div>
-          <div class="sel_typePlate">
-            <label for="tPlate">¿Qué tipo de plato buscas?</label>
-            <select name="typePlate" id="typePlate">
-              <option value="choose">Selecciona una opción</option>
-              <option value="starters">Entrante</option>
-              <option value="first">Primeros</option>
-              <option value="seconds">Segundos</option>
-              <option value="desserts">Postres</option>
-              <option value="cakeShop">Repostería</option>
-            </select>
-          </div>
-        </div>
-        <input class="submit" type="submit" value="BUSCAR">
-      </div>
+    <!-- Publicidad -->
+    <div class="adverti_resp">
+      <img src="/images/anuncio-vert.png" alt="Publicidad" style="width:100%; height:100%;">
+    </div>
 
-      <!-- Publicidad -->
-      <div class="adverti_resp">
-        <img src="/images/anuncio-vert.png" alt="Publicidad" style="width:100%; height:100%;">
-      </div>
-
-      <div class="block_container">
-        <!-- Recetas muestra -->
-        <div class="rec_container">
-          <div class="recipe" onclick="location.href='/recetas/entrantes';">
-            <img src="/images/entrantes.jpg" alt="Entrantes">
-            <h1 class="title_recipe">Entrantes</h1>
-          </div>
-          <div class="recipe" onclick="location.href='/recetas/primeros';">
-            <img src="/images/primeros.jpg" alt="Primeros">
-            <h1 class="title_recipe">Primeros</h1>
-          </div>
-          <div class="recipe" onclick="location.href='/recetas/segundos';">
-            <img src="/images/segundos.jpg" alt="Segundos">
-            <h1 class="title_recipe">Segundos</h1>
-          </div>
-          <div class="recipe" onclick="location.href='/recetas/postres';">
-            <img src="/images/postres.jpg" alt="Postres">
-            <h1 class="title_recipe">Postres</h1>
-          </div>
-          <div class="recipe repos" onclick="location.href='/recetas/postres';">
-            <img src="/images/reposteria.jpg" alt="Postres">
-            <h1 class="title_recipe">Repostería</h1>
-          </div>
+    <div class="block_container">
+      <!-- Recetas muestra -->
+      <div class="rec_container">
+        <div class="recipe" onclick="location.href='/recetas/entrantes';">
+          <img src="/images/entrantes.jpg" alt="Entrantes">
+          <h1 class="title_recipe">Entrantes</h1>
         </div>
-
-        <!-- Publicidad -->
-        <div class="advertisements">
-          <div class="advertising">
-            <img src="/images/anuncio-droetker.jpg" alt="Publicidad" style="width:100%; height:100%;">
-          </div>
-          <div class="advertising">
-            <img src="/images/anuncio-knorr.jpg" alt="Publicidad" style="width:100%; height:100%;">
-          </div>
-          <div class="advertising">
-            <img src="/images/anuncio-solis.jpg" alt="Publicidad" style="width:100%; height:100%;">
-          </div>
+        <div class="recipe" onclick="location.href='/recetas/primeros';">
+          <img src="/images/primeros.jpg" alt="Primeros">
+          <h1 class="title_recipe">Primeros</h1>
+        </div>
+        <div class="recipe" onclick="location.href='/recetas/segundos';">
+          <img src="/images/segundos.jpg" alt="Segundos">
+          <h1 class="title_recipe">Segundos</h1>
+        </div>
+        <div class="recipe" onclick="location.href='/recetas/postres';">
+          <img src="/images/postres.jpg" alt="Postres">
+          <h1 class="title_recipe">Postres</h1>
+        </div>
+        <div class="recipe repos" onclick="location.href='/recetas/postres';">
+          <img src="/images/reposteria.jpg" alt="Postres">
+          <h1 class="title_recipe">Repostería</h1>
         </div>
       </div>
 
+<<<<<<< HEAD
       <!-- Checkin -->
       <div class="checkIn">
         <img class="img-resp" src="/images/CTA-subir-receta-resp.jpg" alt="subir-receta"
@@ -196,57 +190,81 @@
           <h2>¿Quieres subir tus propias recetas?</h2>
           <p>Regístrate y podrás subir todas las recetas que quieras y votar por las de otros usuarios.</p>
           <button class="btn_checkIn" type="button" onclick="location.href='/registro';">REGÍSTRATE</button>
+=======
+      <!-- Publicidad -->
+      <div class="advertisements">
+        <div class="advertising">
+          <img src="/images/anuncio-droetker.jpg" alt="Publicidad" style="width:100%; height:100%;">
+>>>>>>> develop
         </div>
-      </div>
-
-      <!-- Latest recipes -->
-
-      <div class="lastRec_container">
-        <h2>ÚLTIMAS RECETAS</h2>
-        <div class="latest_rec">
-          <div class="last_rec">
-            <img src="/images/ultimasrecetas.jpg" alt="subir-receta" style="width:100%;" onclick="location.href='/';">
-            <div class="rec_desc">
-              <h4>Macarrones con tomate, queso y verduras</h4>
-              <p>Nombre del autor</p>
-              <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-              <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-              <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-              <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-              <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-            </div>
-          </div>
-          <div class="last_rec">
-            <img src="/images/ultimasrecetas.jpg" alt="subir-receta" style="width:100%;" onclick="location.href='/';">
-            <div class="rec_desc">
-              <h4>Título receta</h4>
-              <p>Nombre del autor</p>
-              <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-              <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-              <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-              <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-              <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-            </div>
-          </div>
-          <div class="last_rec">
-            <img src="/images/ultimasrecetas.jpg" alt="subir-receta" style="width:100%;" onclick="location.href='/';">
-            <div class="rec_desc">
-              <h4>Título receta</h4>
-              <p>Nombre del autor</p>
-              <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-              <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-              <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-              <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-              <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-            </div>
-          </div>
+        <div class="advertising">
+          <img src="/images/anuncio-knorr.jpg" alt="Publicidad" style="width:100%; height:100%;">
         </div>
-        <button class="btn_lastRec" type="button">VER MÁS</button>
+        <div class="advertising">
+          <img src="/images/anuncio-solis.jpg" alt="Publicidad" style="width:100%; height:100%;">
+        </div>
       </div>
     </div>
 
-    <!-- Footer -->
-    <%- include('./footer'); %>
+    <!-- Checkin -->
+    <div class="checkIn">
+      <img class="img-resp" src="/images/CTA-subir-receta-resp.jpg" alt="subir-receta" style="width:100%; height:100%;">
+      <img class="img" src="/images/CTA-subir-receta.jpg" alt="subir-receta" style="width:100%; height:100%;">
+      <div class="desc">
+        <h2>¿Quieres subir tus propias recetas?</h2>
+        <p>Regístrate y podrás subir todas las recetas que quieras y votar por las de otros usuarios.</p>
+        <button class="btn_checkIn" type="button" onclick="location.href='/registro';">REGÍSTRATE</button>
+      </div>
+    </div>
+
+    <!-- Latest recipes -->
+
+    <div class="lastRec_container">
+      <h2>ÚLTIMAS RECETAS</h2>
+      <div class="latest_rec">
+        <div class="last_rec">
+          <img src="/images/ultimasrecetas.jpg" alt="subir-receta" style="width:100%;" onclick="location.href='/';">
+          <div class="rec_desc">
+            <h4>Macarrones con tomate, queso y verduras</h4>
+            <p>Nombre del autor</p>
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
+          </div>
+        </div>
+        <div class="last_rec">
+          <img src="/images/ultimasrecetas.jpg" alt="subir-receta" style="width:100%;" onclick="location.href='/';">
+          <div class="rec_desc">
+            <h4>Título receta</h4>
+            <p>Nombre del autor</p>
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
+          </div>
+        </div>
+        <div class="last_rec">
+          <img src="/images/ultimasrecetas.jpg" alt="subir-receta" style="width:100%;" onclick="location.href='/';">
+          <div class="rec_desc">
+            <h4>Título receta</h4>
+            <p>Nombre del autor</p>
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
+          </div>
+        </div>
+      </div>
+      <button class="btn_lastRec" type="button">VER MÁS</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <%- include('./footer'); %>
 </body>
 
 </html>
