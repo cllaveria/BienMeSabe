@@ -36,27 +36,96 @@
                 <div id="registerUser">
                     <div class="inputs_form">
                         <label for="name">Nombre</label><text style="color:red;font-size:15px"> *</text>
-                        <input class="form-control" type="text" id="name" placeholder="Nombre" required>
+                        <div class="inputs-group">
+                            <input class="form-control" type="text" id="name" placeholder="Nombre" minlength="5"
+                                maxlength="50" required>
+                            <i class="fas fa-info-circle">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                            </i>
+                            <i class="fas fa-exclamation-circle">
+                                <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                            </i>
+                            <i class="fas fa-check-circle">
+                                <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
+                            </i>
+                        </div>
                     </div>
                     <div class="inputs_form">
                         <label for="surnames">Apellidos</label>
-                        <input class="form-control" type="text" id="surnames" placeholder="Apellidos">
+                        <div class="inputs-group">
+                            <input class="form-control" type="text" id="surnames" placeholder="Apellidos" minlength="5"
+                                maxlength="100">
+                            <i class="fas fa-info-circle">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                            </i>
+                            <i class="fas fa-exclamation-circle">
+                                <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                            </i>
+                            <i class="fas fa-check-circle">
+                                <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
+                            </i>
+                        </div>
                     </div>
                     <div class="inputs_form">
                         <label for="phone">Teléfono</label>
-                        <input class="form-control" type="text" id="phone" placeholder="Teléfono">
+                        <div class="inputs-group">
+                            <input class="form-control" type="text" id="phone" placeholder="Teléfono" minlength="9"
+                                maxlength="9">
+                            <i class="fas fa-info-circle">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                            </i>
+                            <i class="fas fa-exclamation-circle">
+                                <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                            </i>
+                            <i class="fas fa-check-circle">
+                                <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
+                            </i>
+                        </div>
                     </div>
                     <div class="inputs_form">
                         <label for="alias">Alias</label><text style="color:red;font-size:15px"> *</text>
-                        <input class="form-control" type="text" id="alias" placeholder="Alias" required>
+                        <div class="inputs-group">
+                            <input class="form-control" type="text" id="alias" placeholder="Alias" id='alias'
+                                minlength="3" maxlength="50" required>
+                            <i class="fas fa-info-circle">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                            </i>
+                            <i class="fas fa-exclamation-circle" id="tooltipExc"></i>
+                            <i class="fas fa-check-circle">
+                                <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
+                            </i>
+                        </div>
                     </div>
                     <div class="inputs_form">
                         <label for="email">Email</label><text style="color:red;font-size:15px"> *</text>
-                        <input class="form-control" type="email" id="email" placeholder="Email" required>
+                        <div class="inputs-group">
+                            <input class="form-control" type="email" id="email" placeholder="Email" minlength="5"
+                                maxlength="100" required>
+                            <i class="fas fa-info-circle" id="tooltipInfoEmail">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                            </i>
+                            <i class="fas fa-exclamation-circle" id="tooltipExcEmail"></i>
+                            <i class="fas fa-check-circle" id="tooltipCheckEmail"></i>
+                        </div>
                     </div>
                     <div class="inputs_form">
                         <label for="pswrd">Contraseña</label><text style="color:red;font-size:15px"> *</text>
-                        <input class="form-control" type="password" id="pswrd" placeholder="Contraseña" required>
+                        <div class="inputs-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="viewPass"><i class="fa fa-eye"></i></span>
+                            </div>
+                            <input class="form-control" type="password" id="pswrd" placeholder="Contraseña"
+                                minlength="8" maxlength="50" required>
+                            <i class="fas fa-info-circle">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                            </i>
+                            <i class="fas fa-exclamation-circle">
+                                <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                            </i>
+                            <i class="fas fa-check-circle">
+                                <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
+                            </i>
+                        </div>
                     </div>
                     <div class="checkbox">
                         <input type="checkbox" name="nutritionist" value="yes" />
@@ -65,33 +134,104 @@
                     <div id="registerNutritionist">
                         <div class="inputs_form">
                             <label for="nif">NIF/DNI/NIE/CIF</label><text style="color:red;font-size:15px"> *</text>
-                            <select id="document">
-                                <option value="nif" selected="selected">NIF/DNI</option>
-                                <option value="nie">NIE</option>
-                                <option value="cif">CIF</option>
-                            </select>
-                            <input class="form-control" type="text" id="nif" placeholder="NIF/DNI/NIE/CIF" required>
+                            <div class="inputs-group">
+                                <select id="document">
+                                    <option value="nif" selected="selected">NIF/DNI</option>
+                                    <option value="nie">NIE</option>
+                                    <option value="cif">CIF</option>
+                                </select>
+                                <input class="form-control" type="text" id="nif" placeholder="NIF/DNI/NIE/CIF" id='nif'
+                                    minlength='9' maxlength='9' required>
+                                <i class="fas fa-info-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                                </i>
+                                <i class="fas fa-check-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
+                                </i>
+                            </div>
                         </div>
                         <div class="inputs_form">
                             <label for="pc">Código Postal</label><text style="color:red;font-size:15px"> *</text>
-                            <input class="form-control" type="text" id="pc" placeholder="Código Postal" required>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="pc" placeholder="Código Postal"
+                                    minlength='5' maxlength='5' required>
+                                <i class="fas fa-info-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                                </i>
+                                <i class="fas fa-check-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
+                                </i>
+                            </div>
                         </div>
                         <div class="inputs_form">
                             <label for="city">Población</label><text style="color:red;font-size:15px"> *</text>
-                            <input class="form-control" type="text" id="city" placeholder="Población" required>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="city" placeholder="Población" minlength='3'
+                                    maxlength='50' required>
+                                <i class="fas fa-info-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                                </i>
+                                <i class="fas fa-check-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
+                                </i>
+                            </div>
                         </div>
                         <div class="inputs_form">
                             <label for="direction">Dirección</label>
-                            <input class="form-control" type="text" id="direction" placeholder="Dirección">
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="direction" placeholder="Dirección"
+                                    minlength='5' maxlength='100'>
+                                <i class="fas fa-info-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                                </i>
+                                <i class="fas fa-check-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
+                                </i>
+                            </div>
                         </div>
                         <div class="inputs_form">
                             <label for="company">Compañía</label>
-                            <input class="form-control" type="text" id="company" placeholder="Compañía">
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="company" placeholder="Compañía"
+                                    minlength='2' maxlength='50'>
+                                <i class="fas fa-info-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                                </i>
+                                <i class="fas fa-check-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
+                                </i>
+                            </div>
                         </div>
                         <div class="inputs_form">
                             <label for="business_phone">Teléfono de empresa</label>
-                            <input class="form-control" type="text" id="business_phone"
-                                placeholder="Teléfono de empresa">
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="business_phone"
+                                    placeholder="Teléfono de empresa" minlength='9' maxlength='9'>
+                                <i class="fas fa-info-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                                </i>
+                                <i class="fas fa-check-circle">
+                                    <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
+                                </i>
+                            </div>
                         </div>
                     </div>
                     <button class="btn_checkIn" id='submit'>REGISTRAR</button>

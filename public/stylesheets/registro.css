@@ -3,7 +3,13 @@
 .checkIn_container {
   margin: 80px auto;
   padding: 50px;
-  width: 400px;
+  width: 450px;
+}
+
+@media screen and (max-width: 500px) {
+  .checkIn_container {
+    width: 330px;
+  }
 }
 
 .checkIn_container > h2 {
@@ -24,6 +30,64 @@
 
 .inputs_form > label {
   margin-bottom: 10px;
+}
+
+.inputs-group {
+  margin-bottom: 10px;
+  border-radius: 0.25rem;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+}
+
+.inputs-group > .form-control {
+  flex: 1 1 auto;
+  width: 1%;
+}
+
+#viewPass {
+  cursor: pointer;
+}
+
+#document {
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+}
+
+#pswrd,
+#nif {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+#viewPass,
+#document {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.inputs-group > .fa-info-circle {
+  margin-left: 5px;
+  border-radius: 100%;
+  color: #fca035;
+  cursor: pointer;
+}
+
+.inputs-group > .fa-exclamation-circle {
+  margin-left: 5px;
+  border-radius: 100%;
+  color: #d41717;
+  display: none;
+  cursor: pointer;
+}
+
+.inputs-group > .fa-check-circle {
+  margin-left: 5px;
+  border-radius: 100%;
+  color: green;
+  display: none;
 }
 
 .checkbox {
@@ -47,4 +111,48 @@
 .btn_checkIn:focus {
   background-color: #fbc76f;
   outline: 0;
+}
+
+.fas {
+  position: relative;
+  display: inline-block;
+}
+
+.fas .tooltiptext {
+  visibility: hidden;
+  position: absolute;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.fas:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-right {
+  top: -5px;
+  left: 125%;
+}
+
+.tooltip-right::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #555 transparent transparent;
+}
+
+.form-control.error {
+  border: solid 2px #d41717;
 }

@@ -252,10 +252,18 @@ $(document).ready(function () {
             // Esborrem el span amb el text.
             $('#inputErrorEmail').remove();
             // Inserim el span amb el text.
-            $('#email').after("<span style='display: block; color:red;'id='inputErrorEmail'>El email introducido no es correcto.</span>");
+            $('#tooltipExcEmail').css("display", "block");
+            $('#tooltipInfoEmail').css("display", "none");
+            $('#tooltipCheckEmail').css("display", "none");
+            $('#tooltipExcEmail').append("<span class='tooltiptext tooltip-right'>El email introducido no es correcto.</span>");
+            $('#email').addClass("error");
             // El boolean de comprovació de l'email passa a false.
             $booleanEmail = false;
         } else {
+            $('#tooltipCheckEmail').css("display", "block");
+            $('#tooltipInfoEmail').css("display", "none");
+            $('#tooltipExcEmail').css("display", "none");
+            $('#email').removeClass("error");
             // Esborrem el span amb el text.
             $('#inputErrorEmail').remove();
             // Fem la crida Ajax per comprovar si l'email està registrat en la BBDD.
