@@ -1,1 +1,50 @@
-@import 'common.css';
+@import "common.css";
+
+.checkIn_container {
+  margin: 80px auto;
+  padding: 50px;
+  width: 400px;
+}
+
+.checkIn_container > h2 {
+  margin-bottom: 25px;
+}
+
+#registerUser {
+  align-items: center;
+}
+
+#registerNutritionist {
+  display: none;
+}
+
+.inputs_form {
+  margin-bottom: 20px;
+}
+
+.inputs_form > label {
+  margin-bottom: 10px;
+}
+
+.checkbox {
+  margin-bottom: 20px;
+}
+
+.btn_checkIn {
+  width: 100px;
+  height: 35px;
+  background-color: white;
+  border: solid 2px #fca035;
+  border-radius: 3px;
+  font-size: 12px;
+  color: black;
+  font-weight: bold;
+  margin: auto;
+  display: block;
+}
+
+.btn_checkIn:hover,
+.btn_checkIn:focus {
+  background-color: #fbc76f;
+  outline: 0;
+}
