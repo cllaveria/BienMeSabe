@@ -163,9 +163,10 @@ $(document).ready(function () {
                 success: function (data) {
                     if (data.alias == $alias) {
                         //TODO: Ponerlo en el tooltip
-                        $('#inputErrorAlias').remove();
-                        $('#alias').after("<span style='display: block; color:red;'id='inputErrorAlias'>El alias introducido ya está registrado.</span>");
+                        // $('#inputErrorAlias').remove();
+                        // $('#alias').after("<span style='display: block; color:red;'id='inputErrorAlias'>El alias introducido ya está registrado.</span>");
                         $booleanAlias = false;
+                        $('#tooltipExclAlias').attr("textContent", "Prueba");
                     }
                 },
                 error: function () {
