@@ -15,11 +15,12 @@
   <link rel='stylesheet' href='/stylesheets/index.css' />
   <!-- JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
   <script src="../javascripts/search.js"></script>
   <!-- JQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.js"
-  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -122,23 +123,76 @@
             <option value="Macarrones">
             <option value="Galets">
           </datalist>
-          <input type=" text" name="ingredients" id="ingredients">
+          <div id="ingredientes" style="background-color: #f0f8ff;border: none;border-radius: 3px;min-height: 58px;">
+          </div>
         </div>
         <div class="sel_valEnergetic">
           <label for="valEner">Valor energético (Kcal)</label>
           <div class="inp_minMax">
-            <input list="valEnergetic" name="valueMin" id="valueMin" placeholder="Valor mínimo">
-            <input list="valEnergetic" name="valueMax" id="valueMax" placeholder="Valor máximo">
+            <select name="valueMin" id="valueMin">
+              <option value="choose" selected disabled>Valor mínimo</option>
+              <option value="0">0</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500">500</option>
+              <option value="600">600</option>
+              <option value="700">700</option>
+              <option value="800">800</option>
+              <option value="900">900</option>
+              <option value="1000">1000</option>
+            </select>
+            <select name="valueMax" id="valueMax">
+              <option value="choose" selected disabled>Valor máximo</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500">500</option>
+              <option value="600">600</option>
+              <option value="700">700</option>
+              <option value="800">800</option>
+              <option value="900">900</option>
+              <option value="1000">1000</option>
+              <option value="1100">1100</option>
+              <option value="1200">1200</option>
+              <option value="1300">1300</option>
+              <option value="1400">1400</option>
+              <option value="1500">1500</option>
+              <option value="1600">1600</option>
+              <option value="1700">1700</option>
+              <option value="1800">1800</option>
+              <option value="1900">1900</option>
+              <option value="2000">2000</option>
+            </select>
           </div>
         </div>
         <div class="sel_persons">
           <label for="numPer">¿Para cuantas personas?</label>
-          <input name="numPer" id="numPer" placeholder="Introduce número de personas">
+          <select name="numPer" id="numPer">
+            <option value="choose" selected disabled>Introduce número de personas</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+          </select>
         </div>
         <div class="sel_typePlate">
           <label for="tPlate">¿Qué tipo de plato buscas?</label>
           <select name="typePlate" id="typePlate">
-            <option value="choose">Selecciona una opción</option>
+            <option value="choose" selected disabled>Selecciona una opción</option>
             <option value="starters">Entrante</option>
             <option value="first">Primeros</option>
             <option value="seconds">Segundos</option>
@@ -201,7 +255,7 @@
       <div class="desc">
         <h2>¿Quieres subir tus propias recetas?</h2>
         <p>Regístrate y podrás subir todas las recetas que quieras y votar por las de otros usuarios.</p>
-        <button class="btn_checkIn" type="button" onclick="location.href='/registro';">REGÍSTRATE</button>
+        <button class="btn_checkIn" type="button" onclick="locatçion.href='/registro';">REGÍSTRATE</button>
       </div>
     </div>
 
