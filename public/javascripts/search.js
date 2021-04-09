@@ -141,7 +141,6 @@ $(document).ready(function () {
         $valueEnergMax = $('#valueMax option:selected').val();
         console.log($valueEnergMax)
     });
-    hola
 
     /**
      * @type {jQuery}
