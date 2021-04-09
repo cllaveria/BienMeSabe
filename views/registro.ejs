@@ -5,70 +5,232 @@
     <title>
         <%= title %>
     </title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link rel='stylesheet' href='/stylesheets/registro.css' />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- Encriptador MD5 -->
+    <script src="http://pajhome.org.uk/crypt/md5/2.2/md5-min.js"></script>
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+    <script src="../javascripts/script-copy.js"></script>
 </head>
 
 <body>
+    <!-- Header -->
     <%- include('./header'); %>
-        <h2>Registro de usuarios:</h2>
 
-    <div style='padding:70px 40% 0% 0%; text-align: right;'>
-        <form name="registrationForm" id="registrationForm">
-            <div id="registerUser">
-                <div>
-                    <p><text style="color:red;font-size:15px">* </text>Nombre: <input type='text' id='name' required
-                            minlength="5" maxlength="50" required></p>
-                    <p>Apellidos: <input type='text' id='surnames' minlength="5" maxlength="100"></p>
-                    <p>Teléfono: <input type='text' id='phone' minlength="9" maxlength="9"></p>
-                    <p><text style="color:red;font-size:15px">* </text>Alias <input type='text' id='alias' minlength="3"
-                            maxlength="50" required></p>
-                    <p><text style="color:red;font-size:15px">* </text>Email <input type="email" id='email'
-                            minlength="5" maxlength="100" required></p>
-                    <p><text style="color:red;font-size:15px">* </text>Contraseña: <button
-                            style="background-color: transparent; border: 1px solid #00000075; margin-right: 5px;"
-                            id="viewPass"><i class="fa fa-eye"></i></button><input type="password" id='pswrd'
-                            minlength="8" maxlength="50" required></p> 
-                    <p><text style="color:red;font-size:15px">* </text>
-                        <select id="document">
-                        <option value="nif" selected="selected">NIF/DNI</option>
-                        <option value="nie">NIE</option>
-                        <option value="cif">CIF</option>
-                    </select>
-                    <input type='text' minlength="9" maxlength="9" id='nif' required></p>
-                    <p><input type="checkbox" name="nutritionist" value="yes" /> Soy nutricionista</p>
+        <!-- Checkin Usuarios -->
+        <div class="checkIn_container">
+            <h2>Registro de usuarios:</h2>
+            <form name="registrationForm" id="registrationForm">
+                <div id="registerUser">
+                    <div class="inputs_form">
+                        <label for="name">Nombre</label><text style="color:red;font-size:15px"> *</text>
+                        <div class="inputs-group">
+                            <input class="form-control" type="text" id="name" placeholder="Nombre" required>
+                            <i class="fas fa-info-circle" id="iconInfoName">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Campo obligatorio. Mínimo 5
+                                    letras. Máximo 50 letras.</span>
+                            </i>
+                            <i class="fas fa-exclamation-circle" id="iconExcName">
+                                <span class="tooltiptext tooltip-right" id="tooltipExcl">Campo obligatorio. Mínimo 5
+                                    letras. Máximo 50 letras.</span>
+                            </i>
+                            <i class="fas fa-check-circle" id="iconCheckName"></i>
+                        </div>
+                    </div>
+                    <div class="inputs_form">
+                        <label for="surnames">Apellidos</label>
+                        <div class="inputs-group">
+                            <input class="form-control" type="text" id="surnames" placeholder="Apellidos">
+                            <i class="fas fa-info-circle" id="iconInfoSurnames">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Mínimo 5 letras. Máximo 100
+                                    letras</span>
+                            </i>
+                            <i class="fas fa-exclamation-circle" id="iconExcSurnames">
+                                <span class="tooltiptext tooltip-right" id="tooltipExcl">Mínimo 5 letras. Máximo 100
+                                    letras</span>
+                            </i>
+                            <i class="fas fa-check-circle" id="iconCheckSurnames"></i>
+                        </div>
+                    </div>
+                    <div class="inputs_form">
+                        <label for="phone">Teléfono</label>
+                        <div class="inputs-group">
+                            <input class="form-control" type="text" id="phone" placeholder="Teléfono">
+                            <i class="fas fa-info-circle" id="iconInfoPhone">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Necesarios 9 dígitos.</span>
+                            </i>
+                            <i class="fas fa-exclamation-circle" id="iconExcPhone">
+                                <span class="tooltiptext tooltip-right" id="tooltipExcl">Necesarios 9 dígitos.</span>
+                            </i>
+                            <i class="fas fa-check-circle" id="iconCheckPhone"></i>
+                        </div>
+                    </div>
+                    <div class="inputs_form">
+                        <label for="alias">Alias</label><text style="color:red;font-size:15px"> *</text>
+                        <div class="inputs-group">
+                            <input class="form-control" type="text" id="alias" placeholder="Alias" id='alias' required>
+                            <i class="fas fa-info-circle" id="iconInfoAlias">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Campo obligatorio. Mínimo 3
+                                    letras. Máximo 50 letras.</span>
+                            </i>
+                            <i class="fas fa-exclamation-circle" id="iconExcAlias">
+                                <span class="tooltiptext tooltip-right" id="tooltipExclAlias">Campo obligatorio. Mínimo
+                                    3 letras. Máximo 50 letras.</span>
+                            </i>
+                            <i class="fas fa-check-circle" id="iconCheckAlias"></i>
+                        </div>
+                    </div>
+                    <div class="inputs_form">
+                        <label for="email">Email</label><text style="color:red;font-size:15px"> *</text>
+                        <div class="inputs-group">
+                            <input class="form-control" type="email" id="email" placeholder="Email" minlength="5"
+                                maxlength="100" required>
+                            <i class="fas fa-info-circle" id="iconInfoEmail">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos email</span>
+                            </i>
+                            <i class="fas fa-exclamation-circle" id="iconExcEmail">
+                                <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos email</span>
+                            </i>
+                            <i class="fas fa-check-circle" id="iconCheckEmail"></i>
+                        </div>
+                    </div>
+                    <div class="inputs_form">
+                        <label for="pswrd">Contraseña</label><text style="color:red;font-size:15px"> *</text>
+                        <div class="inputs-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="viewPass"><i class="fa fa-eye"></i></span>
+                            </div>
+                            <input class="form-control" type="password" id="pswrd" placeholder="Contraseña"
+                                minlength="8" maxlength="50" required>
+                            <i class="fas fa-info-circle" id="iconInfoPswrd">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos password</span>
+                            </i>
+                            <i class="fas fa-exclamation-circle" id="iconExcPswrd">
+                                <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos password</span>
+                            </i>
+                            <i class="fas fa-check-circle" id="iconCheckPswrd"></i>
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" name="nutritionist" value="yes" />
+                        <label for="nutritionist">Soy nutricionista</label>
+                    </div>
+                    <div id="registerNutritionist">
+                        <div class="inputs_form">
+                            <label for="nif">NIF/DNI/NIE/CIF</label><text style="color:red;font-size:15px"> *</text>
+                            <div class="inputs-group">
+                                <select id="document">
+                                    <option value="nif" selected="selected">NIF/DNI</option>
+                                    <option value="nie">NIE</option>
+                                    <option value="cif">CIF</option>
+                                </select>
+                                <input class="form-control" type="text" id="nif" placeholder="NIF/DNI/NIE/CIF" id='nif'
+                                    minlength='9' maxlength='9' required>
+                                <i class="fas fa-info-circle" id="iconInfoNif">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos nif</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcNif">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos nif</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckNif"></i>
+                            </div>
+                        </div>
+                        <div class="inputs_form">
+                            <label for="pc">Código Postal</label><text style="color:red;font-size:15px"> *</text>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="pc" placeholder="Código Postal" required>
+                                <i class="fas fa-info-circle" id="iconInfoPc">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Campo obligatorio.
+                                        Necesarios 5 dígitos.</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcPc">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Campo obligatorio.
+                                        Necesarios 5 dígitos.</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckPc"></i>
+                            </div>
+                        </div>
+                        <div class="inputs_form">
+                            <label for="city">Población</label><text style="color:red;font-size:15px"> *</text>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="city" placeholder="Población" required>
+                                <i class="fas fa-info-circle" id="iconInfoCity">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Campo obligatorio. Mínimo 3
+                                        letras. Máximo 50 letras.</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcCity">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Campo obligatorio. Mínimo 3
+                                        letras. Máximo 50 letras.</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckCity"></i>
+                            </div>
+                        </div>
+                        <div class="inputs_form">
+                            <label for="direction">Dirección</label>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="direction" placeholder="Dirección">
+                                <i class="fas fa-info-circle" id="iconInfoDire">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Mínimo 5 letras. Máximo 100
+                                        letras.</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcDire">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Mínimo 5 letras. Máximo 100
+                                        letras.</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckDire"></i>
+                            </div>
+                        </div>
+                        <div class="inputs_form">
+                            <label for="company">Compañía</label>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="company" placeholder="Compañía">
+                                <i class="fas fa-info-circle" id="iconInfoComp">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Mínimo 2 letras. Máximo 50
+                                        letras.</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcComp">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Mínimo 2 letras. Máximo 50
+                                        letras.</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckComp"></i>
+                            </div>
+                        </div>
+                        <div class="inputs_form">
+                            <label for="business_phone">Teléfono de empresa</label>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="business_phone"
+                                    placeholder="Teléfono de empresa" minlength='9' maxlength='9'>
+                                <i class="fas fa-info-circle" id="iconInfoBusPhon">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Necesarios 9
+                                        dígitos.</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcBusPhon">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Necesarios 9
+                                        dígitos.</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckBusPhon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn_checkIn" id='submit'>REGISTRAR</button>
                 </div>
-                <div id="registerNutritionist">
-                </div>
-                <button id='submit'>Registrar</button>
             </form>
         </div>
-        <%- include('./footer'); %>
-            <!-- JQuery -->
-            <script src="https://code.jquery.com/jquery-3.6.0.js"
-                integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-            <!-- Bootstrap -->
-            <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
-                integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-                crossorigin="anonymous" />
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-                integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-                crossorigin="anonymous">
-                </script>
-            <!-- Encriptador MD5 -->
-            <script src="http://pajhome.org.uk/crypt/md5/2.2/md5-min.js"></script>
-            <!-- Font-awesome -->
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <!-- JavaScript -->
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-                crossorigin="anonymous">
-                </script>
-            <script data-main="../javascripts/require" src="../javascripts/require.js"></script>
-            <script src="../javascripts/script.js"></script>
-</body>
 
+        <!-- Footer -->
+        <%- include('./footer'); %>
+</body>
 
 </html>
