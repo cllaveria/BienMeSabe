@@ -112,6 +112,7 @@ $(document).ready(function () {
      * @constant $url
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor.
      */
+    //TODO: Borrar el info
     let info, $name, $phone, $alias, $email, $pass, $nif, $pc, $city, $company, $direction, $businessPhone;
     let $booleanNif, $booleanEmail, $booleanAlias, $booleanPassword;
     let $document = 'nif';
@@ -248,9 +249,13 @@ $(document).ready(function () {
             $('#inputErrorPass').remove();
             // Inserim el span amb el text.
             $('#pswrd').after("&lt;span style='display: block; color:red;'id='inputErrorPass'>La contraseña introducida no es correcta.&lt;/span>");
+            // El boolean de comprovació del password passa a false.
+            $booleanPassword = false;
         } else {
             // Esborrem el span amb el text.
             $('#inputErrorPass').remove();
+            // El boolean de comprovació del password passa a true.
+            $booleanPassword = true;
         }
     });
 
@@ -414,7 +419,7 @@ $(document).ready(function () {
             TeléfonoEmpresa: $businessPhone
         };
 
-        if ($booleanEmail == false || $booleanNif == false || $booleanAlias == false) {
+        if ($booleanEmail == false || $booleanNif == false || $booleanAlias == false || $booleanPassword == false) {
             e.preventDefault();
             $('#errors').remove();
             let $insertText = "&lt;div id='errors' style='text-align: left;margin:15px 0px 15px 0px; padding-left:5px; display: inline-table;width: 200px;font-size: 16px; background-color: rgba(255, 115, 115, 0.789); border: 1px solid #000000;'>";
@@ -426,6 +431,9 @@ $(document).ready(function () {
             }
             if ($booleanAlias == false) {
                 $insertText = $insertText.concat('', '&lt;p class="errors">- Modifica el alias&lt;/p>');
+            }
+            if ($booleanPassword == false) {
+                $insertText = $insertText.concat('', '&lt;p class="errors">- Modifica la contraseña&lt;/p>');
             }
             $insertText = $insertText.concat('', '&lt;/div>');
             $('#registrationForm').prepend($insertText);
@@ -756,13 +764,13 @@ $(document).ready(function () {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#$alias">$alias</a></li><li><a href="global.html#$booleanAlias">$booleanAlias</a></li><li><a href="global.html#$booleanEmail">$booleanEmail</a></li><li><a href="global.html#$booleanNif">$booleanNif</a></li><li><a href="global.html#$booleanPassword">$booleanPassword</a></li><li><a href="global.html#$businessPhone">$businessPhone</a></li><li><a href="global.html#$city">$city</a></li><li><a href="global.html#$company">$company</a></li><li><a href="global.html#$direction">$direction</a></li><li><a href="global.html#$document">$document</a></li><li><a href="global.html#$email">$email</a></li><li><a href="global.html#$name">$name</a></li><li><a href="global.html#$nif">$nif</a></li><li><a href="global.html#$pass">$pass</a></li><li><a href="global.html#$pc">$pc</a></li><li><a href="global.html#$phone">$phone</a></li><li><a href="global.html#$url">$url</a></li><li><a href="global.html#blur">blur</a></li><li><a href="global.html#checkCif">checkCif</a></li><li><a href="global.html#checkLetter">checkLetter</a></li><li><a href="global.html#checkNie">checkNie</a></li><li><a href="global.html#checkNif">checkNif</a></li><li><a href="global.html#on">on</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#$alias">$alias</a></li><li><a href="global.html#$booleanAlias">$booleanAlias</a></li><li><a href="global.html#$booleanEmail">$booleanEmail</a></li><li><a href="global.html#$booleanNif">$booleanNif</a></li><li><a href="global.html#$booleanPassword">$booleanPassword</a></li><li><a href="global.html#$businessPhone">$businessPhone</a></li><li><a href="global.html#$city">$city</a></li><li><a href="global.html#$company">$company</a></li><li><a href="global.html#$direction">$direction</a></li><li><a href="global.html#$document">$document</a></li><li><a href="global.html#$email">$email</a></li><li><a href="global.html#$ingredient">$ingredient</a></li><li><a href="global.html#$ingredients">$ingredients</a></li><li><a href="global.html#$name">$name</a></li><li><a href="global.html#$nif">$nif</a></li><li><a href="global.html#$numberPersons">$numberPersons</a></li><li><a href="global.html#$pass">$pass</a></li><li><a href="global.html#$pc">$pc</a></li><li><a href="global.html#$phone">$phone</a></li><li><a href="global.html#$typePlate">$typePlate</a></li><li><a href="global.html#$url">$url</a></li><li><a href="global.html#$valueEnergMax">$valueEnergMax</a></li><li><a href="global.html#$valueEnergMin">$valueEnergMin</a></li><li><a href="global.html#blur">blur</a></li><li><a href="global.html#checkCif">checkCif</a></li><li><a href="global.html#checkLetter">checkLetter</a></li><li><a href="global.html#checkNie">checkNie</a></li><li><a href="global.html#checkNif">checkNif</a></li><li><a href="global.html#on">on</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Apr 05 2021 15:21:14 GMT+0200 (hora de verano de Europa central)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Apr 09 2021 11:17:12 GMT+0200 (hora de verano de Europa central)
 </footer>
 
 <script> prettyPrint(); </script>
