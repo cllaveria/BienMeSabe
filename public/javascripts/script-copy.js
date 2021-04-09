@@ -90,26 +90,131 @@ $(document).ready(function () {
     let $document = 'nif';
     const $url = 'http://localhost:8080/api/';
 
-    // TODO: Este apartado se borrará y cambiará, hablarlo con Cris.
-    // Si l'usuari que es registra cambia l'opció de si es nutricionista, aquest mostra un formulari o un altre.
-    $(document).on('change', 'input[name="nutritionist"]', () => {
-        // Si l'usuari selecciona que si, entrem al if.
-        if ($('[name="nutritionist"]:checked').val() === 'yes') {
-            // Insertem el formulari per registrar el nutricionista.
-            $('#registerNutritionist').show();
+    /**
+     * @type {jQuery}
+     * @method blur
+     * @listens name - ID de l'input name.
+     * @description Quan l'usuari surt de l'input name es comprova si aquest és correcte i es canvien les classes i les icones corresponents.
+     */
+    $('#name').blur(() => {
+        $name = $('#name').val();
+        if ($name.length < 5 || $name.length > 50) {
+            changeIconsError($('#name'), $('#iconInfoName'), $('#iconExcName'), $('#iconCheckName'));
         } else {
-            $('#registerNutritionist').removeAttr("style").hide();
+            changeIconsCheck($('#name'), $('#iconInfoName'), $('#iconExcName'), $('#iconCheckName'));
         }
     });
-    // TODO: BORRAR HASTA AQUÍ.
+
+    /**
+     * @type {jQuery}
+     * @method blur
+     * @listens surname - ID de l'input surname.
+     * @description Quan l'usuari surt de l'input surname es comprova si aquest és correcte i es canvien les classes i les icones corresponents.
+     */
+    $('#surnames').blur(() => {
+        $surnames = $('#surnames').val();
+        if ($surnames != "") {
+            if ($surnames.length < 5 || $surnames.length > 100) {
+                changeIconsError($('#surnames'), $('#iconInfoSurnames'), $('#iconExcSurnames'), $('#iconCheckSurnames'));
+            } else {
+                changeIconsCheck($('#surnames'), $('#iconInfoSurnames'), $('#iconExcSurnames'), $('#iconCheckSurnames'));
+            }
+        } else {
+            changeIconsInfo($('#surnames'), $('#iconInfoSurnames'), $('#iconExcSurnames'), $('#iconCheckSurnames'));
+        }
+    });
+
+    /**
+     * @type {jQuery}
+     * @method blur
+     * @listens phone - ID de l'input phone.
+     * @description Quan l'usuari surt de l'input phone es comprova si aquest és correcte i es canvien les classes i les icones corresponents.
+     */
+    $('#phone').blur(() => {
+        $phone = $('#phone').val();
+        if ($phone != "") {
+            if ($phone.length != 9) {
+                changeIconsError($('#phone'), $('#iconInfoPhone'), $('#iconExcPhone'), $('#iconCheckPhone'));
+            } else {
+                changeIconsCheck($('#phone'), $('#iconInfoPhone'), $('#iconExcPhone'), $('#iconCheckPhone'));
+            }
+        } else {
+            changeIconsInfo($('#phone'), $('#iconInfoPhone'), $('#iconExcPhone'), $('#iconCheckPhone'));
+        }
+    });
+
+    /**
+     * @type {jQuery}
+     * @method blur
+     * @listens alias - ID de l'input alias.
+     * @description Quan l'usuari surt de l'input alias es comprova si aquest és correcte i es canvien les classes i les icones corresponents.
+     * També es comprova si ja està registrat a la BBDD.
+     */
+    $('#alias').blur(() => {
+        $alias = $('#alias').val();
+        if ($alias.length < 3 || $alias.length > 50) {
+            changeIconsError($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
+            $booleanAlias = false;
+        } else {
+            changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
+            $.ajax({
+                url: $url + 'user/findUserByAlias/' + $alias,
+                type: 'GET',
+                success: function (data) {
+                    if (data.alias == $alias) {
+                        //TODO: Ponerlo en el tooltip
+                        $('#inputErrorAlias').remove();
+                        $('#alias').after("<span style='display: block; color:red;'id='inputErrorAlias'>El alias introducido ya está registrado.</span>");
+                        $booleanAlias = false;
+                    }
+                },
+                error: function () {
+                    //TODO: Ponerlo en el tooltip
+                    $('#inputErrorAlias').remove();
+                    $booleanAlias = true;
+                }
+            });
+        }
+    });
+
+    /**
+     * @type {jQuery}
+     * @method blur
+     * @listens email - ID de l'input email.
+     * @description Quan l'usuari surt de l'input email es comprova si aquest és correcte i es canvien les classes i les icones corresponents.
+     * També es comprova si ja està registrat a la BBDD.
+     */
+    $('#email').blur(() => {
+        $email = $('#email').val();
+        if (!/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/.test($email)) {
+            changeIconsError($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
+            $booleanEmail = false;
+        } else {
+            changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
+            $.ajax({
+                url: $url + 'user/findUserByEmail/' + $email,
+                type: 'GET',
+                success: function (data) {
+                    //TODO: Borrar console.log
+                    console.log(data.email)
+                    if (data.email == $email) {
+                        //TODO: Ponerlo en el tooltip
+                        $('#email').after("<span style='display: block; color:red;'id='inputErrorEmail'>El email introducido ya está registrado.</span>");
+                    } else {
+                        $booleanEmail = true;
+                    }
+                }
+            });
+        }
+    });
 
     /**
      * @type {jQuery}
      * @type mouseenter
      * @method on
      * @listens viewPass - ID de la casella per veure el password.
-     * @description Quan el ratolí entra a la casella per veure la password, canviem l'atribut type de l'id pswrd i el deixem vuit perquè 
-     * la password escrita en l'input sigui visible.
+     * @description Quan es passa per sobre de la icona de la contrasenya, la contrasenya escrita per l'usuari passa a ser 
+     * visible canviant l'atribut type de l'id pswrd per un string vuit.
      */
     $('#viewPass').on('mouseenter', () => {
         $('#pswrd').attr('type', '');
@@ -120,11 +225,28 @@ $(document).ready(function () {
      * @type mouseleave
      * @method on
      * @listens viewPass - ID de la casella per veure el password.
-     * @description Quan el ratolí surt de la casella de veure la password, canviem l'atribut type de l'id pswrd i posem password perquè 
-     * la password escrita en l'input torni a estar oculta.
+     * @description Quan es passa per sobre de la icona de la contrasenya, la contrasenya escrita per l'usuari deixa de ser 
+     * visible canviant l'atribut type de l'id pswrd per password.
      */
     $('#viewPass').on('mouseleave', () => {
         $('#pswrd').attr('type', 'password');
+    });
+
+    /**
+     * @type {jQuery}
+     * @method blur
+     * @listens paswrd - ID de l'input password.
+     * @description Quan l'usuari surt de l'input password es comprova si aquest és correcte i es canvien les classes i les icones corresponents.
+     */
+    $('#pswrd').blur(() => {
+        $pass = $('#pswrd').val();
+        if (!/^(\b[A-Z]{1})\w{5,}\d{2,}\W{1,}$/.test($pass)) {
+            changeIconsError($('#pswrd'), $('#iconInfoPswrd'), $('#iconExcPswrd'), $('#iconCheckPswrd'));
+            $booleanPassword = false;
+        } else {
+            changeIconsCheck($('#pswrd'), $('#iconInfoPswrd'), $('#iconExcPswrd'), $('#iconCheckPswrd'));
+            $booleanPassword = true;
+        }
     });
 
     /**
@@ -142,50 +264,34 @@ $(document).ready(function () {
      * @type {jQuery}
      * @method blur
      * @listens nif - ID de l'input nif.
-     * @description Quan l'usuari surt de l'input NIF comprovem si aquest està correctament escrit.
+     * @description Quan l'usuari surt de l'input NIF es comprova si aquest és correcte i es canvien les classes i les icones corresponents.
      */
     $('#nif').blur(() => {
         if ($document == 'nif') {
-            // Desem en una variable el resultat true o false segons si la lletra del NIF/DNI coincideix amb el resultat.
             let $documentComprovat = checkNif($('#nif').val().toUpperCase());
-            // Si el resultat és true, entrem a fer el if.
             if ($documentComprovat != true) {
-                // Esborrem el span amb el text.
-                $('#inputErrorNif').remove();
-                // Inserim el span amb el text
-                $('#nif').after("<span style='display: block; color:red;'id='inputErrorNif'>El NIF introducido no es correcto.</span>")
+                changeIconsError($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
                 $booleanNif = false;
             } else {
-                $('#inputErrorNif').remove();
-                $('#nif').after("<span style='display: block; color:green;'id='inputErrorNif'>El NIF introducido es correcto.</span>")
+                changeIconsCheck($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
                 $booleanNif = true;
             }
         } else if ($document == 'nie') {
             let $documentComprovat = checkNie($('#nif').val().toUpperCase());
-
             if ($documentComprovat != true) {
-                // Esborrem el span amb el text.
-                $('#inputErrorNif').remove();
-                // Inserim el span amb el text
-                $('#nif').after("<span style='display: block; color:red;'id='inputErrorNif'>El NIE introducido no es correcto.</span>")
+                changeIconsError($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
                 $booleanNif = false;
             } else {
-                $('#inputErrorNif').remove();
-                $('#nif').after("<span style='display: block; color:green;'id='inputErrorNif'>El NIE introducido es correcto.</span>")
+                changeIconsCheck($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
                 $booleanNif = true;
             }
         } else if ($document == 'cif') {
             let $documentComprovat = checkCif($('#nif').val().toUpperCase());
-
             if ($documentComprovat != true) {
-                // Esborrem el span amb el text.
-                $('#inputErrorNif').remove()
-                // Inserim el span amb el text
-                $('#nif').after("<span style='display: block; color:red;'id='inputErrorNif'>El CIF introducido no es correcto.</span>")
+                changeIconsError($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
                 $booleanNif = false;
             } else {
-                $('#inputErrorNif').remove();
-                $('#nif').after("<span style='display: block; color:green;'id='inputErrorNif'>El CIF introducido es correcto.</span>")
+                changeIconsCheck($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
                 $booleanNif = true;
             }
         }
@@ -194,129 +300,99 @@ $(document).ready(function () {
     /**
      * @type {jQuery}
      * @method blur
-     * @listens paswrd - ID de l'input password.
-     * @description Quan l'usuari surt de l'input password comprovem si aquest està correctament escrit i compleix les condicions establertes.
+     * @listens pc - ID de l'input pc.
+     * @description Quan l'usuari surt de l'input pc es comprova si aquest és correcte i es canvien les classes i les icones corresponents.
      */
-    $('#pswrd').blur(() => {
-        // Desem en una variable password introduït en l'input.
-        $pass = $('#pswrd').val();
-        //Verifiquem amb una expressió regular si compleix les condicions. Si es que no, entrem a fer el if.
-        /*
-         * Expressió regular per verificar el password: 
-         * · ^ - Començament de la cadena.
-         * · () - Obrim el grup per crear la restricció del fragment.
-         * · \b - Inidiquem que coincideixi amb al començament de la cadena.
-         * · [] - Creem el joc de caràcters.
-         * · {1} - Indiquem el Mínim de paraules que ha de tenir la cadena.
-         * · \w - Caràcters alfanumèrics (A-Z,a-z,0-9,_).
-         * · \W - El contrari que \W. 
-         */
-        if (!/^(\b[A-Z]{1})\w{5,}\d{2,}\W{1,}$/.test($pass)) {
-            // Esborrem el span amb el text.
-            $('#inputErrorPass').remove();
-            // Inserim el span amb el text.
-            $('#pswrd').after("<span style='display: block; color:red;'id='inputErrorPass'>La contraseña introducida no es correcta.</span>");
-            // El boolean de comprovació del password passa a false.
-            $booleanPassword = false;
+    $('#pc').blur(() => {
+        $pc = $('#pc').val();
+        if ($pc.length != 5) {
+            changeIconsError($('#pc'), $('#iconInfoPc'), $('#iconExcPc'), $('#iconCheckPc'));
         } else {
-            // Esborrem el span amb el text.
-            $('#inputErrorPass').remove();
-            // El boolean de comprovació del password passa a true.
-            $booleanPassword = true;
+            changeIconsCheck($('#pc'), $('#iconInfoPc'), $('#iconExcPc'), $('#iconCheckPc'));
         }
     });
 
     /**
      * @type {jQuery}
      * @method blur
-     * @listens email - ID de l'input email.
-     * @description Quan l'usuari surt de l'input email comprovem si aquest està correctament escrit, compleix les condicions establertes i si aquest ja està registrat a la BBDD.
+     * @listens city - ID de l'input city.
+     * @description Quan l'usuari surt de l'input city es comprova si aquest és correcte i es canvien les classes i les icones corresponents.
      */
-    $('#email').blur(() => {
-        // Desem en una variable l'email introduït en l'input.
-        $email = $('#email').val();
-        // Verifiquem amb una expressió regular si compleix les condicions. Si és que no, entrem a fer el if.
-        /* 
-         * Expressió regular per verificar l'email:
-         * · ^ - Començament de la cadena.
-         * · () - Obrim el grup per crear la restricció del fragment.
-         * · [] - Creem el joc de caràcters.
-         * · \w - Caràcters alfanumèrics (A-Z,a-z,0-9,_).
-         * · . - Tots els caràcters excepte salt de línia. 
-         * · + - Cerca el grup 0 o més vegades.
-         * · @ - Separem el primer grup amb el @.
-         * · {} - Mínim de paraules que ha de tenir la cadena.
-         * */
-
-        if (!/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/.test($email)) {
-            // Esborrem el span amb el text.
-            $('#inputErrorEmail').remove();
-            // Inserim el span amb el text.
-            $('#tooltipExcEmail').css("display", "block");
-            $('#tooltipInfoEmail').css("display", "none");
-            $('#tooltipCheckEmail').css("display", "none");
-            $('#tooltipExcEmail').append("<span class='tooltiptext tooltip-right'>El email introducido no es correcto.</span>");
-            $('#email').addClass("error");
-            // El boolean de comprovació de l'email passa a false.
-            $booleanEmail = false;
+    $('#city').blur(() => {
+        $city = $('#city').val();
+        if ($city.length < 3 || $city.length > 50) {
+            changeIconsError($('#city'), $('#iconInfoCity'), $('#iconExcCity'), $('#iconCheckCity'));
         } else {
-            $('#tooltipCheckEmail').css("display", "block");
-            $('#tooltipInfoEmail').css("display", "none");
-            $('#tooltipExcEmail').css("display", "none");
-            $('#email').removeClass("error");
-            // Esborrem el span amb el text.
-            $('#inputErrorEmail').remove();
-            // Fem la crida Ajax per comprovar si l'email està registrat en la BBDD.
-            $.ajax({
-                url: $url + 'user/findUserByEmail/' + $email,
-                type: 'GET',
-                success: function (data) {
-                    console.log(data.email)
-                    // Si coincideix l'email retornat amb l'email escrit, entrem a fer el if.
-                    if (data.email == $email) {
-                        // Inserim el span amb el text.
-                        $('#email').after("<span style='display: block; color:red;'id='inputErrorEmail'>El email introducido ya está registrado.</span>");
-                        // Si no hi ha coincidència, fem el else.
-                    } else {
-                        // El boolean de comprovació de l'email passa a true.
-                        $booleanEmail = true;
-                    }
-                }
-            });
+            changeIconsCheck($('#city'), $('#iconInfoCity'), $('#iconExcCity'), $('#iconCheckCity'));
         }
     });
 
     /**
      * @type {jQuery}
      * @method blur
-     * @listens alias - ID de l'input alias.
-     * @description Quan l'usuari surt de l'input alias comprovem si aquest està correctament escrit, compleix les condicions establertes i si aquest ja està registrat a la BBDD.
+     * @listens direction - ID de l'input direction.
+     * @description Quan l'usuari surt de l'input direction es comprova si aquest és correcte i es canvien les classes i les icones corresponents.
      */
-    $('#alias').blur(() => {
-        // Desem en una variable l'alias introduït en l'input.
-        $alias = $('#alias').val();
-        // Fem la crida Ajax per comprovar si l'alias està registrat en la BBDD.
-        $.ajax({
-            url: $url + 'user/findUserByAlias/' + $alias,
-            type: 'GET',
-            success: function (data) {
-                // Si coincideix l'email retornat amb l'email escrit, entrem a fer el if.
-                if (data.alias == $alias) {
-                    // Esborrem el span amb el text.
-                    $('#inputErrorAlias').remove();
-                    // Inserim el span amb el text.
-                    $('#alias').after("<span style='display: block; color:red;'id='inputErrorAlias'>El alias introducido ya está registrado.</span>");
-                    // El boolean de comprovació de l'alias passa a false.
-                    $booleanAlias = false;
-                }
-            },
-            error: function () {
-                // Esborrem el span amb el text.
-                $('#inputErrorAlias').remove();
-                // El boolean de comprovació de l'email passa a true.
-                $booleanAlias = true;
+    $('#direction').blur(() => {
+        $direction = $('#direction').val();
+        if ($direction != "") {
+            if ($direction.length < 5 || $direction.length > 100) {
+                changeIconsError($('#direction'), $('#iconInfoDire'), $('#iconExcDire'), $('#iconCheckDire'));
+            } else {
+                changeIconsCheck($('#direction'), $('#iconInfoDire'), $('#iconExcDire'), $('#iconCheckDire'));
             }
-        });
+        } else {
+            changeIconsInfo($('#direction'), $('#iconInfoDire'), $('#iconExcDire'), $('#iconCheckDire'));
+        }
+    });
+
+    /**
+     * @type {jQuery}
+     * @method blur
+     * @listens company - ID de l'input company.
+     * @description Quan l'usuari surt de l'input company es comprova si aquest és correcte i es canvien les classes i les icones corresponents.
+     */
+    $('#company').blur(() => {
+        $company = $('#company').val();
+        if ($company != "") {
+            if ($company.length < 2 || $company.length > 50) {
+                changeIconsError($('#company'), $('#iconInfoComp'), $('#iconExcComp'), $('#iconCheckComp'));
+            } else {
+                changeIconsCheck($('#company'), $('#iconInfoComp'), $('#iconExcComp'), $('#iconCheckComp'));
+            }
+        } else {
+            changeIconsInfo($('#company'), $('#iconInfoComp'), $('#iconExcComp'), $('#iconCheckComp'));
+        }
+    });
+
+    /**
+     * @type {jQuery}
+     * @method blur
+     * @listens business_phone - ID de l'input business_phone.
+     * @description Quan l'usuari surt de l'input business_phone es comprova si aquest és correcte i es canvien les classes i les icones corresponents.
+     */
+    $('#business_phone').blur(() => {
+        $business_phone = $('#business_phone').val();
+        if ($business_phone != "") {
+            if ($business_phone.length != 9) {
+                changeIconsError($('#business_phone'), $('#iconInfoBusPhon'), $('#iconExcBusPhon'), $('#iconCheckBusPhon'));
+            } else {
+                changeIconsCheck($('#business_phone'), $('#iconInfoBusPhon'), $('#iconExcBusPhon'), $('#iconCheckBusPhon'));
+            }
+        } else {
+            changeIconsInfo($('#business_phone'), $('#iconInfoBusPhon'), $('#iconExcBusPhon'), $('#iconCheckBusPhon'));
+        }
+    });
+
+    /**
+     * Si l'usuari marca que és nutricionista es mostrarà la resta de dades a emplanar i si el desmarca s'amagaràn.
+     */
+    $(document).on('change', 'input[name="nutritionist"]', () => {
+        if ($('[name="nutritionist"]:checked').val() === 'yes') {
+            $('#registerNutritionist').show();
+        } else {
+            $('#registerNutritionist').hide();
+        }
     });
 
     /**
@@ -324,11 +400,10 @@ $(document).ready(function () {
      * @type submit
      * @method on
      * @listens registrationForm - ID del botó del formulari.
-     * @description Quan l'usuari polsa sobre el botó Registrar del formulari, comencem el procés de verificació de dades i inserció a la BBDD.
+     * @description Quan l'usuari polsa sobre el botó Registrar del formulari, es fa el procés de verificació de dades i inserció a la BBDD.
      */
     $('#registrationForm').on('submit', (e) => {
-
-        // Recuperem les dades del formulari de l'usuari.
+        // Es recuperen les dades del formulari de l'usuari.
         $name = $('#name').val();
         $surnames = $('#surnames').val();
         $phone = $('#phone').val();
@@ -337,18 +412,15 @@ $(document).ready(function () {
         $pass = $('#pswrd').val();
         $nif = $('#nif').val().toUpperCase();
 
-        // Si l'input dels cognoms és vuit, aquest passa a ser valor Null.
         if ($surnames == '') {
             $surnames = null;
         }
-        // Si l'input del telèfon és vuit, aquest passa a ser valor Null.
         if ($phone == '') {
             $phone = null;
         }
 
-        // Si el checkbox esta seleccionat com Si entrem a fer el if.
+        // Si el checkbox esta seleccionat es recuperen les dades del nutricionista
         if ($('[name="nutritionist"]:checked').val() == 'yes') {
-            // Recuperem les dades del formulari del nutricionista.
             $nif = $('#nif').val();
             $pc = $('#pc').val();
             $city = $('#city').val();
@@ -356,28 +428,22 @@ $(document).ready(function () {
             $direction = $('#direction').val();
             $businessPhone = $('#business_phone').val();
 
-            // Si l'input de la companyia és vuit, aquest passa a ser valor Null.
             if ($company == '') {
                 $company = null;
             }
-            // Si l'input de la direcció és vuit, aquest passa a ser valor Null.
             if ($direction == '') {
                 $direction = null;
             }
-            // Si l'input del telèfon d'empresa és vuit, aquest passa a ser valor Null.
             if ($businessPhone == '') {
                 $businessPhone = null;
             }
         }
-        // Encriptem la password.
+        // S'encripten la password, el nif i el telèfon
         let $passEncrypted = hex_md5($pass);
-        // Encriptem el nif.
         let $nifEncrypted = hex_md5($nif);
-        // Encriptem el teléfon.
         let $phoneEncrypted = hex_md5($phone);
 
-        //TODO: BORRAR
-        // Emmagatzemem en la variable info les dades a mostrar per consola.
+        // S'emmagatzemen les dades a mostrar per consola.
         info = {
             Nombre: $name,
             Apellidos: $surnames,
@@ -394,6 +460,7 @@ $(document).ready(function () {
             TeléfonoEmpresa: $businessPhone
         };
 
+        //TODO: No entiendo estos mensajes de error.
         if ($booleanEmail == false || $booleanNif == false || $booleanAlias == false || $booleanPassword == false) {
             e.preventDefault();
             $('#errors').remove();
@@ -415,12 +482,12 @@ $(document).ready(function () {
         } else {
             $('#errors').hide();
         }
+
         // TODO: BORRAR
-        // Mostrem per consola les dades introduides.
         console.table(info)
         e.preventDefault();
 
-        // Comprovem si el check del nutricionista està seleccionat. Si es que si, entrem a fer el if per realitzar la inserció a la BBDD.
+        // Si el checkbox del nutricionista està seleccionat s'insereixen les de dades del nutricionista a la BBDD.
         if ($('[name="nutritionist"]:checked').val() == 'yes') {
             $.ajax({
                 url: $url + 'nutricionist/addNutricionist/?',
@@ -441,9 +508,9 @@ $(document).ready(function () {
                 },
                 method: 'POST',
                 dataType: 'json',
-                success: function () {}
+                success: function () { }
             });
-            // Si el ckeck no està seleccionat, entrem al else per inserir l'usuari a la BBDD.
+            // Si el checkbox no està seleccionat, s'insereixen les dades de l'usuari a la BBDD.
         } else {
             $.ajax($url + 'user/addUser/?', {
                 data: {
@@ -459,48 +526,39 @@ $(document).ready(function () {
                 },
                 type: 'POST',
                 dataType: 'json',
-                success: function () {}
+                success: function () { }
             });
         }
     });
 
     /**
      * @function checkNif
-     * @description Comprovem que el NIF/DNI introduït sigui correcte
+     * @description Comprova si el NIF/DNI introduït és correcte
      * @param {string} $nif NIF/DNI introduït
      * @returns {boolean}
      */
     function checkNif($nif) {
-        // Guardem la lletra del NIF/DNI.
         let $letter = ($nif.charAt($nif.length - 1));
-        // Separem els vuit dígits del NIF/DNI per començar a fer l'operació.
         let $calcNif = $nif.substr(0, 8);
-        // Anem al mètode checkLetter per obtenir la lletra corresponent al resultat de l'operació.
         let $compareLetter = checkLetter($calcNif);
-        // Comprovem si el resultat del mètode coincideix amb la lletra del NIF.
         if ($compareLetter != $letter) {
-            // Si no coincideix, el boolean es false.
             return false;
         } else {
-            // Si coincideix, el boolean es true.
             return true;
         }
     }
 
     /**
      * @function checkNie
-     * @description Comprovem que el NIE introduït sigui correcte
+     * @description Comprova si el NIE introduït és correcte
      * @param {string} $nie NIE introduït
      * @returns {boolean}
      */
     function checkNie($nie) {
-        // Inicialitzem la variable per emmagatzemar el número a inserir.
         let $insertNumber;
-        // Guardem la lletra del NIE.
         let $letter = ($nie.charAt($nie.length - 1));
-        // Guardem la primera lletra del NIE
         let $initialLetter = ($nie.charAt(0));
-        // Comparem la primera lletra del NIE per a donar-li un valor numèric.
+        // Es compara la primera lletra del NIE per a donar-li un valor numèric.
         switch ($initialLetter) {
             case 'X':
                 $insertNumber = 0;
@@ -512,42 +570,33 @@ $(document).ready(function () {
                 $insertNumber = 2;
                 break;
         }
-        // Una vegada obtingut el resultat, inserim el número resultat a la resta del NIE, però traient el número final.
+        // Una vegada obtingut el resultat, s'insereix el número resultat a la resta del NIE, però traient el número final.
         let $calcNie = $insertNumber + $nie.substr(1, 7);
-        // Anem al mètode checkLetter per obtenir la lletra corresponent al resultat de l'operació.
         let $compareLetter = checkLetter($calcNie);
-        // Comprovem si el resultat del mètode coincideix amb la lletra del NIE.
         if ($compareLetter != $letter) {
-            // Si no coincideix, el boolean es false.
             return false;
         } else {
-            // Si coincideix, el boolean es true.
             return true;
         }
     }
 
     /**
      * @function checkLetter
-     * @description Realitzem el calcul de la numeració per saber si el NIF/NIE o DNI son correctes
+     * @description Realitza el calcul de la numeració per saber si el NIF/NIE o DNI són correctes
      * @param {number} $numeration numeració del NIF/DNI o NIE
      * @returns {string}
      */
     function checkLetter($numeration) {
-
+        //TODO: No pondría esta explicación ja que es documentación de un js y no un tutorial.
         /* Operació a realitzar: Separem els 8 dígits del NIF/DNI, després aquests 8 dígits el dividim entre
             23. Aquest resultat el restem amb si mateix però sense decimals. Després aquest resultat el
             multipliquem entre 23, aquest resultat final arrodonit és el que tenim que utilitzar
             per comparar amb la taula de lletres si coincideix.
         */
-        // Comencem a fer l'operació dividint la numeració entre 23.
         let $calcNumeration = ($numeration / 23);
-        // Traiem la coma del resultat de la primera operació i restem el resultat anterior amb aquest.
         let $calcNumeration2 = $calcNumeration - Math.trunc($calcNumeration);
-        // Multipliquem el resultat obtingut per 23
         let $calcNumeration3 = $calcNumeration2 * 23;
-        // Arrodonim el resultat.
         let $result = Math.round($calcNumeration3);
-        // Assignem la lletra corresponent al resultat obtingut.
         switch ($result) {
             case 0:
                 return 'T';
@@ -600,92 +649,61 @@ $(document).ready(function () {
 
     /**
      * @function checkCif
-     * @description Comprovem que el CIF introduït sigui correcte.
+     * @description Comprova si el CIF introduït és correcte.
      * @param {string} $cif CIF introduït
      * @returns {boolean}
      */
     function checkCif($cif) {
-        // Iniciem les variables numèriques amb valor inicial a 0.
         let $pairsSum = 0;
         let $oddSum = 0;
-        // Iniciem les variables buides.
         let $firstOddResult = '';
-        // Array per saber si la lletra del tipus d'organització introduïda és correcte.
         let $arrayOrganization = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'U', 'V', 'W'];
-        // Guardem l'últim dígit del CIF.
         let $letterOrNumber = $cif.charAt($cif.length - 1);
-        // Comprovem si el resultat és numèric.
         for (let i = 0; i < 10; i++) {
-            // Si el resultat coincideix amb un número, aquest s'avaluara com a número.
+            // Si el resultat coincideix amb un número, aquest s'avaluarà com a número.
             if ($letterOrNumber == i) {
                 $letterOrNumber = eval($letterOrNumber);
             }
         }
-        // Guardem el primer dígit del CIF
         let $letterOrganization = $cif.charAt(0);
-        // Comprovem en el array si aquest dígit està registrat.
         let $coincidence = $.inArray($letterOrganization, $arrayOrganization);
         // Si no hi ha cap coincidència, el resultat serà -1 i retornarà false.
         if ($coincidence == -1) {
             return false;
         }
-        // Guardem la numeració del CIF.
         let $numeration = $cif.substr(1, 7);
-        // Creem un array per separar la numeració del CIF i poder fer les operacions corresponents.
         let $arrayNumeration = $numeration.split('');
-        // Fem el for per recórrer l'array creat a vans.
         for (let i = 0; i < $arrayNumeration.length; i++) {
-            // Entrem a fer el if només amb les posicions pars del array.
             if (i % 2 == 0) {
-                // Parsejem el número de l'array i fem l'operació.
                 $firstOddResult = parseInt($arrayNumeration[i]) * 2;
-                // Desem en una variable la mida del resultat.
                 let $x = $firstOddResult.toString().length;
-                // Si la mida de X és igual a 2, entrem a fer el if.
                 if ($x == 2) {
-                    // Inicialitzem la variable a 0.
                     let $innerOddSum = 0;
-                    // Creem un array per al resultat i que ens divideixi aquest resultat en 2 files.
                     let $arrayResult = $firstOddResult.toString().split('');
-                    // Passem la variable a 0.
                     $firstOddResult = 0;
-                    // Fem el for per recórrer l'array creat a vans.
                     for (let i = 0; i < $arrayResult.length; i++) {
-                        // Parsejem el número de l'array i el sumem amb la variable.
                         $innerOddSum += parseInt($arrayResult[i]);
                     }
-                    // Sumem el resultat obtingut abans amb la variable.
                     $firstOddResult += $innerOddSum;
                 }
-                // Sumem el resultat amb la variable.
                 $oddSum += $firstOddResult;
-                // Si la posició del array no és par, entrem al else.
             } else {
-                // Parsejem el número i el sumem amb la variable.
                 $pairsSum += parseInt($arrayNumeration[i]);
             }
         }
-        // Sumem els resultats.
         let $semifinalResult = $pairsSum + $oddSum;
-        // Passem el resultat a String per obtenir l'últim dígit del resultat.
         let $finalNumber = $semifinalResult.toString().charAt(1);
-        // Restem el dígit obtingut.
         let $result = 10 - $finalNumber;
-        // Si el resultat obtingut és igual a 10, entrem a fer el if per agafar només l'últim dígit.
         if ($result == 10) {
             $result = $result.toString().charAt(1);
         }
-        // Si el type de la variable és igual a number, entrem a fer el if.
         if (typeof ($letterOrNumber) == 'number') {
-            // Parsejem el número i si no coincideix amb el resultat, retornem false, si es que si, true.
             if ($result != parseInt($letterOrNumber)) {
                 return false;
             } else {
                 return true;
             }
-            // Si el type de la variable és igual a String, entrem a fer el if.
         } else if (typeof ($letterOrNumber) == 'string') {
-            // Assignem una lletra segons el resultat obtingut.
             switch ($result) {
                 case 0:
                     $result = 'J';
@@ -721,12 +739,58 @@ $(document).ready(function () {
                     $result = 'J';
                     break;
             }
-            // Si el resultat no coincideix amb la lletra del CIF es retorna false, si és que si, true.
             if ($result != $letterOrNumber) {
                 return false;
             } else {
                 return true;
             }
         }
+    }
+
+    /**
+     * @param {*} input Fa referèncía a l'input que s'està validant.
+     * @param {*} iconInfo Icona d'informació del input.
+     * @param {*} iconExcl Icona d'exclamació del input.
+     * @param {*} iconCheck Icono de check del input.
+     * @description Si la dada de l'input és buida modifica els displays de les icones per passar 
+     * a mostrar la informació i treu la classe error i/o success.
+     */
+    function changeIconsInfo(input, iconInfo, iconExcl, iconCheck) {
+        iconInfo.css("display", "block");
+        iconCheck.css("display", "none");
+        iconExcl.css("display", "none");
+        input.removeClass("error");
+        input.removeClass("success");
+    }
+
+    /**
+     * @param {*} input Fa referèncía a l'input que s'està validant.
+     * @param {*} iconInfo Icona d'informació del input.
+     * @param {*} iconExcl Icona d'exclamació del input.
+     * @param {*} iconCheck Icono de check del input.
+     * @description Si la dada de l'input no és correcta modifica els displays de les icones per passar 
+     * a mostrar l'exclamació i afegeix la classe error a l'input per  mostrar el focus i borders en vermell.
+     */
+    function changeIconsError(input, iconInfo, iconExcl, iconCheck) {
+        iconExcl.css("display", "block");
+        iconInfo.css("display", "none");
+        iconCheck.css("display", "none");
+        input.addClass("error");
+    }
+
+    /**
+     * @param {*} input Fa referèncía a l'input que s'està validant.
+     * @param {*} iconInfo Icona d'informació del input.
+     * @param {*} iconExcl Icona d'exclamació del input.
+     * @param {*} iconCheck Icono de check del input.
+     * @description Si la dada de l'input és correcta modifica els displays de les icones per passar 
+     * a mostrar el check. Treu la classe error de l'input i li afegeix la classe success per mostrar el focus en verd.
+     */
+    function changeIconsCheck(input, iconInfo, iconExcl, iconCheck) {
+        iconCheck.css("display", "block");
+        iconInfo.css("display", "none");
+        iconExcl.css("display", "none");
+        input.removeClass("error");
+        input.addClass("success");
     }
 });

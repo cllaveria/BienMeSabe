@@ -37,63 +37,53 @@
                     <div class="inputs_form">
                         <label for="name">Nombre</label><text style="color:red;font-size:15px"> *</text>
                         <div class="inputs-group">
-                            <input class="form-control" type="text" id="name" placeholder="Nombre" minlength="5"
-                                maxlength="50" required>
-                            <i class="fas fa-info-circle">
-                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                            <input class="form-control" type="text" id="name" placeholder="Nombre" required>
+                            <i class="fas fa-info-circle" id="iconInfoName">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos email</span>
                             </i>
-                            <i class="fas fa-exclamation-circle">
-                                <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                            <i class="fas fa-exclamation-circle" id="iconExcName">
+                                <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos email</span>
                             </i>
-                            <i class="fas fa-check-circle">
-                                <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
-                            </i>
+                            <i class="fas fa-check-circle" id="iconCheckName"></i>
                         </div>
                     </div>
                     <div class="inputs_form">
                         <label for="surnames">Apellidos</label>
                         <div class="inputs-group">
-                            <input class="form-control" type="text" id="surnames" placeholder="Apellidos" minlength="5"
-                                maxlength="100">
-                            <i class="fas fa-info-circle">
-                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                            <input class="form-control" type="text" id="surnames" placeholder="Apellidos">
+                            <i class="fas fa-info-circle" id="iconInfoSurnames">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos email</span>
                             </i>
-                            <i class="fas fa-exclamation-circle">
-                                <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                            <i class="fas fa-exclamation-circle" id="iconExcSurnames">
+                                <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos email</span>
                             </i>
-                            <i class="fas fa-check-circle">
-                                <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
-                            </i>
+                            <i class="fas fa-check-circle" id="iconCheckSurnames"></i>
                         </div>
                     </div>
                     <div class="inputs_form">
                         <label for="phone">Teléfono</label>
                         <div class="inputs-group">
-                            <input class="form-control" type="text" id="phone" placeholder="Teléfono" minlength="9"
-                                maxlength="9">
-                            <i class="fas fa-info-circle">
-                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                            <input class="form-control" type="text" id="phone" placeholder="Teléfono">
+                            <i class="fas fa-info-circle" id="iconInfoPhone">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos email</span>
                             </i>
-                            <i class="fas fa-exclamation-circle">
-                                <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                            <i class="fas fa-exclamation-circle" id="iconExcPhone">
+                                <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos email</span>
                             </i>
-                            <i class="fas fa-check-circle">
-                                <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
-                            </i>
+                            <i class="fas fa-check-circle" id="iconCheckPhone"></i>
                         </div>
                     </div>
                     <div class="inputs_form">
                         <label for="alias">Alias</label><text style="color:red;font-size:15px"> *</text>
                         <div class="inputs-group">
-                            <input class="form-control" type="text" id="alias" placeholder="Alias" id='alias'
-                                minlength="3" maxlength="50" required>
-                            <i class="fas fa-info-circle">
-                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                            <input class="form-control" type="text" id="alias" placeholder="Alias" id='alias' required>
+                            <i class="fas fa-info-circle" id="iconInfoAlias">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos email</span>
                             </i>
-                            <i class="fas fa-exclamation-circle" id="tooltipExc"></i>
-                            <i class="fas fa-check-circle">
-                                <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
+                            <i class="fas fa-exclamation-circle" id="iconExcAlias">
+                                <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos email</span>
                             </i>
+                            <i class="fas fa-check-circle" id="iconCheckAlias"></i>
                         </div>
                     </div>
                     <div class="inputs_form">
@@ -101,11 +91,13 @@
                         <div class="inputs-group">
                             <input class="form-control" type="email" id="email" placeholder="Email" minlength="5"
                                 maxlength="100" required>
-                            <i class="fas fa-info-circle" id="tooltipInfoEmail">
-                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                            <i class="fas fa-info-circle" id="iconInfoEmail">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos email</span>
                             </i>
-                            <i class="fas fa-exclamation-circle" id="tooltipExcEmail"></i>
-                            <i class="fas fa-check-circle" id="tooltipCheckEmail"></i>
+                            <i class="fas fa-exclamation-circle" id="iconExcEmail">
+                                <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos email</span>
+                            </i>
+                            <i class="fas fa-check-circle" id="iconCheckEmail"></i>
                         </div>
                     </div>
                     <div class="inputs_form">
@@ -116,15 +108,13 @@
                             </div>
                             <input class="form-control" type="password" id="pswrd" placeholder="Contraseña"
                                 minlength="8" maxlength="50" required>
-                            <i class="fas fa-info-circle">
-                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                            <i class="fas fa-info-circle" id="iconInfoPswrd">
+                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos email</span>
                             </i>
-                            <i class="fas fa-exclamation-circle">
-                                <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                            <i class="fas fa-exclamation-circle" id="iconExcPswrd">
+                                <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos email</span>
                             </i>
-                            <i class="fas fa-check-circle">
-                                <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
-                            </i>
+                            <i class="fas fa-check-circle" id="iconCheckPswrd"></i>
                         </div>
                     </div>
                     <div class="checkbox">
@@ -142,79 +132,65 @@
                                 </select>
                                 <input class="form-control" type="text" id="nif" placeholder="NIF/DNI/NIE/CIF" id='nif'
                                     minlength='9' maxlength='9' required>
-                                <i class="fas fa-info-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                                <i class="fas fa-info-circle" id="iconInfoNif">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos email</span>
                                 </i>
-                                <i class="fas fa-exclamation-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                                <i class="fas fa-exclamation-circle" id="iconExcNif">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos email</span>
                                 </i>
-                                <i class="fas fa-check-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
-                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckNif"></i>
                             </div>
                         </div>
                         <div class="inputs_form">
                             <label for="pc">Código Postal</label><text style="color:red;font-size:15px"> *</text>
                             <div class="inputs-group">
-                                <input class="form-control" type="text" id="pc" placeholder="Código Postal"
-                                    minlength='5' maxlength='5' required>
-                                <i class="fas fa-info-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                                <input class="form-control" type="text" id="pc" placeholder="Código Postal" required>
+                                <i class="fas fa-info-circle" id="iconInfoPc">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos email</span>
                                 </i>
-                                <i class="fas fa-exclamation-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                                <i class="fas fa-exclamation-circle" id="iconExcPc">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos email</span>
                                 </i>
-                                <i class="fas fa-check-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
-                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckPc"></i>
                             </div>
                         </div>
                         <div class="inputs_form">
                             <label for="city">Población</label><text style="color:red;font-size:15px"> *</text>
                             <div class="inputs-group">
-                                <input class="form-control" type="text" id="city" placeholder="Población" minlength='3'
-                                    maxlength='50' required>
-                                <i class="fas fa-info-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                                <input class="form-control" type="text" id="city" placeholder="Población" required>
+                                <i class="fas fa-info-circle" id="iconInfoCity">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos email</span>
                                 </i>
-                                <i class="fas fa-exclamation-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                                <i class="fas fa-exclamation-circle" id="iconExcCity">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos email</span>
                                 </i>
-                                <i class="fas fa-check-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
-                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckCity"></i>
                             </div>
                         </div>
                         <div class="inputs_form">
                             <label for="direction">Dirección</label>
                             <div class="inputs-group">
-                                <input class="form-control" type="text" id="direction" placeholder="Dirección"
-                                    minlength='5' maxlength='100'>
-                                <i class="fas fa-info-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                                <input class="form-control" type="text" id="direction" placeholder="Dirección">
+                                <i class="fas fa-info-circle" id="iconInfoDire">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos email</span>
                                 </i>
-                                <i class="fas fa-exclamation-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                                <i class="fas fa-exclamation-circle" id="iconExcDire">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos email</span>
                                 </i>
-                                <i class="fas fa-check-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
-                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckDire"></i>
                             </div>
                         </div>
                         <div class="inputs_form">
                             <label for="company">Compañía</label>
                             <div class="inputs-group">
-                                <input class="form-control" type="text" id="company" placeholder="Compañía"
-                                    minlength='2' maxlength='50'>
-                                <i class="fas fa-info-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                                <input class="form-control" type="text" id="company" placeholder="Compañía">
+                                <i class="fas fa-info-circle" id="iconInfoComp">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos email</span>
                                 </i>
-                                <i class="fas fa-exclamation-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                                <i class="fas fa-exclamation-circle" id="iconExcComp">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos email</span>
                                 </i>
-                                <i class="fas fa-check-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
-                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckComp"></i>
                             </div>
                         </div>
                         <div class="inputs_form">
@@ -222,15 +198,13 @@
                             <div class="inputs-group">
                                 <input class="form-control" type="text" id="business_phone"
                                     placeholder="Teléfono de empresa" minlength='9' maxlength='9'>
-                                <i class="fas fa-info-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Tooltip text</span>
+                                <i class="fas fa-info-circle" id="iconInfoBusPhon">
+                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos email</span>
                                 </i>
-                                <i class="fas fa-exclamation-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipExc">Tooltip text</span>
+                                <i class="fas fa-exclamation-circle" id="iconExcBusPhon">
+                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos email</span>
                                 </i>
-                                <i class="fas fa-check-circle">
-                                    <span class="tooltiptext tooltip-right" id="tooltipCheck">Tooltip text</span>
-                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckBusPhon"></i>
                             </div>
                         </div>
                     </div>

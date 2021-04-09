@@ -153,6 +153,21 @@
   border-color: transparent #555 transparent transparent;
 }
 
+.form-control.success:focus {
+  box-shadow: 0 0 0 0.2rem green;
+  border: 0;
+}
+
 .form-control.error {
   border: solid 2px #d41717;
+}
+
+.form-control.error:focus {
+  box-shadow: 0 0 0 0.2rem #d41717;
+  border: 0;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem #fca035;
+  border: 0;
 }
