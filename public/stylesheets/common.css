@@ -6,6 +6,7 @@
 .navbar {
   padding: 0;
   background-color: white;
+  border-bottom: solid 2px #868685;
 }
 
 .navbar-toggler {
@@ -18,14 +19,18 @@
   outline: 0;
 }
 
-@media (min-width: 1111px) {
+@media (min-width: 1240px) {
   .navbar-expand-sm {
     flex-flow: row nowrap !important;
     justify-content: flex-start;
   }
+
+  .navbar-expand-sm .navbar-collapse {
+    display: grid !important;
+  }
 }
 
-@media (max-width: 1110px) {
+@media (max-width: 1239px) {
   .navbar {
     display: flex;
     flex-wrap: wrap;
@@ -60,7 +65,6 @@
   font-size: 12px;
   font-weight: bold;
   color: black;
-  border-bottom: solid 2px #868685;
   align-self: center;
 }
 
@@ -98,6 +102,7 @@
   align-self: center;
   justify-self: center;
   width: 90px;
+  cursor: pointer;
 }
 
 .login {
@@ -109,7 +114,7 @@
   margin-left: 46px;
 }
 
-@media (max-width: 1110px) {
+@media (max-width: 1239px) {
   .collapse:not(.show) {
     display: none !important;
   }
@@ -122,6 +127,7 @@
     margin: 10px 30px;
     width: 50px;
     display: block;
+    cursor: pointer;
   }
 
   .logo {
