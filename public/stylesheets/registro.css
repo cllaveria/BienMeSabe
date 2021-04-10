@@ -2,13 +2,13 @@
 
 .checkIn_container {
   margin: 80px auto;
-  padding: 50px;
-  width: 450px;
+  padding: 20px;
+  width: 350px;
 }
 
 @media screen and (max-width: 500px) {
   .checkIn_container {
-    width: 330px;
+    width: 280px;
   }
 }
 
@@ -90,8 +90,13 @@
   display: none;
 }
 
-.checkbox {
+.checkbox_container {
   margin-bottom: 20px;
+  display: flow-root;
+}
+
+.checkbox {
+  float: right;
 }
 
 .btn_checkIn {
@@ -122,11 +127,8 @@
   visibility: hidden;
   position: absolute;
   width: 120px;
-  background-color: #555;
-  color: #fff;
   text-align: center;
   font-size: 12px;
-  font-weight: 100;
   padding: 5px 0;
   border-radius: 6px;
   z-index: 1;
@@ -139,20 +141,65 @@
   opacity: 1;
 }
 
-.tooltip-right {
-  top: -5px;
-  left: 125%;
+@media screen and (min-width: 610px) {
+  .tooltip {
+    top: -5px;
+    left: 125%;
+  }
+
+  .tooltip::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    right: 100%;
+    margin-top: 0px;
+    border-width: 5px;
+    border-style: solid;
+  }
+
+  #tooltipInfo::after {
+    border-color: transparent #fbc76f transparent transparent;
+  }
+
+  #tooltipExcl::after {
+    border-color: transparent #d41717 transparent transparent;
+  }
 }
 
-.tooltip-right::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 100%;
-  margin-top: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent #555 transparent transparent;
+@media screen and (max-width: 609px) {
+  .tooltip {
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+  }
+
+  .tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+  }
+
+  #tooltipInfo::after {
+    border-color: #fbc76f transparent transparent transparent;
+  }
+
+  #tooltipExcl::after {
+    border-color: #d41717 transparent transparent transparent;
+  }
+}
+
+#tooltipInfo {
+  background-color: #fbc76f;
+  color: black;
+}
+
+#tooltipExcl {
+  background-color: #d41717;
+  color: white;
 }
 
 .form-control.success:focus {
