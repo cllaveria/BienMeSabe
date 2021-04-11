@@ -26,7 +26,7 @@ public interface RecipeService {
      * @param ingredientsForFilter list with the ingredients that must have the recipe
      * @return a list with the recipes filtered by ingredients
      */
-    public List<Recipe> getRecipeByIngredients(List<Long> ingredientsForFilter);
+    public List<Recipe> getRecipeByIngredients(String ingredientsForFilter);
     
     /**
      * Method to recover the recipes by kcal range
