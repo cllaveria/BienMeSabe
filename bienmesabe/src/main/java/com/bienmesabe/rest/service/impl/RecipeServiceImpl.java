@@ -7,6 +7,7 @@ package com.bienmesabe.rest.service.impl;
 
 import com.bienmesabe.rest.DAO.RecipeDAO;
 import com.bienmesabe.rest.domain.Recipe;
+import com.bienmesabe.rest.domain.RecipeIngredients;
 import com.bienmesabe.rest.service.RecipeService;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,10 +86,11 @@ public class RecipeServiceImpl implements RecipeService{
      */
     @Override
     public List<Recipe> getRecipesByFilters(String data) {
+        List<Recipe> recipesByFilters = new ArrayList<>();
         List<Recipe> recipesByIngredients = new ArrayList<>();
         List<Recipe> recipesByKcal = new ArrayList<>();
         List<Recipe> recipesByType = new ArrayList<>();
-        List<Recipe> recipesByDinners = new ArrayList<>();
+        int dinners = 1;
         String[] splittedData = data.split("_");
         for (int i = 0; i<splittedData.length;i++){
             String[] spplitedValues = splittedData[i].split("-");
@@ -110,14 +112,26 @@ public class RecipeServiceImpl implements RecipeService{
                 recipesByType = recipeDAO.getRecipeByType(Integer.parseInt(values));
             }
             if(key.equals("dinners")){
-                recipesByDinners = recipeDAO.getRecipesByDinners(Integer.parseInt(values));
+                dinners = Integer.parseInt(values);
             }
         }
+        
+        if(recipesByIngredients.size() >0){
+            recipesByFilters = recipesByIngredients;
+        }else if(recipesByType.size() >0){
+            recipesByFilters = recipesByType;
+        }
+        if(recipesByKcal.size() > 0) recipesByFilters = addRecipesNotExists(recipesByFilters, recipesByKcal);
+        if(recipesByType.size() > 0)recipesByFilters = addRecipesNotExists(recipesByFilters, recipesByType);
 
-        recipesByIngredients = addRecipesNotExists(recipesByIngredients, recipesByKcal);
-        recipesByIngredients = addRecipesNotExists(recipesByIngredients, recipesByType);
-        recipesByIngredients = addRecipesNotExists(recipesByIngredients, recipesByDinners);
-        return recipesByIngredients;
+        for(Recipe recipe:recipesByFilters){
+            for(RecipeIngredients recipeIngredient:recipe.getRecipeIngredients()){
+                recipeIngredient.setIngredientQTY(((recipeIngredient.getIngredientQTY()/recipe.getRecipeDinners())* dinners));
+            }
+            recipe.setRecipeKCAL(((recipe.getRecipeKCAL()/recipe.getRecipeDinners())* dinners));
+        }
+        
+        return recipesByFilters;
 
     }
 
