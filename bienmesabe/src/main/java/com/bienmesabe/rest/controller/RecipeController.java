@@ -50,7 +50,7 @@ public class RecipeController {
      * @return  a list with the recipes in the DB filtered by ingredients
      */
     @GetMapping("/getRecipeByIngredients/{ingredients}")
-    public List<Recipe> getRecipeByIngredients(@PathVariable List<Long> ingredientsForFilter){
+    public List<Recipe> getRecipeByIngredients(@PathVariable String ingredientsForFilter){
         return recipeService.getRecipeByIngredients(ingredientsForFilter);
     }
     
