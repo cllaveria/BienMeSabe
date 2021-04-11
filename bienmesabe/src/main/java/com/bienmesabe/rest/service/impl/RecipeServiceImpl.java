@@ -11,7 +11,6 @@ import com.bienmesabe.rest.domain.RecipeIngredients;
 import com.bienmesabe.rest.service.RecipeService;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,8 +43,13 @@ public class RecipeServiceImpl implements RecipeService{
      * @return a list with the recipes filtered by ingredients
      */
     @Override
-    public List<Recipe> getRecipeByIngredients(List<Long> ingredientsForFilter) {
-        return recipeDAO.getRecipeByIngredients(ingredientsForFilter);
+    public List<Recipe> getRecipeByIngredients(String ingredientsForFilter) {
+        List<Long> listIngredientsForFilter = new ArrayList<Long>();
+        String[] splittedIngredients = ingredientsForFilter.split(",");
+        for(int i=0;i<splittedIngredients.length;i++){
+            listIngredientsForFilter.add(Long.parseLong(splittedIngredients[i]));
+        }
+        return recipeDAO.getRecipeByIngredients(listIngredientsForFilter);
     }
 
     /**
