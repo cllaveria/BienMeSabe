@@ -189,21 +189,21 @@ $(document).ready(function () {
         $email = $('#email').val();
         if (!/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/.test($email)) {
             changeIconsError($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
+            $('#iconExcEmail').children().html('El email introducido no cumple los requisitos.')
             $booleanEmail = false;
         } else {
-            changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
             $.ajax({
                 url: $url + 'user/findUserByEmail/' + $email,
                 type: 'GET',
                 success: function (data) {
-                    //TODO: Borrar console.log
-                    console.log(data.email)
                     if (data.email == $email) {
-                        //TODO: Ponerlo en el tooltip
-                        $('#email').after("<span style='display: block; color:red;'id='inputErrorEmail'>El email introducido ya está registrado.</span>");
-                    } else {
-                        $booleanEmail = true;
+                        changeIconsError($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
+                        $('#iconExcEmail').children().html('El email introducido ya está registrado.')
                     }
+                },
+                error: function () {
+                    changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
+                    $booleanEmail = true;
                 }
             });
         }
@@ -509,7 +509,7 @@ $(document).ready(function () {
                 },
                 method: 'POST',
                 dataType: 'json',
-                success: function () { }
+                success: function () {}
             });
             // Si el checkbox no està seleccionat, s'insereixen les dades de l'usuari a la BBDD.
         } else {
@@ -527,7 +527,7 @@ $(document).ready(function () {
                 },
                 type: 'POST',
                 dataType: 'json',
-                success: function () { }
+                success: function () {}
             });
         }
     });
