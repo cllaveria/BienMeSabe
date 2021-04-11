@@ -68,13 +68,6 @@
 
 @media screen and (max-width: 700px) {
   .carousel-caption {
-    padding: 25px;
-    width: 400px;
-  }
-}
-
-@media screen and (max-width: 650px) {
-  .carousel-caption {
     padding: 15px;
     width: 200px;
     bottom: 20%;
@@ -280,7 +273,7 @@
 .advertising {
   width: 70%;
   border-radius: 3px;
-  border: solid 1px #fca035;
+  border: solid 1px #868685;
 }
 
 /*---Recetas---*/

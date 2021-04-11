@@ -39,11 +39,11 @@
                         <div class="inputs-group">
                             <input class="form-control" type="text" id="name" placeholder="Nombre" required>
                             <i class="fas fa-info-circle" id="iconInfoName">
-                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Campo obligatorio. Mínimo 5
+                                <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio. Mínimo 5
                                     letras. Máximo 50 letras.</span>
                             </i>
                             <i class="fas fa-exclamation-circle" id="iconExcName">
-                                <span class="tooltiptext tooltip-right" id="tooltipExcl">Campo obligatorio. Mínimo 5
+                                <span class="tooltiptext tooltip" id="tooltipExcl">Campo obligatorio. Mínimo 5
                                     letras. Máximo 50 letras.</span>
                             </i>
                             <i class="fas fa-check-circle" id="iconCheckName"></i>
@@ -54,11 +54,11 @@
                         <div class="inputs-group">
                             <input class="form-control" type="text" id="surnames" placeholder="Apellidos">
                             <i class="fas fa-info-circle" id="iconInfoSurnames">
-                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Mínimo 5 letras. Máximo 100
+                                <span class="tooltiptext tooltip" id="tooltipInfo">Mínimo 5 letras. Máximo 100
                                     letras</span>
                             </i>
                             <i class="fas fa-exclamation-circle" id="iconExcSurnames">
-                                <span class="tooltiptext tooltip-right" id="tooltipExcl">Mínimo 5 letras. Máximo 100
+                                <span class="tooltiptext tooltip" id="tooltipExcl">Mínimo 5 letras. Máximo 100
                                     letras</span>
                             </i>
                             <i class="fas fa-check-circle" id="iconCheckSurnames"></i>
@@ -69,10 +69,10 @@
                         <div class="inputs-group">
                             <input class="form-control" type="text" id="phone" placeholder="Teléfono">
                             <i class="fas fa-info-circle" id="iconInfoPhone">
-                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Necesarios 9 dígitos.</span>
+                                <span class="tooltiptext tooltip" id="tooltipInfo">Necesarios 9 dígitos.</span>
                             </i>
                             <i class="fas fa-exclamation-circle" id="iconExcPhone">
-                                <span class="tooltiptext tooltip-right" id="tooltipExcl">Necesarios 9 dígitos.</span>
+                                <span class="tooltiptext tooltip" id="tooltipExcl">Necesarios 9 dígitos.</span>
                             </i>
                             <i class="fas fa-check-circle" id="iconCheckPhone"></i>
                         </div>
@@ -82,11 +82,11 @@
                         <div class="inputs-group">
                             <input class="form-control" type="text" id="alias" placeholder="Alias" id='alias' required>
                             <i class="fas fa-info-circle" id="iconInfoAlias">
-                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Campo obligatorio. Mínimo 3
+                                <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio. Mínimo 3
                                     letras. Máximo 50 letras.</span>
                             </i>
                             <i class="fas fa-exclamation-circle" id="iconExcAlias">
-                                <span class="tooltiptext tooltip-right" id="tooltipExclAlias">Campo obligatorio. Mínimo
+                                <span class="tooltiptext tooltip" id="tooltipExclAlias">Campo obligatorio. Mínimo
                                     3 letras. Máximo 50 letras.</span>
                             </i>
                             <i class="fas fa-check-circle" id="iconCheckAlias"></i>
@@ -98,7 +98,7 @@
                             <input class="form-control" type="email" id="email" placeholder="Email" minlength="5"
                                 maxlength="100" required>
                             <i class="fas fa-info-circle" id="iconInfoEmail">
-                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos email</span>
+                                <span class="tooltiptext tooltip" id="tooltipInfo">Requisitos email</span>
                             </i>
                             <i class="fas fa-exclamation-circle" id="iconExcEmail">
                                 <span class="tooltiptext tooltip-right" id="tooltipExcl"></span>
@@ -115,17 +115,19 @@
                             <input class="form-control" type="password" id="pswrd" placeholder="Contraseña"
                                 minlength="8" maxlength="50" required>
                             <i class="fas fa-info-circle" id="iconInfoPswrd">
-                                <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos password</span>
+                                <span class="tooltiptext tooltip" id="tooltipInfo">Requisitos password</span>
                             </i>
                             <i class="fas fa-exclamation-circle" id="iconExcPswrd">
-                                <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos password</span>
+                                <span class="tooltiptext tooltip" id="tooltipExcl">Requisitos password</span>
                             </i>
                             <i class="fas fa-check-circle" id="iconCheckPswrd"></i>
                         </div>
                     </div>
-                    <div class="checkbox">
-                        <input type="checkbox" name="nutritionist" value="yes" />
-                        <label for="nutritionist">Soy nutricionista</label>
+                    <div class="checkbox_container">
+                        <div class="checkbox">
+                            <input type="checkbox" name="nutritionist" value="yes" />
+                            <label for="nutritionist">Soy nutricionista</label>
+                        </div>
                     </div>
                     <div id="registerNutritionist">
                         <div class="inputs_form">
@@ -139,10 +141,10 @@
                                 <input class="form-control" type="text" id="nif" placeholder="NIF/DNI/NIE/CIF" id='nif'
                                     minlength='9' maxlength='9' required>
                                 <i class="fas fa-info-circle" id="iconInfoNif">
-                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Requisitos nif</span>
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Requisitos nif</span>
                                 </i>
                                 <i class="fas fa-exclamation-circle" id="iconExcNif">
-                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Requisitos nif</span>
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">Requisitos nif</span>
                                 </i>
                                 <i class="fas fa-check-circle" id="iconCheckNif"></i>
                             </div>
@@ -152,11 +154,11 @@
                             <div class="inputs-group">
                                 <input class="form-control" type="text" id="pc" placeholder="Código Postal" required>
                                 <i class="fas fa-info-circle" id="iconInfoPc">
-                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Campo obligatorio.
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio.
                                         Necesarios 5 dígitos.</span>
                                 </i>
                                 <i class="fas fa-exclamation-circle" id="iconExcPc">
-                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Campo obligatorio.
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">Campo obligatorio.
                                         Necesarios 5 dígitos.</span>
                                 </i>
                                 <i class="fas fa-check-circle" id="iconCheckPc"></i>
@@ -167,11 +169,11 @@
                             <div class="inputs-group">
                                 <input class="form-control" type="text" id="city" placeholder="Población" required>
                                 <i class="fas fa-info-circle" id="iconInfoCity">
-                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Campo obligatorio. Mínimo 3
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio. Mínimo 3
                                         letras. Máximo 50 letras.</span>
                                 </i>
                                 <i class="fas fa-exclamation-circle" id="iconExcCity">
-                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Campo obligatorio. Mínimo 3
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">Campo obligatorio. Mínimo 3
                                         letras. Máximo 50 letras.</span>
                                 </i>
                                 <i class="fas fa-check-circle" id="iconCheckCity"></i>
@@ -182,11 +184,11 @@
                             <div class="inputs-group">
                                 <input class="form-control" type="text" id="direction" placeholder="Dirección">
                                 <i class="fas fa-info-circle" id="iconInfoDire">
-                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Mínimo 5 letras. Máximo 100
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Mínimo 5 letras. Máximo 100
                                         letras.</span>
                                 </i>
                                 <i class="fas fa-exclamation-circle" id="iconExcDire">
-                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Mínimo 5 letras. Máximo 100
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">Mínimo 5 letras. Máximo 100
                                         letras.</span>
                                 </i>
                                 <i class="fas fa-check-circle" id="iconCheckDire"></i>
@@ -197,11 +199,11 @@
                             <div class="inputs-group">
                                 <input class="form-control" type="text" id="company" placeholder="Compañía">
                                 <i class="fas fa-info-circle" id="iconInfoComp">
-                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Mínimo 2 letras. Máximo 50
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Mínimo 2 letras. Máximo 50
                                         letras.</span>
                                 </i>
                                 <i class="fas fa-exclamation-circle" id="iconExcComp">
-                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Mínimo 2 letras. Máximo 50
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">Mínimo 2 letras. Máximo 50
                                         letras.</span>
                                 </i>
                                 <i class="fas fa-check-circle" id="iconCheckComp"></i>
@@ -213,11 +215,11 @@
                                 <input class="form-control" type="text" id="business_phone"
                                     placeholder="Teléfono de empresa" minlength='9' maxlength='9'>
                                 <i class="fas fa-info-circle" id="iconInfoBusPhon">
-                                    <span class="tooltiptext tooltip-right" id="tooltipInfo">Necesarios 9
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Necesarios 9
                                         dígitos.</span>
                                 </i>
                                 <i class="fas fa-exclamation-circle" id="iconExcBusPhon">
-                                    <span class="tooltiptext tooltip-right" id="tooltipExcl">Necesarios 9
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">Necesarios 9
                                         dígitos.</span>
                                 </i>
                                 <i class="fas fa-check-circle" id="iconCheckBusPhon"></i>
