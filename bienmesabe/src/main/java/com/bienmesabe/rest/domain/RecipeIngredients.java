@@ -7,7 +7,6 @@ package com.bienmesabe.rest.domain;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,9 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -54,11 +51,11 @@ public class RecipeIngredients implements Serializable{
     }
 
     /**
-     * 
-     * @param recipeId
-     * @param ingredientId
-     * @param ingredientQTY
-     * @param ingredientUnity 
+     * RecipeIngredients Constructor with the required parameters
+     * @param recipeId long that represents the id of the recipe to asign
+     * @param ingredientId long that represents the id of the class ingredient to asign
+     * @param ingredientQTY float that represents the quantity of the recipe ingredient to asign
+     * @param ingredientUnity string that represents the measurement unit of the recipe ingredient to asign
      */
     public RecipeIngredients(long recipeId, long ingredientId, float ingredientQTY, String ingredientUnity) {
         this.recipe.setId(recipeId);
@@ -140,7 +137,7 @@ public class RecipeIngredients implements Serializable{
 
     /**
      * Method to asign the measurement unit of the recipe ingredient
-     * @param ingredientQTY string that represents the measurement unit of the recipe ingredient to asign
+     * @param ingredientUnity string that represents the measurement unit of the recipe ingredient to asign
      */
     public void setIngredientUnity(String ingredientUnity) {
         this.ingredientUnity = ingredientUnity;

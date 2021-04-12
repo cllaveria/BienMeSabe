@@ -81,7 +81,7 @@ public class Mineral implements Serializable{
 
     /**
      * Méthod to asign the id of the mineral
-     * @param ID string that represents the id of the mineral
+     * @param id string that represents the id of the mineral
      */
     public void setId(Long id) {
         this.id = id;
