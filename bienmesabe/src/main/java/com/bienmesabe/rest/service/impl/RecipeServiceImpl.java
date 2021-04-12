@@ -95,12 +95,14 @@ public class RecipeServiceImpl implements RecipeService{
         List<Recipe> recipesByKcal = new ArrayList<>();
         List<Recipe> recipesByType = new ArrayList<>();
         int dinners = 1;
+        boolean filterByIngredients = false, filterByTypes = false, filterByKCAL = false;
         String[] splittedData = data.split("_");
         for (int i = 0; i<splittedData.length;i++){
             String[] spplitedValues = splittedData[i].split("-");
             String key = spplitedValues[0];
             String values = spplitedValues[1];
             if(key.equals("ingredients")){
+                filterByIngredients = true;
                 List<Long> ingredientsId = new ArrayList<Long>();
                 String[]splittedValueData = values.split(",");
                 for(String ingredientId:splittedValueData){
@@ -109,10 +111,12 @@ public class RecipeServiceImpl implements RecipeService{
                 recipesByIngredients = recipeDAO.getRecipeByIngredients(ingredientsId);
             }
             if(key.equals("kcal")){
+                filterByKCAL = true;
                 String[]splittedValueData = values.split(",");
                 recipesByKcal = recipeDAO.getRecipeByKCal(Integer.parseInt(splittedValueData[0]), Integer.parseInt(splittedValueData[1]));
             }
             if(key.equals("type")){
+                filterByTypes = true;
                 recipesByType = recipeDAO.getRecipeByType(Integer.parseInt(values));
             }
             if(key.equals("dinners")){
@@ -120,13 +124,19 @@ public class RecipeServiceImpl implements RecipeService{
             }
         }
         
-        if(recipesByIngredients.size() >0){
+        if(filterByIngredients){
             recipesByFilters = recipesByIngredients;
-        }else if(recipesByType.size() >0){
+        }else if (filterByKCAL){
+            recipesByFilters = recipesByKcal;
+        }else if(filterByTypes){
             recipesByFilters = recipesByType;
         }
-        if(recipesByKcal.size() > 0) recipesByFilters = addRecipesNotExists(recipesByFilters, recipesByKcal);
-        if(recipesByType.size() > 0)recipesByFilters = addRecipesNotExists(recipesByFilters, recipesByType);
+            
+        
+        if(filterByKCAL)
+            recipesByFilters = addRecipesNotExists(recipesByFilters, recipesByKcal);
+        if(filterByTypes)
+            recipesByFilters = addRecipesNotExists(recipesByFilters, recipesByType);
 
         for(Recipe recipe:recipesByFilters){
             for(RecipeIngredients recipeIngredient:recipe.getRecipeIngredients()){
