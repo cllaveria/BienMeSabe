@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Class for implementation of Inteface RecipeDAO (repository)
  * @author RAUL RAMOS CENDRERO
- * @version 11/04/2021
+ * @version 12/04/2021
  */
 @Repository
 public class RecipeDAOImpl implements RecipeDAO {
@@ -56,22 +56,25 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Transactional
     public List<Recipe> getRecipeByIngredients(List<Long> ingredientsForFilter) {
         List<Recipe> recipes = new ArrayList<Recipe>();
-        Session currentSession = entityManager.unwrap(Session.class);
-        Query<Recipe> query = currentSession.createQuery("from Recipe", Recipe.class);
-        List<Recipe> recipesInDB = query.getResultList();
+        List<Recipe> recipesInDB = this.getAllRecipes();
         for(int i=0;i<recipesInDB.size();i++){
-            boolean hasIngredient = true;
+            int findedIngredients = 0;
+            List<Boolean> hasIngredients = new ArrayList<Boolean>();
+            for(int s=0;s<ingredientsForFilter.size();s++){
+                hasIngredients.add(false);
+            }
             List<RecipeIngredients> recipeIngredients = recipesInDB.get(i).getRecipeIngredients();
             List<Long> recipeIngredientsIds = new ArrayList<Long>();
             for(RecipeIngredients ingredient:recipeIngredients){
                 recipeIngredientsIds.add(ingredient.getIngredientId());
             }
             for(int x=0;x<ingredientsForFilter.size();x++){
-                if(!recipeIngredientsIds.contains(ingredientsForFilter.get(x))){
-                    hasIngredient = false;
+                if(recipeIngredientsIds.contains(ingredientsForFilter.get(x))){
+                    hasIngredients.set(x, Boolean.TRUE);
+                    findedIngredients++;
                 }
             }
-            if(hasIngredient){
+            if(((hasIngredients.contains(false) || !hasIngredients.contains(false)) && recipesInDB.get(i).getRecipeIngredients().size() <= findedIngredients)){
                 recipes.add(recipesInDB.get(i));
             }
         }
