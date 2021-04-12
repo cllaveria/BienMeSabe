@@ -14,4 +14,8 @@ router.get('/recetas', function(req, res, next) {
   res.render('recetas', { title: 'Recetas' });
 });
 
+router.get('/login', function(req, res, next) {
+  res.render('login', { title: 'Iniciar sesión' });
+});
+
 module.exports = router;

@@ -95,13 +95,12 @@
                     <div class="inputs_form">
                         <label for="email">Email</label><text style="color:red;font-size:15px"> *</text>
                         <div class="inputs-group">
-                            <input class="form-control" type="email" id="email" placeholder="Email" minlength="5"
-                                maxlength="100" required>
+                            <input class="form-control" type="text" id="email" placeholder="Email" required>
                             <i class="fas fa-info-circle" id="iconInfoEmail">
-                                <span class="tooltiptext tooltip" id="tooltipInfo">Requisitos email</span>
+                                <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio. Introduce un email valido</span>
                             </i>
                             <i class="fas fa-exclamation-circle" id="iconExcEmail">
-                                <span class="tooltiptext tooltip-right" id="tooltipExcl"></span>
+                                <span class="tooltiptext tooltip" id="tooltipExcl"></span>
                             </i>
                             <i class="fas fa-check-circle" id="iconCheckEmail"></i>
                         </div>
@@ -113,12 +112,21 @@
                                 <span class="input-group-text" id="viewPass"><i class="fa fa-eye"></i></span>
                             </div>
                             <input class="form-control" type="password" id="pswrd" placeholder="Contraseña"
-                                minlength="8" maxlength="50" required>
+                                required>
                             <i class="fas fa-info-circle" id="iconInfoPswrd">
-                                <span class="tooltiptext tooltip" id="tooltipInfo">Requisitos password</span>
+                                <span class="tooltiptext tooltip" id="tooltipInfo">
+                                    <span>Campo obligatorio. <br>Requisitos mínimos para la contraseña (siguiendo este orden)<br>
+                                    - La primera letra tiene que ser mayuscula (A - Z).<br>
+                                    - 5 carácteres alfanuméricos (A - Z, a - z, 0 - 9, _).<br>
+                                    - 2 números (0 - 9).<br>
+                                    - 1 carácter no alfanumérico (! " · $ % & / ( ) = _ ^ * ... ).</span>
+                                </span>
                             </i>
                             <i class="fas fa-exclamation-circle" id="iconExcPswrd">
-                                <span class="tooltiptext tooltip" id="tooltipExcl">Requisitos password</span>
+                                <span class="tooltiptext tooltip" id="tooltipExcl">La contraseña no cumple los requisitos mínimos. Recuerda:<br>  - La primera letra tiene que ser mayuscula (A - Z).<br>
+                                    - 5 carácteres alfanuméricos (A - Z, a - z, 0 - 9, _).<br>
+                                    - 2 números (0 - 9).<br>
+                                    - 1 carácter no alfanumérico (! " · $ % & / ( ) = _ ^ * ... ).</span>
                             </i>
                             <i class="fas fa-check-circle" id="iconCheckPswrd"></i>
                         </div>
@@ -139,12 +147,12 @@
                                     <option value="cif">CIF</option>
                                 </select>
                                 <input class="form-control" type="text" id="nif" placeholder="NIF/DNI/NIE/CIF" id='nif'
-                                    minlength='9' maxlength='9' required>
+                                    >
                                 <i class="fas fa-info-circle" id="iconInfoNif">
-                                    <span class="tooltiptext tooltip" id="tooltipInfo">Requisitos nif</span>
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Necesarios 9 dígitos.</span>
                                 </i>
                                 <i class="fas fa-exclamation-circle" id="iconExcNif">
-                                    <span class="tooltiptext tooltip" id="tooltipExcl">Requisitos nif</span>
+                                    <span class="tooltiptext tooltip" id="tooltipExcl"></span>
                                 </i>
                                 <i class="fas fa-check-circle" id="iconCheckNif"></i>
                             </div>
@@ -152,7 +160,7 @@
                         <div class="inputs_form">
                             <label for="pc">Código Postal</label><text style="color:red;font-size:15px"> *</text>
                             <div class="inputs-group">
-                                <input class="form-control" type="text" id="pc" placeholder="Código Postal" required>
+                                <input class="form-control" type="text" id="pc" placeholder="Código Postal">
                                 <i class="fas fa-info-circle" id="iconInfoPc">
                                     <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio.
                                         Necesarios 5 dígitos.</span>
@@ -167,7 +175,7 @@
                         <div class="inputs_form">
                             <label for="city">Población</label><text style="color:red;font-size:15px"> *</text>
                             <div class="inputs-group">
-                                <input class="form-control" type="text" id="city" placeholder="Población" required>
+                                <input class="form-control" type="text" id="city" placeholder="Población">
                                 <i class="fas fa-info-circle" id="iconInfoCity">
                                     <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio. Mínimo 3
                                         letras. Máximo 50 letras.</span>
