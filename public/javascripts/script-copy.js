@@ -65,6 +65,18 @@ $(document).ready(function () {
      * @description Variable de tipus boolean per saber si el NIF/DNI, NIE o CIF estan introduïts correctament.
      */
     /** 
+     * @var $booleanName 
+     * @description Variable de tipus boolean per saber si el nom està introduït correctament.
+     */
+    /** 
+     * @var $booleanSurname
+     * @description Variable de tipus boolean per saber si el cognom està introduït correctament.
+     */
+    /** 
+     * @var $booleanPc
+     * @description Variable de tipus boolean per saber si el codi postal està introduït correctament.
+     */
+    /** 
      * @var $booleanEmail 
      * @description Variable de tipus boolean per saber si l'email està introduït correctament.
      */
@@ -77,6 +89,22 @@ $(document).ready(function () {
      * @description Variable de tipus boolean per saber si el password està introduït correctament.
      */
     /** 
+     * @var $booleanCity
+     * @description Variable de tipus boolean per saber si la població està introduït correctament.
+     */
+    /** 
+     * @var $booleaDirection
+     * @description Variable de tipus boolean per saber si la direció està introduït correctament.
+     */
+    /** 
+     * @var $booleanCompany
+     * @description Variable de tipus boolean per saber si el nom de la companyia està introduït correctament.
+     */
+    /** 
+     * @var $booleanBusinessPhone
+     * @description Variable de tipus boolean per saber si el telèfon d'empresa està introduït correctament.
+     */
+    /** 
      * @var $document 
      * @description Variable per emmagatzemar el tipus de documentació que ha seleccionat l'usuari, si NIF/DNI, NIE o CIF.
      */
@@ -84,9 +112,8 @@ $(document).ready(function () {
      * @constant $url
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor.
      */
-    //TODO: Borrar el info
-    let info, $name, $phone, $alias, $email, $pass, $nif, $pc, $city, $company, $direction, $businessPhone;
-    let $booleanNif, $booleanEmail, $booleanAlias, $booleanPassword;
+    let $name, $phone, $alias, $email, $pass, $nif, $pc, $city, $company, $direction, $businessPhone;
+    let $booleanName, $booleanSurname, $booleanPhone, $booleanAlias, $booleanEmail, $booleanPassword, $booleanNif, $booleanPc, $booleanCity, $booleanDirection, $booleanCompany, $booleanBusinessPhone;
     let $document = 'nif';
     const $url = 'http://localhost:8080/api/';
 
@@ -100,8 +127,10 @@ $(document).ready(function () {
         $name = $('#name').val();
         if ($name.length < 5 || $name.length > 50) {
             changeIconsError($('#name'), $('#iconInfoName'), $('#iconExcName'), $('#iconCheckName'));
+            $booleanName = false;
         } else {
             changeIconsCheck($('#name'), $('#iconInfoName'), $('#iconExcName'), $('#iconCheckName'));
+            $booleanName = true;
         }
     });
 
@@ -116,10 +145,14 @@ $(document).ready(function () {
         if ($surnames != "") {
             if ($surnames.length < 5 || $surnames.length > 100) {
                 changeIconsError($('#surnames'), $('#iconInfoSurnames'), $('#iconExcSurnames'), $('#iconCheckSurnames'));
+                $booleanSurname = false;
+                console.log($booleanSurname)
             } else {
                 changeIconsCheck($('#surnames'), $('#iconInfoSurnames'), $('#iconExcSurnames'), $('#iconCheckSurnames'));
+                $booleanSurname = true;
             }
         } else {
+            $booleanSurname = true;
             changeIconsInfo($('#surnames'), $('#iconInfoSurnames'), $('#iconExcSurnames'), $('#iconCheckSurnames'));
         }
     });
@@ -135,11 +168,14 @@ $(document).ready(function () {
         if ($phone != "") {
             if ($phone.length != 9) {
                 changeIconsError($('#phone'), $('#iconInfoPhone'), $('#iconExcPhone'), $('#iconCheckPhone'));
+                $booleanPhone = false;
             } else {
                 changeIconsCheck($('#phone'), $('#iconInfoPhone'), $('#iconExcPhone'), $('#iconCheckPhone'));
+                $booleanPhone = true;
             }
         } else {
             changeIconsInfo($('#phone'), $('#iconInfoPhone'), $('#iconExcPhone'), $('#iconCheckPhone'));
+            $booleanPhone = true;
         }
     });
 
@@ -156,22 +192,17 @@ $(document).ready(function () {
             changeIconsError($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
             $booleanAlias = false;
         } else {
-            changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
             $.ajax({
                 url: $url + 'user/findUserByAlias/' + $alias,
                 type: 'GET',
                 success: function (data) {
                     if (data.alias == $alias) {
-                        //TODO: Ponerlo en el tooltip
-                        // $('#inputErrorAlias').remove();
-                        // $('#alias').after("<span style='display: block; color:red;'id='inputErrorAlias'>El alias introducido ya está registrado.</span>");
-                        $booleanAlias = false;
-                        $('#tooltipExclAlias').attr("textContent", "Prueba");
+                        changeIconsError($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
+                        $('#iconExcAlias').children().html('El Alias introducido ya está registrado.')
                     }
                 },
                 error: function () {
-                    //TODO: Ponerlo en el tooltip
-                    $('#inputErrorAlias').remove();
+                    changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
                     $booleanAlias = true;
                 }
             });
@@ -189,21 +220,21 @@ $(document).ready(function () {
         $email = $('#email').val();
         if (!/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/.test($email)) {
             changeIconsError($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
+            $('#iconExcEmail').children().html('El email introducido no cumple los requisitos.')
             $booleanEmail = false;
         } else {
-            changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
             $.ajax({
                 url: $url + 'user/findUserByEmail/' + $email,
                 type: 'GET',
                 success: function (data) {
-                    //TODO: Borrar console.log
-                    console.log(data.email)
                     if (data.email == $email) {
-                        //TODO: Ponerlo en el tooltip
-                        $('#email').after("<span style='display: block; color:red;'id='inputErrorEmail'>El email introducido ya está registrado.</span>");
-                    } else {
-                        $booleanEmail = true;
+                        changeIconsError($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
+                        $('#iconExcEmail').children().html('El email introducido ya está registrado.')
                     }
+                },
+                error: function () {
+                    changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
+                    $booleanEmail = true;
                 }
             });
         }
@@ -241,7 +272,7 @@ $(document).ready(function () {
      */
     $('#pswrd').blur(() => {
         $pass = $('#pswrd').val();
-        if (!/^(\b[A-Z]{1})\w{5,}\d{2,}\W{1,}$/.test($pass)) {
+        if (!/^\b[A-Z]{1}\w{5,}\d{2,}\W{1,}$/.test($pass)) {
             changeIconsError($('#pswrd'), $('#iconInfoPswrd'), $('#iconExcPswrd'), $('#iconCheckPswrd'));
             $booleanPassword = false;
         } else {
@@ -255,10 +286,11 @@ $(document).ready(function () {
      * @type change
      * @method on
      * @listens document - Detecta canvi en la pàgina.
-     * @description Quan l'usuari selecciona el tipus de document (NIF/DNI, NIE o CIF) aquest queda guardat en la variable $document.
+     * @description Quan l'usuari selecciona el tipus de document (NIF/DNI, NIE o CIF) aquest queda guardat en la variable $document i comprovem l'input.
      */
     $(document).on('change', '#document', () => {
         $document = $('#document option:selected').val();
+        checkDocument();
     })
 
     /**
@@ -268,35 +300,9 @@ $(document).ready(function () {
      * @description Quan l'usuari surt de l'input NIF es comprova si aquest és correcte i es canvien les classes i les icones corresponents.
      */
     $('#nif').blur(() => {
-        if ($document == 'nif') {
-            let $documentComprovat = checkNif($('#nif').val().toUpperCase());
-            if ($documentComprovat != true) {
-                changeIconsError($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
-                $booleanNif = false;
-            } else {
-                changeIconsCheck($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
-                $booleanNif = true;
-            }
-        } else if ($document == 'nie') {
-            let $documentComprovat = checkNie($('#nif').val().toUpperCase());
-            if ($documentComprovat != true) {
-                changeIconsError($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
-                $booleanNif = false;
-            } else {
-                changeIconsCheck($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
-                $booleanNif = true;
-            }
-        } else if ($document == 'cif') {
-            let $documentComprovat = checkCif($('#nif').val().toUpperCase());
-            if ($documentComprovat != true) {
-                changeIconsError($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
-                $booleanNif = false;
-            } else {
-                changeIconsCheck($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
-                $booleanNif = true;
-            }
-        }
+        checkDocument();
     });
+
 
     /**
      * @type {jQuery}
@@ -308,8 +314,10 @@ $(document).ready(function () {
         $pc = $('#pc').val();
         if ($pc.length != 5) {
             changeIconsError($('#pc'), $('#iconInfoPc'), $('#iconExcPc'), $('#iconCheckPc'));
+            $booleanPc = false;
         } else {
             changeIconsCheck($('#pc'), $('#iconInfoPc'), $('#iconExcPc'), $('#iconCheckPc'));
+            $booleanPc = true;
         }
     });
 
@@ -323,8 +331,10 @@ $(document).ready(function () {
         $city = $('#city').val();
         if ($city.length < 3 || $city.length > 50) {
             changeIconsError($('#city'), $('#iconInfoCity'), $('#iconExcCity'), $('#iconCheckCity'));
+            $booleanCity = false;
         } else {
             changeIconsCheck($('#city'), $('#iconInfoCity'), $('#iconExcCity'), $('#iconCheckCity'));
+            $booleanCity = true;
         }
     });
 
@@ -339,11 +349,14 @@ $(document).ready(function () {
         if ($direction != "") {
             if ($direction.length < 5 || $direction.length > 100) {
                 changeIconsError($('#direction'), $('#iconInfoDire'), $('#iconExcDire'), $('#iconCheckDire'));
+                $booleanDirection = false;
             } else {
                 changeIconsCheck($('#direction'), $('#iconInfoDire'), $('#iconExcDire'), $('#iconCheckDire'));
+                $booleanDirection = true;
             }
         } else {
             changeIconsInfo($('#direction'), $('#iconInfoDire'), $('#iconExcDire'), $('#iconCheckDire'));
+            $booleanDirection = true;
         }
     });
 
@@ -358,11 +371,14 @@ $(document).ready(function () {
         if ($company != "") {
             if ($company.length < 2 || $company.length > 50) {
                 changeIconsError($('#company'), $('#iconInfoComp'), $('#iconExcComp'), $('#iconCheckComp'));
+                $booleanCompany = false;
             } else {
                 changeIconsCheck($('#company'), $('#iconInfoComp'), $('#iconExcComp'), $('#iconCheckComp'));
+                $booleanCompany = true;
             }
         } else {
             changeIconsInfo($('#company'), $('#iconInfoComp'), $('#iconExcComp'), $('#iconCheckComp'));
+            $booleanCompany = true;
         }
     });
 
@@ -377,11 +393,14 @@ $(document).ready(function () {
         if ($business_phone != "") {
             if ($business_phone.length != 9) {
                 changeIconsError($('#business_phone'), $('#iconInfoBusPhon'), $('#iconExcBusPhon'), $('#iconCheckBusPhon'));
+                $booleanBusinessPhone = false;
             } else {
                 changeIconsCheck($('#business_phone'), $('#iconInfoBusPhon'), $('#iconExcBusPhon'), $('#iconCheckBusPhon'));
+                $booleanBusinessPhone = true;
             }
         } else {
             changeIconsInfo($('#business_phone'), $('#iconInfoBusPhon'), $('#iconExcBusPhon'), $('#iconCheckBusPhon'));
+            $booleanBusinessPhone = true;
         }
     });
 
@@ -391,8 +410,10 @@ $(document).ready(function () {
     $(document).on('change', 'input[name="nutritionist"]', () => {
         if ($('[name="nutritionist"]:checked').val() === 'yes') {
             $('#registerNutritionist').show();
+            addRequired(true);
         } else {
             $('#registerNutritionist').hide();
+            addRequired(false)
         }
     });
 
@@ -404,133 +425,186 @@ $(document).ready(function () {
      * @description Quan l'usuari polsa sobre el botó Registrar del formulari, es fa el procés de verificació de dades i inserció a la BBDD.
      */
     $('#registrationForm').on('submit', (e) => {
-        // Es recuperen les dades del formulari de l'usuari.
+        e.preventDefault();
+        // Es recuperen les dades del formulari.
         $name = $('#name').val();
         $surnames = $('#surnames').val();
         $phone = $('#phone').val();
         $alias = $('#alias').val();
         $email = $('#email').val();
         $pass = $('#pswrd').val();
-        $nif = $('#nif').val().toUpperCase();
+        $nif = $('#nif').val().toUpperCase();;
+        $pc = $('#pc').val();
+        $city = $('#city').val();
+        $company = $('#company').val();
+        $direction = $('#direction').val();
+        $businessPhone = $('#business_phone').val();
+
+        let $nifEncrypted;
+        let $phoneEncrypted;
+        let $passEncrypted = hex_md5($pass);
 
         if ($surnames == '') {
             $surnames = null;
         }
         if ($phone == '') {
             $phone = null;
+        } else {
+            $phoneEncrypted = hex_md5($phone);
+        }
+        if ($company == '') {
+            $company = null;
+        }
+        if ($direction == '') {
+            $direction = null;
+        }
+        if ($businessPhone == '') {
+            $businessPhone = null;
         }
 
         // Si el checkbox esta seleccionat es recuperen les dades del nutricionista
         if ($('[name="nutritionist"]:checked').val() == 'yes') {
-            $nif = $('#nif').val();
-            $pc = $('#pc').val();
-            $city = $('#city').val();
-            $company = $('#company').val();
-            $direction = $('#direction').val();
-            $businessPhone = $('#business_phone').val();
-
-            if ($company == '') {
-                $company = null;
-            }
-            if ($direction == '') {
-                $direction = null;
-            }
-            if ($businessPhone == '') {
-                $businessPhone = null;
-            }
-        }
-        // S'encripten la password, el nif i el telèfon
-        let $passEncrypted = hex_md5($pass);
-        let $nifEncrypted = hex_md5($nif);
-        let $phoneEncrypted = hex_md5($phone);
-
-        // S'emmagatzemen les dades a mostrar per consola.
-        info = {
-            Nombre: $name,
-            Apellidos: $surnames,
-            Teléfono: $phone,
-            Alias: $alias,
-            Correo: $email,
-            ContraseñaSinEncriptar: $pass,
-            ContraseñaEncriptada: $passEncrypted,
-            NIF: $nif,
-            CódigoPostal: $pc,
-            Ciudad: $city,
-            Compañia: $company,
-            Dirección: $direction,
-            TeléfonoEmpresa: $businessPhone
-        };
-
-        //TODO: No entiendo estos mensajes de error.
-        if ($booleanEmail == false || $booleanNif == false || $booleanAlias == false || $booleanPassword == false) {
-            e.preventDefault();
-            $('#errors').remove();
-            let $insertText = "<div id='errors' style='text-align: left;margin:15px 0px 15px 0px; padding-left:5px; display: inline-table;width: 200px;font-size: 16px; background-color: rgba(255, 115, 115, 0.789); border: 1px solid #000000;'>";
-            if ($booleanEmail == false) {
-                $insertText = $insertText.concat('', '<p class="errors">- Modifica el email</p>');
-            }
-            if ($booleanNif == false) {
-                $insertText = $insertText.concat('', '<p class="errors">- Modifica el NIF/DNI</p>');
-            }
-            if ($booleanAlias == false) {
-                $insertText = $insertText.concat('', '<p class="errors">- Modifica el alias</p>');
-            }
-            if ($booleanPassword == false) {
-                $insertText = $insertText.concat('', '<p class="errors">- Modifica la contraseña</p>');
-            }
-            $insertText = $insertText.concat('', '</div>');
-            $('#registrationForm').prepend($insertText);
-        } else {
-            $('#errors').hide();
+            $nifEncrypted = hex_md5($nif);
         }
 
-        // TODO: BORRAR
-        console.table(info)
-        e.preventDefault();
-
-        // Si el checkbox del nutricionista està seleccionat s'insereixen les de dades del nutricionista a la BBDD.
         if ($('[name="nutritionist"]:checked').val() == 'yes') {
-            $.ajax({
-                url: $url + 'nutricionist/addNutricionist/?',
-                data: {
-                    NIF: $nifEncrypted,
-                    password: $passEncrypted,
-                    name: $name,
-                    email: $email,
-                    surname: $surnames,
-                    alias: $alias,
-                    phone: $phoneEncrypted,
-                    type: '2',
-                    companyName: $company,
-                    companyPostalCode: $pc,
-                    companyDirection: $direction,
-                    companyCity: $city,
-                    companyPhone: $businessPhone
-                },
-                method: 'POST',
-                dataType: 'json',
-                success: function () { }
-            });
-            // Si el checkbox no està seleccionat, s'insereixen les dades de l'usuari a la BBDD.
+            if ($booleanName == false || $booleanSurname == false || $booleanPhone == false ||
+                $booleanAlias == false || $booleanEmail == false || $booleanPassword == false ||
+                $booleanNif == false || $booleanPc == false || $booleanCity == false ||
+                $booleanDirection == false || $booleanCompany == false || $booleanBusinessPhone == false) {
+                loading();
+                $('#loading').fadeOut(1000, function () {
+                    $('#submit').html('REGISTRAR');
+                });
+                e.preventDefault();
+            } else {
+                $.ajax({
+                    url: $url + 'nutricionist/addNutricionist/?',
+                    data: {
+                        NIF: $nifEncrypted,
+                        password: $passEncrypted,
+                        name: $name,
+                        email: $email,
+                        surname: $surnames,
+                        alias: $alias,
+                        phone: $phoneEncrypted,
+                        type: '2',
+                        companyName: $company,
+                        companyPostalCode: $pc,
+                        companyDirection: $direction,
+                        companyCity: $city,
+                        companyPhone: $businessPhone
+                    },
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function () {
+                        loading();
+                        $('#loading').fadeOut(1500, function () {
+                            $('.checkIn_container').children().remove()
+                            $('.checkIn_container').html('<div style="height:300px;font-size:20px;display:flex;align-items: center;text-align: center;"><span style="color:green">Te registraste correctamente. <br>En breve serás redirigido a la página de login.</span></div>');
+                            $('.checkIn_container').fadeOut(1000, function(){
+                                window.location.href = '../login';
+                            });
+                        });
+                    }
+                });
+            }
         } else {
-            $.ajax($url + 'user/addUser/?', {
-                data: {
-                    //TODO: Comprobar si se tiene que borrar el NIF de aquí. 
-                    NIF: $nifEncrypted,
-                    password: $passEncrypted,
-                    name: $name,
-                    email: $email,
-                    surname: $surnames,
-                    alias: $alias,
-                    phone: $phoneEncrypted,
-                    type: '1'
-                },
-                type: 'POST',
-                dataType: 'json',
-                success: function () { }
-            });
+            if ($booleanName == false || $booleanSurname == false || $booleanPhone == false || $booleanAlias == false || $booleanEmail == false || $booleanPassword == false) {
+                loading();
+                $('#loading').fadeOut(1000, function () {
+                    $('#submit').html('REGISTRAR');
+                });
+                e.preventDefault();
+            } else {
+                $.ajax($url + 'user/addUser/?', {
+                    data: {
+                        NIF: null,
+                        password: $passEncrypted,
+                        name: $name,
+                        email: $email,
+                        surname: $surnames,
+                        alias: $alias,
+                        phone: $phoneEncrypted,
+                        type: '1'
+                    },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function () {
+                        loading();
+                        $('#loading').fadeOut(1500, function () {
+                            register();
+                        });
+                    }
+                });
+            }
         }
     });
+
+    /**
+     * @function loading
+     * @description Mostrem gif de càrrega.
+     */
+    function loading() {
+        $('#submit').html('<div id="loading"><img style="width:85%;margin-top:-20px;" src="../images/loading.gif" alt="loading" /></div>')
+    }
+
+    /**
+     * @function register
+     * @description Redirigim a la pàgina de login una vegada que s'ha completat el registre.
+     */
+    function register(){
+        $('.checkIn_container').children().remove()
+        $('.checkIn_container').html('<div style="height:300px;font-size:20px;display:flex;align-items: center;text-align: center;"><span style="color:green">Te registraste correctamente. <br>En breve serás redirigido a la página de login.</span></div>');
+        $('.checkIn_container').fadeOut(1000, function(){
+            window.location.href = '../login';
+        });
+    }
+
+    /**
+     * @function addRequired
+     * @description Modifiquem el required de les ID nif, pc i city.
+     */
+    function addRequired($boolean) {
+        $('#nif').attr('required', $boolean);
+        $('#pc').attr('required', $boolean);
+        $('#city').attr('required', $boolean);
+    }
+
+    /**
+     * @function checkDocument
+     * @description Comprova si el NIF/DNI, NIE o CIF introduït és correcte
+     */
+    function checkDocument() {
+        if ($document == 'nif') {
+            if ((checkNif($('#nif').val().toUpperCase())) != true) {
+                changeIconsError($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
+                $('#iconExcNif').children().html('El NIF/DNI introducido no es correcto.');
+                $booleanNif = false;
+            } else {
+                changeIconsCheck($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
+                $booleanNif = true;
+            }
+        } else if ($document == 'nie') {
+            if ((checkNie($('#nif').val().toUpperCase())) != true) {
+                changeIconsError($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
+                $('#iconExcNif').children().html('El NIE introducido no es correcto.');
+                $booleanNif = false;
+            } else {
+                changeIconsCheck($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
+                $booleanNif = true;
+            }
+        } else if ($document == 'cif') {
+            if ((checkCif($('#nif').val().toUpperCase())) != true) {
+                changeIconsError($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
+                $('#iconExcNif').children().html('El CIF introducido no es correcto.');
+                $booleanNif = false;
+            } else {
+                changeIconsCheck($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
+                $booleanNif = true;
+            }
+        }
+    }
 
     /**
      * @function checkNif
@@ -588,12 +662,6 @@ $(document).ready(function () {
      * @returns {string}
      */
     function checkLetter($numeration) {
-        //TODO: No pondría esta explicación ja que es documentación de un js y no un tutorial.
-        /* Operació a realitzar: Separem els 8 dígits del NIF/DNI, després aquests 8 dígits el dividim entre
-            23. Aquest resultat el restem amb si mateix però sense decimals. Després aquest resultat el
-            multipliquem entre 23, aquest resultat final arrodonit és el que tenim que utilitzar
-            per comparar amb la taula de lletres si coincideix.
-        */
         let $calcNumeration = ($numeration / 23);
         let $calcNumeration2 = $calcNumeration - Math.trunc($calcNumeration);
         let $calcNumeration3 = $calcNumeration2 * 23;

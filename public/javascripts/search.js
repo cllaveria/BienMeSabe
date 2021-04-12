@@ -7,7 +7,7 @@
  * <p> 5) L'usuari selecciona el tipus de plat a cercar.</p>
  * 
  * <p> History</p>
- * 0.1 - Implementació del filtre de cerca.  
+ * 0.1 - Implementació del filtre de cerca de receptes.  
  *  
  * @version     0.1
  * @author      Sergio Asensio Ruiz 
@@ -41,17 +41,20 @@ $(document).ready(function () {
      * @var $ingredients 
      * @description Array per emmagatzemar els ingredients que es troben a la BBDD registrats i es mostren a l'usuari.
      */
-    let $ingredient, $numberPersons, $valueEnergMin, $valueEnergMax, $typePlate;
+    let $ingredient, $numberPersons, $valueEnergMin, $valueEnergMax, $typePlate, $ingredientId;
     let $ingredients = [];
+    let $searchIngredients = [];
 
-    /**
-     * @type {jQuery}
-     * @type each
-     * @listens #list_ingredient - Recorrem la llista d'ingredients.
-     * @description Recorrem la llista d'ingredients rebuda per emmagatzemar-los en l'array per posteriorment fer les comprovacions.
-     */
-    $('#list_ingredient').children().each(function (i) {
-        $ingredients[i] = $(this).val();
+    $.ajax({
+        url: 'http://localhost:8080/api/ingredient/getIngredients',
+        type: 'GET',
+        success: function (data) {
+            for (let i = 0; i < data.length; i++) {
+                $ingredients[i] = data[i];
+                $('#list_ingredient').append("<option>" + $ingredients[i].name + "</option>")
+                // data-id='" + $ingredients[i].id + "'
+            }
+        }
     });
 
     /**
@@ -68,9 +71,10 @@ $(document).ready(function () {
 
         // Guardem en una variable l'ingredient seleccionat.
         $ingredient = $('input[name=ingredient]').val();
+
         // Comprovem si l'ingredient introduït correspon a un ingredient que està a la llista.
         $ingredients.forEach($element => {
-            if ($element == $ingredient) {
+            if ($element.name == $ingredient) {
                 $booleanIngredientList = true;
             }
         });
@@ -88,9 +92,14 @@ $(document).ready(function () {
         } else if ($booleanIngredientList == false) {
             alert('inserta un ingrediente que esté en la lista.')
         } else {
+            for (let i = 0; i < $ingredients.length; i++) {
+                if ($ingredients[i].name == $ingredient) {
+                    $ingredientId = $ingredients[i].id;
+                }
+            }
             // Inserim l'ingredient en el div per mostrar els ingredients que va seleccionant l'usuari.
             $('#ingredientes').append("<li class='select_ingredient' style='background-color: #FFFFFF;border-radius: 3px;font-size: 12px;font-weight: lighter;padding: 4px;border: 1px solid;display: inline-block;margin: 2px;'>\
-                                        <span class='ingredient'>" + $ingredient + "</span>\
+                                        <span class='ingredient' value=" + $ingredientId + ">" + $ingredient + "</span>\
                                         <button class='buttonIngredients' style='margin-left: 7px;font-size: 11px;border-radius: 25px;'>X</button>\
                                     </li>");
             // Assignem la funció del botó d'eliminar l'ingredient a l'últim ingredient seleccionat.
@@ -123,7 +132,6 @@ $(document).ready(function () {
      * @listens #valueMin - ID del select valor energètic mínim.
      * @description Detecta quan l'usuari selecciona el valor energètic mínim per cercar la recepta i desem la selecció de l'usuari en la variable $valueEnergMin.
      */
-    // Desem en la variable $valueEnergMin el valor energètic mínim de la recepta a cercar.
     $('#valueMin').on('change', () => {
         $valueEnergMin = $('#valueMin option:selected').val();
         console.log($valueEnergMin)
@@ -136,7 +144,6 @@ $(document).ready(function () {
      * @listens #valueMax - ID del select valor energètic mínim.
      * @description Detecta quan l'usuari selecciona el valor energètic màxim per cercar la recepta i desem la selecció de l'usuari en la variable $valueEnergMax.
      */
-    // Desem en la variable $valueEnergMax el valor energètic màxim de la recepta a cercar.
     $('#valueMax').on('change', () => {
         $valueEnergMax = $('#valueMax option:selected').val();
         console.log($valueEnergMax)
@@ -149,9 +156,42 @@ $(document).ready(function () {
      * @listens #typePlate - ID del select del tipus de plat.
      * @description Detecta quan l'usuari selecciona el tipus de plat per cercar la recepta i desem la selecció de l'usuari en la variable $typePlate.
      */
-    // Desem en la variable $typePlate el tipus de plat de la recepta a cercar.
     $('#typePlate').on('change', () => {
         $typePlate = $('#typePlate option:selected').val();
         console.log($typePlate)
     });
+
+    $('.submit').on('click', function () {
+
+        let $urlSearch = 'http://localhost:8080/api/recipe/getRecipesByFilters/ingredients-'
+        let x = 0;
+        $('#ingredientes').children().each(function () {
+            if (x != 0) {
+                $urlSearch = $urlSearch.concat(',')
+            }
+            x++;
+            $urlSearch = $urlSearch.concat($(this).find('.ingredient').attr('value'));
+        })
+        $urlSearch = $urlSearch.concat('_kcal-' + $valueEnergMin + ',' + $valueEnergMax + '_type-21_dinner-' + $numberPersons);
+
+        $.ajax({
+            url: $urlSearch,
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                let $searchId = [];
+                let $seachText = '';
+                let x = 0;
+                for (let i = 0; i < data.length; i++) {
+                    if (x != 0) {
+                        $seachText = $seachText.concat(',')
+                    }
+                    x++;
+                    $seachText = $seachText.concat(data[i].id);
+
+                }
+                window.location.href = "../recetas?search="+$seachText;
+            }
+        })
+    })
 });
