@@ -43,7 +43,6 @@ $(document).ready(function () {
      */
     let $ingredient, $numberPersons, $valueEnergMin, $valueEnergMax, $typePlate, $ingredientId;
     let $ingredients = [];
-    let $searchIngredients = [];
 
     $.ajax({
         url: 'http://localhost:8080/api/ingredient/getIngredients',
@@ -52,10 +51,25 @@ $(document).ready(function () {
             for (let i = 0; i < data.length; i++) {
                 $ingredients[i] = data[i];
                 $('#list_ingredient').append("<option>" + $ingredients[i].name + "</option>")
-                // data-id='" + $ingredients[i].id + "'
             }
         }
     });
+
+    $.ajax({
+        url: 'http://localhost:8080/api/recipeTypes/getRecipeTypes',
+        type: 'GET',
+        success: function (data) {
+            $('#typePlate').append('<option value="all" selected>Selecciona una opción</option>');
+            for (let i = 0; i < data.length; i++) {
+                $('#typePlate').append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
+            }
+        }
+    });
+
+    $typePlate = $('[name=typePlate]').val();
+    $numberPersons = $('[name=numPer]').val();
+    $valueEnergMin = $('[name=valueMin]').val();
+    $valueEnergMax = $('[name=valueMax]').val();
 
     /**
      * @type {jQuery}
@@ -122,7 +136,6 @@ $(document).ready(function () {
      */
     $('#numPer').on('change', () => {
         $numberPersons = $('#numPer option:selected').val();
-        console.log($numberPersons)
     });
 
     /**
@@ -134,7 +147,6 @@ $(document).ready(function () {
      */
     $('#valueMin').on('change', () => {
         $valueEnergMin = $('#valueMin option:selected').val();
-        console.log($valueEnergMin)
     });
 
     /**
@@ -146,7 +158,6 @@ $(document).ready(function () {
      */
     $('#valueMax').on('change', () => {
         $valueEnergMax = $('#valueMax option:selected').val();
-        console.log($valueEnergMax)
     });
 
     /**
@@ -158,40 +169,57 @@ $(document).ready(function () {
      */
     $('#typePlate').on('change', () => {
         $typePlate = $('#typePlate option:selected').val();
-        console.log($typePlate)
     });
 
+    /**
+     * @type {jQuery}
+     * @type click
+     * @method on
+     * @listens .submit - Classe del botó submit.
+     * @description Detecta quan l'usuari polsa sobre el botó "BUSCAR" i envia els parametres corresponents de cerca a la pàgina "recetas".
+     */
     $('.submit').on('click', function () {
+        let $search = '';
+        if($('#ingredientes').children().length > 0){
+            $search = 'ingredients-';
+            $('#ingredientes').children().each(function () {
+                $search = $search.concat($(this).find('.ingredient').attr('value'));
+                $search = $search.concat(',')
+            })
+            $search = $search.substr(0, $search.length - 1);
+        }
 
-        let $urlSearch = 'http://localhost:8080/api/recipe/getRecipesByFilters/ingredients-'
-        let x = 0;
-        $('#ingredientes').children().each(function () {
-            if (x != 0) {
-                $urlSearch = $urlSearch.concat(',')
+        if($search.length > 0){
+            if($valueEnergMin != 'all' && $valueEnergMax != 'all'){
+                $search = $search.concat('_kcal-' + $valueEnergMin + ',' + $valueEnergMax);
             }
-            x++;
-            $urlSearch = $urlSearch.concat($(this).find('.ingredient').attr('value'));
-        })
-        $urlSearch = $urlSearch.concat('_kcal-' + $valueEnergMin + ',' + $valueEnergMax + '_type-21_dinner-' + $numberPersons);
-
-        $.ajax({
-            url: $urlSearch,
-            method: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                let $searchId = [];
-                let $seachText = '';
-                let x = 0;
-                for (let i = 0; i < data.length; i++) {
-                    if (x != 0) {
-                        $seachText = $seachText.concat(',')
-                    }
-                    x++;
-                    $seachText = $seachText.concat(data[i].id);
-
-                }
-                window.location.href = "../recetas?search="+$seachText;
+        }else{
+            if($valueEnergMin != 'all' && $valueEnergMax != 'all'){
+                $search = $search.concat('kcal-' + $valueEnergMin + ',' + $valueEnergMax);
             }
-        })
+        }
+
+        if($search.length > 0){
+            if($typePlate != 'all' && $typePlate != null){
+                $search = $search.concat('_type-' + $typePlate);
+            }
+        }else{
+            if($typePlate != 'all' && $typePlate != null){
+                $search = $search.concat('type-' + $typePlate);
+            }
+        }
+
+        if($search.length > 0){
+            if($numberPersons != 'all'){
+                $search = $search.concat('_dinner-' + $numberPersons);
+            }
+        }else{
+            if($numberPersons != 'all'){
+                $search = $search.concat('dinner-' + $numberPersons);
+            }
+        }
+
+        window.location.href = "../recetas?" + $search;
+
     })
 });
