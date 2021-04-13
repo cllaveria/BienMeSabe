@@ -1,12 +1,40 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: form.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: form.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @fileoverview Formulari de registre d'usuaris i nutricionistes amb les següents característiques: 
- * <p> 1) Comprovació amb expressió regular amb email i password.</p>
- * <p> 2) Comprovació de si el NIF/DNI, NIE o CIF estan correctament introduïts.</p>
- * <p> 3) Encriptació del NIF/DNI, NIE o CIF, del telèfon i del password.</p>
- * <p> 4) Comprovació amb la BBDD de si l'Àlies i l'email estan ja introduïts.</p>
- * <p> 5) Inserció a la BBDD de l'usuari o nutricionista que es registri.</p>
+ * &lt;p> 1) Comprovació amb expressió regular amb email i password.&lt;/p>
+ * &lt;p> 2) Comprovació de si el NIF/DNI, NIE o CIF estan correctament introduïts.&lt;/p>
+ * &lt;p> 3) Encriptació del NIF/DNI, NIE o CIF, del telèfon i del password.&lt;/p>
+ * &lt;p> 4) Comprovació amb la BBDD de si l'Àlies i l'email estan ja introduïts.&lt;/p>
+ * &lt;p> 5) Inserció a la BBDD de l'usuari o nutricionista que es registri.&lt;/p>
  * 
- * <p> History</p>
+ * &lt;p> History&lt;/p>
  * 0.1 - Implementació del formulari.  
  *  
  * @version     0.1
@@ -125,7 +153,7 @@ $(document).ready(function () {
      */
     $('#name').blur(() => {
         $name = $('#name').val();
-        if ($name.length < 5 || $name.length > 50) {
+        if ($name.length &lt; 5 || $name.length > 50) {
             changeIconsError($('#name'), $('#iconInfoName'), $('#iconExcName'), $('#iconCheckName'));
             $booleanName = false;
         } else {
@@ -143,7 +171,7 @@ $(document).ready(function () {
     $('#surnames').blur(() => {
         $surnames = $('#surnames').val();
         if ($surnames != "") {
-            if ($surnames.length < 5 || $surnames.length > 100) {
+            if ($surnames.length &lt; 5 || $surnames.length > 100) {
                 changeIconsError($('#surnames'), $('#iconInfoSurnames'), $('#iconExcSurnames'), $('#iconCheckSurnames'));
                 $booleanSurname = false;
                 console.log($booleanSurname)
@@ -188,7 +216,7 @@ $(document).ready(function () {
      */
     $('#alias').blur(() => {
         $alias = $('#alias').val();
-        if ($alias.length < 3 || $alias.length > 50) {
+        if ($alias.length &lt; 3 || $alias.length > 50) {
             changeIconsError($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
             $booleanAlias = false;
         } else {
@@ -329,7 +357,7 @@ $(document).ready(function () {
      */
     $('#city').blur(() => {
         $city = $('#city').val();
-        if ($city.length < 3 || $city.length > 50) {
+        if ($city.length &lt; 3 || $city.length > 50) {
             changeIconsError($('#city'), $('#iconInfoCity'), $('#iconExcCity'), $('#iconCheckCity'));
             $booleanCity = false;
         } else {
@@ -347,7 +375,7 @@ $(document).ready(function () {
     $('#direction').blur(() => {
         $direction = $('#direction').val();
         if ($direction != "") {
-            if ($direction.length < 5 || $direction.length > 100) {
+            if ($direction.length &lt; 5 || $direction.length > 100) {
                 changeIconsError($('#direction'), $('#iconInfoDire'), $('#iconExcDire'), $('#iconCheckDire'));
                 $booleanDirection = false;
             } else {
@@ -369,7 +397,7 @@ $(document).ready(function () {
     $('#company').blur(() => {
         $company = $('#company').val();
         if ($company != "") {
-            if ($company.length < 2 || $company.length > 50) {
+            if ($company.length &lt; 2 || $company.length > 50) {
                 changeIconsError($('#company'), $('#iconInfoComp'), $('#iconExcComp'), $('#iconCheckComp'));
                 $booleanCompany = false;
             } else {
@@ -501,7 +529,7 @@ $(document).ready(function () {
                         loading();
                         $('#loading').fadeOut(1500, function () {
                             $('.checkIn_container').children().remove()
-                            $('.checkIn_container').html('<div style="height:300px;font-size:20px;display:flex;align-items: center;text-align: center;"><span style="color:green">Te registraste correctamente. <br>En breve serás redirigido a la página de login.</span></div>');
+                            $('.checkIn_container').html('&lt;div style="height:300px;font-size:20px;display:flex;align-items: center;text-align: center;">&lt;span style="color:green">Te registraste correctamente. &lt;br>En breve serás redirigido a la página de login.&lt;/span>&lt;/div>');
                             $('.checkIn_container').fadeOut(1000, function(){
                                 window.location.href = '../login';
                             });
@@ -546,7 +574,7 @@ $(document).ready(function () {
      * @description Mostrem gif de càrrega.
      */
     function loading() {
-        $('#submit').html('<div id="loading"><img style="width:85%;margin-top:-20px;" src="../images/loading.gif" alt="loading" /></div>')
+        $('#submit').html('&lt;div id="loading">&lt;img style="width:85%;margin-top:-20px;" src="../images/loading.gif" alt="loading" />&lt;/div>')
     }
 
     /**
@@ -555,7 +583,7 @@ $(document).ready(function () {
      */
     function register(){
         $('.checkIn_container').children().remove()
-        $('.checkIn_container').html('<div style="height:300px;font-size:20px;display:flex;align-items: center;text-align: center;"><span style="color:green">Te registraste correctamente. <br>En breve serás redirigido a la página de login.</span></div>');
+        $('.checkIn_container').html('&lt;div style="height:300px;font-size:20px;display:flex;align-items: center;text-align: center;">&lt;span style="color:green">Te registraste correctamente. &lt;br>En breve serás redirigido a la página de login.&lt;/span>&lt;/div>');
         $('.checkIn_container').fadeOut(1000, function(){
             window.location.href = '../login';
         });
@@ -728,7 +756,7 @@ $(document).ready(function () {
         let $firstOddResult = '';
         let $arrayOrganization = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'U', 'V', 'W'];
         let $letterOrNumber = $cif.charAt($cif.length - 1);
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i &lt; 10; i++) {
             // Si el resultat coincideix amb un número, aquest s'avaluarà com a número.
             if ($letterOrNumber == i) {
                 $letterOrNumber = eval($letterOrNumber);
@@ -742,7 +770,7 @@ $(document).ready(function () {
         }
         let $numeration = $cif.substr(1, 7);
         let $arrayNumeration = $numeration.split('');
-        for (let i = 0; i < $arrayNumeration.length; i++) {
+        for (let i = 0; i &lt; $arrayNumeration.length; i++) {
             if (i % 2 == 0) {
                 $firstOddResult = parseInt($arrayNumeration[i]) * 2;
                 let $x = $firstOddResult.toString().length;
@@ -750,7 +778,7 @@ $(document).ready(function () {
                     let $innerOddSum = 0;
                     let $arrayResult = $firstOddResult.toString().split('');
                     $firstOddResult = 0;
-                    for (let i = 0; i < $arrayResult.length; i++) {
+                    for (let i = 0; i &lt; $arrayResult.length; i++) {
                         $innerOddSum += parseInt($arrayResult[i]);
                     }
                     $firstOddResult += $innerOddSum;
@@ -862,4 +890,26 @@ $(document).ready(function () {
         input.removeClass("error");
         input.addClass("success");
     }
-});
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#$alias">$alias</a></li><li><a href="global.html#$booleaDirection">$booleaDirection</a></li><li><a href="global.html#$booleanAlias">$booleanAlias</a></li><li><a href="global.html#$booleanBusinessPhone">$booleanBusinessPhone</a></li><li><a href="global.html#$booleanCity">$booleanCity</a></li><li><a href="global.html#$booleanCompany">$booleanCompany</a></li><li><a href="global.html#$booleanEmail">$booleanEmail</a></li><li><a href="global.html#$booleanName">$booleanName</a></li><li><a href="global.html#$booleanNif">$booleanNif</a></li><li><a href="global.html#$booleanPassword">$booleanPassword</a></li><li><a href="global.html#$booleanPc">$booleanPc</a></li><li><a href="global.html#$booleanSurname">$booleanSurname</a></li><li><a href="global.html#$businessPhone">$businessPhone</a></li><li><a href="global.html#$city">$city</a></li><li><a href="global.html#$company">$company</a></li><li><a href="global.html#$direction">$direction</a></li><li><a href="global.html#$document">$document</a></li><li><a href="global.html#$email">$email</a></li><li><a href="global.html#$ingredient">$ingredient</a></li><li><a href="global.html#$ingredients">$ingredients</a></li><li><a href="global.html#$name">$name</a></li><li><a href="global.html#$nif">$nif</a></li><li><a href="global.html#$numberPersons">$numberPersons</a></li><li><a href="global.html#$pass">$pass</a></li><li><a href="global.html#$pc">$pc</a></li><li><a href="global.html#$phone">$phone</a></li><li><a href="global.html#$typePlate">$typePlate</a></li><li><a href="global.html#$url">$url</a></li><li><a href="global.html#$valueEnergMax">$valueEnergMax</a></li><li><a href="global.html#$valueEnergMin">$valueEnergMin</a></li><li><a href="global.html#addRequired">addRequired</a></li><li><a href="global.html#blur">blur</a></li><li><a href="global.html#checkCif">checkCif</a></li><li><a href="global.html#checkDocument">checkDocument</a></li><li><a href="global.html#checkLetter">checkLetter</a></li><li><a href="global.html#checkNie">checkNie</a></li><li><a href="global.html#checkNif">checkNif</a></li><li><a href="global.html#loading">loading</a></li><li><a href="global.html#on">on</a></li><li><a href="global.html#register">register</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Apr 12 2021 18:58:00 GMT+0200 (hora de verano de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
