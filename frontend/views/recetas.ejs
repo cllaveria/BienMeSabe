@@ -16,20 +16,167 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
     </script>
-    <script src="../javascripts/searchrecipes.js"></script>
 </head>
 
 <body>
     <!-- Header -->
     <%- include('./header'); %>
 
-    <!-- Recetas -->
-    <div class="recetas">
-        <h1>PAGINA DE RECETAS</h1>
-    </div>
+        <!-- Recipes -->
+        <div class="recipes_container">
+            <div class="typePlate_container">
+                <div class="tl_typePlate tl_entrantes">Entrantes</div>
+                <div class="recipes_cont" id="starters">
+                    <div class="rcp_cont">
+                        <div class="recipe entrantes">
+                            <img src="/images/entrantes.jpg" alt="Entrantes" style="width: 100%;">
+                            <div class="desc_rec">
+                                <h3 id="title">Macarrones con queso y verduras</h3>
+                                <p id="author">Nombre del autor</p>
+                            </div>
+                        </div>
+                        <div class="info_rec">
+                            <p id="level">Dificultad baja</p>
+                            <div class="time_rec">
+                                <i class="fas fa-clock clock"></i>
+                                <p id="time">15 min</p>
+                            </div>
+                        </div>
+                        <div class="score_rec">
+                            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn_more" type="button">VER MÁS</button>
+            </div>
 
-    <!-- Footer -->
-    <%- include('./footer'); %>
+            <div class="typePlate_container">
+                <div class="tl_typePlate tl_primeros">Primeros</div>
+                <div class="recipes_cont" id="first">
+                    <div class="rcp_cont">
+                        <div class="recipe primeros">
+                            <img src="/images/entrantes.jpg" alt="Entrantes" style="width: 100%;">
+                            <div class="desc_rec">
+                                <h3 id="title">Macarrones con queso y verduras</h3>
+                                <p id="author">Nombre del autor</p>
+                            </div>
+                        </div>
+                        <div class="info_rec">
+                            <p id="level">Dificultad baja</p>
+                            <div class="time_rec">
+                                <i class="fas fa-clock clock"></i>
+                                <p id="time">15 min</p>
+                            </div>
+                        </div>
+                        <div class="score_rec">
+                            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn_more" type="button">VER MÁS</button>
+            </div>
+
+            <div class="typePlate_container">
+                <div class="tl_typePlate tl_segundos">Segundos</div>
+                <div class="recipes_cont" id="second">
+                    <div class="rcp_cont">
+                        <div class="recipe segundos">
+                            <img src="/images/entrantes.jpg" alt="Entrantes" style="width: 100%;">
+                            <div class="desc_rec">
+                                <h3 id="title">Macarrones con queso y verduras</h3>
+                                <p id="author">Nombre del autor</p>
+                            </div>
+                        </div>
+                        <div class="info_rec">
+                            <p id="level">Dificultad baja</p>
+                            <div class="time_rec">
+                                <i class="fas fa-clock clock"></i>
+                                <p id="time">15 min</p>
+                            </div>
+                        </div>
+                        <div class="score_rec">
+                            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn_more" type="button">VER MÁS</button>
+            </div>
+
+            <div class="typePlate_container">
+                <div class="tl_typePlate tl_postres">Postres</div>
+                <div class="recipes_cont" id="dessert">
+                    <div class="rcp_cont">
+                        <div class="recipe postres">
+                            <img src="/images/entrantes.jpg" alt="Entrantes" style="width: 100%;">
+                            <div class="desc_rec">
+                                <h3 id="title">Macarrones con queso y verduras</h3>
+                                <p id="author">Nombre del autor</p>
+                            </div>
+                        </div>
+                        <div class="info_rec">
+                            <p id="level">Dificultad baja</p>
+                            <div class="time_rec">
+                                <i class="fas fa-clock clock"></i>
+                                <p id="time">15 min</p>
+                            </div>
+                        </div>
+                        <div class="score_rec">
+                            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn_more" type="button">VER MÁS</button>
+            </div>
+
+            <div class="typePlate_container">
+                <div class="tl_typePlate tl_repos">Repostería</div>
+                <div class="recipes_cont" id="cake">
+                    <div class="rcp_cont">
+                        <div class="recipe repos">
+                            <img src="/images/entrantes.jpg" alt="Entrantes" style="width: 100%;">
+                            <div class="desc_rec">
+                                <h3 id="title">Macarrones con queso y verduras</h3>
+                                <p id="author">Nombre del autor</p>
+                            </div>
+                        </div>
+                        <div class="info_rec">
+                            <p id="level">Dificultad baja</p>
+                            <div class="time_rec">
+                                <i class="fas fa-clock clock"></i>
+                                <p id="time">15 min</p>
+                            </div>
+                        </div>
+                        <div class="score_rec">
+                            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn_more" type="button">VER MÁS</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <%- include('./footer'); %>
 </body>
 
 </html>
