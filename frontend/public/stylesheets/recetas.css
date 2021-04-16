@@ -1,6 +1,95 @@
 @import "common.css";
 
 /*---Carousel---*/
-.recetas {
-  margin-top: 100px;
+.typePlate_container {
+  margin: 80px auto;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.tl_typePlate {
+  font-size: 64px;
+  font-family: "Alex Brush";
+  margin-bottom: 25px;
+}
+
+.recipes_cont {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  margin: auto;
+  width: 80%;
+  align-items: center;
+}
+
+.recipe {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 250px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.recipe > img {
+  width: 100%;
+}
+
+.recipe:hover > img {
+  opacity: 0.5;
+  transition: all 0.5s ease-in;
+}
+
+.entrantes:hover > .desc_rec {
+  color: #fca035;
+}
+
+.desc_rec {
+  position: absolute;
+  padding: 10px 15px;
+  color: white;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.4);
+  max-width: 250px;
+}
+
+.info_rec{
+  float: left;
+}
+
+.score_rec{
+float: right;
+}
+
+.time_rec{
+  display: flex;
+  justify-content: center;
+}
+
+p{  
+  padding-bottom: 10px;
+}
+
+.clock{
+  margin-right: 3px;
+  color: #fca035;
+}
+
+.btn_more {
+  width: 100px;
+  height: 35px;
+  background-color: white;
+  border: solid 2px #fca035;
+  border-radius: 3px;
+  font-size: 12px;
+  color: black;
+  font-weight: bold;
+  margin-top: 40px;
+}
+
+.btn_more:hover,
+.btn_more:focus {
+  background-color: #fbc76f;
+  outline: 0;
 }
