@@ -81,7 +81,10 @@ public class UserDAOImpl implements UserDAO{
         query.setParameter("name", name);
         User user = new User();
         try{
-             user= query.getSingleResult();
+            user = query.getSingleResult();
+            user.setPassword("");
+            user.setNIF("");
+            user.setPhone("");
         }catch(Exception e){
             return user;
         }
@@ -100,6 +103,9 @@ public class UserDAOImpl implements UserDAO{
         Query<User> query = currentSession.createQuery("FROM User WHERE email=:email", User.class);
         query.setParameter("email", email);
         User user = query.getSingleResult();
+        user.setPassword("");
+        user.setNIF("");
+        user.setPhone("");
         return user;
     }
     
@@ -115,6 +121,9 @@ public class UserDAOImpl implements UserDAO{
         Query<User> query = currentSession.createQuery("FROM User WHERE alias=:alias", User.class);
         query.setParameter("alias", alias);
         User user = query.getSingleResult();
+        user.setPassword("");
+        user.setNIF("");
+        user.setPhone("");
         return user;
     }
     

@@ -41,6 +41,11 @@ public class NutricionistDAOImpl implements NutricionistDAO{
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Nutricionist> query = currentSession.createQuery("from Nutricionist", Nutricionist.class);
         List<Nutricionist> nutricionists = query.getResultList();
+        for(int i =0;i<nutricionists.size();i++){
+            nutricionists.get(i).setPassword("");
+            nutricionists.get(i).setNIF("");
+            nutricionists.get(i).setPhone("");
+        }
         return nutricionists;
     }
 
@@ -54,6 +59,9 @@ public class NutricionistDAOImpl implements NutricionistDAO{
     public Nutricionist findNutricionistById(Long id) {
         Session currentSession = entityManager.unwrap(Session.class);
         Nutricionist nutricionist = currentSession.get(Nutricionist.class, id);
+        nutricionist.setPassword("");
+        nutricionist.setNIF("");
+        nutricionist.setPhone("");
         return nutricionist;
     }
 
@@ -69,6 +77,9 @@ public class NutricionistDAOImpl implements NutricionistDAO{
         Query<Nutricionist> query = currentSession.createQuery("FROM Nutricionist WHERE companyPostalCode=:companyPostalCode", Nutricionist.class);
         query.setParameter("companyPostalCode", cp);
         Nutricionist nutricionist = query.getSingleResult();
+        nutricionist.setPassword("");
+        nutricionist.setNIF("");
+        nutricionist.setPhone("");
         return nutricionist;
     }
 
@@ -86,6 +97,11 @@ public class NutricionistDAOImpl implements NutricionistDAO{
         query.setParameter("minCP", cpMin);
         query.setParameter("maxCP", cpMax);
         List<Nutricionist> nutricionists = query.getResultList();
+        for(int i =0;i<nutricionists.size();i++){
+            nutricionists.get(i).setPassword("");
+            nutricionists.get(i).setNIF("");
+            nutricionists.get(i).setPhone("");
+        }
         return nutricionists;
     }
 
