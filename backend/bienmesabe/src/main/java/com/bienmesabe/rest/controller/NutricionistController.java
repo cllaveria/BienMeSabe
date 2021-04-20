@@ -72,8 +72,10 @@ public class NutricionistController {
      * @param cpMax string that represents the maximum postal code of the nutricionists to search
      * @return a list with the nutricionists filtered by postal code range
      */
-    @GetMapping("/findNutricionistByCPRange/{cpMin}/{cpMax}")
-    public List<Nutricionist> findNutricionistByCPRange(@PathVariable String cpMin, @PathVariable String cpMax){
+    @GetMapping("/findNutricionistByCPRange/{cpRanges}")
+    public List<Nutricionist> findNutricionistByCPRange(@PathVariable String cpRanges){
+        String cpMin = cpRanges.split("-")[0];
+        String cpMax = cpRanges.split("-")[1];
         List<Nutricionist> nutricionists = nutricionistService.findNutricionistByCPRange(cpMin, cpMax);
         return nutricionists;
     }

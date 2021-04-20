@@ -93,9 +93,9 @@ public class NutricionistDAOImpl implements NutricionistDAO{
     @Transactional
     public List<Nutricionist> findNutricionistByCPRange(String cpMin, String cpMax) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Nutricionist> query = currentSession.createQuery("FROM Nutricionist WHERE companyPostalCode>=:minCP and companyPostalCode<= maxCP", Nutricionist.class);
-        query.setParameter("minCP", cpMin);
-        query.setParameter("maxCP", cpMax);
+        Query<Nutricionist> query = currentSession.createQuery("FROM Nutricionist WHERE CONVERT(companyPostalCode,unsigned) BETWEEN :minCP AND :maxCP ORDER BY CONVERT(companyPostalCode,unsigned) DESC", Nutricionist.class);
+        query.setParameter("minCP", Integer.parseInt(cpMin));
+        query.setParameter("maxCP", Integer.parseInt(cpMax));
         List<Nutricionist> nutricionists = query.getResultList();
         for(int i =0;i<nutricionists.size();i++){
             nutricionists.get(i).setPassword("");
