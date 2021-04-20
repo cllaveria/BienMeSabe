@@ -58,9 +58,10 @@ public interface UserDAO {
     
     /**
      * Method to modify an user in the table users of the DB
-     * @param user object that represents the user to modify
+     * @param user string with the parameters of the user to update
+     * @return a boolean value taht informs if the update is doned or not
      */
-    public void modifyUser(User user);
+    public boolean modifyUser(String user);
     
     /**
      * Method to delete an user in the table users of the DB by id

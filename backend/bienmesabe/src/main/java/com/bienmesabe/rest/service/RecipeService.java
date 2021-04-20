@@ -65,6 +65,13 @@ public interface RecipeService {
     public Recipe getRecipeById(Long id);
     
     /**
+     * Method to recover the recipes of the other users
+     * @param userId long that represents the id of the user wich doesn't create the recipes
+     * @return a list with the recipes in the DB filtered by user id
+     */
+    public List<Recipe> getRecipesOfOtherUsers(Long userId);
+    
+    /**
      * Method to create a recipe
      * @param recipe object that represents the recipe to persist
      * @return a long with the id of the persisted recipe

@@ -47,12 +47,12 @@ public class UserController {
     
     /**
      * Method to recover the user by id // HTTP verb: GET url: http://localhost:8080/api/user/getUserById/{UserId}
-     * @param id long that represents the id of the users to search
+     * @param id string that represents the id of the users to search
      * @return the user filtered by id
      */
-    @GetMapping("/getUserById/{ID}")
-    public User findUserById(@PathVariable Long id){
-        User user = userService.findUserById(id);
+    @GetMapping("/getUserById/{id}")
+    public User findUserById(@PathVariable String id){
+        User user = userService.findUserById(Long.parseLong(id));
         return user;
     }
     
@@ -110,22 +110,32 @@ public class UserController {
      * @param user object that represents the user to modify
      * @return the modified user
      */
+    /*TODO
+    MODIFICAR EL MÉTODO PÀRA RECIBIR TODOS LOS PARÁMETROS DEL USUARIO Y EVALUARLOS UNO POR UNO
+    DEVOLVER UN BOOLEANO
+    */
     @PutMapping("/modifyUser")
-    public User updateUser(User user){
-        userService.modifyUser(user);
-        return user;
+    public boolean updateUser(String user){
+        try{
+            userService.modifyUser(user);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+        
+        
     }
     
     /**
      * Method to delete the user by id // HTTP verb: DELETE url: http://localhost:8080/api/user/deleteUserById/{UserId}
-     * @param id long with the id of the user to delete
+     * @param id string with the id of the user to delete
      * @return  an string that informs the id of the deleted user
      */
     @DeleteMapping("deleteUserById/{id}")
-    public String deleteUserById(@PathVariable Long id){
-        User user = userService.findUserById(id);
+    public String deleteUserById(@PathVariable String id){
+        User user = userService.findUserById(Long.parseLong(id));
         if(user != null) {
-           userService.deleteUserById(id);
+           userService.deleteUserById(Long.parseLong(id));
            return "Deleted user id - "+id;
         }
         

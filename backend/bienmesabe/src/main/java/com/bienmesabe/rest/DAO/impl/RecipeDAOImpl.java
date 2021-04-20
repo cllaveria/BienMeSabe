@@ -40,7 +40,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     public List<Recipe> getAllRecipes() {
         Session currentSession = entityManager.unwrap(Session.class);
         
-        Query<Recipe> query = currentSession.createQuery("from Recipe", Recipe.class);
+        Query<Recipe> query = currentSession.createQuery("from Recipe order by createdAt desc", Recipe.class);
         
         List<Recipe> recipes = query.getResultList();
         
@@ -107,7 +107,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Transactional
     public List<Recipe> getRecipeByType(int type) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Recipe> query = currentSession.createQuery("from Recipe where type=:recipeType");
+        Query<Recipe> query = currentSession.createQuery("from Recipe where type=:recipeType order by recipeAssessment DESC");
         query.setParameter("recipeType", type);
         List<Recipe> recipes = query.getResultList();
         return recipes;
@@ -138,6 +138,20 @@ public class RecipeDAOImpl implements RecipeDAO {
         Session currentSession = entityManager.unwrap(Session.class);
         Recipe recipe = currentSession.get(Recipe.class, id);
         return recipe;
+    }
+    
+    /**
+     * Implementation of interface method to recover the recipes present in the DB by user id
+     * @param userId long that represents the id of the user to not search
+     * @return the recipes in the DB filtered by user id
+     */
+    @Override
+    public List<Recipe> getRecipesOfOtherUsers(Long userId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Recipe> query = currentSession.createQuery("from Recipe where userId<>:userId");
+        query.setParameter("userId", userId);
+        List<Recipe> recipes = query.getResultList();
+        return recipes;
     }
     
     /**
@@ -178,6 +192,8 @@ public class RecipeDAOImpl implements RecipeDAO {
         query.setParameter("recipeId", id);
         query.executeUpdate();
     }
+
+    
 
     
 }

@@ -57,7 +57,12 @@ public interface RecipeDAO {
      * @return the recipe in the DB filtered by id
      */
     public Recipe getRecipeById(Long id);
-    
+    /**
+     * Method to recover the recipes of the other users
+     * @param userId long that represents the id of the user wich doesn't create the recipes
+     * @return a list with the recipes in the DB filtered by user
+     */
+    public List<Recipe> getRecipesOfOtherUsers(Long userId);
     /**
      * Method to create a recipe in the table recipes of the DB
      * @param recipe object that represents the recipe to persist

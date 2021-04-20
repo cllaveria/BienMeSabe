@@ -87,10 +87,10 @@ public class UserServiceImpl implements UserService{
 
     /**
      * Implementation of interface method to modify an user
-     * @param user object that represents the user to modify
+     * @param user string with the parameters of the user to update
      */
     @Override
-    public void modifyUser(User user) {
+    public void modifyUser(String user) {
         userDAO.modifyUser(user);
     }
 

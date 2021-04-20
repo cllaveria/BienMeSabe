@@ -44,7 +44,11 @@ public class UserDAOImpl implements UserDAO{
         Query<User> query = currentSession.createQuery("from User", User.class);
         
         List<User> users = query.getResultList();
-        
+        for(int i =0;i<users.size();i++){
+            users.get(i).setPassword("");
+            users.get(i).setNIF("");
+            users.get(i).setPhone("");
+        }
         return users;
     }
 
@@ -58,6 +62,9 @@ public class UserDAOImpl implements UserDAO{
     public User findUserById(Long id) {
         Session currentSession = entityManager.unwrap(Session.class);
         User user = currentSession.get(User.class, id);
+        user.setPassword("");
+        user.setNIF("");
+        user.setPhone("");
         return user;
     }
 
@@ -139,13 +146,22 @@ public class UserDAOImpl implements UserDAO{
 
     /**
      * Implementation of interface method to modify an user in the table users of the DB
-     * @param user object that represents the user to modify
+     * @param user string with the parameters of the user to update
      */
+    /*todo
+    modificar el método para filtrar los campos a actualizar
+    */
     @Override
     @Transactional
-    public void modifyUser(User user) {
+    public boolean modifyUser(String user) {
         Session currentSession = entityManager.unwrap(Session.class);
-        currentSession.saveOrUpdate(user); 
+        try{
+            Query<User> query = currentSession.createQuery("update User set WHERE id=:userid", User.class);
+            query.executeUpdate();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 
     /**

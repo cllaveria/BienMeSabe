@@ -58,9 +58,9 @@ public interface UserService {
     
     /**
      * Method to modify an user
-     * @param user object that represents the user to modify
+     * @param user string with the parameters of the user to update
      */
-    public void modifyUser(User user);
+    public void modifyUser(String user);
     
     /**
      * Method to delete an user by id
