@@ -28,8 +28,13 @@ public class CommentDAOImpl implements CommentDAO{
     @Autowired
     private EntityManager entityManager;
     
+    /**
+     * Implementation of interface method to create a comment in the table comments of the DB
+     * @param comment object that represents the comment to persist
+     * @return a long with the id of the persisted comment
+     */
     @Override
-    public Long createIngredient(Comment comment) {
+    public Long createComment(Comment comment) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Comment> query = currentSession.createQuery("FROM Comment WHERE commentValue=:value and recipeId=:recipe and userId=:user", Comment.class);
         query.setParameter("value", comment.getCommentValue());

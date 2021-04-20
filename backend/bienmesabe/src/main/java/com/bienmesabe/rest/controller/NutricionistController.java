@@ -49,7 +49,7 @@ public class NutricionistController {
      * @param id string that represents the id of the nutricionist to search
      * @return the nutricionist filtered by id
      */
-    @GetMapping("/getNutricionistById/{ID}")
+    @GetMapping("/getNutricionistById/{id}")
     public Nutricionist findUserById(@PathVariable String id){
         Nutricionist nutricionist = nutricionistService.findNutricionistById(Long.parseLong(id));
         return nutricionist;

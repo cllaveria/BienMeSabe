@@ -20,14 +20,19 @@ import org.springframework.stereotype.Service;
 public class CommentServiceImpl implements CommentService{
 
     /**
-     * Bean of the ingredient repository (Interface)
+     * Bean of the comment repository (Interface)
      */
     @Autowired
     private CommentDAO commentDAO;
     
+    /**
+     * Implementation of interface method to create a comment
+     * @param comment object that represents the comment to persist
+     * @return a long with the id of the persisted comment
+     */
     @Override
     public Long createComment(Comment comment) {
-        return commentDAO.createIngredient(comment);
+        return commentDAO.createComment(comment);
     }
     
 }

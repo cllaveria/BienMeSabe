@@ -7,8 +7,8 @@ package com.bienmesabe.rest.controller;
 
 
 
-import com.bienmesabe.rest.domain.Comment;
-import com.bienmesabe.rest.service.CommentService;
+import com.bienmesabe.rest.domain.Assessment;
+import com.bienmesabe.rest.service.AssessmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,37 +19,37 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * Controller for Comments // url: http://localhost:8080/api/comments
+ * Controller for Assessments // url: http://localhost:8080/api/assessments
  * @author RAUL RAMOS CENDRERO
  * @version 20/04/2021
  */
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
-@RequestMapping("/api/comment")
-public class CommentController {
+@RequestMapping("/api/assessment")
+public class AssessmentController {
     
     /**
-     * Bean of the comment service (Interface)
+     * Bean of the assessment service (Interface)
      */
     @Autowired
-    private CommentService commentService;
+    private AssessmentService assessmentService;
     /**
-     * Method to create the comment // HTTP verb: POST url: http://localhost:8080/api/comment/addComment/{recipeId}/{comment}/{userId}
+     * Method to create the assessment // HTTP verb: POST url: http://localhost:8080/api/assessment/addAssessment/{recipeId}/{assessment}/{userId}
      * @param recipeId string that represents the id of the recipe
-     * @param commentValue string taht represents the comment
+     * @param assessmentValue string that represents the assessment value
      * @param userId string that represents the id of the user
      * @return the created user
      */
-    @PostMapping("/addComment/{recipeId}/{comment}/{userId}")
-    public Comment addComment(@PathVariable String recipeId, @PathVariable String commentValue,@PathVariable String userId ){
-       Comment comment = new Comment();
-       comment.setRecipeId(Long.parseLong(recipeId));
-       comment.setCommentValue(commentValue);
-       comment.setUserId(Long.parseLong(userId));
-       Long id = commentService.createComment(comment);
+    @PostMapping("/addAssessment/{recipeId}/{assessment}/{userId}")
+    public Assessment addAssessment(@PathVariable String recipeId, @PathVariable String assessmentValue,@PathVariable String userId ){
+       Assessment assessment = new Assessment();
+       assessment.setRecipeId(Long.parseLong(recipeId));
+       assessment.setAssessmentValue(Float.parseFloat(assessmentValue));
+       assessment.setUserId(Long.parseLong(userId));
+       Long id = assessmentService.createAssessment(assessment);
        if(id == 0L)
            return null;
-       comment.setId(id);
-       return comment;
+       assessment.setId(id);
+       return assessment;
     }
 }

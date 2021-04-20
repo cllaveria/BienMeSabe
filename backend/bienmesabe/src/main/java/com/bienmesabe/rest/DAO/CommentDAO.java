@@ -18,5 +18,5 @@ public interface CommentDAO {
      * @param comment object that represents the comment to persist
      * @return a long with the id of the persisted comment
      */
-    public Long createIngredient(Comment comment);
+    public Long createComment(Comment comment);
 }
