@@ -255,6 +255,27 @@ public class UserDAOImpl implements UserDAO{
     }
     
     /**
+     * Method to modify the alais of the user
+     * @param userId long that represents the id of the user to modify
+     * @param aliasNew string that represents the new alias of the user
+     * @return a boolean that indicates if the alias of the user is successfully updated or not
+     */
+    @Override
+    @Transactional
+    public boolean modifyUserAlias(Long userId, String aliasNew){
+        Session currentSession = entityManager.unwrap(Session.class);
+        try{
+            Query<User> queryU = currentSession.createQuery("update User set alias=:aliasNew where id=:userId");
+            queryU.setParameter("userId", userId);
+            queryU.setParameter("aliasNew", aliasNew);
+            queryU.executeUpdate();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    
+    /**
      * Implementation of interface method to delete an user in the table users of the DB by id
      * @param id long with the id of the user to delete
      */

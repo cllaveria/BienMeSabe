@@ -76,6 +76,14 @@ public interface UserService {
      * @return a boolean that indicates if the mail of the user is successfully updated or not
      */
     public boolean modifyUserEmail(String mail);
+    
+    /**
+     * Method to modify the alias of the user
+     * @param alias string with the information of the user for change the alias
+     * @return a boolean that indicates if the alias of the user is successfully updated or not
+     */
+    public boolean modifyUserAlias(String alias);
+    
             
     /**
      * Method to delete an user by id

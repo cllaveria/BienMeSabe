@@ -154,6 +154,21 @@ public class UserServiceImpl implements UserService{
         String[] splittedEmailsValues = splittedEmails[1].split(",,,");
         return userDAO.modifyUserEmail(userId, splittedEmailsValues[0], splittedEmailsValues[1]);
     }
+    
+    /**
+     * Method to modify the alias of the user
+     * @param alias string with the information of the user for change the alias
+     * @return a boolean that indicates if the alias of the user is successfully updated or not
+     */
+    @Override
+    public boolean modifyUserAlias(String alias){
+        Long userId = 0L;
+        String[] splittedMail = alias.split("___");
+        String[] splittedUserIds = splittedMail[0].split("---");
+        userId = Long.parseLong(splittedUserIds[1]);
+        String[] splittedEmails = splittedMail[1].split("---");
+        return userDAO.modifyUserAlias(userId, splittedEmails[1]);
+    }
 
     /**
      * Implementation of interface method to delete an user by id

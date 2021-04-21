@@ -87,6 +87,14 @@ public interface UserDAO {
     public boolean modifyUserEmail(Long userId, String emailOld, String emailNew);
     
     /**
+     * Method to modify the alais of the user
+     * @param userId long that represents the id of the user to modify
+     * @param aliasNew string that represents the new alias of the user
+     * @return a boolean that indicates if the alias of the user is successfully updated or not
+     */
+    public boolean modifyUserAlias(Long userId, String aliasNew);
+    
+    /**
      * Method to delete an user in the table users of the DB by id
      * @param id long with the id of the user to delete
      */

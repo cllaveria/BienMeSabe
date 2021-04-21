@@ -122,7 +122,7 @@ public class UserController {
     
     /**
      * Method to modify the user // HTTP verb: PUT url: http://localhost:8080/api/user/modifyUser
-     * @param pass object that represents the user to modify
+     * @param pass object that represents the user password to modify
      * @return the modified user
      */
     @PutMapping("/updateUserPassword/{pass}")
@@ -137,13 +137,28 @@ public class UserController {
     
     /**
      * Method to modify the user // HTTP verb: PUT url: http://localhost:8080/api/user/modifyUser
-     * @param pass object that represents the user to modify
+     * @param mail object that represents the user email to modify
      * @return the modified user
      */
     @PutMapping("/updateUserEmail/{mail}")
     public boolean updateUserEmail(@PathVariable String mail){
         try{
             userService.modifyUserEmail(mail);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    
+    /**
+     * Method to modify the user // HTTP verb: PUT url: http://localhost:8080/api/user/modifyUser
+     * @param alias object that represents the user alias to modify
+     * @return the modified user
+     */
+    @PutMapping("/updateUserAlias/{alias}")
+    public boolean updateUserAlias(@PathVariable String alias){
+        try{
+            userService.modifyUserAlias(alias);
             return true;
         }catch(Exception e){
             return false;
