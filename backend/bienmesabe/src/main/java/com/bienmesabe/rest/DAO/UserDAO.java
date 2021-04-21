@@ -58,10 +58,16 @@ public interface UserDAO {
     
     /**
      * Method to modify an user in the table users of the DB
-     * @param user string with the parameters of the user to update
-     * @return a boolean value taht informs if the update is doned or not
+     * @param userId long that represents the id of the user to modify
+     * @param newNIF string that represents the new NIF of the user
+     * @param imagePath string that represents the new image path of the user
+     * @param surnameNew string that represents the new surname of the user
+     * @param nameNew string that represents the new name of the user
+     * @param phoneNew string that represents the new phone of the user
+     * @param emailNew string that represents the new email of the user
+     * @return a boolean that indicates if the user is successfully updated or not
      */
-    public boolean modifyUser(String user);
+    public boolean modifyUser(Long userId, String newNIF, String imagePath, String nameNew, String surnameNew, String emailNew, String phoneNew);
     
     /**
      * Method to delete an user in the table users of the DB by id

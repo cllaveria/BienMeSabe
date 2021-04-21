@@ -57,10 +57,11 @@ public interface UserService {
     public Long createUser(User user);
     
     /**
-     * Method to modify an user
+     * Implementation of interface method to modify an user
      * @param user string with the parameters of the user to update
+     * @return a boolean that indicates if the user is successfully updated or not
      */
-    public void modifyUser(String user);
+    public boolean modifyUser(String user);
     
     /**
      * Method to delete an user by id

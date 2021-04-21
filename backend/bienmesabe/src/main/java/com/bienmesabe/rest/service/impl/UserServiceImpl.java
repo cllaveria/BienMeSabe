@@ -8,6 +8,7 @@ package com.bienmesabe.rest.service.impl;
 import com.bienmesabe.rest.DAO.UserDAO;
 import com.bienmesabe.rest.domain.User;
 import com.bienmesabe.rest.service.UserService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -88,10 +89,44 @@ public class UserServiceImpl implements UserService{
     /**
      * Implementation of interface method to modify an user
      * @param user string with the parameters of the user to update
+     * @return a boolean that indicates if the user is successfully updated or not
      */
     @Override
-    public void modifyUser(String user) {
-        userDAO.modifyUser(user);
+    public boolean modifyUser(String user) {
+        Long userId = 0L;
+        String newNIF ="", imagePath ="", nameNew ="", surnameNew ="", emailNew ="", phoneNew =""; 
+        String[] splittedUser = user.split("_");
+        String[] splittedUserIds = splittedUser[0].split("-");
+        userId = Long.parseLong(splittedUserIds[1]);
+        for (int i = 1; i<splittedUser.length;i++){
+            String[] spplitedValues = splittedUser[i].split("-");
+            String key = spplitedValues[0];
+            String values = spplitedValues[1];
+            
+            if(key.equals("nif")){
+                newNIF = values;
+            }
+            if(key.equals("image")){
+               imagePath = values;
+            }
+            if(key.equals("name")){
+                nameNew = values;
+            }
+            if(key.equals("surname")){
+                surnameNew = values;
+            }
+            if(key.equals("email")){
+                emailNew = values;
+            }
+            if(key.equals("phone")){
+                phoneNew = values;
+            }
+            if(key.equals("password")){
+                
+            }
+        }
+
+        return userDAO.modifyUser(userId, newNIF, imagePath, nameNew, surnameNew, emailNew, phoneNew);
     }
 
     /**

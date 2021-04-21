@@ -155,17 +155,37 @@ public class UserDAOImpl implements UserDAO{
 
     /**
      * Implementation of interface method to modify an user in the table users of the DB
-     * @param user string with the parameters of the user to update
+     * @param userId long that represents the id of the user to modify
+     * @param newNIF string that represents the new NIF of the user
+     * @param imagePath string that represents the new image path of the user
+     * @param surnameNew string that represents the new surname of the user
+     * @param nameNew string that represents the new name of the user
+     * @param phoneNew string that represents the new phone of the user
+     * @param emailNew string that represents the new email of the user
+     * @return a boolean that indicates if the user is successfully updated or not
      */
-    /*todo
-    modificar el método para filtrar los campos a actualizar
-    */
     @Override
     @Transactional
-    public boolean modifyUser(String user) {
+    public boolean modifyUser(Long userId, String newNIF, String imagePath, String nameNew, String surnameNew, String emailNew, String phoneNew) {
         Session currentSession = entityManager.unwrap(Session.class);
         try{
-            Query<User> query = currentSession.createQuery("update User set WHERE id=:userid", User.class);
+            String updates = "";
+            if(newNIF != null && !newNIF.isEmpty()) updates +=  "NIF=:newNIF, ";
+            if(imagePath != null && !imagePath.isEmpty()) updates +=  "image=:imagePath, ";
+            if(nameNew != null && !nameNew.isEmpty()) updates +=  "name=: nameNew, ";
+            if(surnameNew != null && !surnameNew.isEmpty()) updates +=  "surname=: surnameNew, ";
+            if(emailNew != null && !emailNew.isEmpty()) updates +=  "email=: emailNew, ";
+            if(phoneNew != null && !phoneNew.isEmpty()) updates +=  "phone=: phoneNew, ";
+            
+            Query<User> query = currentSession.createQuery("update User set " + updates + "WHERE id=:userid", User.class);
+            query.setParameter("userid", userId);
+            if(newNIF != null && !newNIF.isEmpty()) query.setParameter("newNIF", newNIF);
+            if(imagePath != null && !imagePath.isEmpty()) query.setParameter("imagePath", imagePath);
+            if(nameNew != null && !nameNew.isEmpty()) query.setParameter("nameNew", nameNew);
+            if(surnameNew != null && !surnameNew.isEmpty()) query.setParameter("surnameNew", surnameNew);
+            if(emailNew != null && !emailNew.isEmpty()) query.setParameter("emailNew", emailNew);
+            if(phoneNew != null && !phoneNew.isEmpty()) query.setParameter("phoneNew", phoneNew);
+            
             query.executeUpdate();
             return true;
         }catch(Exception e){
