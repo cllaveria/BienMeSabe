@@ -194,6 +194,18 @@ public class UserDAOImpl implements UserDAO{
     }
 
     /**
+     * Implementation of interface method to modify the password of the user
+     * @param userId long that represents the id of the user to modify
+     * @param passwordOld string that represents the old password of the user
+     * @param passwordNew string that represents the new password of the user
+     * @return a boolean that indicates if the password of the user is successfully updated or not
+     */
+    @Override
+    public boolean modifyUserPassword(Long userId, String passwordOld, String passwordNew) {
+        return true;
+    }
+    
+    /**
      * Implementation of interface method to delete an user in the table users of the DB by id
      * @param id long with the id of the user to delete
      */
@@ -222,5 +234,7 @@ public class UserDAOImpl implements UserDAO{
         query.setParameter("userAlias", alias);
         query.executeUpdate();
     }
+
+    
 
 }

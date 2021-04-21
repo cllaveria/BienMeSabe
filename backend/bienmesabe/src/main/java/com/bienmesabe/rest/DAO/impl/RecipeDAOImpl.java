@@ -56,7 +56,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Transactional
     public List<Recipe> getRecipeByIngredients(List<Long> ingredientsForFilter) {
         List<Recipe> recipes = new ArrayList<Recipe>();
-        List<Recipe> recipesInDB = this.getAllRecipes();
+        List<Recipe> recipesInDB = getAllRecipes();
         for(int i=0;i<recipesInDB.size();i++){
             int findedIngredients = 0;
             List<Boolean> hasIngredients = new ArrayList<Boolean>();

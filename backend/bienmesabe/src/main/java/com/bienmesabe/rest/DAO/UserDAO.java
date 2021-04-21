@@ -70,6 +70,15 @@ public interface UserDAO {
     public boolean modifyUser(Long userId, String newNIF, String imagePath, String nameNew, String surnameNew, String emailNew, String phoneNew);
     
     /**
+     * Method to modify the password of the user
+     * @param userId long that represents the id of the user to modify
+     * @param passwordOld string that represents the old password of the user
+     * @param passwordNew string that represents the new password of the user
+     * @return a boolean that indicates if the password of the user is successfully updated or not
+     */
+    public boolean modifyUserPassword(Long userId, String passwordOld, String passwordNew);
+    
+    /**
      * Method to delete an user in the table users of the DB by id
      * @param id long with the id of the user to delete
      */
