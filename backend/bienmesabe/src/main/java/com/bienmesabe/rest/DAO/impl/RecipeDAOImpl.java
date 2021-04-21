@@ -80,7 +80,7 @@ public class RecipeDAOImpl implements RecipeDAO {
                 recipes.add(recipesInDB.get(i));
             }
         }
-        Collections.sort(recipes, (Recipe o1, Recipe o2) -> o1.getRecipeTime() - o2.getRecipeTime());
+        Collections.sort(recipes, (Recipe o1, Recipe o2) -> o1.getRecipeAssessment() - o2.getRecipeAssessment());
         return recipes;
     }
 
