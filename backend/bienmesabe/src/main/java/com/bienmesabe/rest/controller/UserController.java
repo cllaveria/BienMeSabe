@@ -110,20 +110,44 @@ public class UserController {
      * @param user object that represents the user to modify
      * @return the modified user
      */
-    /*TODO
-    MODIFICAR EL MÉTODO PÀRA RECIBIR TODOS LOS PARÁMETROS DEL USUARIO Y EVALUARLOS UNO POR UNO
-    DEVOLVER UN BOOLEANO
-    */
-    @PutMapping("/modifyUser")
-    public boolean updateUser(String user){
+    @PutMapping("/modifyUser/{user}")
+    public boolean updateUser(@PathVariable String user){
         try{
             userService.modifyUser(user);
             return true;
         }catch(Exception e){
             return false;
         }
-        
-        
+    }
+    
+    /**
+     * Method to modify the user // HTTP verb: PUT url: http://localhost:8080/api/user/modifyUser
+     * @param pass object that represents the user to modify
+     * @return the modified user
+     */
+    @PutMapping("/updateUserPassword/{pass}")
+    public boolean updateUserPassword(@PathVariable String pass){
+        try{
+            userService.modifyUserPassword(pass);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    
+    /**
+     * Method to modify the user // HTTP verb: PUT url: http://localhost:8080/api/user/modifyUser
+     * @param pass object that represents the user to modify
+     * @return the modified user
+     */
+    @PutMapping("/updateUserEmail/{mail}")
+    public boolean updateUserEmail(@PathVariable String mail){
+        try{
+            userService.modifyUserEmail(mail);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
     
     /**

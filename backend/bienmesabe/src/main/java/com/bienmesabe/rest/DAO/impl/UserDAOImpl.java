@@ -161,29 +161,30 @@ public class UserDAOImpl implements UserDAO{
      * @param surnameNew string that represents the new surname of the user
      * @param nameNew string that represents the new name of the user
      * @param phoneNew string that represents the new phone of the user
-     * @param emailNew string that represents the new email of the user
      * @return a boolean that indicates if the user is successfully updated or not
      */
     @Override
     @Transactional
-    public boolean modifyUser(Long userId, String newNIF, String imagePath, String nameNew, String surnameNew, String emailNew, String phoneNew) {
+    public boolean modifyUser(Long userId, String newNIF, String imagePath, String nameNew, String surnameNew, String phoneNew) {
         Session currentSession = entityManager.unwrap(Session.class);
         try{
-            String updates = "";
+            String updates = "update User set ";
+            
             if(newNIF != null && !newNIF.isEmpty()) updates +=  "NIF=:newNIF, ";
             if(imagePath != null && !imagePath.isEmpty()) updates +=  "image=:imagePath, ";
-            if(nameNew != null && !nameNew.isEmpty()) updates +=  "name=: nameNew, ";
-            if(surnameNew != null && !surnameNew.isEmpty()) updates +=  "surname=: surnameNew, ";
-            if(emailNew != null && !emailNew.isEmpty()) updates +=  "email=: emailNew, ";
-            if(phoneNew != null && !phoneNew.isEmpty()) updates +=  "phone=: phoneNew, ";
+            if(nameNew != null && !nameNew.isEmpty()) updates +=  "name=:nameNew, ";
+            if(surnameNew != null && !surnameNew.isEmpty()) updates +=  "surname=:surnameNew, ";
+            if(phoneNew != null && !phoneNew.isEmpty()) updates +=  "phone=:phoneNew, ";
             
-            Query<User> query = currentSession.createQuery("update User set " + updates + "WHERE id=:userid", User.class);
+            updates = updates.substring(0, updates.length() -2);
+            updates += " WHERE id=:userid";
+            Query<User> query = currentSession.createQuery(updates);
             query.setParameter("userid", userId);
+            
             if(newNIF != null && !newNIF.isEmpty()) query.setParameter("newNIF", newNIF);
             if(imagePath != null && !imagePath.isEmpty()) query.setParameter("imagePath", imagePath);
             if(nameNew != null && !nameNew.isEmpty()) query.setParameter("nameNew", nameNew);
             if(surnameNew != null && !surnameNew.isEmpty()) query.setParameter("surnameNew", surnameNew);
-            if(emailNew != null && !emailNew.isEmpty()) query.setParameter("emailNew", emailNew);
             if(phoneNew != null && !phoneNew.isEmpty()) query.setParameter("phoneNew", phoneNew);
             
             query.executeUpdate();
@@ -201,8 +202,56 @@ public class UserDAOImpl implements UserDAO{
      * @return a boolean that indicates if the password of the user is successfully updated or not
      */
     @Override
+    @Transactional
     public boolean modifyUserPassword(Long userId, String passwordOld, String passwordNew) {
-        return true;
+        Session currentSession = entityManager.unwrap(Session.class);
+        User user = new User();
+        try{
+            Query<User> query = currentSession.createQuery("From User where id=:userId");
+            query.setParameter("userId", userId);
+            user = query.getSingleResult();
+            if(user.getPassword().equals(passwordOld)){
+
+                Query<User> queryU = currentSession.createQuery("update User set password=:passwordNew where id=:userId");
+                queryU.setParameter("userId", userId);
+                queryU.setParameter("passwordNew", passwordNew);
+                queryU.executeUpdate();
+                return true;
+            }
+        }catch(Exception e){
+            return false;
+        }
+        return false;
+    }
+    
+    /**
+     * Method to modify the email of the user
+     * @param userId long that represents the id of the user to modify
+     * @param emailOld string that represents the old email of the user
+     * @param emailNew string that represents the new email of the user
+     * @return a boolean that indicates if the email of the user is successfully updated or not
+     */
+    @Override
+    @Transactional
+    public boolean modifyUserEmail(Long userId, String emailOld, String emailNew){
+        Session currentSession = entityManager.unwrap(Session.class);
+        User user = new User();
+        try{
+            Query<User> query = currentSession.createQuery("From User where id=:userId");
+            query.setParameter("userId", userId);
+            user = query.getSingleResult();
+            if(user.getEmail().equals(emailOld)){
+
+                Query<User> queryU = currentSession.createQuery("update User set email=:emailNew where id=:userId");
+                queryU.setParameter("userId", userId);
+                queryU.setParameter("emailNew", emailNew);
+                queryU.executeUpdate();
+                return true;
+            }
+        }catch(Exception e){
+            return false;
+        }
+        return false;
     }
     
     /**

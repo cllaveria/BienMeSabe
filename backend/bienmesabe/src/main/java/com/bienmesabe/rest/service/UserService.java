@@ -64,6 +64,20 @@ public interface UserService {
     public boolean modifyUser(String user);
     
     /**
+     * Method to modify the password of the user
+     * @param pass string with the information of the user for change the password
+     * @return a boolean that indicates if the password of the user is successfully updated or not
+     */
+    public boolean modifyUserPassword(String pass);
+    
+    /**
+     * Method to modify the email of the user
+     * @param mail string with the information of the user for change the email
+     * @return a boolean that indicates if the mail of the user is successfully updated or not
+     */
+    public boolean modifyUserEmail(String mail);
+            
+    /**
      * Method to delete an user by id
      * @param id long with the id of the user to delete
      */

@@ -95,11 +95,11 @@ public class UserServiceImpl implements UserService{
     public boolean modifyUser(String user) {
         Long userId = 0L;
         String newNIF ="", imagePath ="", nameNew ="", surnameNew ="", emailNew ="", phoneNew =""; 
-        String[] splittedUser = user.split("_");
-        String[] splittedUserIds = splittedUser[0].split("-");
+        String[] splittedUser = user.split("___");
+        String[] splittedUserIds = splittedUser[0].split("---");
         userId = Long.parseLong(splittedUserIds[1]);
         for (int i = 1; i<splittedUser.length;i++){
-            String[] spplitedValues = splittedUser[i].split("-");
+            String[] spplitedValues = splittedUser[i].split("---");
             String key = spplitedValues[0];
             String values = spplitedValues[1];
             
@@ -115,18 +115,44 @@ public class UserServiceImpl implements UserService{
             if(key.equals("surname")){
                 surnameNew = values;
             }
-            if(key.equals("email")){
-                emailNew = values;
-            }
             if(key.equals("phone")){
                 phoneNew = values;
             }
-            if(key.equals("password")){
-                
-            }
         }
 
-        return userDAO.modifyUser(userId, newNIF, imagePath, nameNew, surnameNew, emailNew, phoneNew);
+        return userDAO.modifyUser(userId, newNIF, imagePath, nameNew, surnameNew, phoneNew);
+    }
+
+     /**
+     * Method to modify the password of the user
+     * @param pass string with the information of the user for change the password
+     * @return a boolean that indicates if the password of the user is successfully updated or not
+     */
+    @Override
+    public boolean modifyUserPassword(String pass){
+        Long userId = 0L;
+        String[] splittedPass = pass.split("___");
+        String[] splittedUserIds = splittedPass[0].split("---");
+        userId = Long.parseLong(splittedUserIds[1]);
+        String[] splittedPassword = splittedPass[1].split("---");
+        String[] splittedPasswordsValues = splittedPassword[1].split(",,,");
+        return userDAO.modifyUserPassword(userId, splittedPasswordsValues[0], splittedPasswordsValues[1]);
+    }
+    
+    /**
+     * Method to modify the email of the user
+     * @param mail string with the information of the user for change the email
+     * @return a boolean that indicates if the email of the user is successfully updated or not
+     */
+    @Override
+    public boolean modifyUserEmail(String mail){
+        Long userId = 0L;
+        String[] splittedMail = mail.split("___");
+        String[] splittedUserIds = splittedMail[0].split("---");
+        userId = Long.parseLong(splittedUserIds[1]);
+        String[] splittedEmails = splittedMail[1].split("---");
+        String[] splittedEmailsValues = splittedEmails[1].split(",,,");
+        return userDAO.modifyUserEmail(userId, splittedEmailsValues[0], splittedEmailsValues[1]);
     }
 
     /**

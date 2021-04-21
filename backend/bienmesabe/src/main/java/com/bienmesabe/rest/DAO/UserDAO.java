@@ -64,10 +64,9 @@ public interface UserDAO {
      * @param surnameNew string that represents the new surname of the user
      * @param nameNew string that represents the new name of the user
      * @param phoneNew string that represents the new phone of the user
-     * @param emailNew string that represents the new email of the user
      * @return a boolean that indicates if the user is successfully updated or not
      */
-    public boolean modifyUser(Long userId, String newNIF, String imagePath, String nameNew, String surnameNew, String emailNew, String phoneNew);
+    public boolean modifyUser(Long userId, String newNIF, String imagePath, String nameNew, String surnameNew, String phoneNew);
     
     /**
      * Method to modify the password of the user
@@ -77,6 +76,15 @@ public interface UserDAO {
      * @return a boolean that indicates if the password of the user is successfully updated or not
      */
     public boolean modifyUserPassword(Long userId, String passwordOld, String passwordNew);
+    
+    /**
+     * Method to modify the email of the user
+     * @param userId long that represents the id of the user to modify
+     * @param emailOld string that represents the old email of the user
+     * @param emailNew string that represents the new email of the user
+     * @return a boolean that indicates if the email of the user is successfully updated or not
+     */
+    public boolean modifyUserEmail(Long userId, String emailOld, String emailNew);
     
     /**
      * Method to delete an user in the table users of the DB by id
