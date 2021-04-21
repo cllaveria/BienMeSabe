@@ -9,6 +9,8 @@ import com.bienmesabe.rest.DAO.RecipeDAO;
 import com.bienmesabe.rest.domain.Recipe;
 import com.bienmesabe.rest.domain.RecipeIngredients;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.query.Query;
@@ -78,6 +80,7 @@ public class RecipeDAOImpl implements RecipeDAO {
                 recipes.add(recipesInDB.get(i));
             }
         }
+        Collections.sort(recipes, (Recipe o1, Recipe o2) -> o1.getRecipeTime() - o2.getRecipeTime());
         return recipes;
     }
 
