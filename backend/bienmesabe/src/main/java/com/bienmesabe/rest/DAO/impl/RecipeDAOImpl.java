@@ -50,6 +50,22 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
     
     /**
+     * Method to recover the recipes present in the DB ordered by assessment
+     * @return a list with the recipes in the DB ordered by assessment
+     */
+    @Override
+    @Transactional
+    public List<Recipe> getAllRecipesByAssessment(){
+        Session currentSession = entityManager.unwrap(Session.class);
+        
+        Query<Recipe> query = currentSession.createQuery("from Recipe order by recipeAssessment desc", Recipe.class);
+        
+        List<Recipe> recipes = query.getResultList();
+        
+        return recipes;
+    }
+    
+    /**
      * Implementation of interface method to recover the ingredient present in the DB by ingredients
      * @param ingredientsForFilter list with the ingredients that must have the recipe
      * @return a list with the recipes in the DB filtered by ingredients

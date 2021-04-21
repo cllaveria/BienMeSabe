@@ -45,6 +45,15 @@ public class RecipeController {
     }
     
     /**
+     * Method to recover the recipes ordered by assessment desc // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipesByAssessment
+     * @return a list with the recipes ordered by assessment desc
+     */
+    @GetMapping("/getRecipesByAssessment")
+    public List<Recipe> getRecipesByAssessment(){
+        return recipeService.getAllRecipesByAssessment();
+    }
+    
+    /**
      * Method to recover the recipes by ingredients // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipeByIngredients/{IngredientsList}
      * @param ingredientsForFilter  list with the ingredients that must have the recipe
      * @return  a list with the recipes in the DB filtered by ingredients

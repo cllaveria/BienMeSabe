@@ -38,6 +38,13 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     /**
+     * Implementation of interface  to recover the recipes ordered by assessment
+     * @return a list with the recipes ordered by assessment
+     */
+    public List<Recipe> getAllRecipesByAssessment(){
+        return recipeDAO.getAllRecipesByAssessment();
+    }
+    /**
      * Implementation of interface method to recover the ingredient by ingredients
      * @param ingredientsForFilter list with the ingredients that must have the recipe
      * @return a list with the recipes filtered by ingredients

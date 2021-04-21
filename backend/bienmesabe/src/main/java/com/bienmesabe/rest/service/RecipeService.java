@@ -22,6 +22,12 @@ public interface RecipeService {
     public List<Recipe> getAllRecipes();
     
     /**
+     * Method to recover the recipes present in the DB ordered by assessment
+     * @return a list with the recipes in the DB ordered by assessment
+     */
+    public List<Recipe> getAllRecipesByAssessment();
+    
+    /**
      * Method to recover the ingredient by ingredients
      * @param ingredientsForFilter list with the ingredients that must have the recipe
      * @return a list with the recipes filtered by ingredients
