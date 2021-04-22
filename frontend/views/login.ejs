@@ -1,3 +1,52 @@
-En construcción
+<!DOCTYPE html>
+<html>
 
-Página de login para iniciar sesión.
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/login.css' />
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include('./header'); %>
+
+        <!-- Checkin Usuarios -->
+        <div class="login_container">
+            <h2>Iniciar sesión:</h2>
+            <div class="messageError">
+                El email o la contraseña no son correctos.
+            </div>
+            <form name="loginForm" id="loginForm">
+                <div class="inputs_form">
+                    <label for="email">Email</label><text style="color:red;font-size:15px"> *</text>
+                    <div class="inputs-group">
+                        <input class="form-control" type="text" id="email" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="inputs_form">
+                    <label for="pswrd">Contraseña</label><text style="color:red;font-size:15px"> *</text>
+                    <div class="inputs-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="viewPass"><i class="fa fa-eye"></i></span>
+                        </div>
+                        <input class="form-control" type="password" id="pswrd" placeholder="Contraseña" required>
+                    </div>
+                </div>
+                <button class="btn_login" id='submit'>ENTRAR</button>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <%- include('./footer'); %>
+</body>
+
+</html>
