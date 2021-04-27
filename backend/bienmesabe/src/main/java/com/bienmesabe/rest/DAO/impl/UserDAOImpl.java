@@ -141,12 +141,15 @@ public class UserDAOImpl implements UserDAO{
     @Override
     public User authenticateUserByAlias(String alias, String pass){
         Session currentSession = entityManager.unwrap(Session.class);
-        User user;
+        User user = null;
         try{
-            Query<User> query = currentSession.createQuery("SELECT name, pass  FROM User WHERE alias=:alias and password=:pass");
+            Query<Object[]> query = currentSession.createQuery("SELECT u.name, u.password,u.email  FROM User u WHERE alias=:alias and password=:pass");
             query.setParameter("alias", alias);
             query.setParameter("pass", pass);
-            user = query.getSingleResult();
+            Object[] attr = query.getSingleResult();
+            if(String.valueOf(attr[0]) != ""){
+                user = new User(String.valueOf(attr[0]), String.valueOf(attr[1]), String.valueOf(attr[2]));
+            }
             return user;
         }catch(Exception e){
             return null;
@@ -156,12 +159,15 @@ public class UserDAOImpl implements UserDAO{
     @Override
     public User authenticateUserByEmail(String email, String pass){
         Session currentSession = entityManager.unwrap(Session.class);
-        User user;
+        User user = null;
         try{
-            Query<User> query = currentSession.createQuery("SELECT name, pass  FROM User WHERE email=:email and password=:pass");
+            Query<Object[]> query = currentSession.createQuery("SELECT u.name, u.password  FROM User u WHERE email=:email and password=:pass");
             query.setParameter("email", email);
             query.setParameter("pass", pass);
-            user = query.getSingleResult();
+            Object[] attr = query.getSingleResult();
+            if(String.valueOf(attr[0]) != ""){
+                user = new User(String.valueOf(attr[0]), String.valueOf(attr[1]), email);
+            }
             return user;
         }catch(Exception e){
             return null;

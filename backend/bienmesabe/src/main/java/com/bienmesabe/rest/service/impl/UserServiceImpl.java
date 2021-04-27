@@ -9,7 +9,6 @@ import com.bienmesabe.rest.DAO.UserDAO;
 import com.bienmesabe.rest.domain.User;
 import com.bienmesabe.rest.service.TokenService;
 import com.bienmesabe.rest.service.UserService;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -33,22 +33,20 @@ public class BienmesabeApplication {
 			http.csrf().disable()
 				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
-//                                .antMatchers(HttpMethod.GET, "/api/recipe").permitAll()
-//                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipes").permitAll()
-//                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByAssessment").permitAll()
-//                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipeByIngredients/{ingredients}").permitAll()
-//                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByKCal/{kcalMin}/{kcalMax}").permitAll()
-//                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByType/{type}").permitAll()
-//                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByDinners/{dinners}").permitAll()
-//                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesById/{id}").permitAll()
-//                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByFilters/{data}").permitAll()
-//                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesOfOtherUsers/{userId}").permitAll()
-//                                .antMatchers(HttpMethod.POST, "/api/user/addUser").permitAll()
-//                                .antMatchers(HttpMethod.POST, "/api/user/loginUser").permitAll()
-//                                .antMatchers(HttpMethod.POST, "/api/user/loginUser/{data}").permitAll()
-//                                .antMatchers(HttpMethod.GET, "/api/user/getUsers").permitAll()
-				//.anyRequest().authenticated();
-                                .anyRequest().permitAll();
+                                .antMatchers(HttpMethod.GET, "/api/recipe").permitAll()
+                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipes").permitAll()
+                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByAssessment").permitAll()
+                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipeByIngredients/{ingredients}").permitAll()
+                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByKCal/{kcalMin}/{kcalMax}").permitAll()
+                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByType/{type}").permitAll()
+                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByDinners/{dinners}").permitAll()
+                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesById/{id}").permitAll()
+                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByFilters/{data}").permitAll()
+                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesOfOtherUsers/{userId}").permitAll()
+                                .antMatchers(HttpMethod.POST, "/api/user/addUser").permitAll()
+                                .antMatchers(HttpMethod.POST, "/api/user/loginUser").permitAll()
+                                .antMatchers(HttpMethod.POST, "/api/user/loginUser/{data}").permitAll()
+				.anyRequest().authenticated();
 		}
 	}
 
