@@ -1,0 +1,217 @@
+@import "common.css";
+
+/*---Recipes---*/
+
+.recipe_container {
+  margin: 80px auto;
+  padding: 45px 0 0;
+  text-align: center;
+  width: 700px;
+}
+
+.recipe_container > img {
+  width: 700px;
+  height: 350px;
+  margin-top: 20px;
+}
+
+.score_rec {
+  display: flow-root;
+  margin-top: 25px;
+}
+
+.score_rec > img {
+  float: right;
+}
+
+.desc_rec {
+  margin: 25px 50px;
+  text-align: justify;
+  line-height: 17px;
+}
+
+.ingredients_cont {
+  display: flow-root;
+  gap: 30px;
+  margin-left: 120px;
+  margin-bottom: 60px;
+}
+
+.details_rec {
+  float: left;
+  width: 120px;
+  justify-content: center;
+  padding-top: 15px;
+  margin-right: 30px;
+}
+
+.details_rec > p,
+.info_rec > p,
+.time_rec > p {
+  font-size: 12px;
+}
+
+#level {
+  padding-bottom: 5px;
+}
+
+.time_rec {
+  display: flex;
+  justify-content: center;
+}
+
+.clock {
+  margin-right: 3px;
+  color: #fca035;
+  font-size: 14px;
+}
+
+.ingredients {
+  float: left;
+  text-align: left;
+  width: auto;
+  font-size: 14px;
+}
+
+.ingredients > h5 {
+  text-align: center;
+}
+
+.ingredient {
+  line-height: 20px;
+  list-style: inside;
+  list-style-type: circle;
+}
+
+.steps {
+  display: block;
+  margin-bottom: 50px;
+}
+
+.card {
+  border-radius: 0;
+  border: 0;
+}
+
+.card-header {
+  padding: 0;
+  border-bottom: 0;
+}
+
+.card-header > h5 {
+  padding-bottom: 0;
+}
+
+.btn {
+  width: 100%;
+  border: solid 2px #fca035;
+  border-bottom: 0;
+  border-radius: 0;
+}
+
+.btn.collapsed {
+  border: solid 1px #a6aa9c;
+}
+
+.btn:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.card-body {
+  display: inline-flex;
+  gap: 20px;
+  text-align: justify;
+  border: solid 2px #fca035;
+  line-height: 17px;
+  align-items: center;
+}
+
+.card-body > p {
+  padding: 0;
+}
+
+.card-body > img {
+  width: 300px;
+  height: fit-content;
+}
+
+.advertisements > img {
+  width: 400px;
+  margin: 25px 0 100px;
+}
+
+.comment_cont {
+  display: none;
+  /* display: flow-root; */
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.input_comment {
+  float: left;
+  width: 500px;
+  justify-content: center;
+  margin-right: 100px;
+}
+
+.input_comment > textarea {
+  width: 500px;
+  min-height: 150px;
+  background-color: #f0f8ff;
+  border: solid 1px #a6aa9c;
+  padding: 10px;
+}
+
+.input_comment > textarea:focus {
+  border: solid 2px #fca035;
+  outline: 0;
+}
+
+.score_rec.user {
+  float: left;
+  text-align: left;
+  width: auto;
+  font-size: 14px;
+  margin-top: 0;
+}
+
+.btn_send {
+  width: 100px;
+  height: 35px;
+  background-color: white;
+  border: solid 2px #fca035;
+  border-radius: 3px;
+  font-size: 12px;
+  color: black;
+  font-weight: bold;
+  margin-top: 25px;
+}
+
+.btn_send:hover,
+.btn_send:active {
+  background-color: #fbc76f;
+  outline: 0;
+}
+
+.comments_users {
+  display: block;
+}
+
+.comment_user {
+  text-align: justify;
+  border: solid 1px #fca035;
+  padding: 10px;
+  margin-bottom: 15px;
+  line-height: 17px;
+}
+
+#alias {
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+#comment {
+ padding-bottom: 0;
+}
+
