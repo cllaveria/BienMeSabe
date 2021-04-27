@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/recetas.css' />
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="../javascripts/modifyData.js"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include('./header'); %>
+
+    <!-- Recipes -->
+    <div class="recipes_container" style="margin:100px 0px 0px 100px;">
+        <label for="name">Nombre: </label><span id="name"></span>
+        <div style="width: 40%;" >
+            <input class="form-control" type="text" id="name" placeholder="Modificar Nombre">
+        </div>
+        <label for="name">Apellidos: </label><span id="surname"></span>
+        <div style="width: 40%;" >
+            <input class="form-control" type="text" id="name" placeholder="Modificar Apellidos">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <%- include('./footer'); %>
+</body>
+
+</html>

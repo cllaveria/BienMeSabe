@@ -14,12 +14,16 @@ router.get('/recetas', function(req, res, next) {
   res.render('recetas', { title: 'Recetas' });
 });
 
-router.get('/recetas/filters', function(req, res, next) {
-  res.render('filters', { title: 'Recetas' });
+router.get('/recetas/filtros', function(req, res, next) {
+  res.render('filtros', { title: 'Recetas' });
 });
 
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Iniciar sesión' });
+});
+
+router.get('/panelUsuario', function(req, res, next) {
+  res.render('panelUsuario', { title: 'modificar datos' });
 });
 
 module.exports = router;
