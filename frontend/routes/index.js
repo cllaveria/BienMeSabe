@@ -18,6 +18,10 @@ router.get('/recetas/filtros', function(req, res, next) {
   res.render('filtros', { title: 'Recetas' });
 });
 
+router.get('/recetas/ficha', function(req, res, next) {
+  res.render('ficha', { title: 'Recetas' });
+});
+
 router.get('/nutricionistas', function(req, res, next) {
   res.render('nutricionistas', { title: 'Nutricionistas' });
 });

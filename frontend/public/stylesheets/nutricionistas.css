@@ -38,6 +38,10 @@
   display: none;
 }
 
+.text{
+  text-align : justify;
+}
+
 @media screen and (max-width: 880px) {
   .users_cont,
   .nutri_cont {
