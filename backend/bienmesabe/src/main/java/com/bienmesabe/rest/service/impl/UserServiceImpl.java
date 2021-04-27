@@ -7,6 +7,7 @@ package com.bienmesabe.rest.service.impl;
 
 import com.bienmesabe.rest.DAO.UserDAO;
 import com.bienmesabe.rest.domain.User;
+import com.bienmesabe.rest.service.TokenService;
 import com.bienmesabe.rest.service.UserService;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,9 @@ public class UserServiceImpl implements UserService{
      */
     @Autowired
     private UserDAO userDAO;
+    
+    @Autowired 
+    private TokenService tokenService;
     
     /**
      * Implementation of interface method to recover the users
@@ -76,6 +80,32 @@ public class UserServiceImpl implements UserService{
        return userDAO.findUserByAlias(alias);
     }
         
+    @Override
+    public String authenticateUser(String data){
+        User result = null;
+        String[] splittedData = data.split("___");
+        String password = splittedData[0].split("---")[1], email = "", alias = "";
+        for (int i = 1; i<splittedData.length;i++){
+            String[] spplitedValues = splittedData[i].split("---");
+            String key = spplitedValues[0];
+            String values = spplitedValues.length > 1 ? spplitedValues[1] : "";
+            if(key.equals("email") && values != ""){
+                email = values;
+            }else if(key.equals("alias") && values != ""){
+               alias = values;
+            }
+        }
+        if(email != ""){
+            result = userDAO.authenticateUserByEmail(email, password);
+        }else{
+            result = userDAO.authenticateUserByAlias(alias, password);
+        }
+        if(result != null){
+            return tokenService.getJWTToken(result); 
+        }
+        return "";
+    }
+   
     /**
      * Implementation of interface method to create a user
      * @param user object that represents the user to persist

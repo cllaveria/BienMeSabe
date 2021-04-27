@@ -49,6 +49,9 @@ public interface UserDAO {
      */
     public User findUserByAlias(String alias);
     
+    public User authenticateUserByAlias(String alias, String pass);
+    
+    public User authenticateUserByEmail(String email, String pass);
     /**
      * Method to create a user in the table users of the DB
      * @param user object that represents the user to persist

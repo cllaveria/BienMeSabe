@@ -40,15 +40,8 @@ public class UserDAOImpl implements UserDAO{
     @Transactional
     public List<User> findAllUsers() {
         Session currentSession = entityManager.unwrap(Session.class);
-        
-        Query<User> query = currentSession.createQuery("from User", User.class);
-        
+        Query<User> query = currentSession.createQuery("SELECT id, image, name, surname, alias, email, type from User");
         List<User> users = query.getResultList();
-        for(int i =0;i<users.size();i++){
-            users.get(i).setPassword("");
-            users.get(i).setNIF("");
-            users.get(i).setPhone("");
-        }
         return users;
     }
 
@@ -61,11 +54,18 @@ public class UserDAOImpl implements UserDAO{
     @Transactional
     public User findUserById(Long id) {
         Session currentSession = entityManager.unwrap(Session.class);
-        User user = currentSession.get(User.class, id);
-        user.setPassword("");
-        user.setNIF("");
-        user.setPhone("");
-        return user;
+        Query<Object[]> query = currentSession.createQuery("SELECT u.id, u.image,u.name,u.surname,u.alias,u.email,u.phone,u.type from User u where id=:idToSearch");
+        query.setParameter("idToSearch", id);
+        User user = null;
+        try{
+            Object[] attr = query.getSingleResult();
+            if(String.valueOf(attr[0]) != ""){
+                user = new User(Long.parseLong(String.valueOf(attr[0])), String.valueOf(attr[1]), String.valueOf(attr[2]), String.valueOf(attr[3]), String.valueOf(attr[4]), String.valueOf(attr[5]), String.valueOf(attr[6]), Integer.parseInt(String.valueOf(attr[7])));
+            }
+            return user;
+        }catch(Exception e){
+            return null;
+        }
     }
 
     /**
@@ -77,18 +77,18 @@ public class UserDAOImpl implements UserDAO{
     @Transactional
     public User findUserByName(String name) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<User> query = currentSession.createQuery("FROM User WHERE name=:name", User.class);
+        Query<Object[]> query = currentSession.createQuery("SELECT id, image, name, surname, alias, email, type FROM User WHERE name=:name");
         query.setParameter("name", name);
-        User user = new User();
+        User user = null;
         try{
-            user = query.getSingleResult();
-            user.setPassword("");
-            user.setNIF("");
-            user.setPhone("");
-        }catch(Exception e){
+            Object[] attr = query.getSingleResult();
+            if(String.valueOf(attr[0]) != ""){
+                user = new User(Long.parseLong(String.valueOf(attr[0])), String.valueOf(attr[1]), String.valueOf(attr[2]), String.valueOf(attr[3]), String.valueOf(attr[4]), String.valueOf(attr[5]), Integer.parseInt(String.valueOf(attr[6])));
+            }
             return user;
+        }catch(Exception e){
+            return null;
         }
-        return user;
     }
 
     /**
@@ -100,13 +100,18 @@ public class UserDAOImpl implements UserDAO{
     @Transactional
     public User findUserByEmail(String email) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<User> query = currentSession.createQuery("FROM User WHERE email=:email", User.class);
+        Query<Object[]> query = currentSession.createQuery("SELECT id, image, name, surname, alias, email, type FROM User WHERE email=:email");
         query.setParameter("email", email);
-        User user = query.getSingleResult();
-        user.setPassword("");
-        user.setNIF("");
-        user.setPhone("");
-        return user;
+        User user = null;
+        try{
+            Object[] attr = query.getSingleResult();
+            if(String.valueOf(attr[0]) != ""){
+                user = new User(Long.parseLong(String.valueOf(attr[0])), String.valueOf(attr[1]), String.valueOf(attr[2]), String.valueOf(attr[3]), String.valueOf(attr[4]), String.valueOf(attr[5]), Integer.parseInt(String.valueOf(attr[6])));
+            }
+            return user;
+        }catch(Exception e){
+            return null;
+        }
     }
     
     /**
@@ -118,15 +123,50 @@ public class UserDAOImpl implements UserDAO{
     @Transactional
     public User findUserByAlias(String alias) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<User> query = currentSession.createQuery("FROM User WHERE alias=:alias", User.class);
+        Query<Object[]> query = currentSession.createQuery("SELECT id, image, name, surname, alias, email, type FROM User WHERE alias=:alias");
         query.setParameter("alias", alias);
-        User user = query.getSingleResult();
-        user.setPassword("");
-        user.setNIF("");
-        user.setPhone("");
-        return user;
+        User user = null;
+        try{
+            Object[] attr = query.getSingleResult();
+            if(String.valueOf(attr[0]) != ""){
+                user = new User(Long.parseLong(String.valueOf(attr[0])), String.valueOf(attr[1]), String.valueOf(attr[2]), String.valueOf(attr[3]), String.valueOf(attr[4]), String.valueOf(attr[5]), Integer.parseInt(String.valueOf(attr[6])));
+            }
+            return user;
+        }catch(Exception e){
+            return null;
+        }
     }
     
+    
+    @Override
+    public User authenticateUserByAlias(String alias, String pass){
+        Session currentSession = entityManager.unwrap(Session.class);
+        User user;
+        try{
+            Query<User> query = currentSession.createQuery("SELECT name, pass  FROM User WHERE alias=:alias and password=:pass");
+            query.setParameter("alias", alias);
+            query.setParameter("pass", pass);
+            user = query.getSingleResult();
+            return user;
+        }catch(Exception e){
+            return null;
+        }
+    }
+    
+    @Override
+    public User authenticateUserByEmail(String email, String pass){
+        Session currentSession = entityManager.unwrap(Session.class);
+        User user;
+        try{
+            Query<User> query = currentSession.createQuery("SELECT name, pass  FROM User WHERE email=:email and password=:pass");
+            query.setParameter("email", email);
+            query.setParameter("pass", pass);
+            user = query.getSingleResult();
+            return user;
+        }catch(Exception e){
+            return null;
+        }
+    }
     /**
      * Implementation of interface method to create a user in the table users of the DB
      * @param user object that represents the user to persist

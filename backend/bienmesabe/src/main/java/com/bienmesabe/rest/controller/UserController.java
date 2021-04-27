@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -103,6 +104,16 @@ public class UserController {
             return user;
         }
         return new User();
+    }
+    
+    /**
+     * Method to create the user // HTTP verb: POST url: http://localhost:8080/api/user/addUser
+     * @param user object that represents the user to create
+     * @return the created user
+     */
+    @PostMapping("/loginUser")
+    public String loginUser(@RequestParam String data){
+        return userService.authenticateUser(data);
     }
     
     /**

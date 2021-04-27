@@ -59,6 +59,29 @@ public class User implements Serializable{
     public User() {
     }
 
+    public User(Long id, String image, String name, String surname, String alias, String email, int type) {
+        this.id = id;
+        this.image = image;
+        this.name = name;
+        this.surname = surname;
+        this.alias = alias;
+        this.email = email;
+        this.type = type;
+    }
+
+    public User(Long id, String image, String name, String surname, String alias, String email, String phone, int type) {
+        this.id = id;
+        this.image = image;
+        this.name = name;
+        this.surname = surname;
+        this.alias = alias;
+        this.email = email;
+        this.phone = phone;
+        this.type = type;
+    }
+
+    
+    
     /**
      * User's Constructor with all required parameters
      * @param name string that represents the name of the user
