@@ -10,7 +10,7 @@
  * 
  * <p> History</p>
  * 0.1 - Implementació del filtre de cerca de receptes.  
- * 0.2 - Implementació de la visualització de més receptes per tipus de plat, les últimes receptes afegides.  
+ * 0.2 - Implementació de la visualització de més receptes per tipus de plat, les últimes receptes afegides, i les receptes millor valorades en el slider.  
  *  
  * @version     0.2
  * @author      Sergio Asensio Ruiz 
@@ -97,46 +97,46 @@ $(document).ready(function () {
         type: 'GET',
         async: false,
         success: function ($plateOrderByAssessment) {
-            
+
             for (let i = 0; i < 4; i++) {
                 for (let j = 0; j < $allUsers.length; j++) {
-                    if ($allUsers[j].id == $plateOrderByAssessment[i].userId) {
-                        $userAlias = $allUsers[j].alias;
+                    //TODO: BORRAR LO COMENTADO
+                    if ( /* $allUsers[j].id */ $allUsers[j][0] == $plateOrderByAssessment[i].userId) {
+                        $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
                     }
                 }
                 $forks = $getForks($plateOrderByAssessment[i].recipeAssessment)
-                if(i == 0){
+                if (i == 0) {
                     $insert = $insert.concat('<div class="carousel-item active">\
-                                                <a href="../recetas/filtros?id='+$plateOrderByAssessment[i].id+'">\
-                                                    <img src="'+$plateOrderByAssessment[i].image+'" alt="Los Angeles">\
+                                                <a href="../recetas/filtros?id=' + $plateOrderByAssessment[i].id + '">\
+                                                    <img src="' + $plateOrderByAssessment[i].image + '" alt="Los Angeles">\
                                                     <div class="carousel-desc">\
                                                         <div class="carousel-caption">\
-                                                            <div class="title">'+$plateOrderByAssessment[i].name+'</div>\
-                                                            <h3>'+$userAlias+'</h3>\
-                                                            '+$forks+'\
+                                                            <div class="title">' + $plateOrderByAssessment[i].name + '</div>\
+                                                            <h3>' + $userAlias + '</h3>\
+                                                            ' + $forks + '\
                                                         </div>\
                                                     </div>\
                                                 </a>\
                                             </div>');
-                }else{
+                } else {
                     $insert = $insert.concat('<div class="carousel-item">\
-                                                <a href="../recetas/filtros?id='+$plateOrderByAssessment[i].id+'">\
-                                                    <img src="'+$plateOrderByAssessment[i].image+'" alt="Los Angeles">\
+                                                <a href="../recetas/filtros?id=' + $plateOrderByAssessment[i].id + '">\
+                                                    <img src="' + $plateOrderByAssessment[i].image + '" alt="Los Angeles">\
                                                     <div class="carousel-desc">\
                                                         <div class="carousel-caption">\
-                                                            <div class="title">'+$plateOrderByAssessment[i].name+'</div>\
-                                                            <h3>'+$userAlias+'</h3>\
-                                                            '+$forks+'\
+                                                            <div class="title">' + $plateOrderByAssessment[i].name + '</div>\
+                                                            <h3>' + $userAlias + '</h3>\
+                                                            ' + $forks + '\
                                                         </div>\
                                                     </div>\
                                                 </a>\
-                                                </div>');
-                } 
+                                            </div>');
+                }
             }
             $('.carousel-inner').append($insert)
         }
     });
-    
 
     $.ajax({
         url: $urlLatestRecipes,
@@ -150,8 +150,9 @@ $(document).ready(function () {
 
             for (let i = 0; i < 3; i++) {
                 for (let j = 0; j < $allUsers.length; j++) {
-                    if ($allUsers[j].id == $latestRecipes[i].userId) {
-                        $userAlias = $allUsers[j].alias;
+                    //TODO: BORRAR LO COMENTADO
+                    if (/* $allUsers[j].id */ $allUsers[j][0] == $latestRecipes[i].userId) {
+                        $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
                     }
                 }
 
@@ -410,10 +411,12 @@ $(document).ready(function () {
         } else if ($count == 0) {
             for (let i = 3; i < 6; i++) {
                 for (let j = 0; j < $allUsers.length; j++) {
-                    if ($allUsers[j].id == $latestRecipes[i].userId) {
-                        $userAlias = $allUsers[j].alias;
+                    //TODO: BORRAR LO COMENTADO
+                    if ( /* $allUsers[j].id */ $allUsers[j][0] == $latestRecipes[i].userId) {
+                        $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
                     }
                 }
+                
                 let $forks = $getForks($latestRecipes[i].recipeAssessment)
                 let $difficult = $getDificult($latestRecipes[i].recipeDifficult)
 
@@ -422,10 +425,12 @@ $(document).ready(function () {
         } else if ($count == 1) {
             for (let i = 6; i < 9; i++) {
                 for (let j = 0; j < $allUsers.length; j++) {
-                    if ($allUsers[j].id == $latestRecipes[i].userId) {
-                        $userAlias = $allUsers[j].alias;
+                    //TODO: BORRAR LO COMENTADO
+                    if ( /* $allUsers[j].id */ $allUsers[j][0] == $latestRecipes[i].userId) {
+                        $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
                     }
                 }
+                console.log($userAlias)
                 let $forks = $getForks($latestRecipes[i].recipeAssessment)
                 let $difficult = $getDificult($latestRecipes[i].recipeDifficult)
 

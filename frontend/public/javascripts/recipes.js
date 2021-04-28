@@ -45,8 +45,9 @@ $(document).ready(function () {
                     success: function ($recipe) {
                         for (let x = 0; x < $recipe.length; x++) {
                             for (let j = 0; j < $allUsers.length; j++) {
-                                if ($allUsers[j].id == $recipe[x].userId) {
-                                    $userAlias = $allUsers[j].alias;
+                                //TODO: BORRAR LO COMENTADO
+                                if ( /* $allUsers[j].id */ $allUsers[j][0] == $recipe[x].userId) {
+                                    $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
                                 }
                             }
 
@@ -84,7 +85,7 @@ $(document).ready(function () {
                 if ($allPlatesCakes != 0) {
                     insertPlates(0, 4, $allPlatesCakes, '#cake', 'repos');
                 }
-            }else{
+            } else {
                 if ($allPlatesStarters.length != 0) {
                     insertPlates(0, 6, $allPlatesStarters, '#starters', 'entrantes');
                 }
@@ -157,7 +158,7 @@ $(document).ready(function () {
     $('.btn_more').each(function () {
         $(this).on('click', () => {
             let $typePlateButton = $(this).siblings()[1].id;
-            if ($screenSize <= 700){
+            if ($screenSize <= 700) {
                 if ($typePlateButton == 'starters') {
                     if ($countStarters == 0) {
                         insertPlates(4, 8, $allPlatesStarters, '#starters', 'entrantes');
@@ -203,8 +204,8 @@ $(document).ready(function () {
                         urlTypePlate('Repostería');
                     }
                     $countCakes++;
-                }   
-            }else{
+                }
+            } else {
                 if ($typePlateButton == 'starters') {
                     if ($countStarters == 0) {
                         insertPlates(6, 12, $allPlatesStarters, '#starters', 'entrantes');
@@ -258,8 +259,9 @@ $(document).ready(function () {
     function insertPlates($count, $maxCount, $insertPlates, $insertTypePlate, $insertTypePlateSpanish) {
         for (let i = $count; i < $maxCount; i++) {
             for (let j = 0; j < $allUsers.length; j++) {
-                if ($allUsers[j].id == $insertPlates[i].userId) {
-                    $userAlias = $allUsers[j].alias;
+                //TODO: BORRAR LO COMENTADO
+                if (/* $allUsers[j].id */ $allUsers[j][0] == $insertPlates[i].userId) {
+                    $userAlias =  /* $allUsers[j].alias */ $allUsers[j][4];
                 }
             }
             $forks = getForks($insertPlates[i].recipeAssessment);
@@ -268,12 +270,12 @@ $(document).ready(function () {
         }
     }
 
-    function urlTypePlate($namePlate){
+    function urlTypePlate($namePlate) {
         for (let i = 0; i < $allTypePlate.length; i++) {
-            if($allTypePlate[i].name == $namePlate){
-                window.location.href = '../recetas/filtros?id='+$allTypePlate[i].id
+            if ($allTypePlate[i].name == $namePlate) {
+                window.location.href = '../recetas/filtros?id=' + $allTypePlate[i].id
             }
-            
+
         }
     }
 });
