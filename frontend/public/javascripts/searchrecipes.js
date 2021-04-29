@@ -20,6 +20,7 @@ $(document).ready(function () {
     const $urlAllUsers = 'http://localhost:8080/api/user/getUsers';
     const $urlTypePlate = 'http://localhost:8080/api/recipeTypes/getRecipeTypes';
     const $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes';
+    const $urlRecipe = 'http://localhost:3000/recetas/ficha?id=';
 
     let $searchFilters = (window.location.search).substr(1, );
     let $searchId = (window.location.search).substr(1, 3);
@@ -84,8 +85,12 @@ $(document).ready(function () {
     function insertRecipes($recipes) {
         for (let i = 0; i < $recipes.length; i++) {
             for (let j = 0; j < $allUsers.length; j++) {
-                if ($allUsers[j].id == $recipes[i].userId) {
+/*                 if ($allUsers[j].id == $recipes[i].userId) {
                     $userAlias = $allUsers[j].alias;
+                } */
+                //TODO: BORRAR LO COMENTADO
+                if ( /* $allUsers[j].id */ $allUsers[j][0] == $recipes[i].userId) {
+                    $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
                 }
             }
             for (let x = 0; x < $allTypePlate.length; x++) {
@@ -106,22 +111,24 @@ $(document).ready(function () {
 
     function receivePlate($recipe, $userAlias, $forks, $difficult, $classPlate) {
         $('.recipes_cont').append('<div class="rcp_cnt">\
-                                <div class="recipe ' + $classPlate + '">\
-                                    <img src="' + $recipe.image + '" alt="' + $classPlate + '" style="width: 100%;">\
-                                    <div class="desc_rec">\
-                                        <h3 id="title">' + $recipe.name + '</h3>\
-                                        <p id="author">' + $userAlias + '</p>\
-                                    </div>\
-                                </div>\
-                                <div class="info_rec">\
-                                    <p id="level">Dificultad: ' + $difficult + '</p>\
-                                    <div class="time_rec">\
-                                        <i class="fas fa-clock clock"></i>\
-                                        <p id="time">' + $recipe.recipeTime + ' min</p>\
-                                    </div>\
-                                </div>\
-                                ' + $forks + '\
-                            </div>');
+                                    <a href="' + $urlRecipe + $recipe.id + '">\
+                                        <div class="recipe ' + $classPlate + '">\
+                                            <img src="' + $recipe.image + '" alt="' + $classPlate + '" style="width: 100%;">\
+                                            <div class="desc_rec">\
+                                                <h3 id="title">' + $recipe.name + '</h3>\
+                                                <p id="author">' + $userAlias + '</p>\
+                                            </div>\
+                                        </div>\
+                                        <div class="info_rec">\
+                                            <p id="level">Dificultad: ' + $difficult + '</p>\
+                                            <div class="time_rec">\
+                                                <i class="fas fa-clock clock"></i>\
+                                                <p id="time">' + $recipe.recipeTime + ' min</p>\
+                                            </div>\
+                                        </div>\
+                                        ' + $forks + '\
+                                        </a>\
+                                    </div>');
     }
 
     function getForks($forks) {

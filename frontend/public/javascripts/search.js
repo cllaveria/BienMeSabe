@@ -49,6 +49,7 @@ $(document).ready(function () {
     const $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes';
     const $urlAllUsers = 'http://localhost:8080/api/user/getUsers';
     const $urlOrderByAssessment = 'http://localhost:8080/api/recipe/getRecipesByAssessment';
+    const $urlRecipe = 'http://localhost:3000/recetas/ficha?id=';
     let $ingredient, $numberPersons, $valueEnergMin, $valueEnergMax, $typePlate, $ingredientId, $userAlias;
     let $ingredients = [];
     let $recipePlates = [];
@@ -108,8 +109,8 @@ $(document).ready(function () {
                 $forks = $getForks($plateOrderByAssessment[i].recipeAssessment)
                 if (i == 0) {
                     $insert = $insert.concat('<div class="carousel-item active">\
-                                                <a href="../recetas/filtros?id=' + $plateOrderByAssessment[i].id + '">\
-                                                    <img src="' + $plateOrderByAssessment[i].image + '" alt="Los Angeles">\
+                                                <a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
+                                                    <img src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
                                                     <div class="carousel-desc">\
                                                         <div class="carousel-caption">\
                                                             <div class="title">' + $plateOrderByAssessment[i].name + '</div>\
@@ -121,8 +122,8 @@ $(document).ready(function () {
                                             </div>');
                 } else {
                     $insert = $insert.concat('<div class="carousel-item">\
-                                                <a href="../recetas/filtros?id=' + $plateOrderByAssessment[i].id + '">\
-                                                    <img src="' + $plateOrderByAssessment[i].image + '" alt="Los Angeles">\
+                                                <a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
+                                                    <img src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
                                                     <div class="carousel-desc">\
                                                         <div class="carousel-caption">\
                                                             <div class="title">' + $plateOrderByAssessment[i].name + '</div>\
@@ -151,7 +152,7 @@ $(document).ready(function () {
             for (let i = 0; i < 3; i++) {
                 for (let j = 0; j < $allUsers.length; j++) {
                     //TODO: BORRAR LO COMENTADO
-                    if (/* $allUsers[j].id */ $allUsers[j][0] == $latestRecipes[i].userId) {
+                    if ( /* $allUsers[j].id */ $allUsers[j][0] == $latestRecipes[i].userId) {
                         $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
                     }
                 }
@@ -386,22 +387,24 @@ $(document).ready(function () {
 
     function insertLatestRecipe($recipe, $userAlias, $difficult, $forks) {
         $('.latest_rec').append('<div class="rcp_cnt">\
-                                <div class="recipe">\
-                                    <img src="' + $recipe.image + '" style="width: 100%;">\
-                                    <div class="desc_rec">\
-                                        <h3 id="title">' + $recipe.name + '</h3>\
-                                        <p id="author">' + $userAlias + '</p>\
-                                    </div>\
-                                </div>\
-                                <div class="info_rec">\
-                                    <p id="level">Dificultad: ' + $difficult + '</p>\
-                                    <div class="time_rec">\
-                                        <i class="fas fa-clock clock"></i>\
-                                        <p id="time">' + $recipe.recipeTime + ' min</p>\
-                                    </div>\
-                                </div>\
-                                ' + $forks + '\
-                            </div>');
+                                    <a href="' + $urlRecipe + $recipe.id + '">\
+                                        <div class="recipe">\
+                                            <img src="' + $recipe.image + '" style="width: 100%;">\
+                                            <div class="desc_rec">\
+                                                <h3 id="title">' + $recipe.name + '</h3>\
+                                                <p id="author">' + $userAlias + '</p>\
+                                            </div>\
+                                        </div>\
+                                        <div class="info_rec">\
+                                            <p id="level">Dificultad: ' + $difficult + '</p>\
+                                            <div class="time_rec">\
+                                                <i class="fas fa-clock clock"></i>\
+                                                <p id="time">' + $recipe.recipeTime + ' min</p>\
+                                            </div>\
+                                        </div>\
+                                        ' + $forks + '\
+                                    </a>\
+                                </div>');
     }
 
     $('.btn_lastRec').on('click', () => {
@@ -416,7 +419,7 @@ $(document).ready(function () {
                         $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
                     }
                 }
-                
+
                 let $forks = $getForks($latestRecipes[i].recipeAssessment)
                 let $difficult = $getDificult($latestRecipes[i].recipeDifficult)
 

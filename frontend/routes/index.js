@@ -26,4 +26,8 @@ router.get('/panelUsuario', function(req, res, next) {
   res.render('panelUsuario', { title: 'modificar datos' });
 });
 
+router.get('/recetas/ficha', function(req, res, next) {
+  res.render('ficha', { title: 'ficha receta' });
+});
+
 module.exports = router;

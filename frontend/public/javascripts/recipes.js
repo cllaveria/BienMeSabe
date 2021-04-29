@@ -3,6 +3,8 @@ $(document).ready(function () {
     const $urlAllUsers = 'http://localhost:8080/api/user/getUsers';
     const $urlRecipes = 'http://localhost:8080/api/recipe/getRecipesByType/';
     const $urlType = 'http://localhost:8080/api/recipeTypes/getRecipeTypes';
+    const $urlRecipe = 'http://localhost:3000/recetas/ficha?id=';
+
     const $screenSize = window.screen.width;
 
     let $countStarters = 0;
@@ -107,21 +109,23 @@ $(document).ready(function () {
 
     function receivePlate($recipe, $userAlias, $forks, $difficult, $typePlate, $classPlate) {
         $($typePlate).append('<div class="rcp_cnt">\
-                                <div class="recipe ' + $classPlate + '">\
-                                    <img src="' + $recipe.image + '" alt="Entrantes" style="width: 100%;">\
-                                    <div class="desc_rec">\
-                                        <h3 id="title">' + $recipe.name + '</h3>\
-                                        <p id="author">' + $userAlias + '</p>\
+                                <a href="' + $urlRecipe + $recipe.id + '">\
+                                    <div class="recipe ' + $classPlate + '">\
+                                        <img src="' + $recipe.image + '" alt="Entrantes" style="width: 100%;">\
+                                        <div class="desc_rec">\
+                                            <h3 id="title">' + $recipe.name + '</h3>\
+                                            <p id="author">' + $userAlias + '</p>\
+                                        </div>\
                                     </div>\
-                                </div>\
-                                <div class="info_rec">\
-                                    <p id="level">Dificultad: ' + $difficult + '</p>\
-                                    <div class="time_rec">\
-                                        <i class="fas fa-clock clock"></i>\
-                                        <p id="time">' + $recipe.recipeTime + ' min</p>\
+                                    <div class="info_rec">\
+                                        <p id="level">Dificultad: ' + $difficult + '</p>\
+                                        <div class="time_rec">\
+                                            <i class="fas fa-clock clock"></i>\
+                                            <p id="time">' + $recipe.recipeTime + ' min</p>\
+                                        </div>\
                                     </div>\
-                                </div>\
-                                ' + $forks + '\
+                                    ' + $forks + '\
+                                </a>\
                             </div>');
     }
 
