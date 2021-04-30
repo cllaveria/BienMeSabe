@@ -46,6 +46,14 @@ public class BienmesabeApplication {
                                 .antMatchers(HttpMethod.POST, "/api/user/addUser").permitAll()
                                 .antMatchers(HttpMethod.POST, "/api/user/loginUser").permitAll()
                                 .antMatchers(HttpMethod.POST, "/api/user/loginUser/{data}").permitAll()
+                                
+                                .antMatchers(HttpMethod.GET, "/api/ingredient/getIngredients").permitAll()
+                                .antMatchers(HttpMethod.GET, "/api/recipeTypes/getRecipeTypes").permitAll()
+                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipes").permitAll()
+                                .antMatchers(HttpMethod.GET, "/api/user/getUsers").permitAll()
+                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByAssessment").permitAll()
+                                .antMatchers(HttpMethod.GET, "/api/recipeTypes/getRecipeTypes").permitAll()
+                                .antMatchers(HttpMethod.GET, "/api/ingredient/getIngredients").permitAll()
 				.anyRequest().authenticated();
 		}
 	}
