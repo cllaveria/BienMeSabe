@@ -9,6 +9,8 @@ import com.bienmesabe.rest.DAO.RecipeDAO;
 import com.bienmesabe.rest.domain.Recipe;
 import com.bienmesabe.rest.domain.RecipeIngredients;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.query.Query;
@@ -40,7 +42,23 @@ public class RecipeDAOImpl implements RecipeDAO {
     public List<Recipe> getAllRecipes() {
         Session currentSession = entityManager.unwrap(Session.class);
         
-        Query<Recipe> query = currentSession.createQuery("from Recipe", Recipe.class);
+        Query<Recipe> query = currentSession.createQuery("from Recipe order by createdAt desc", Recipe.class);
+        
+        List<Recipe> recipes = query.getResultList();
+        
+        return recipes;
+    }
+    
+    /**
+     * Method to recover the recipes present in the DB ordered by assessment
+     * @return a list with the recipes in the DB ordered by assessment
+     */
+    @Override
+    @Transactional
+    public List<Recipe> getAllRecipesByAssessment(){
+        Session currentSession = entityManager.unwrap(Session.class);
+        
+        Query<Recipe> query = currentSession.createQuery("from Recipe order by recipeAssessment desc", Recipe.class);
         
         List<Recipe> recipes = query.getResultList();
         
@@ -56,7 +74,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Transactional
     public List<Recipe> getRecipeByIngredients(List<Long> ingredientsForFilter) {
         List<Recipe> recipes = new ArrayList<Recipe>();
-        List<Recipe> recipesInDB = this.getAllRecipes();
+        List<Recipe> recipesInDB = getAllRecipes();
         for(int i=0;i<recipesInDB.size();i++){
             int findedIngredients = 0;
             List<Boolean> hasIngredients = new ArrayList<Boolean>();
@@ -78,6 +96,7 @@ public class RecipeDAOImpl implements RecipeDAO {
                 recipes.add(recipesInDB.get(i));
             }
         }
+        Collections.sort(recipes, (Recipe o1, Recipe o2) -> o1.getRecipeAssessment() - o2.getRecipeAssessment());
         return recipes;
     }
 
@@ -107,7 +126,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Transactional
     public List<Recipe> getRecipeByType(int type) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Recipe> query = currentSession.createQuery("from Recipe where type=:recipeType");
+        Query<Recipe> query = currentSession.createQuery("from Recipe where type=:recipeType order by recipeAssessment DESC");
         query.setParameter("recipeType", type);
         List<Recipe> recipes = query.getResultList();
         return recipes;
@@ -138,6 +157,20 @@ public class RecipeDAOImpl implements RecipeDAO {
         Session currentSession = entityManager.unwrap(Session.class);
         Recipe recipe = currentSession.get(Recipe.class, id);
         return recipe;
+    }
+    
+    /**
+     * Implementation of interface method to recover the recipes present in the DB by user id
+     * @param userId long that represents the id of the user to not search
+     * @return the recipes in the DB filtered by user id
+     */
+    @Override
+    public List<Recipe> getRecipesOfOtherUsers(Long userId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Recipe> query = currentSession.createQuery("from Recipe where userId<>:userId");
+        query.setParameter("userId", userId);
+        List<Recipe> recipes = query.getResultList();
+        return recipes;
     }
     
     /**
@@ -178,6 +211,8 @@ public class RecipeDAOImpl implements RecipeDAO {
         query.setParameter("recipeId", id);
         query.executeUpdate();
     }
+
+    
 
     
 }

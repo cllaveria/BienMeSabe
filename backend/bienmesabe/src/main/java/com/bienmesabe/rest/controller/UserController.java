@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -47,12 +48,12 @@ public class UserController {
     
     /**
      * Method to recover the user by id // HTTP verb: GET url: http://localhost:8080/api/user/getUserById/{UserId}
-     * @param id long that represents the id of the users to search
+     * @param id string that represents the id of the users to search
      * @return the user filtered by id
      */
-    @GetMapping("/getUserById/{ID}")
-    public User findUserById(@PathVariable Long id){
-        User user = userService.findUserById(id);
+    @GetMapping("/getUserById/{id}")
+    public User findUserById(@PathVariable String id){
+        User user = userService.findUserById(Long.parseLong(id));
         return user;
     }
     
@@ -106,26 +107,85 @@ public class UserController {
     }
     
     /**
+     * Method to create the user // HTTP verb: POST url: http://localhost:8080/api/user/addUser
+     * @param user object that represents the user to create
+     * @return the created user
+     */
+    @PostMapping("/loginUser")
+    public String loginUser(@RequestParam String data){
+        return userService.authenticateUser(data);
+    }
+    
+    /**
      * Method to modify the user // HTTP verb: PUT url: http://localhost:8080/api/user/modifyUser
      * @param user object that represents the user to modify
      * @return the modified user
      */
-    @PutMapping("/modifyUser")
-    public User updateUser(User user){
-        userService.modifyUser(user);
-        return user;
+    @PutMapping("/modifyUser/{user}")
+    public boolean updateUser(@PathVariable String user){
+        try{
+            userService.modifyUser(user);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    
+    /**
+     * Method to modify the user // HTTP verb: PUT url: http://localhost:8080/api/user/modifyUser
+     * @param pass object that represents the user password to modify
+     * @return the modified user
+     */
+    @PutMapping("/updateUserPassword/{pass}")
+    public boolean updateUserPassword(@PathVariable String pass){
+        try{
+            userService.modifyUserPassword(pass);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    
+    /**
+     * Method to modify the user // HTTP verb: PUT url: http://localhost:8080/api/user/modifyUser
+     * @param mail object that represents the user email to modify
+     * @return the modified user
+     */
+    @PutMapping("/updateUserEmail/{mail}")
+    public boolean updateUserEmail(@PathVariable String mail){
+        try{
+            userService.modifyUserEmail(mail);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    
+    /**
+     * Method to modify the user // HTTP verb: PUT url: http://localhost:8080/api/user/modifyUser
+     * @param alias object that represents the user alias to modify
+     * @return the modified user
+     */
+    @PutMapping("/updateUserAlias/{alias}")
+    public boolean updateUserAlias(@PathVariable String alias){
+        try{
+            userService.modifyUserAlias(alias);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
     
     /**
      * Method to delete the user by id // HTTP verb: DELETE url: http://localhost:8080/api/user/deleteUserById/{UserId}
-     * @param id long with the id of the user to delete
+     * @param id string with the id of the user to delete
      * @return  an string that informs the id of the deleted user
      */
     @DeleteMapping("deleteUserById/{id}")
-    public String deleteUserById(@PathVariable Long id){
-        User user = userService.findUserById(id);
+    public String deleteUserById(@PathVariable String id){
+        User user = userService.findUserById(Long.parseLong(id));
         if(user != null) {
-           userService.deleteUserById(id);
+           userService.deleteUserById(Long.parseLong(id));
            return "Deleted user id - "+id;
         }
         
