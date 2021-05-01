@@ -148,15 +148,15 @@ $(document).ready(function () {
         let $insertDificult = '';
         switch ($dificult) {
             case 0:
-                return $insertDificult = 'muy bajo';
+                return $insertDificult = 'Muy baja';
             case 1:
-                return $insertDificult = 'bajo';
+                return $insertDificult = 'Baja';
             case 2:
-                return $insertDificult = 'medio';
+                return $insertDificult = 'Media';
             case 3:
-                return $insertDificult = 'difícil';
+                return $insertDificult = 'Difícil';
             case 4:
-                return $insertDificult = 'muy difícil';
+                return $insertDificult = 'Muy difícil';
         }
     }
     $('.btn_more').each(function () {
