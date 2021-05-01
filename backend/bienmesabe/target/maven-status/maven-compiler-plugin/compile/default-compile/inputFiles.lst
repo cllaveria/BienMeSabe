@@ -1,29 +1,53 @@
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\domain\RecipeTypes.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\service\impl\NutricionistServiceImpl.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\controller\NutricionistController.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\service\impl\UserServiceImpl.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\domain\UserTypes.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\domain\Comment.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\service\NutricionistService.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\domain\Vitamin.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\BienmesabeApplication.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\domain\RecipeIngredients.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\domain\IngredientVitamin.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\NutricionistDAO.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\IngredientsDAO.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\domain\User.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\controller\UserController.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\RecipeDAO.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\domain\Assessment.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\domain\Recipe.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\domain\RecipeStep.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\domain\IngredientMineral.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\service\UserService.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\UserDAO.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\controller\RecipeController.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\impl\RecipeDAOImpl.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\domain\Ingredient.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\impl\UserDAOImpl.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\domain\Mineral.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\impl\NutricionistDAOImpl.java
-C:\Users\RAUL\Documents\BienMeSabe\api rest\bienmesabe\src\main\java\com\bienmesabe\rest\domain\Nutricionist.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\domain\Nutricionist.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\domain\Vitamin.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\controller\AssessmentController.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\impl\CommentDAOImpl.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\TokenService.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\impl\TokenServiceImpl.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\AssessmentDAO.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\impl\AssessmentServiceImpl.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\domain\Ingredient.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\domain\User.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\RecipeService.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\impl\UserServiceImpl.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\impl\IngredientServiceImpl.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\AssessmentService.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\RecipeDAO.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\controller\CommentController.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\impl\RecipeTypeDAOImpl.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\domain\Comment.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\CommentService.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\UserService.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\BienmesabeApplication.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\IngredientDAO.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\domain\Recipe.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\IngredientService.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\domain\RecipeIngredients.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\impl\CommentServiceImpl.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\UserDAO.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\impl\RecipeServiceImpl.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\domain\Assessment.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\impl\NutricionistServiceImpl.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\security\JWTAuthorizationFilter.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\domain\UserTypes.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\NutricionistService.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\RecipeTypeDAO.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\impl\NutricionistDAOImpl.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\NutricionistDAO.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\domain\RecipeTypes.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\controller\RecipeController.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\impl\IngredientDAOImpl.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\controller\IngredientController.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\impl\RecipeDAOImpl.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\domain\Mineral.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\impl\AssessmentDAOImpl.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\domain\RecipeStep.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\RecipeTypesService.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\controller\RecipeTypeController.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\domain\IngredientVitamin.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\CommentDAO.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\domain\IngredientMineral.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\controller\NutricionistController.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\controller\UserController.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\DAO\impl\UserDAOImpl.java
+C:\Users\cllav\Documents\ProjecteM12\backend\bienmesabe\src\main\java\com\bienmesabe\rest\service\impl\RecipeTypesServiceImpl.java

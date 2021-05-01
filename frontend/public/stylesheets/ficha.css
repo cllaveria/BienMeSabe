@@ -12,22 +12,63 @@
 .recipe_container > img {
   width: 700px;
   height: 350px;
+  object-fit: cover;
   margin-top: 20px;
 }
 
 .score_rec {
-  display: flow-root;
   margin-top: 25px;
-}
-
-.score_rec > img {
   float: right;
 }
 
+@media (max-width: 800px) {
+  .recipe_container {
+    width: 500px;
+  }
+
+  .recipe_container > img {
+    width: 500px;
+    height: 250px;
+  }
+}
+
 .desc_rec {
-  margin: 25px 50px;
+  margin: 100px 50px 25px;
   text-align: justify;
   line-height: 17px;
+}
+
+@media (max-width: 600px) {
+  .recipe_container {
+    width: 400px;
+  }
+
+  .recipe_container > img {
+    width: 400px;
+    height: 200px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 450px) {
+  .recipe_container {
+    width: 300px;
+  }
+  .recipe_container > img {
+    width: 300px;
+    height: 150px;
+  }
+
+  .score_rec {
+    float: none;
+  }
+
+  .desc_rec {
+    margin: 50px 50px 25px;
+  }
 }
 
 .ingredients_cont {
@@ -83,6 +124,31 @@
   list-style-type: circle;
 }
 
+@media (max-width: 800px) {
+  .ingredients_cont {
+    margin-left: 0;
+    display: inline-block;
+  }
+
+  .details_rec {
+    float: none;
+    width: inherit;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .ingredients {
+    margin-left: 0;
+    width: 300px;
+  }
+}
+
+@media (max-width: 450px) {
+  .ingredients {
+    width: 250px;
+  }
+}
+
 .steps {
   display: block;
   margin-bottom: 50px;
@@ -125,6 +191,8 @@
   border: solid 2px #fca035;
   line-height: 17px;
   align-items: center;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .card-body > p {
@@ -132,27 +200,59 @@
 }
 
 .card-body > img {
-  width: 300px;
-  height: fit-content;
+  width: 350px;
 }
+
+@media (max-width: 800px) {
+  .card-body > img {
+    width: 250px;
+  }
+}
+
+@media (max-width: 600px) {
+  .card-body {
+    display: block;
+    text-align: center;
+  }
+
+  .card-body > p {
+    padding: 10px;
+  }
+
+  .card-body > img {
+    width: 250px;
+  }
+}
+
 
 .advertisements > img {
   width: 400px;
   margin: 25px 0 100px;
 }
 
+@media (max-width: 800px) {
+  .advertisements > img {
+    margin: 25px 0 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .advertisements > img {
+    width: 300px;
+  }
+}
+
 .comment_cont {
   display: none;
-  /* display: flow-root; */
-  gap: 30px;
-  margin-bottom: 60px;
+  /* display: inline-flex; */
+  direction: rtl;
+  gap: 80px;
+  margin: auto auto 60px;
 }
 
 .input_comment {
-  float: left;
   width: 500px;
   justify-content: center;
-  margin-right: 100px;
 }
 
 .input_comment > textarea {
@@ -161,6 +261,7 @@
   background-color: #f0f8ff;
   border: solid 1px #a6aa9c;
   padding: 10px;
+  direction: ltr;
 }
 
 .input_comment > textarea:focus {
@@ -168,30 +269,48 @@
   outline: 0;
 }
 
-.score_rec.user {
-  float: left;
-  text-align: left;
-  width: auto;
+.score_user {
   font-size: 14px;
-  margin-top: 0;
+  direction: rtl;
+  cursor: pointer;
 }
 
+.forkValue:hover,
+.forkValue:hover ~ .forkValue {
+  content: url("/images/tenedor-gold.svg");
+}
+
+
 .btn_send {
-  width: 100px;
-  height: 35px;
-  background-color: white;
-  border: solid 2px #fca035;
-  border-radius: 3px;
-  font-size: 12px;
-  color: black;
-  font-weight: bold;
   margin-top: 25px;
 }
 
-.btn_send:hover,
-.btn_send:active {
-  background-color: #fbc76f;
-  outline: 0;
+@media (max-width: 800px) {
+  .comment_cont {
+    display: none;
+    /* display: block; */
+    direction: rtl;
+  }
+
+  .score_user {
+    margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .input_comment {
+    width: 400px;
+  }
+
+  .input_comment > textarea {
+    width: 300px;
+  }
+}
+
+@media (max-width: 450px) {
+  .input_comment {
+    width: 300px;
+  }
 }
 
 .comments_users {

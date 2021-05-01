@@ -40,18 +40,18 @@ public class NutricionistController {
      * @return a list with the nutricionists
      */
     @GetMapping("/getNutricionists")
-    public List<Nutricionist> getUsers(){
+    public List<Nutricionist> getNutricionists(){
         return nutricionistService.findAllNutricionist();
     }
     
     /**
      * Method to recover the nutricionists by id  // HTTP verb: GET url: http://localhost:8080/api/nutricionist/findNutricionistByCP/{PostalCode}
-     * @param id long that represents the id of the nutricionist to search
+     * @param id string that represents the id of the nutricionist to search
      * @return the nutricionist filtered by id
      */
-    @GetMapping("/getNutricionistById/{ID}")
-    public Nutricionist findUserById(@PathVariable Long id){
-        Nutricionist nutricionist = nutricionistService.findNutricionistById(id);
+    @GetMapping("/getNutricionistById/{id}")
+    public Nutricionist findUserById(@PathVariable String id){
+        Nutricionist nutricionist = nutricionistService.findNutricionistById(Long.parseLong(id));
         return nutricionist;
     }
     
@@ -72,8 +72,10 @@ public class NutricionistController {
      * @param cpMax string that represents the maximum postal code of the nutricionists to search
      * @return a list with the nutricionists filtered by postal code range
      */
-    @GetMapping("/findNutricionistByCPRange/{cpMin}/{cpMax}")
-    public List<Nutricionist> findNutricionistByCPRange(@PathVariable String cpMin, @PathVariable String cpMax){
+    @GetMapping("/findNutricionistByCPRange/{cpRanges}")
+    public List<Nutricionist> findNutricionistByCPRange(@PathVariable String cpRanges){
+        String cpMin = cpRanges.split("-")[0];
+        String cpMax = cpRanges.split("-")[1];
         List<Nutricionist> nutricionists = nutricionistService.findNutricionistByCPRange(cpMin, cpMax);
         return nutricionists;
     }
@@ -111,10 +113,10 @@ public class NutricionistController {
      * @return a string informing that the nutricionist id is deleted
      */
     @DeleteMapping("/deleteNutricionistById/{id}")
-    public String deleteNutricionistById(@PathVariable Long id){
-        Nutricionist nutricionist = nutricionistService.findNutricionistById(id);
+    public String deleteNutricionistById(@PathVariable String id){
+        Nutricionist nutricionist = nutricionistService.findNutricionistById(Long.parseLong(id));
         if(nutricionist != null) {
-            nutricionistService.deleteNutricionistById(id);
+            nutricionistService.deleteNutricionistById(Long.parseLong(id));
         return "Deleted nutricionist id - "+id;
         }
         return null;

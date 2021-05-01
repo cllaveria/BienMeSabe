@@ -6,7 +6,7 @@
 .navbar {
   padding: 0;
   background-color: white;
-  border-bottom: solid 2px #868685;
+  border-bottom: solid 2px #a6aa9c;
 }
 
 .navbar-toggler {
@@ -256,6 +256,26 @@ p {
   font-size: 14px;
   padding-bottom: 15px;
 }
+
+.button,
+.button:focus {
+  width: 100px;
+  height: 35px;
+  background-color: white;
+  border: solid 2px #fca035;
+  border-radius: 3px;
+  font-size: 12px;
+  color: black;
+  font-weight: bold;
+  outline: 0;
+}
+
+.button:hover,
+.button:active {
+  background-color: #fbc76f;
+  outline: 0;
+}
+
 
 /*---FOOTER---*/
 .footer {

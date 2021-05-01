@@ -40,11 +40,8 @@ public class UserDAOImpl implements UserDAO{
     @Transactional
     public List<User> findAllUsers() {
         Session currentSession = entityManager.unwrap(Session.class);
-        
-        Query<User> query = currentSession.createQuery("from User", User.class);
-        
+        Query<User> query = currentSession.createQuery("SELECT id, image, name, surname, alias, email, type from User");
         List<User> users = query.getResultList();
-        
         return users;
     }
 
@@ -57,8 +54,18 @@ public class UserDAOImpl implements UserDAO{
     @Transactional
     public User findUserById(Long id) {
         Session currentSession = entityManager.unwrap(Session.class);
-        User user = currentSession.get(User.class, id);
-        return user;
+        Query<Object[]> query = currentSession.createQuery("SELECT u.id, u.image,u.name,u.surname,u.alias,u.email,u.phone,u.type from User u where id=:idToSearch");
+        query.setParameter("idToSearch", id);
+        User user = null;
+        try{
+            Object[] attr = query.getSingleResult();
+            if(String.valueOf(attr[0]) != ""){
+                user = new User(Long.parseLong(String.valueOf(attr[0])), String.valueOf(attr[1]), String.valueOf(attr[2]), String.valueOf(attr[3]), String.valueOf(attr[4]), String.valueOf(attr[5]), String.valueOf(attr[6]), Integer.parseInt(String.valueOf(attr[7])));
+            }
+            return user;
+        }catch(Exception e){
+            return null;
+        }
     }
 
     /**
@@ -70,15 +77,18 @@ public class UserDAOImpl implements UserDAO{
     @Transactional
     public User findUserByName(String name) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<User> query = currentSession.createQuery("FROM User WHERE name=:name", User.class);
+        Query<Object[]> query = currentSession.createQuery("SELECT id, image, name, surname, alias, email, type FROM User WHERE name=:name");
         query.setParameter("name", name);
-        User user = new User();
+        User user = null;
         try{
-             user= query.getSingleResult();
-        }catch(Exception e){
+            Object[] attr = query.getSingleResult();
+            if(String.valueOf(attr[0]) != ""){
+                user = new User(Long.parseLong(String.valueOf(attr[0])), String.valueOf(attr[1]), String.valueOf(attr[2]), String.valueOf(attr[3]), String.valueOf(attr[4]), String.valueOf(attr[5]), Integer.parseInt(String.valueOf(attr[6])));
+            }
             return user;
+        }catch(Exception e){
+            return null;
         }
-        return user;
     }
 
     /**
@@ -90,10 +100,18 @@ public class UserDAOImpl implements UserDAO{
     @Transactional
     public User findUserByEmail(String email) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<User> query = currentSession.createQuery("FROM User WHERE email=:email", User.class);
+        Query<Object[]> query = currentSession.createQuery("SELECT id, image, name, surname, alias, email, type FROM User WHERE email=:email");
         query.setParameter("email", email);
-        User user = query.getSingleResult();
-        return user;
+        User user = null;
+        try{
+            Object[] attr = query.getSingleResult();
+            if(String.valueOf(attr[0]) != ""){
+                user = new User(Long.parseLong(String.valueOf(attr[0])), String.valueOf(attr[1]), String.valueOf(attr[2]), String.valueOf(attr[3]), String.valueOf(attr[4]), String.valueOf(attr[5]), Integer.parseInt(String.valueOf(attr[6])));
+            }
+            return user;
+        }catch(Exception e){
+            return null;
+        }
     }
     
     /**
@@ -105,12 +123,56 @@ public class UserDAOImpl implements UserDAO{
     @Transactional
     public User findUserByAlias(String alias) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<User> query = currentSession.createQuery("FROM User WHERE alias=:alias", User.class);
+        Query<Object[]> query = currentSession.createQuery("SELECT id, image, name, surname, alias, email, type FROM User WHERE alias=:alias");
         query.setParameter("alias", alias);
-        User user = query.getSingleResult();
-        return user;
+        User user = null;
+        try{
+            Object[] attr = query.getSingleResult();
+            if(String.valueOf(attr[0]) != ""){
+                user = new User(Long.parseLong(String.valueOf(attr[0])), String.valueOf(attr[1]), String.valueOf(attr[2]), String.valueOf(attr[3]), String.valueOf(attr[4]), String.valueOf(attr[5]), Integer.parseInt(String.valueOf(attr[6])));
+            }
+            return user;
+        }catch(Exception e){
+            return null;
+        }
     }
     
+    
+    @Override
+    public User authenticateUserByAlias(String alias, String pass){
+        Session currentSession = entityManager.unwrap(Session.class);
+        User user = null;
+        try{
+            Query<Object[]> query = currentSession.createQuery("SELECT u.name, u.password,u.email  FROM User u WHERE alias=:alias and password=:pass");
+            query.setParameter("alias", alias);
+            query.setParameter("pass", pass);
+            Object[] attr = query.getSingleResult();
+            if(String.valueOf(attr[0]) != ""){
+                user = new User(String.valueOf(attr[0]), String.valueOf(attr[1]), String.valueOf(attr[2]));
+            }
+            return user;
+        }catch(Exception e){
+            return null;
+        }
+    }
+    
+    @Override
+    public User authenticateUserByEmail(String email, String pass){
+        Session currentSession = entityManager.unwrap(Session.class);
+        User user = null;
+        try{
+            Query<Object[]> query = currentSession.createQuery("SELECT u.name, u.password  FROM User u WHERE email=:email and password=:pass");
+            query.setParameter("email", email);
+            query.setParameter("pass", pass);
+            Object[] attr = query.getSingleResult();
+            if(String.valueOf(attr[0]) != ""){
+                user = new User(String.valueOf(attr[0]), String.valueOf(attr[1]), email);
+            }
+            return user;
+        }catch(Exception e){
+            return null;
+        }
+    }
     /**
      * Implementation of interface method to create a user in the table users of the DB
      * @param user object that represents the user to persist
@@ -139,15 +201,126 @@ public class UserDAOImpl implements UserDAO{
 
     /**
      * Implementation of interface method to modify an user in the table users of the DB
-     * @param user object that represents the user to modify
+     * @param userId long that represents the id of the user to modify
+     * @param newNIF string that represents the new NIF of the user
+     * @param imagePath string that represents the new image path of the user
+     * @param surnameNew string that represents the new surname of the user
+     * @param nameNew string that represents the new name of the user
+     * @param phoneNew string that represents the new phone of the user
+     * @return a boolean that indicates if the user is successfully updated or not
      */
     @Override
     @Transactional
-    public void modifyUser(User user) {
+    public boolean modifyUser(Long userId, String newNIF, String imagePath, String nameNew, String surnameNew, String phoneNew) {
         Session currentSession = entityManager.unwrap(Session.class);
-        currentSession.saveOrUpdate(user); 
+        try{
+            String updates = "update User set ";
+            
+            if(newNIF != null && !newNIF.isEmpty()) updates +=  "NIF=:newNIF, ";
+            if(imagePath != null && !imagePath.isEmpty()) updates +=  "image=:imagePath, ";
+            if(nameNew != null && !nameNew.isEmpty()) updates +=  "name=:nameNew, ";
+            if(surnameNew != null && !surnameNew.isEmpty()) updates +=  "surname=:surnameNew, ";
+            if(phoneNew != null && !phoneNew.isEmpty()) updates +=  "phone=:phoneNew, ";
+            
+            updates = updates.substring(0, updates.length() -2);
+            updates += " WHERE id=:userid";
+            Query<User> query = currentSession.createQuery(updates);
+            query.setParameter("userid", userId);
+            
+            if(newNIF != null && !newNIF.isEmpty()) query.setParameter("newNIF", newNIF);
+            if(imagePath != null && !imagePath.isEmpty()) query.setParameter("imagePath", imagePath);
+            if(nameNew != null && !nameNew.isEmpty()) query.setParameter("nameNew", nameNew);
+            if(surnameNew != null && !surnameNew.isEmpty()) query.setParameter("surnameNew", surnameNew);
+            if(phoneNew != null && !phoneNew.isEmpty()) query.setParameter("phoneNew", phoneNew);
+            
+            query.executeUpdate();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 
+    /**
+     * Implementation of interface method to modify the password of the user
+     * @param userId long that represents the id of the user to modify
+     * @param passwordOld string that represents the old password of the user
+     * @param passwordNew string that represents the new password of the user
+     * @return a boolean that indicates if the password of the user is successfully updated or not
+     */
+    @Override
+    @Transactional
+    public boolean modifyUserPassword(Long userId, String passwordOld, String passwordNew) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        User user = new User();
+        try{
+            Query<User> query = currentSession.createQuery("From User where id=:userId");
+            query.setParameter("userId", userId);
+            user = query.getSingleResult();
+            if(user.getPassword().equals(passwordOld)){
+
+                Query<User> queryU = currentSession.createQuery("update User set password=:passwordNew where id=:userId");
+                queryU.setParameter("userId", userId);
+                queryU.setParameter("passwordNew", passwordNew);
+                queryU.executeUpdate();
+                return true;
+            }
+        }catch(Exception e){
+            return false;
+        }
+        return false;
+    }
+    
+    /**
+     * Method to modify the email of the user
+     * @param userId long that represents the id of the user to modify
+     * @param emailOld string that represents the old email of the user
+     * @param emailNew string that represents the new email of the user
+     * @return a boolean that indicates if the email of the user is successfully updated or not
+     */
+    @Override
+    @Transactional
+    public boolean modifyUserEmail(Long userId, String emailOld, String emailNew){
+        Session currentSession = entityManager.unwrap(Session.class);
+        User user = new User();
+        try{
+            Query<User> query = currentSession.createQuery("From User where id=:userId");
+            query.setParameter("userId", userId);
+            user = query.getSingleResult();
+            if(user.getEmail().equals(emailOld)){
+
+                Query<User> queryU = currentSession.createQuery("update User set email=:emailNew where id=:userId");
+                queryU.setParameter("userId", userId);
+                queryU.setParameter("emailNew", emailNew);
+                queryU.executeUpdate();
+                return true;
+            }
+        }catch(Exception e){
+            return false;
+        }
+        return false;
+    }
+    
+    /**
+     * Method to modify the alais of the user
+     * @param userId long that represents the id of the user to modify
+     * @param aliasNew string that represents the new alias of the user
+     * @return a boolean that indicates if the alias of the user is successfully updated or not
+     */
+    @Override
+    @Transactional
+    public boolean modifyUserAlias(Long userId, String aliasNew){
+        Session currentSession = entityManager.unwrap(Session.class);
+        try{
+            Query<User> queryU = currentSession.createQuery("update User set alias=:aliasNew where id=:userId");
+            queryU.setParameter("userId", userId);
+            queryU.setParameter("aliasNew", aliasNew);
+            queryU.executeUpdate();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    
     /**
      * Implementation of interface method to delete an user in the table users of the DB by id
      * @param id long with the id of the user to delete
@@ -177,5 +350,7 @@ public class UserDAOImpl implements UserDAO{
         query.setParameter("userAlias", alias);
         query.executeUpdate();
     }
+
+    
 
 }
