@@ -9,12 +9,15 @@ package com.bienmesabe.rest.controller;
 
 import com.bienmesabe.rest.domain.Comment;
 import com.bienmesabe.rest.service.CommentService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -33,6 +36,18 @@ public class CommentController {
      */
     @Autowired
     private CommentService commentService;
+    
+    
+    @GetMapping("/getComments")
+    public List<Comment> getComments(){
+        return commentService.findAllComments();
+    }
+    
+    @GetMapping("/getCommentsByRecipeId/{id}")
+    public List<Comment> getCommentsById(@PathVariable String id){
+        return commentService.findAllCommentsOfRecipe(Long.parseLong(id));
+    }
+
     /**
      * Method to create the comment // HTTP verb: POST url: http://localhost:8080/api/comment/addComment/{recipeId}/{comment}/{userId}
      * @param recipeId string that represents the id of the recipe
@@ -40,12 +55,12 @@ public class CommentController {
      * @param userId string that represents the id of the user
      * @return the created user
      */
-    @PostMapping("/addComment/{recipeId}/{comment}/{userId}")
-    public Comment addComment(@PathVariable String recipeId, @PathVariable String commentValue,@PathVariable String userId ){
+    @PostMapping("/addComment/{info}")
+    public Comment addComment(@RequestParam String commentInfo){
        Comment comment = new Comment();
-       comment.setRecipeId(Long.parseLong(recipeId));
-       comment.setCommentValue(commentValue);
-       comment.setUserId(Long.parseLong(userId));
+       comment.setRecipeId(Long.parseLong(commentInfo.split("___")[0]));
+       comment.setCommentValue(commentInfo.split("___")[1]);
+       comment.setUserId(Long.parseLong(commentInfo.split("___")[2]));
        Long id = commentService.createComment(comment);
        if(id == 0L)
            return null;

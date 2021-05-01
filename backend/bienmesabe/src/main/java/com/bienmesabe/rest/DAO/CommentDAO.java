@@ -6,6 +6,7 @@
 package com.bienmesabe.rest.DAO;
 
 import com.bienmesabe.rest.domain.Comment;
+import java.util.List;
 
 /**
  * Inteface with the methods to retrive the DB data of comments
@@ -13,6 +14,19 @@ import com.bienmesabe.rest.domain.Comment;
  * @version 20/04/2021
  */
 public interface CommentDAO {
+    
+    /**
+     * Method to recover the comments
+     * @return a list with the comments
+     */
+    public List<Comment> findAllComments();
+    
+    /**
+     * Method to recover the comments of the recipe
+     * @return a list with the comments of the recipe
+     */
+    public List<Comment> findAllCommentsOfRecipe(Long recipeId);
+    
     /**
      * Method to create a comment in the table comments of the DB
      * @param comment object that represents the comment to persist

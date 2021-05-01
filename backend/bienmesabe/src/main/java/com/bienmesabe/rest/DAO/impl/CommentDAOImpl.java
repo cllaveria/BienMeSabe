@@ -8,6 +8,7 @@ package com.bienmesabe.rest.DAO.impl;
 import com.bienmesabe.rest.DAO.CommentDAO;
 import com.bienmesabe.rest.domain.Comment;
 import com.bienmesabe.rest.domain.Ingredient;
+import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -27,6 +28,32 @@ public class CommentDAOImpl implements CommentDAO{
      */
     @Autowired
     private EntityManager entityManager;
+    
+    /**
+     * Method to recover the comments
+     * @return a list with the comments
+     */
+    @Override
+    public List<Comment> findAllComments() {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Comment> query = currentSession.createQuery("FROM Comment",Comment.class);
+        return query.getResultList();
+    }
+    
+    /**
+     * Method to recover the comments of the recipe present in the DB by name
+     * @param name string that represents the id of the recipe to search
+     * @return the user in the DB filtered by name
+     */
+    @Override
+    public List<Comment> findAllCommentsOfRecipe(Long recipeId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Comment> query = currentSession.createQuery("FROM Comment WHERE recipeId=:id", Comment.class);
+        query.setParameter("id", recipeId);
+        List<Comment> comments = query.getResultList();
+        return comments;
+
+    }
     
     /**
      * Implementation of interface method to create a comment in the table comments of the DB
@@ -52,5 +79,9 @@ public class CommentDAOImpl implements CommentDAO{
         }
         return 0L;
     }
+
+    
+
+    
     
 }
