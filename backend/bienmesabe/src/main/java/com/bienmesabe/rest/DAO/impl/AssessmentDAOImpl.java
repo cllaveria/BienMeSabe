@@ -70,8 +70,13 @@ public class AssessmentDAOImpl implements AssessmentDAO{
             assessmentInDB = null;
         }
         if(assessmentInDB==null){
-            Long idGenerado = (Long) currentSession.save(assessment); 
-        return idGenerado;
+            try{
+                Long idGenerado = (Long) currentSession.save(assessment); 
+                return idGenerado;
+            }catch(Exception ee){
+                return null;
+            }
+            
         }
         return 0L;
     }
