@@ -58,6 +58,10 @@ public class Recipe implements Serializable{
     private int recipeDifficult;
     @Column(name="RECIPE_ASSESSMENT")
     private int recipeAssessment;
+    @Column(name="recipeInitDescription")
+    private String recipeInitDescription;
+    @Column(name="recipeEndingDescription")
+    private String recipeEndingDescription;
     
     /**
      * Empty Constructor
@@ -312,6 +316,38 @@ public class Recipe implements Serializable{
      */
     public void setRecipeAssessment(int recipeAssessment) {
         this.recipeAssessment = recipeAssessment;
+    }
+
+    /**
+     * Méthod to recover the initial description of the recipe
+     * @return an string that represents the initial description of the recipe
+     */
+    public String getRecipeInitDescription() {
+        return recipeInitDescription;
+    }
+
+    /**
+     * Méthod to asign the initial description of the recipe
+     * @param recipeInitDescription string that represents the initial description of the recipe to asign
+     */
+    public void setRecipeInitDescription(String recipeInitDescription) {
+        this.recipeInitDescription = recipeInitDescription;
+    }
+
+    /**
+     * Méthod to recover the ending description of the recipe
+     * @return an integer that represents the ending description of the recipe
+     */
+    public String getRecipeEndingDescription() {
+        return recipeEndingDescription;
+    }
+
+    /**
+     * Méthod to asign the ending description of the recipe
+     * @param recipeEndingDescription string that represents the ending description of the recipe to asign
+     */
+    public void setRecipeEndingDescription(String recipeEndingDescription) {
+        this.recipeEndingDescription = recipeEndingDescription;
     }
     
     
