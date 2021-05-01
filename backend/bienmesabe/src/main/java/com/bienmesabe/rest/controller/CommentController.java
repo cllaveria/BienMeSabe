@@ -56,11 +56,11 @@ public class CommentController {
      * @return the created user
      */
     @PostMapping("/addComment/{info}")
-    public Comment addComment(@RequestParam String commentInfo){
+    public Comment addComment(@PathVariable String info){
        Comment comment = new Comment();
-       comment.setRecipeId(Long.parseLong(commentInfo.split("___")[0]));
-       comment.setCommentValue(commentInfo.split("___")[1]);
-       comment.setUserId(Long.parseLong(commentInfo.split("___")[2]));
+       comment.setRecipeId(Long.parseLong(info.split("___")[0]));
+       comment.setCommentValue(info.split("___")[1]);
+       comment.setUserId(Long.parseLong(info.split("___")[2]));
        Long id = commentService.createComment(comment);
        if(id == 0L)
            return null;

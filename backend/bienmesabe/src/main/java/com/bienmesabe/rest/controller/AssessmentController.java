@@ -56,11 +56,11 @@ public class AssessmentController {
      * @return the created user
      */
     @PostMapping("/addAssessment/{info}")
-    public Assessment addAssessment(@RequestParam String assessmentInfo){
+    public Assessment addAssessment(@PathVariable String info){
        Assessment assessment = new Assessment();
-       assessment.setRecipeId(Long.parseLong(assessmentInfo.split("___")[0]));
-       assessment.setAssessmentValue(Integer.parseInt(assessmentInfo.split("___")[1]));
-       assessment.setUserId(Long.parseLong(assessmentInfo.split("___")[2]));
+       assessment.setRecipeId(Long.parseLong(info.split("___")[0]));
+       assessment.setAssessmentValue(Integer.parseInt(info.split("___")[1]));
+       assessment.setUserId(Long.parseLong(info.split("___")[2]));
        Long id = assessmentService.createAssessment(assessment);
        if(id == 0L)
            return null;
