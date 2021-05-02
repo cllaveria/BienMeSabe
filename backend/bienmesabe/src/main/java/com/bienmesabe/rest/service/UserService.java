@@ -49,6 +49,9 @@ public interface UserService {
      */
     public User findUserByAlias(String alias);
     
+    
+    public String authenticateUser(String data);
+
     /**
      * Method to create a user
      * @param user object that represents the user to persist
@@ -57,11 +60,34 @@ public interface UserService {
     public Long createUser(User user);
     
     /**
-     * Method to modify an user
-     * @param user object that represents the user to modify
+     * Implementation of interface method to modify an user
+     * @param user string with the parameters of the user to update
+     * @return a boolean that indicates if the user is successfully updated or not
      */
-    public void modifyUser(User user);
+    public boolean modifyUser(String user);
     
+    /**
+     * Method to modify the password of the user
+     * @param pass string with the information of the user for change the password
+     * @return a boolean that indicates if the password of the user is successfully updated or not
+     */
+    public boolean modifyUserPassword(String pass);
+    
+    /**
+     * Method to modify the email of the user
+     * @param mail string with the information of the user for change the email
+     * @return a boolean that indicates if the mail of the user is successfully updated or not
+     */
+    public boolean modifyUserEmail(String mail);
+    
+    /**
+     * Method to modify the alias of the user
+     * @param alias string with the information of the user for change the alias
+     * @return a boolean that indicates if the alias of the user is successfully updated or not
+     */
+    public boolean modifyUserAlias(String alias);
+    
+            
     /**
      * Method to delete an user by id
      * @param id long with the id of the user to delete

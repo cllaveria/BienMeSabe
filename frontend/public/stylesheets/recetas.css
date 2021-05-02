@@ -70,6 +70,8 @@
 
 .recipe > img {
   width: 100%;
+  height: 250px;
+  object-fit: cover;
 }
 
 .recipe:hover > img {
@@ -133,19 +135,6 @@ p {
 }
 
 .btn_more {
-  width: 100px;
-  height: 35px;
-  background-color: white;
-  border: solid 2px #fca035;
-  border-radius: 3px;
-  font-size: 12px;
-  color: black;
-  font-weight: bold;
   margin-top: 40px;
 }
 
-.btn_more:hover,
-.btn_more:focus {
-  background-color: #fbc76f;
-  outline: 0;
-}

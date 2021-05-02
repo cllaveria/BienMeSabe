@@ -100,22 +100,8 @@
 }
 
 .btn_checkIn {
-  width: 100px;
-  height: 35px;
-  background-color: white;
-  border: solid 2px #fca035;
-  border-radius: 3px;
-  font-size: 12px;
-  color: black;
-  font-weight: bold;
   margin: auto;
   display: block;
-}
-
-.btn_checkIn:hover,
-.btn_checkIn:focus {
-  background-color: #fbc76f;
-  outline: 0;
 }
 
 .fas {

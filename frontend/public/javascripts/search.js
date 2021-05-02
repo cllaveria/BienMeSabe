@@ -110,7 +110,7 @@ $(document).ready(function () {
                 if (i == 0) {
                     $insert = $insert.concat('<div class="carousel-item active">\
                                                 <a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
-                                                    <img src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
+                                                    <img class="imgCarousel" src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
                                                     <div class="carousel-desc">\
                                                         <div class="carousel-caption">\
                                                             <div class="title">' + $plateOrderByAssessment[i].name + '</div>\
@@ -123,7 +123,7 @@ $(document).ready(function () {
                 } else {
                     $insert = $insert.concat('<div class="carousel-item">\
                                                 <a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
-                                                    <img src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
+                                                    <img class="imgCarousel" src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
                                                     <div class="carousel-desc">\
                                                         <div class="carousel-caption">\
                                                             <div class="title">' + $plateOrderByAssessment[i].name + '</div>\
@@ -322,7 +322,7 @@ $(document).ready(function () {
 
     });
 
-    $('.recipe').each(function () {
+    $('.recipeType').each(function () {
         $(this).on('click', () => {
             switch ($(this).children().attr('alt')) {
                 case 'Entrantes':
@@ -373,15 +373,15 @@ $(document).ready(function () {
         let $insertDificult;
         switch ($dificult) {
             case 0:
-                return $insertDificult = 'muy baja';
+                return $insertDificult = 'Muy baja';
             case 1:
-                return $insertDificult = 'baja';
+                return $insertDificult = 'Baja';
             case 2:
-                return $insertDificult = 'media';
+                return $insertDificult = 'Media';
             case 3:
-                return $insertDificult = 'difícil';
+                return $insertDificult = 'Difícil';
             case 4:
-                return $insertDificult = 'muy difícil';
+                return $insertDificult = 'Muy difícil';
         }
     }
 
@@ -389,7 +389,7 @@ $(document).ready(function () {
         $('.latest_rec').append('<div class="rcp_cnt">\
                                     <a href="' + $urlRecipe + $recipe.id + '">\
                                         <div class="recipe">\
-                                            <img src="' + $recipe.image + '" style="width: 100%;">\
+                                            <img src="' + $recipe.image + '">\
                                             <div class="desc_rec">\
                                                 <h3 id="title">' + $recipe.name + '</h3>\
                                                 <p id="author">' + $userAlias + '</p>\

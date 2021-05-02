@@ -66,20 +66,7 @@
 }
 
 .btn_login {
-  width: 100px;
-  height: 35px;
-  background-color: white;
-  border: solid 2px #fca035;
-  border-radius: 3px;
-  font-size: 12px;
-  color: black;
-  font-weight: bold;
   margin: 35px auto;
   display: block;
 }
 
-.btn_login:hover,
-.btn_login:focus {
-  background-color: #fbc76f;
-  outline: 0;
-}

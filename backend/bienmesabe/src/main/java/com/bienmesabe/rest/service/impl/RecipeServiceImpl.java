@@ -38,6 +38,13 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     /**
+     * Implementation of interface  to recover the recipes ordered by assessment
+     * @return a list with the recipes ordered by assessment
+     */
+    public List<Recipe> getAllRecipesByAssessment(){
+        return recipeDAO.getAllRecipesByAssessment();
+    }
+    /**
      * Implementation of interface method to recover the ingredient by ingredients
      * @param ingredientsForFilter list with the ingredients that must have the recipe
      * @return a list with the recipes filtered by ingredients
@@ -160,6 +167,16 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     /**
+     * Implementation of interface method to recover the recipes of the other users
+     * @param userId long that represents the id of the user wich doesn't create the recipes
+     * @return a list with the recipes in the DB filtered by user id
+     */
+    @Override
+    public List<Recipe> getRecipesOfOtherUsers(Long userId) {
+        return recipeDAO.getRecipesOfOtherUsers(userId);
+    }
+    
+    /**
      * Implementation of interface method to create a recipe
      * @param recipe object that represents the recipe to persist
      * @return a long with the id of the persisted recipe
@@ -196,4 +213,6 @@ public class RecipeServiceImpl implements RecipeService{
         masterList.retainAll(secondaryList);
         return masterList;
     }
+
+    
 }
