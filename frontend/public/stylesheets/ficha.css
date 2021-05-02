@@ -142,8 +142,8 @@
 }
 
 .comment_cont {
-  display: none;
-  /* display: flow-root; */
+  /* display: none; */
+  display: flow-root;
   gap: 30px;
   margin-bottom: 60px;
 }

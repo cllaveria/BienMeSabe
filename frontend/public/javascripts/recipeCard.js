@@ -26,7 +26,7 @@ $(document).ready(function () {
             } else {
                 $('#dinner').html('Receta para 1 persona');
             }
-            $('#level').html('dificultad ' + $difficult);
+            $('#level').html('Dificultad ' + $difficult);
             $('#time').html($recipe.recipeTime + ' min')
 
             insertIngredients($recipe.recipeIngredients);
@@ -102,7 +102,7 @@ $(document).ready(function () {
                                                 data-parent="#accordion">\
                                                 <div class="card-body">\
                                                     <p> ' + $stepsRecipe[i].stepDescription + ' </p>\
-                                                    <img src = "/images/maxresdefault.jpg" alt = "paso 1" >\
+                                                    <img src = "/images/maxresdefault.jpg" alt = "paso ' + [i + 1] + '" >\
                                                 </div>\
                                             </div>\
                                         </div>');
@@ -120,13 +120,12 @@ $(document).ready(function () {
                                                 data-parent="#accordion">\
                                                 <div class="card-body">\
                                                     <p> ' + $stepsRecipe[i].stepDescription + ' </p>\
-                                                    <img src = "/images/maxresdefault.jpg" alt = "paso 1" >\
+                                                    <img src = "/images/maxresdefault.jpg" alt = "paso ' + [i + 1] + '" >\
                                                 </div>\
                                             </div>\
                                         </div>');
             }
         }
-
     }
 
     function assingCollapseHeading($number) {
