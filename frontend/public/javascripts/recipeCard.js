@@ -72,7 +72,8 @@ $(document).ready(function () {
             $('.title').after('<img class="imgRec" src="' + $recipe.image + '" alt="Imagen receta">');
             let $forks = getForks($recipe.recipeAssessment);
             let $difficult = getDifficult($recipe.recipeDifficult);
-            $('.imgRec').after($forks);
+            $('.alias_cont').append('<h4 class="alias">Alias usuario</h4>');
+            $('.alias_cont').append($forks);
             $('.init').find('p').append($recipe.recipeInitDescription);
             $('.ending').find('p').append($recipe.recipeEndingDescription);
             if ($arrayRecipe.length > 1) {
@@ -147,15 +148,43 @@ $(document).ready(function () {
                         }
                     }
                 }
-                $('.caloricTable').append('<li>Carbohidratos: ' + $carbohidrates.toFixed(2) + '</li>\
-                                            <li>Proteínas: ' + $proteins.toFixed(2) + '</li>\
-                                            <li>Grasas: ' + $fat.toFixed(2) + '</li>\
-                                            <li>De las cuales saturadas: ' + $satured.toFixed(2) + '</li>\
-                                            <li>De las cuales monosaturadas: ' + $monoinsaturated.toFixed(2) + '</li>\
-                                            <li>De las cuales Poliinsaturadas: ' + $polyinsaturated.toFixed(2) + '</li>\
-                                            <li>Azucares: ' + $sugars.toFixed(2) + '</li>\
-                                            <li>Fibra: ' + $fiber.toFixed(2) + '</li>\
-                                            <li>Sodio: ' + $sodium.toFixed(2) + '</li>');
+                $('.caloricTable').append('<tr>\
+                                                <td>Carbohidratos:</td>\
+                                                <td>' + $carbohidrates.toFixed(2) + '</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <td>Proteínas:</td>\
+                                                <td>' + $proteins.toFixed(2) + '</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <td>Grasas:</td>\
+                                                <td>' + $fat.toFixed(2) + '</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <td>De las cuales saturadas:</td>\
+                                                <td>' + $satured.toFixed(2) + '</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <td>De las cuales monosaturadas:</td>\
+                                                <td>' + $monoinsaturated.toFixed(2) + '</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <td>De las cuales Poliinsaturadas:</td>\
+                                                <td>' + $polyinsaturated.toFixed(2) + '</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <td>Azucares:</td>\
+                                                <td>' + $sugars.toFixed(2) + '</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <td>Fibra:</td>\
+                                                <td>' + $fiber.toFixed(2) + '</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <td>Sodio:</td>\
+                                                <td>' + $sodium.toFixed(2) + '</td>\
+                                            </tr>'
+                                            );
             }
         });
     }

@@ -16,8 +16,20 @@
   margin-top: 20px;
 }
 
+.alias_cont {
+  display: flex;
+  margin: 15px auto;
+  justify-content: space-between;
+}
+
+.alias {
+  font-weight: bold;
+  justify-self: center;
+  align-self: center;
+  padding-bottom: 0;
+}
+
 .score_rec {
-  margin-top: 25px;
   float: right;
 }
 
@@ -33,7 +45,7 @@
 }
 
 .desc_rec {
-  margin: 100px 50px 25px;
+  margin: 50px 0 25px;
   text-align: justify;
   line-height: 17px;
 }
@@ -51,49 +63,56 @@
   .title {
     font-size: 26px;
   }
+
+  .alias_cont {
+    display: inline-grid;
+  }
+
+  .score_rec {
+    margin-top: 10px;;
+  }
+
+  .desc_rec {
+    margin: 30px 0 10px;
+  }
 }
 
 @media (max-width: 450px) {
   .recipe_container {
     width: 300px;
   }
+
   .recipe_container > img {
     width: 300px;
     height: 150px;
   }
-
-  .score_rec {
-    float: none;
-  }
-
-  .desc_rec {
-    margin: 50px 50px 25px;
-  }
 }
 
 .ingredients_cont {
-  display: flow-root;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
-  margin-left: 120px;
   margin-bottom: 60px;
 }
 
 .details_rec {
-  float: left;
-  width: 120px;
   justify-content: center;
   padding-top: 15px;
-  margin-right: 30px;
 }
 
 .details_rec > p,
 .info_rec > p,
 .time_rec > p {
   font-size: 12px;
+  padding-bottom: 10px;
 }
 
 #level {
   padding-bottom: 5px;
+}
+
+#time {
+  padding-bottom: 0;
 }
 
 .time_rec {
@@ -124,28 +143,51 @@
   list-style-type: circle;
 }
 
+.caloricTable {
+  display: table;
+  text-align: left;
+  font-size: 12px;
+  border-collapse: collapse;
+}
+
+.caloricTable > tr > td {
+  padding: 1px;
+  border: solid 1px #a6aa9c;
+}
+
 @media (max-width: 800px) {
   .ingredients_cont {
-    margin-left: 0;
-    display: inline-block;
+    margin: 0 auto 60px;
+    width: 300px;
+    display: grid;
+    grid-template-columns: 1fr;
   }
 
   .details_rec {
     float: none;
     width: inherit;
     margin-right: 0;
-    margin-bottom: 20px;
   }
 
   .ingredients {
     margin-left: 0;
-    width: 300px;
+  }
+
+  .caloricTables {
+    margin: auto;
   }
 }
 
 @media (max-width: 450px) {
+  .ingredients_cont {
+    margin: 0 auto 60px;
+    width: 200px;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
   .ingredients {
-    width: 250px;
+    width: 200px;
   }
 }
 
@@ -224,7 +266,6 @@
   }
 }
 
-
 .advertisements > img {
   width: 400px;
   margin: 25px 0 100px;
@@ -280,7 +321,6 @@
   content: url("/images/tenedor-gold.svg");
 }
 
-
 .btn_send {
   margin-top: 25px;
 }
@@ -331,6 +371,5 @@
 }
 
 #comment {
- padding-bottom: 0;
+  padding-bottom: 0;
 }
-

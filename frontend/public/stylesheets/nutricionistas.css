@@ -13,6 +13,10 @@
   gap: 40px;
 }
 
+.nutri_cont{
+  direction: rtl;
+}
+
 .users_cont > img,
 .nutri_cont > img {
   width: 300px;
@@ -35,8 +39,8 @@
   text-align: center;
 }
 
-.img-resp {
-  display: none;
+.text_nutri {
+  direction: ltr;
 }
 
 .text{
@@ -57,13 +61,6 @@
     margin-top: 25px;
   }
 
-  .img-noResp {
-    display: none;
-  }
-
-  .img-resp {
-    display: initial;
-  }
 }
 
 @media screen and (max-width: 600px) {
