@@ -32,6 +32,8 @@ $(document).ready(function () {
     let $typePlate;
     let $userAlias;
     let $dinner;
+    let $totalRecipes = [];
+    let $countRecipe = 0;
 
     if ($searchFilters.indexOf('dinner') > 1) {
         $allRecipes = $searchFilters.split('_');
@@ -67,60 +69,78 @@ $(document).ready(function () {
             type: 'GET',
             async: false,
             success: function ($recipes) {
-                insertRecipes($recipes);
+                $totalRecipes = $recipes;
+                insertRecipes($countRecipe, ($countRecipe + 18), $recipes);
             }
-        })
+        });
     } else if ($searchLatestRecipes == 'latestRecipes') {
         $.ajax({
             url: $urlLatestRecipes,
             type: 'GET',
             async: false,
             success: function ($recipes) {
-                insertRecipes($recipes);
+                $totalRecipes = $recipes;
+                insertRecipes($countRecipe, ($countRecipe + 18), $recipes);
             }
-        })
+        });
     } else {
         $.ajax({
             url: $urlSearch + $searchFilters,
             type: 'GET',
             async: false,
             success: function ($recipes) {
-                insertRecipes($recipes)
+                if ($recipes.length == 0) {
+                    $('.messageError').css('display', 'inline-block')
+                } else {
+                    $totalRecipes = $recipes;
+                    insertRecipes($countRecipe, ($countRecipe + 18), $recipes);
+                }
             }
         });
     }
 
-    function insertRecipes($recipes) {
-        for (let i = 0; i < $recipes.length; i++) {
-            for (let j = 0; j < $allUsers.length; j++) {
-                //TODO: BORRAR LO COMENTADO
-                if ( /* $allUsers[j].id */ $allUsers[j][0] == $recipes[i].userId) {
-                    $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
+    $(window).scroll(function () {
+        if ($(window).scrollTop().toFixed(0) > ($(document).height() - 1100)) {
+            insertRecipes($countRecipe, ($countRecipe + 18), $totalRecipes)
+        }
+    })
+
+    function insertRecipes($min, $max, $recipes) {
+        for (let i = $min; i < $max /* $recipes.length */ ; i++) {
+            if($recipes[i] == null){
+                break;
+            }else{
+                for (let j = 0; j < $allUsers.length; j++) {
+                    //TODO: BORRAR LO COMENTADO
+                    if ( /* $allUsers[j].id */ $allUsers[j][0] == $recipes[i].userId) {
+                        $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
+                    }
                 }
-            }
-            for (let x = 0; x < $allTypePlate.length; x++) {
-                if ($allTypePlate[x].id == $recipes[i].type) {
-                    $typePlate = $allTypePlate[x].name;
-                    if (i == 0) {
-                        if ((window.location.search).substr(1, 3) == 'id=') {
-                            $('.recipes_container').prepend('<div class="tl_typePlate tl_' + $typePlate + '" >' + $typePlate + '</div>')
+                for (let x = 0; x < $allTypePlate.length; x++) {
+                    if ($allTypePlate[x].id == $recipes[i].type) {
+                        $typePlate = $allTypePlate[x].name;
+                        if (i == 0) {
+                            if ((window.location.search).substr(1, 3) == 'id=') {
+                                $('.recipes_container').prepend('<div class="tl_typePlate tl_' + $typePlate + '" >' + $typePlate + '</div>')
+                            }
                         }
                     }
                 }
+                let $forks = getForks($recipes[i].recipeAssessment);
+                let $difficult = getDifficult($recipes[i].recipeDifficult);
+                receivePlate($recipes[i], $userAlias, $forks, $difficult, $typePlate);
             }
-            let $forks = getForks($recipes[i].recipeAssessment);
-            let $difficult = getDifficult($recipes[i].recipeDifficult);
-            receivePlate($recipes[i], $userAlias, $forks, $difficult, $typePlate);
+            
         }
+        $countRecipe = $max;
     }
 
     function receivePlate($recipe, $userAlias, $forks, $difficult, $classPlate) {
-        if($dinners[1] != null){
+        if ($dinners[1] != null) {
             $dinner = $dinners[1];
-        }else{
+        } else {
             $dinner = '';
         }
-        console.log($dinner)
         $('.recipes_cont').append('<div class="rcp_cnt">\
                                     <a href="' + $urlRecipe + $recipe.id + '_dinner=' + $dinner + '">\
                                         <div class="recipe ' + $classPlate + '">\

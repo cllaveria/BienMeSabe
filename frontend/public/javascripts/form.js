@@ -449,8 +449,6 @@ $(document).ready(function () {
         }
         if ($phone == '') {
             $phone = null;
-        } else {
-            $phoneEncrypted = hex_md5($phone);
         }
         if ($company == '') {
             $company = null;

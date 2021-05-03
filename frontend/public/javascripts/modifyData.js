@@ -19,6 +19,10 @@ $(document).ready(function () {
     $('#phone').html($user.phone)
     $('#alias').html($user.alias);
     $('#email').html($user.email);
+    console.log($user.nif)
+    if($user.nif == null){
+        $('.nif').css('display', 'block')
+    }
 
     $('.btn_checkIn').on('click', () => {
 
