@@ -9,15 +9,29 @@ $(document).ready(function () {
     const $urlAddAssessment = 'http://localhost:8080/api/assessment/addAssessment/';
     const $arrayRecipe = $receivedData.split('_');
     const $idRecipe = $arrayRecipe[0].substr(3, );
-    let $totalDinner, $collapse, $heading;
-    let $booleanComment = true;
-    let $booleanAssessment = true;
-    let $allUsers = [];
-    let $score = '';
-    let $comment = '';
+    let $totalDinner,
+        $collapse,
+        $heading,
+        $carbohidrates = 0,
+        $proteins = 0,
+        $fat = 0,
+        $satured = 0,
+        $monoinsaturated = 0,
+        $polyinsaturated = 0,
+        $sugars = 0,
+        $fiber = 0,
+        $sodium = 0,
+        $booleanComment = true,
+        $booleanAssessment = true,
+        $allUsers = [],
+        $score = '',
+        $comment = '';
 
     if ($arrayRecipe.length > 1) {
         $totalDinner = $arrayRecipe[1].substr(7, );
+        if ($totalDinner == '') {
+            $totalDinner = 1;
+        }
     } else {
         $totalDinner = 1;
     }
@@ -47,12 +61,13 @@ $(document).ready(function () {
                 }
             }
         }
-    })
+    });
 
     $.ajax({
         url: $urlRecipe + $idRecipe,
         type: 'GET',
         success: function ($recipe) {
+            console.log($recipe)
             $('.title').html($recipe.name);
             $('.title').after('<img class="imgRec" src="' + $recipe.image + '" alt="Imagen receta">');
             let $forks = getForks($recipe.recipeAssessment);
@@ -113,6 +128,17 @@ $(document).ready(function () {
                 for (let i = 0; i < $ingredients.length; i++) {
                     for (let x = 0; x < $ingredientsRecipe.length; x++) {
                         if ($ingredients[i].id == $ingredientsRecipe[x].ingredientId) {
+                            console.log($ingredients[i])
+                            $carbohidrates += $ingredients[i].carbohidrates;
+                            $fat += $ingredients[i].fat;
+                            $fiber += $ingredients[i].fiber;
+                            $monoinsaturated += $ingredients[i].monoinsaturatedFats;
+                            $polyinsaturated += $ingredients[i].polyinsaturatedFats;
+                            $proteins += $ingredients[i].proteins;
+                            $satured += $ingredients[i].saturedFats;
+                            $sodium += $ingredients[i].sodium;
+                            $sugars += $ingredients[i].sugars;
+
                             if ($ingredientsRecipe[x].ingredientUnity == 'U') {
                                 $('.ingredient').append('<li>' + ($ingredientsRecipe[x].ingredientQTY * $totalDinner) + ' unidades de ' + $ingredients[i].name + '</li>');
                             } else {
@@ -121,6 +147,15 @@ $(document).ready(function () {
                         }
                     }
                 }
+                $('.caloricTable').append('<li>Carbohidratos: ' + $carbohidrates.toFixed(2) + '</li>\
+                                            <li>Proteínas: ' + $proteins.toFixed(2) + '</li>\
+                                            <li>Grasas: ' + $fat.toFixed(2) + '</li>\
+                                            <li>De las cuales saturadas: ' + $satured.toFixed(2) + '</li>\
+                                            <li>De las cuales monosaturadas: ' + $monoinsaturated.toFixed(2) + '</li>\
+                                            <li>De las cuales Poliinsaturadas: ' + $polyinsaturated.toFixed(2) + '</li>\
+                                            <li>Azucares: ' + $sugars.toFixed(2) + '</li>\
+                                            <li>Fibra: ' + $fiber.toFixed(2) + '</li>\
+                                            <li>Sodio: ' + $sodium.toFixed(2) + '</li>');
             }
         });
     }
@@ -264,7 +299,7 @@ $(document).ready(function () {
                         if ($insertComment == '') {
                             $booleanComment = false;
                             console.log('ya comentaste esta receta');
-                        }else{
+                        } else {
                             $booleanComment = true;
                         }
                     }
@@ -280,8 +315,8 @@ $(document).ready(function () {
                     success: function ($score) {
                         if ($score == '') {
                             $booleanAssessment = false;
-                            console.log('ya puntuaste esta receta');       
-                        }else{
+                            console.log('ya puntuaste esta receta');
+                        } else {
                             $booleanAssessment = true;
                         }
                     }

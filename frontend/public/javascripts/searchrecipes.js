@@ -27,8 +27,16 @@ $(document).ready(function () {
     let $searchLatestRecipes = (window.location.search).substr(1, 13);
     let $allUsers = [];
     let $allTypePlate = [];
+    let $allRecipes = [];
+    let $dinners = [];
     let $typePlate;
     let $userAlias;
+    let $dinner;
+
+    if ($searchFilters.indexOf('dinner') > 1) {
+        $allRecipes = $searchFilters.split('_');
+        $dinners = $allRecipes[1].split('-');
+    }
 
     $.ajax({
         url: $urlAllUsers,
@@ -52,7 +60,7 @@ $(document).ready(function () {
         }
     })
 
-    
+
     if ($searchId == 'id=') {
         $.ajax({
             url: $urlSearchPlate + (window.location.search).substr(4, 5),
@@ -62,16 +70,16 @@ $(document).ready(function () {
                 insertRecipes($recipes);
             }
         })
-    } else if($searchLatestRecipes == 'latestRecipes'){
+    } else if ($searchLatestRecipes == 'latestRecipes') {
         $.ajax({
             url: $urlLatestRecipes,
             type: 'GET',
             async: false,
-            success: function($recipes){
+            success: function ($recipes) {
                 insertRecipes($recipes);
             }
         })
-    }else {
+    } else {
         $.ajax({
             url: $urlSearch + $searchFilters,
             type: 'GET',
@@ -85,9 +93,6 @@ $(document).ready(function () {
     function insertRecipes($recipes) {
         for (let i = 0; i < $recipes.length; i++) {
             for (let j = 0; j < $allUsers.length; j++) {
-/*                 if ($allUsers[j].id == $recipes[i].userId) {
-                    $userAlias = $allUsers[j].alias;
-                } */
                 //TODO: BORRAR LO COMENTADO
                 if ( /* $allUsers[j].id */ $allUsers[j][0] == $recipes[i].userId) {
                     $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
@@ -96,7 +101,7 @@ $(document).ready(function () {
             for (let x = 0; x < $allTypePlate.length; x++) {
                 if ($allTypePlate[x].id == $recipes[i].type) {
                     $typePlate = $allTypePlate[x].name;
-                    if(i == 0){
+                    if (i == 0) {
                         if ((window.location.search).substr(1, 3) == 'id=') {
                             $('.recipes_container').prepend('<div class="tl_typePlate tl_' + $typePlate + '" >' + $typePlate + '</div>')
                         }
@@ -110,8 +115,14 @@ $(document).ready(function () {
     }
 
     function receivePlate($recipe, $userAlias, $forks, $difficult, $classPlate) {
+        if($dinners[1] != null){
+            $dinner = $dinners[1];
+        }else{
+            $dinner = '';
+        }
+        console.log($dinner)
         $('.recipes_cont').append('<div class="rcp_cnt">\
-                                    <a href="' + $urlRecipe + $recipe.id + '">\
+                                    <a href="' + $urlRecipe + $recipe.id + '_dinner=' + $dinner + '">\
                                         <div class="recipe ' + $classPlate + '">\
                                             <img src="' + $recipe.image + '" alt="' + $classPlate + '" style="width: 100%;">\
                                             <div class="desc_rec">\
