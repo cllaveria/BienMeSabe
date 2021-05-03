@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: bienmesabe
+-- Host: localhost    Database: bienmesabe
 -- ------------------------------------------------------
 -- Server version	8.0.23
 
@@ -35,7 +35,7 @@ CREATE TABLE `recipetypes` (
 
 LOCK TABLES `recipetypes` WRITE;
 /*!40000 ALTER TABLE `recipetypes` DISABLE KEYS */;
-INSERT INTO `recipetypes` VALUES (20,'ENTRANTES'),(21,'PRIMEROS PLATOS'),(22,'SEGUNDOS PLATOS'),(23,'POSTRES'),(24,'PLATO UNICO'),(25,'PLATO COMBINADO'),(26,'REPOSTERÍA');
+INSERT INTO `recipetypes` VALUES (1,'Entrantes'),(2,'Primeros'),(3,'Segundos'),(4,'Postres'),(5,'Repostería');
 /*!40000 ALTER TABLE `recipetypes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 17:07:59
+-- Dump completed on 2021-05-02 22:59:12

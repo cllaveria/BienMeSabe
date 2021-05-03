@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: bienmesabe
+-- Host: localhost    Database: bienmesabe
 -- ------------------------------------------------------
 -- Server version	8.0.23
 
@@ -26,6 +26,7 @@ CREATE TABLE `recipesteps` (
   `STEP_ID` bigint NOT NULL AUTO_INCREMENT,
   `RECIPE_ID` bigint NOT NULL,
   `STEP_DESCRIPTION` varchar(1000) NOT NULL,
+  `step_image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`STEP_ID`),
   KEY `FKlm7xl8bcrq3of6wrfq0kv65xy` (`RECIPE_ID`),
   CONSTRAINT `FKlm7xl8bcrq3of6wrfq0kv65xy` FOREIGN KEY (`RECIPE_ID`) REFERENCES `recipe` (`id`)
@@ -38,7 +39,7 @@ CREATE TABLE `recipesteps` (
 
 LOCK TABLES `recipesteps` WRITE;
 /*!40000 ALTER TABLE `recipesteps` DISABLE KEYS */;
-INSERT INTO `recipesteps` VALUES (1,1,'PONER ACEITE EN LA SARTÉN'),(7,1,'ENCENDER EL FUEGO'),(8,1,'ESPERAR A QUE EL ACEITE SE CALIENTEÇ'),(9,1,'CASCAR EL HUEVO'),(10,1,'INTRODUCIR EL HUEVO EN LA SARTÉN'),(11,1,'SALPICAR EL HUEVO CON EL ACEITE'),(12,1,'RETIRAR EL HUEVO, APAGAR EL FUEGO Y PRESENTAR');
+INSERT INTO `recipesteps` VALUES (1,1,'PONER ACEITE EN LA SARTÉN',NULL),(2,1,'ENCENDER EL FUEGO',NULL),(3,1,'ESPERAR A QUE EL ACEITE SE CALIENTE',NULL),(4,1,'CASCAR EL HUEVO',NULL),(5,1,'INTRODUCIR EL HUEVO EN LA SARTÉN',NULL),(6,1,'SALPICAR EL HUEVO CON EL ACEITE',NULL),(7,1,'RETIRAR EL HUEVO, APAGAR EL FUEGO Y PRESENTAR',NULL),(8,2,'Freímos las patatas','/media/huevos-estrellados-paso-1.jpg'),(9,2,'Añadimos el jamón a las patatas','/media/huevos-estrellados-paso-2.jpg'),(10,2,'Freímos los huevos','/media/huevos-estrellados-paso-3.jpg'),(11,2,'Rompemos los huevos estrellados','/media/huevos-estrellados-paso-4.jpg');
 /*!40000 ALTER TABLE `recipesteps` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 17:07:59
+-- Dump completed on 2021-05-02 22:59:13

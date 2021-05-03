@@ -17,6 +17,8 @@
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
     </script>
     <script src="../javascripts/modifyData.js"></script>
+    <!-- Encriptador MD5 -->
+    <script src="http://pajhome.org.uk/crypt/md5/2.2/md5-min.js"></script>
     <link rel='stylesheet' href='/stylesheets/registro.css' />
 </head>
 
@@ -34,6 +36,10 @@
         <div style="width: 40%; margin-bottom: 25px" >
             <input class="form-control" type="text" id="input_surname" placeholder="Modificar Apellidos">
         </div>
+        <label for="name">Teléfono: </label><span id="phone" style="margin-left: 10px;"></span>
+        <div style="width: 40%; margin-bottom: 25px" >
+            <input class="form-control" type="text" id="input_phone" placeholder="Modificar Teléfono">
+        </div>
         <label for="name">Alias: </label><span id="alias" style="margin-left: 10px;"></span>
         <div style="width: 40%; margin-bottom: 25px" >
             <input class="form-control" type="text" id="input_alias" placeholder="Modificar Alias">
@@ -45,8 +51,8 @@
         <label for="name">Contraseña: </label><span id="psdw" style="margin-left: 10px;"></span>
         <div style="width: 40%; margin-bottom: 25px" >
             <input class="form-control" type="text" id="input_psdw_1" placeholder="Introduce la contraseña antigua">
-            <input class="form-control" type="text" id="input_psdw_2" placeholder="Introduce de nuevo la contraseña antigua">
-            <input class="form-control" type="text" id="input_psdw_3" placeholder="Introduce la nueva contraseña">
+            <input class="form-control" type="text" id="input_psdw_2" placeholder="Introduce la nueva contraseña">
+            <input class="form-control" type="text" id="input_psdw_3" placeholder="Introduce de nuevo la nueva contraseña">
         </div>
     </div>
 

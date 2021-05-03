@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: bienmesabe
+-- Host: localhost    Database: bienmesabe
 -- ------------------------------------------------------
 -- Server version	8.0.23
 
@@ -39,7 +39,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`ID`),
   KEY `FK_USER_TYPE_USER` (`USER_TYPE`),
   CONSTRAINT `FK_USER_TYPE_USER` FOREIGN KEY (`USER_TYPE`) REFERENCES `usertypes` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +48,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'44199897S',NULL,'RAUL','RAMOS','1234','STARLORD','starlord.rrc@gmail.com','650545473',3,'2021-03-17 20:46:04',NULL,1),(4,NULL,NULL,'Inma',NULL,'prueba',NULL,'inma@gmail.com',NULL,1,'2021-04-10 09:58:05','2021-04-10 09:58:05',0);
+INSERT INTO `users` VALUES (1,'',NULL,'Raul','Ramos','1234','Starlord','starlord.rrc@gmail.com','650545473',3,'2021-03-17 20:46:04','2021-04-19 17:04:03',1),(2,'',NULL,'Cristina','Llaveria','','Cris','c.llaveria@gmail.com','',3,'2021-04-10 09:58:05','2021-04-19 17:07:40',1),(3,'46947666L',NULL,'Sergio','Asensio Ruiz','1234','SergioAsensio','serasensio@gmail.com','673308476',3,'2021-04-18 16:54:19','2021-05-01 15:02:44',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 17:07:59
+-- Dump completed on 2021-05-02 22:59:14

@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: bienmesabe
+-- Host: localhost    Database: bienmesabe
 -- ------------------------------------------------------
 -- Server version	8.0.23
 
@@ -33,12 +33,13 @@ CREATE TABLE `recipe` (
   `RECIPE_ACTIVE` bit(1) NOT NULL DEFAULT b'0',
   `RECIPE_DINNERS` int DEFAULT NULL,
   `RECIPE_KCAL` decimal(32,6) NOT NULL DEFAULT '0.000000',
-  PRIMARY KEY (`id`),
-  KEY `fk_user_id_recipe` (`USER_ID`),
-  KEY `fk_recipe_type_recipe` (`TYPE`),
-  CONSTRAINT `fk_recipe_type_recipe` FOREIGN KEY (`TYPE`) REFERENCES `recipetypes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_user_id_recipe` FOREIGN KEY (`USER_ID`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `RECIPE_DIFFICULT` int DEFAULT '0',
+  `RECIPE_TIME` int DEFAULT '0',
+  `RECIPE_ASSESSMENT` int DEFAULT NULL,
+  `recipe_ending_description` varchar(255) DEFAULT NULL,
+  `recipe_init_description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +48,7 @@ CREATE TABLE `recipe` (
 
 LOCK TABLES `recipe` WRITE;
 /*!40000 ALTER TABLE `recipe` DISABLE KEYS */;
-INSERT INTO `recipe` VALUES (1,'HUEVO FRITO',21,NULL,NULL,1,'2021-04-10 15:47:20',_binary '',1,203.375000);
+INSERT INTO `recipe` VALUES (1,'Huevo frito',2,'/media/huevos-fritos.jpg',NULL,1,'2021-04-10 15:47:20',_binary '',1,414.605000,0,5,5,NULL,NULL),(2,'Huevos estrellados',2,'/media/huevos-estrellados.jpg',NULL,2,'2021-04-12 20:00:44',_binary '',1,3238.158900,2,15,1,'Espero que esta receta haya sido de tu agrado y que la disfrutéis tanto como yo compartiéndola.','Receta fácil y sencilla para hacer unos huevos estrellados con jamón que no dejaran boquiabiertos a tus comensales.'),(3,'Chocolate a la taza',2,'/media/chocolate-a-la-taza.jpg',NULL,3,'2021-04-13 20:00:44',_binary '',1,531.860000,4,3,0,NULL,''),(4,'Huevo escalfados',1,'/media/huevos-escalfados.jpeg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,5,2,NULL,NULL),(5,'Salmón al horno',3,'/media/salmon-al-horno.jpg',NULL,3,'2021-04-18 15:47:20',_binary '',1,140.820000,3,25,5,NULL,NULL),(6,'Ensalada de aguacate y mozzarella',1,'/media/ensalada-de-aguacate-y-mozzarella.jpg',NULL,2,'2021-04-18 15:47:20',_binary '',1,140.820000,1,10,3,NULL,NULL),(7,'Piruletas crujientes de parmesano',1,'/media/piruletas-crujientes-de-parmesano.jpg',NULL,2,'2021-04-18 15:47:20',_binary '',1,140.820000,2,15,5,NULL,NULL),(8,'Huevo escalfados',1,'/media/entrantes.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(9,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(10,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(11,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(12,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(13,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(14,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(15,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(16,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(17,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(18,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(19,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(20,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(21,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(22,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(23,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(24,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(25,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(26,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(27,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(28,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(29,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL),(30,'Huevo escalfados',1,'/media/huevos-fritos.jpg',NULL,1,'2021-04-18 15:47:20',_binary '',1,140.820000,1,0,2,NULL,NULL);
 /*!40000 ALTER TABLE `recipe` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -60,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 17:07:58
+-- Dump completed on 2021-05-02 22:59:12

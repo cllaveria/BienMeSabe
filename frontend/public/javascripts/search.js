@@ -50,6 +50,7 @@ $(document).ready(function () {
     const $urlAllUsers = 'http://localhost:8080/api/user/getUsers';
     const $urlOrderByAssessment = 'http://localhost:8080/api/recipe/getRecipesByAssessment';
     const $urlRecipe = 'http://localhost:3000/recetas/ficha?id=';
+    const $screenSize = window.screen.width;
     let $ingredient, $numberPersons, $valueEnergMin, $valueEnergMax, $typePlate, $ingredientId, $userAlias;
     let $ingredients = [];
     let $recipePlates = [];
@@ -442,5 +443,8 @@ $(document).ready(function () {
         }
         $count++;
     });
-
 });
+
+        
+        
+        

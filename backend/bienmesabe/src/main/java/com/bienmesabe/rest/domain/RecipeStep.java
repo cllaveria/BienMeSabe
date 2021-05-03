@@ -35,6 +35,8 @@ public class RecipeStep implements Serializable{
     @JoinColumn(name="RECIPE_ID")
     private Recipe recipe;
 
+    @Column(name="STEP_IMAGE")
+    private String image;
     /**
      * Empty Constructor
      */
@@ -97,6 +99,22 @@ public class RecipeStep implements Serializable{
      */
     public void setStepDescription(String stepDescription) {
         this.stepDescription = stepDescription;
+    }
+
+    /**
+     * Method to recover the image path of the recipe step
+     * @return a string that represents the image path of the recipe step
+     */
+    public String getImage() {
+        return image;
+    }
+
+    /**
+     * Method to asign the image path of the recipe step
+     * @param image string that represents the image pathn of the recipe step to asign
+     */
+    public void setImage(String image) {
+        this.image = image;
     }
     
     

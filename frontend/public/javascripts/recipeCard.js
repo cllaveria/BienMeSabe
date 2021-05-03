@@ -3,13 +3,65 @@ $(document).ready(function () {
     const $receivedData = (window.location.search).substr(1, );
     const $urlRecipe = 'http://localhost:8080/api/recipe/getRecipesById/';
     const $urlIngredients = 'http://localhost:8080/api/ingredient/getIngredients';
+    const $urlComments = 'http://localhost:8080/api/comment/getCommentsByRecipeId/';
+    const $urlAllUsers = 'http://localhost:8080/api/user/getUsers';
+    const $urlAddComment = 'http://localhost:8080/api/comment/addComment/';
+    const $urlAddAssessment = 'http://localhost:8080/api/assessment/addAssessment/';
     const $arrayRecipe = $receivedData.split('_');
     const $idRecipe = $arrayRecipe[0].substr(3, );
-    let $totalDinner, $collapse, $heading;
+    let $totalDinner,
+        $collapse,
+        $heading,
+        $carbohidrates = 0,
+        $proteins = 0,
+        $fat = 0,
+        $satured = 0,
+        $monoinsaturated = 0,
+        $polyinsaturated = 0,
+        $sugars = 0,
+        $fiber = 0,
+        $sodium = 0,
+        $booleanComment = true,
+        $booleanAssessment = true,
+        $allUsers = [],
+        $score = '',
+        $comment = '';
 
     if ($arrayRecipe.length > 1) {
         $totalDinner = $arrayRecipe[1].substr(7, );
+        if ($totalDinner == '') {
+            $totalDinner = 1;
+        }
+    } else {
+        $totalDinner = 1;
     }
+
+    $.ajax({
+        url: $urlAllUsers,
+        type: 'GET',
+        async: false,
+        success: function ($users) {
+            for (let i = 0; i < $users.length; i++) {
+                $allUsers.push($users[i]);
+            }
+        }
+    });
+
+    $.ajax({
+        url: $urlComments + $idRecipe,
+        type: 'GET',
+        success: function ($comments) {
+            for (let i = 0; i < $comments.length; i++) {
+                for (let x = 0; x < $allUsers.length; x++) {
+                    if ($comments[i].userId == $allUsers[x][0]) {
+                        $('.comments_users').append('<div class="comment_user">\
+                                                        <p id="alias">' + $allUsers[x][4] + '</p>\
+                                                        <p id="comment">' + $comments[i].commentValue + '</p>')
+                    }
+                }
+            }
+        }
+    });
 
     $.ajax({
         url: $urlRecipe + $idRecipe,
@@ -21,16 +73,19 @@ $(document).ready(function () {
             let $forks = getForks($recipe.recipeAssessment);
             let $difficult = getDifficult($recipe.recipeDifficult);
             $('.imgRec').after($forks);
+            $('.init').find('p').append($recipe.recipeInitDescription);
+            $('.ending').find('p').append($recipe.recipeEndingDescription);
             if ($arrayRecipe.length > 1) {
                 $('#dinner').html('Receta para ' + $totalDinner + ' personas');
             } else {
-                $('#dinner').html('Receta para 1 persona');
+                $('#dinner').html('Receta para ' + $totalDinner + ' persona');
             }
             $('#level').html('Dificultad: ' + $difficult);
             $('#time').html($recipe.recipeTime + ' min')
 
             insertIngredients($recipe.recipeIngredients);
             insertSteps($recipe.recipeSteps);
+
         }
     });
 
@@ -73,14 +128,34 @@ $(document).ready(function () {
                 for (let i = 0; i < $ingredients.length; i++) {
                     for (let x = 0; x < $ingredientsRecipe.length; x++) {
                         if ($ingredients[i].id == $ingredientsRecipe[x].ingredientId) {
-                            if ($ingredientsRecipe[x].ingredientUnity == 'unit') {
-                                $('.ingredient').append('<li>' + $ingredientsRecipe[x].ingredientQTY + ' unidades de ' + $ingredients[i].name + '</li>');
+                            console.log($ingredients[i])
+                            $carbohidrates += $ingredients[i].carbohidrates;
+                            $fat += $ingredients[i].fat;
+                            $fiber += $ingredients[i].fiber;
+                            $monoinsaturated += $ingredients[i].monoinsaturatedFats;
+                            $polyinsaturated += $ingredients[i].polyinsaturatedFats;
+                            $proteins += $ingredients[i].proteins;
+                            $satured += $ingredients[i].saturedFats;
+                            $sodium += $ingredients[i].sodium;
+                            $sugars += $ingredients[i].sugars;
+
+                            if ($ingredientsRecipe[x].ingredientUnity == 'U') {
+                                $('.ingredient').append('<li>' + ($ingredientsRecipe[x].ingredientQTY * $totalDinner) + ' unidades de ' + $ingredients[i].name + '</li>');
                             } else {
-                                $('.ingredient').append('<li>' + $ingredientsRecipe[x].ingredientQTY + 'gr de ' + $ingredients[i].name + '</li>');
+                                $('.ingredient').append('<li>' + ($ingredientsRecipe[x].ingredientQTY * $totalDinner) + 'gr de ' + $ingredients[i].name + '</li>');
                             }
                         }
                     }
                 }
+                $('.caloricTable').append('<li>Carbohidratos: ' + $carbohidrates.toFixed(2) + '</li>\
+                                            <li>Proteínas: ' + $proteins.toFixed(2) + '</li>\
+                                            <li>Grasas: ' + $fat.toFixed(2) + '</li>\
+                                            <li>De las cuales saturadas: ' + $satured.toFixed(2) + '</li>\
+                                            <li>De las cuales monosaturadas: ' + $monoinsaturated.toFixed(2) + '</li>\
+                                            <li>De las cuales Poliinsaturadas: ' + $polyinsaturated.toFixed(2) + '</li>\
+                                            <li>Azucares: ' + $sugars.toFixed(2) + '</li>\
+                                            <li>Fibra: ' + $fiber.toFixed(2) + '</li>\
+                                            <li>Sodio: ' + $sodium.toFixed(2) + '</li>');
             }
         });
     }
@@ -102,7 +177,7 @@ $(document).ready(function () {
                                                 data-parent="#accordion">\
                                                 <div class="card-body">\
                                                     <p> ' + $stepsRecipe[i].stepDescription + ' </p>\
-                                                    <img src = "/images/maxresdefault.jpg" alt = "paso ' + [i + 1] + '" >\
+                                                    <img src = "' + $stepsRecipe[i].image + '" alt = "paso ' + [i + 1] + '" >\
                                                 </div>\
                                             </div>\
                                         </div>');
@@ -120,13 +195,12 @@ $(document).ready(function () {
                                                 data-parent="#accordion">\
                                                 <div class="card-body">\
                                                     <p> ' + $stepsRecipe[i].stepDescription + ' </p>\
-                                                    <img src = "/images/maxresdefault.jpg" alt = "paso ' + [i + 1] + '" >\
+                                                    <img src = "' + $stepsRecipe[i].image + '" alt = "paso ' + [i + 1] + '" >\
                                                 </div>\
                                             </div>\
                                         </div>');
             }
         }
-
     }
 
     function assingCollapseHeading($number) {
@@ -173,4 +247,86 @@ $(document).ready(function () {
                 break;
         }
     }
+
+
+    $('.forkValue').each(function () {
+        $(this).on('click', () => {
+            $score = $(this).attr('value');
+            switch ($score) {
+                case '1':
+                    insertForks($score);
+                    break;
+                case '2':
+                    insertForks($score);
+                    break;
+                case '3':
+                    insertForks($score);
+                    break;
+                case '4':
+                    insertForks($score);
+                    break;
+                case '5':
+                    insertForks($score);
+                    break;
+            }
+        });
+    });
+
+    function insertForks($score) {
+        let $arrayForks = []
+        $('.forkValue').each(function () {
+            $(this).attr('src', '/images/tenedor-black.svg')
+            $arrayForks.push($(this));
+        })
+        $arrayForks.reverse()
+        for (let i = 0; i < $score; i++) {
+            $arrayForks[i].attr('src', '/images/tenedor-gold.svg')
+        }
+    }
+
+    $('.button').on('click', () => {
+        $comment = $('#textComment').val();
+
+        if ($comment != '' || $score != '') {
+
+            if ($comment != '') {
+                $.ajax({
+                    //TODO: Falta añadir el ID del usuario registrado que comenta.
+                    url: $urlAddComment + $idRecipe + '___' + $comment + '___3',
+                    type: 'POST',
+                    async: false,
+                    success: function ($insertComment) {
+                        if ($insertComment == '') {
+                            $booleanComment = false;
+                            console.log('ya comentaste esta receta');
+                        } else {
+                            $booleanComment = true;
+                        }
+                    }
+                });
+            }
+
+            if ($score != '') {
+                $.ajax({
+                    //TODO: Falta añadir el ID del usuario que puntua.
+                    url: $urlAddAssessment + $idRecipe + '___' + $score + '___3',
+                    type: 'POST',
+                    async: false,
+                    success: function ($score) {
+                        if ($score == '') {
+                            $booleanAssessment = false;
+                            console.log('ya puntuaste esta receta');
+                        } else {
+                            $booleanAssessment = true;
+                        }
+                    }
+                });
+            }
+            if ($booleanComment == true && $booleanAssessment == true) {
+                location.reload();
+            }
+        } else {
+            console.log('no se comenta ni se hace ninguna valoración.');
+        }
+    });
 });

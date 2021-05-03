@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: bienmesabe
+-- Host: localhost    Database: bienmesabe
 -- ------------------------------------------------------
 -- Server version	8.0.23
 
@@ -30,11 +30,11 @@ CREATE TABLE `recipeingredients` (
   `INGREDIENT_UNITY` varchar(50) NOT NULL,
   `INGREDIENT_KCAL` decimal(10,6) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `FKrvds1km6mp0ieskuo3gff32yx` (`INGREDIENT_ID`),
   KEY `FK4p02ktak8ey7o5ntlif7mto1t` (`RECIPE_ID`),
+  KEY `FKrvds1km6mp0ieskuo3gff32yx` (`INGREDIENT_ID`),
   CONSTRAINT `FK4p02ktak8ey7o5ntlif7mto1t` FOREIGN KEY (`RECIPE_ID`) REFERENCES `recipe` (`id`),
   CONSTRAINT `FKrvds1km6mp0ieskuo3gff32yx` FOREIGN KEY (`INGREDIENT_ID`) REFERENCES `ingredients` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,63 +43,9 @@ CREATE TABLE `recipeingredients` (
 
 LOCK TABLES `recipeingredients` WRITE;
 /*!40000 ALTER TABLE `recipeingredients` DISABLE KEYS */;
-INSERT INTO `recipeingredients` VALUES (1,1,10,50.0000,'G',70.410000),(8,1,11,50.0000,'G',132.965000);
+INSERT INTO `recipeingredients` VALUES (1,1,2,50.0000,'G',132.965000),(2,2,7,200.0000,'G',531.860000),(3,2,8,4.0000,'U',10.637200),(4,3,4,50.0000,'G',132.965000),(5,2,1,3.0000,'U',4.224600),(6,2,9,50.0000,'G',132.965000),(7,2,10,50.0000,'G',132.965000);
 /*!40000 ALTER TABLE `recipeingredients` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `recipeingredients_BEFORE_INSERT` BEFORE INSERT ON `recipeingredients` FOR EACH ROW BEGIN
-SET NEW.INGREDIENT_KCAL = ((SELECT KCALX100G FROM INGREDIENTS WHERE ID= NEW.INGREDIENT_ID) * NEW.INGREDIENT_QTY)/100;
-UPDATE RECIPE SET RECIPE_KCAL = (RECIPE.RECIPE_KCAL + ((SELECT KCALX100G FROM INGREDIENTS WHERE ID= NEW.INGREDIENT_ID) * NEW.INGREDIENT_QTY)/100) WHERE RECIPE.ID = NEW.RECIPE_ID;
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `recipeingredients_BEFORE_UPDATE` BEFORE UPDATE ON `recipeingredients` FOR EACH ROW BEGIN
-SET NEW.INGREDIENT_KCAL = ((SELECT KCALX100G FROM INGREDIENTS WHERE ID= NEW.INGREDIENT_ID) * NEW.INGREDIENT_QTY)/100;
-UPDATE RECIPE SET RECIPE_KCAL = (RECIPE.RECIPE_KCAL + ((SELECT KCALX100G FROM INGREDIENTS WHERE ID= NEW.INGREDIENT_ID) * NEW.INGREDIENT_QTY)/100) WHERE RECIPE.ID = NEW.RECIPE_ID;
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `recipeingredients_AFTER_DELETE` AFTER DELETE ON `recipeingredients` FOR EACH ROW BEGIN
-UPDATE RECIPE SET RECIPE_KCAL = (RECIPE.RECIPE_KCAL - ((SELECT KCALX100G FROM INGREDIENTS WHERE ID= OLD.INGREDIENT_ID) * OLD.INGREDIENT_QTY)/100) WHERE RECIPE.ID = OLD.RECIPE_ID;
-
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -110,4 +56,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 17:07:59
+-- Dump completed on 2021-05-02 22:59:12

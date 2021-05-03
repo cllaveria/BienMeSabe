@@ -27,7 +27,7 @@ public class Assessment implements Serializable{
     private Long id;
     
     @Column(name="assessment")
-    private float assessmentValue;
+    private int assessmentValue;
     
     @Column(name="RECIPE_ID")
     private Long recipeId;
@@ -46,7 +46,7 @@ public class Assessment implements Serializable{
      * @param recipeId long that represents the id of the recipe to asign
      * @param userId long that represents the id of the user
      */
-    public Assessment(float assessmentValue, Long recipeId, long userId) {
+    public Assessment(int assessmentValue, Long recipeId, long userId) {
         this.assessmentValue = assessmentValue;
         this.recipeId = recipeId;
         this.userId = userId;
@@ -72,7 +72,7 @@ public class Assessment implements Serializable{
      * Method to recover the assessment value
      * @return a string that represents the assessment value
      */
-    public float getAssessmentValue() {
+        public int getAssessmentValue() {
         return assessmentValue;
     }
 
@@ -80,7 +80,7 @@ public class Assessment implements Serializable{
      * Method to asign the assessment value
      * @param assessmentValue string that represents the assessment value to asign
      */
-    public void setAssessmentValue(float assessmentValue) {
+    public void setAssessmentValue(int assessmentValue) {
         this.assessmentValue = assessmentValue;
     }
 
