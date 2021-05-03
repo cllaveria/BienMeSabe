@@ -53,6 +53,8 @@ public class User implements Serializable{
     @Column(name="USER_ACTIVE")
     private int active;
 
+    private String token;
+    
     /**
      * Empty Constructor
      */
@@ -62,6 +64,13 @@ public class User implements Serializable{
     public User(String name, String password, String email) {
         this.name = name;
         this.password = password;
+        this.email = email;
+    }
+
+    public User(String name, String password, String email,String alias) {
+        this.name = name;
+        this.password = password;
+        this.alias = alias;
         this.email = email;
     }
 
@@ -76,6 +85,16 @@ public class User implements Serializable{
         this.type = type;
     }
 
+    public User(Long id, String name, String password, String email, String alias) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.alias = alias;
+        this.email = email;
+    }
+    
+    
+
     public User(Long id, String image, String name, String surname, String alias, String email, String phone, int type) {
         this.id = id;
         this.image = image;
@@ -87,8 +106,6 @@ public class User implements Serializable{
         this.type = type;
     }
 
-    
-    
     /**
      * User's Constructor with all required parameters
      * @param name string that represents the name of the user
@@ -309,6 +326,14 @@ public class User implements Serializable{
      */
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     

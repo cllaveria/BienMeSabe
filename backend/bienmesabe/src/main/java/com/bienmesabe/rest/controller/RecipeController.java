@@ -117,6 +117,16 @@ public class RecipeController {
     
     /**
      * Method to recover the recipes by user id // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipesOfOtherUsers/{userId}
+     * @param userId string that represents the id of the user to search
+     * @return the list of recipes in the DB filtered by user id
+     */
+    @GetMapping("/getRecipesOfUser/{userId}")
+    public List<Recipe> getRecipesOfUser(@PathVariable String userId){
+        return recipeService.getRecipesOfOtherUsers(Long.parseLong(userId));
+    }
+    
+    /**
+     * Method to recover the recipes by user id // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipesOfOtherUsers/{userId}
      * @param userId string that represents the id of the user not to search
      * @return the list of recipes in the DB filtered by user id
      */

@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 @RequestMapping("/api/user")
-public class UserController {
+public class UserController{
     
     /**
      * Bean of the user service (Interface)
@@ -112,7 +112,7 @@ public class UserController {
      * @return the created user
      */
     @PostMapping("/loginUser")
-    public String loginUser(@RequestParam String data){
+    public User loginUser(@RequestParam String data){
         return userService.authenticateUser(data);
     }
     
@@ -207,6 +207,7 @@ public class UserController {
         }
         return null;
     }
-    
+
+   
 
 }
