@@ -138,11 +138,12 @@ public class UserController {
      */
     @PutMapping("/updateUserPassword/{pass}")
     public boolean updateUserPassword(@PathVariable String pass){
+        boolean result = false;
         try{
-            userService.modifyUserPassword(pass);
-            return true;
+            result = userService.modifyUserPassword(pass);
+            return result;
         }catch(Exception e){
-            return false;
+            return result;
         }
     }
     

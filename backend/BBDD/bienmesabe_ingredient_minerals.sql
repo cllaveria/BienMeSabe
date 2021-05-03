@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: bienmesabe
+-- Host: localhost    Database: bienmesabe
 -- ------------------------------------------------------
 -- Server version	8.0.23
 
@@ -27,9 +27,7 @@ CREATE TABLE `ingredient_minerals` (
   `INGREDIENT_ID` bigint DEFAULT NULL,
   `MINERAL_QTY` decimal(10,6) DEFAULT NULL,
   `MINERAL_ID` bigint NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `FK4dctsndfdb2fm4uxj2f1tyf5w` (`INGREDIENT_ID`),
-  CONSTRAINT `FK4dctsndfdb2fm4uxj2f1tyf5w` FOREIGN KEY (`INGREDIENT_ID`) REFERENCES `ingredients` (`ID`)
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 17:07:59
+-- Dump completed on 2021-05-02 22:59:12

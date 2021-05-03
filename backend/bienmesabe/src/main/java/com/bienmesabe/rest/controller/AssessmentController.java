@@ -8,13 +8,17 @@ package com.bienmesabe.rest.controller;
 
 
 import com.bienmesabe.rest.domain.Assessment;
+import com.bienmesabe.rest.domain.Comment;
 import com.bienmesabe.rest.service.AssessmentService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -33,6 +37,17 @@ public class AssessmentController {
      */
     @Autowired
     private AssessmentService assessmentService;
+    
+      @GetMapping("/getAssessments")
+    public List<Assessment> getAssessments(){
+        return assessmentService.findAllAssessments();
+    }
+    
+    @GetMapping("/getAssessmentsByRecipeId/{id}")
+    public List<Assessment> getAssessmentsById(@PathVariable String id){
+        return assessmentService.findAllAssessmentsOfRecipe(Long.parseLong(id));
+    }
+    
     /**
      * Method to create the assessment // HTTP verb: POST url: http://localhost:8080/api/assessment/addAssessment/{recipeId}/{assessment}/{userId}
      * @param recipeId string that represents the id of the recipe
@@ -40,12 +55,12 @@ public class AssessmentController {
      * @param userId string that represents the id of the user
      * @return the created user
      */
-    @PostMapping("/addAssessment/{recipeId}/{assessment}/{userId}")
-    public Assessment addAssessment(@PathVariable String recipeId, @PathVariable String assessmentValue,@PathVariable String userId ){
+    @PostMapping("/addAssessment/{info}")
+    public Assessment addAssessment(@PathVariable String info){
        Assessment assessment = new Assessment();
-       assessment.setRecipeId(Long.parseLong(recipeId));
-       assessment.setAssessmentValue(Float.parseFloat(assessmentValue));
-       assessment.setUserId(Long.parseLong(userId));
+       assessment.setRecipeId(Long.parseLong(info.split("___")[0]));
+       assessment.setAssessmentValue(Integer.parseInt(info.split("___")[1]));
+       assessment.setUserId(Long.parseLong(info.split("___")[2]));
        Long id = assessmentService.createAssessment(assessment);
        if(id == 0L)
            return null;

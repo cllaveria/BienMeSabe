@@ -8,6 +8,7 @@ package com.bienmesabe.rest.service.impl;
 import com.bienmesabe.rest.DAO.CommentDAO;
 import com.bienmesabe.rest.domain.Comment;
 import com.bienmesabe.rest.service.CommentService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,26 @@ public class CommentServiceImpl implements CommentService{
     private CommentDAO commentDAO;
     
     /**
+     * Implementation of interface method to recover the comments present in the DB
+     * @return a list with the comments in the DB
+     */
+    @Override
+    public List<Comment> findAllComments() {
+        return commentDAO.findAllComments();
+    }
+    
+    /**
+     * Implementation of interface method to recover the recipe comments
+     * @param recipeId long that represents the id of the recipe
+     * @return a list of the recipe comments
+     */
+    @Override
+    public List<Comment> findAllCommentsOfRecipe(Long recipeId) {
+        return commentDAO.findAllCommentsOfRecipe(recipeId);
+    }
+
+    
+    /**
      * Implementation of interface method to create a comment
      * @param comment object that represents the comment to persist
      * @return a long with the id of the persisted comment
@@ -34,5 +55,7 @@ public class CommentServiceImpl implements CommentService{
     public Long createComment(Comment comment) {
         return commentDAO.createComment(comment);
     }
+
+    
     
 }

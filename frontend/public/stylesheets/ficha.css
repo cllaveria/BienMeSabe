@@ -243,18 +243,11 @@
 }
 
 .comment_cont {
-<<<<<<< HEAD
-  /* display: none; */
-  display: flow-root;
-  gap: 30px;
-  margin-bottom: 60px;
-=======
   display: none;
-  /* display: inline-flex; */
+  display: inline-flex;
   direction: rtl;
   gap: 80px;
   margin: auto auto 60px;
->>>>>>> develop
 }
 
 .input_comment {

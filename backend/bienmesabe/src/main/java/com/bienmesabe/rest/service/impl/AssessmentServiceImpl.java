@@ -7,7 +7,9 @@ package com.bienmesabe.rest.service.impl;
 
 import com.bienmesabe.rest.DAO.AssessmentDAO;
 import com.bienmesabe.rest.domain.Assessment;
+import com.bienmesabe.rest.domain.Comment;
 import com.bienmesabe.rest.service.AssessmentService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,25 @@ public class AssessmentServiceImpl implements AssessmentService{
      */
     @Autowired
     private AssessmentDAO assessmentDAO;
+    
+    /**
+     * Implementation of interface method to recover the comments present in the DB
+     * @return a list with the comments in the DB
+     */
+    @Override
+    public List<Assessment> findAllAssessments() {
+        return assessmentDAO.findAllAssessments();
+    }
+    
+    /**
+     * Implementation of interface method to recover the recipe comments
+     * @param recipeId long that represents the id of the recipe
+     * @return a list of the recipe comments
+     */
+    @Override
+    public List<Assessment> findAllAssessmentsOfRecipe(Long recipeId) {
+        return assessmentDAO.findAllAssessmentsOfRecipe(recipeId);
+    }
     
     /**
      * Implementation of interface method to create an assessment

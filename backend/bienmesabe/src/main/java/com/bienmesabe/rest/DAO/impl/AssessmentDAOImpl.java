@@ -7,6 +7,7 @@ package com.bienmesabe.rest.DAO.impl;
 
 import com.bienmesabe.rest.DAO.AssessmentDAO;
 import com.bienmesabe.rest.domain.Assessment;
+import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -26,7 +27,30 @@ public class AssessmentDAOImpl implements AssessmentDAO{
      */
     @Autowired
     private EntityManager entityManager;
+    /**
+     * Method to recover the comments
+     * @return a list with the comments
+     */
+    @Override
+    public List<Assessment> findAllAssessments() {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Assessment> query = currentSession.createQuery("FROM Assessment",Assessment.class);
+        return query.getResultList();
+    }
     
+    /**
+     * Method to recover the comments of the recipe present in the DB by name
+     * @param name string that represents the id of the recipe to search
+     * @return the user in the DB filtered by name
+     */
+    @Override
+    public List<Assessment> findAllAssessmentsOfRecipe(Long recipeId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Assessment> query = currentSession.createQuery("FROM Assessment WHERE recipeId=:id", Assessment.class);
+        query.setParameter("id", recipeId);
+        List<Assessment> assessment = query.getResultList();
+        return assessment;
+    }
     /**
      * Implementation of interface method to create a assessment in the table assessments of the DB
      * @param assessment object that represents the assessment to persist
@@ -46,8 +70,13 @@ public class AssessmentDAOImpl implements AssessmentDAO{
             assessmentInDB = null;
         }
         if(assessmentInDB==null){
-            Long idGenerado = (Long) currentSession.save(assessment); 
-        return idGenerado;
+            try{
+                Long idGenerado = (Long) currentSession.save(assessment); 
+                return idGenerado;
+            }catch(Exception ee){
+                return null;
+            }
+            
         }
         return 0L;
     }

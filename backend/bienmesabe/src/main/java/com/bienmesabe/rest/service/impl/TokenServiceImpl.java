@@ -40,8 +40,8 @@ public class TokenServiceImpl implements TokenService{
                 .claim("name", user.getName())
                 .claim("pass", user.getPassword())
                 .signWith(SignatureAlgorithm.HS512,"BienMeSabeApplicationOfCSRIOC2021M12ProjecteDesenvolupamentAplicacionsWeb".getBytes());
-	    
-        return tokenJWT.compact();		    		    		    			
+	String token = tokenJWT.compact();	
+        return token;		    		    		    			
     }
     
 }
