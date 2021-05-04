@@ -60,6 +60,36 @@ $(document).ready(function () {
     let $forks, $difficult;
     let $insert = '';
 
+
+    let $token = localStorage.getItem('token');
+    let $IDuser = localStorage.getItem('id');
+
+    if ($token != '') {
+        $.ajax({
+            url: 'http://localhost:8080/api/recipe/getRecipesOfOtherUsers/' + $IDuser,
+            type: 'GET',
+            async: false,
+            headers: {
+                'Authorization': $token
+            },
+            dataType: 'json',
+            contentType: 'aplication/json',
+            success: function ($requestToken) {
+                
+                $('#login').css('display', 'none');
+                $('#register').css('display', 'none');
+                $('.btn_user').css('display', 'inline-block');
+            },
+            error: function ($error) {
+                if ($error.responseText == '') {
+                    $('#login').css('display', 'inline-block');
+                    $('#register').css('display', 'inline-block');
+                    $('.btn_user').css('display', 'none');
+                }
+            }
+        });
+    }
+
     $.ajax({
         url: $urlIngredients,
         type: 'GET',
@@ -102,9 +132,8 @@ $(document).ready(function () {
 
             for (let i = 0; i < 4; i++) {
                 for (let j = 0; j < $allUsers.length; j++) {
-                    //TODO: BORRAR LO COMENTADO
-                    if ( /* $allUsers[j].id */ $allUsers[j][0] == $plateOrderByAssessment[i].userId) {
-                        $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
+                    if ($allUsers[j][0] == $plateOrderByAssessment[i].userId) {
+                        $userAlias = $allUsers[j][4];
                     }
                 }
                 $forks = $getForks($plateOrderByAssessment[i].recipeAssessment)
@@ -146,22 +175,13 @@ $(document).ready(function () {
         async: false,
         success: function ($latestRecipesAjax) {
 
-            for (let i = 0; i < 9; i++) {
+            for (let i = 0; i < 12; i++) {
                 $latestRecipes[i] = $latestRecipesAjax[i];
             }
-
-            for (let i = 0; i < 3; i++) {
-                for (let j = 0; j < $allUsers.length; j++) {
-                    //TODO: BORRAR LO COMENTADO
-                    if ( /* $allUsers[j].id */ $allUsers[j][0] == $latestRecipes[i].userId) {
-                        $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
-                    }
-                }
-
-                $forks = $getForks($latestRecipes[i].recipeAssessment)
-                $difficult = $getDificult($latestRecipes[i].recipeDifficult)
-
-                insertLatestRecipe($latestRecipes[i], $userAlias, $difficult, $forks)
+            if ($screenSize < 1240 && $screenSize > 700) {
+                insertRecipe(0, 4);
+            } else {
+                insertRecipe(0, 3);
             }
         }
     })
@@ -413,38 +433,33 @@ $(document).ready(function () {
         if ($count == 2) {
             window.location.href = '../recetas/filtros?latestRecipes'
         } else if ($count == 0) {
-            for (let i = 3; i < 6; i++) {
-                for (let j = 0; j < $allUsers.length; j++) {
-                    //TODO: BORRAR LO COMENTADO
-                    if ( /* $allUsers[j].id */ $allUsers[j][0] == $latestRecipes[i].userId) {
-                        $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
-                    }
-                }
-
-                let $forks = $getForks($latestRecipes[i].recipeAssessment)
-                let $difficult = $getDificult($latestRecipes[i].recipeDifficult)
-
-                insertLatestRecipe($latestRecipes[i], $userAlias, $difficult, $forks)
+            if ($screenSize < 1240 && $screenSize > 700) {
+                insertRecipe(4, 8);
+            } else {
+                insertRecipe(3, 6);
             }
         } else if ($count == 1) {
-            for (let i = 6; i < 9; i++) {
-                for (let j = 0; j < $allUsers.length; j++) {
-                    //TODO: BORRAR LO COMENTADO
-                    if ( /* $allUsers[j].id */ $allUsers[j][0] == $latestRecipes[i].userId) {
-                        $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
-                    }
-                }
-                console.log($userAlias)
-                let $forks = $getForks($latestRecipes[i].recipeAssessment)
-                let $difficult = $getDificult($latestRecipes[i].recipeDifficult)
-
-                insertLatestRecipe($latestRecipes[i], $userAlias, $difficult, $forks)
+            if ($screenSize < 1240 && $screenSize > 700) {
+                insertRecipe(8, 12);
+            } else {
+                insertRecipe(6, 9);
             }
         }
         $count++;
     });
-});
 
-        
-        
-        
+    function insertRecipe($min, $max) {
+        for (let i = $min; i < $max; i++) {
+            for (let j = 0; j < $allUsers.length; j++) {
+                if ($allUsers[j][0] == $latestRecipes[i].userId) {
+                    $userAlias = $allUsers[j][4];
+                }
+            }
+
+            let $forks = $getForks($latestRecipes[i].recipeAssessment)
+            let $difficult = $getDificult($latestRecipes[i].recipeDifficult)
+
+            insertLatestRecipe($latestRecipes[i], $userAlias, $difficult, $forks)
+        }
+    }
+});
