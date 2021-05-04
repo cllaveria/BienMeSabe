@@ -41,6 +41,11 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-core</artifactId>
                 <type>jar</type>
@@ -80,6 +85,29 @@
                 <version>5.3.4</version>
                 <type>jar</type>
             </dependency>
+            <dependency>
+               <groupId>org.springframework.security</groupId>
+               <artifactId>spring-security-config</artifactId>
+               <version>5.4.5</version>
+               <type>jar</type>
+            </dependency>
+            <dependency>
+               <groupId>io.jsonwebtoken</groupId>
+               <artifactId>jjwt</artifactId>
+               <version>0.7.0</version>
+             </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>5.4.5</version>
+                <type>jar</type>
+            </dependency>
+	 <dependency>
+	  <groupId>javax.ws.rs</groupId>
+	  <artifactId>javax.ws.rs-api</artifactId>
+	  <version>2.0.1</version>
+	  <type>jar</type>
+	 </dependency>
 	</dependencies>
 	<build>
             <plugins>

@@ -177,6 +177,16 @@ public class RecipeServiceImpl implements RecipeService{
     }
     
     /**
+     * Implementation of interface method to recover the recipes of the user
+     * @param userId long that represents the id of the user wich that creates the recipes
+     * @return a list with the recipes in the DB filtered by user id
+     */
+    @Override
+    public List<Recipe> getRecipesOfUser(Long userId) {
+        return recipeDAO.getRecipesOfOtherUsers(userId);
+    }
+    
+    /**
      * Implementation of interface method to create a recipe
      * @param recipe object that represents the recipe to persist
      * @return a long with the id of the persisted recipe

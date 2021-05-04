@@ -21,6 +21,8 @@ public interface UserDAO {
      */
     public List<User> findAllUsers();
     
+    public List<User> findAllUsersWithAllProperties();
+            
     /**
      * Method to recover the user present in the DB by id
      * @param id long that represents the id of the users to search

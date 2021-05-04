@@ -36,6 +36,7 @@ CREATE TABLE `users` (
   `USER_CREATEDAT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `USER_UPDATEDAT` timestamp NULL DEFAULT NULL,
   `USER_ACTIVE` int NOT NULL DEFAULT '1',
+  `token` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_USER_TYPE_USER` (`USER_TYPE`),
   CONSTRAINT `FK_USER_TYPE_USER` FOREIGN KEY (`USER_TYPE`) REFERENCES `usertypes` (`ID`)
@@ -48,7 +49,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'',NULL,'Raul','Ramos','1234','Starlord','starlord.rrc@gmail.com','650545473',3,'2021-03-17 20:46:04','2021-04-19 17:04:03',1),(2,'',NULL,'Cristina','Llaveria','','Cris','c.llaveria@gmail.com','',3,'2021-04-10 09:58:05','2021-04-19 17:07:40',1),(3,'46947666L',NULL,'Sergio','Asensio Ruiz','1234','SergioAsensio','serasensio@gmail.com','673308476',3,'2021-04-18 16:54:19','2021-05-01 15:02:44',1);
+INSERT INTO `users` VALUES (1,'',NULL,'Raul','Ramos','1234','Starlord','starlord.rrc@gmail.com','650545473',3,'2021-03-17 20:46:04','2021-04-19 17:04:03',1,NULL),(2,'',NULL,'Cristina','Llaveria','1234','Cris','c.llaveria@gmail.com','',3,'2021-04-10 09:58:05','2021-04-19 17:07:40',1,NULL),(3,'46947777G',NULL,'Sergio','Asensio Ruiz','1234','SergioAsensio','serasensio@gmail.com','673308476',3,'2021-04-18 16:54:19','2021-05-01 15:02:44',1,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-02 22:59:14
+-- Dump completed on 2021-05-04 19:44:47
