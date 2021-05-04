@@ -174,6 +174,20 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
     
     /**
+     * Implementation of interface method to recover the recipes present in the DB by user id
+     * @param userId long that represents the id of the user to search
+     * @return the recipes in the DB filtered by user id
+     */
+    @Override
+    public List<Recipe> getRecipesOfUser(Long userId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Recipe> query = currentSession.createQuery("from Recipe where userId=:userId");
+        query.setParameter("userId", userId);
+        List<Recipe> recipes = query.getResultList();
+        return recipes;
+    }
+    
+    /**
      * Implementation of interface method to create a recipe in the table recipes of the DB
      * @param recipe object that represents the recipe to persist
      * @return a long with the id of the persisted recipe

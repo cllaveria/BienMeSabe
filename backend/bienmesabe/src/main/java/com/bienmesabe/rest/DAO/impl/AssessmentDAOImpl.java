@@ -59,8 +59,7 @@ public class AssessmentDAOImpl implements AssessmentDAO{
     @Override
     public Long createAssessment(Assessment assessment) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Assessment> query = currentSession.createQuery("FROM Assessment WHERE assessmentValue=:value and recipeId=:recipe and userId=:user", Assessment.class);
-        query.setParameter("value", assessment.getAssessmentValue());
+        Query<Assessment> query = currentSession.createQuery("FROM Assessment WHERE recipeId=:recipe and userId=:user", Assessment.class);
         query.setParameter("recipe", assessment.getRecipeId());
         query.setParameter("user", assessment.getUserId());
         Assessment assessmentInDB = new Assessment();

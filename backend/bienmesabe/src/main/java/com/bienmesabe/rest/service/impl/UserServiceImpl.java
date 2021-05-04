@@ -80,8 +80,8 @@ public class UserServiceImpl implements UserService{
     }
         
     @Override
-    public String authenticateUser(String data){
-        User result = null;
+    public User authenticateUser(String data){
+        User result = new User();
         String[] splittedData = data.split("___");
         String password = splittedData[0].split("---")[1], email = "", alias = "";
         for (int i = 1; i<splittedData.length;i++){
@@ -100,9 +100,11 @@ public class UserServiceImpl implements UserService{
             result = userDAO.authenticateUserByAlias(alias, password);
         }
         if(result != null){
-            return tokenService.getJWTToken(result); 
+            String token = tokenService.getJWTToken(result);
+            result.setToken(token);
+            return result;
         }
-        return "";
+        return null;
     }
    
     /**

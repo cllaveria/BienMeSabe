@@ -50,7 +50,7 @@ public interface UserService {
     public User findUserByAlias(String alias);
     
     
-    public String authenticateUser(String data);
+    public User authenticateUser(String data);
 
     /**
      * Method to create a user

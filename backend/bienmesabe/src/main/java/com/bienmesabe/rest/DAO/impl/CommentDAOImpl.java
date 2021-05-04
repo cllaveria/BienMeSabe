@@ -63,8 +63,7 @@ public class CommentDAOImpl implements CommentDAO{
     @Override
     public Long createComment(Comment comment) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Comment> query = currentSession.createQuery("FROM Comment WHERE commentValue=:value and recipeId=:recipe and userId=:user", Comment.class);
-        query.setParameter("value", comment.getCommentValue());
+        Query<Comment> query = currentSession.createQuery("FROM Comment WHERE recipeId=:recipe and userId=:user", Comment.class);
         query.setParameter("recipe", comment.getRecipeId());
         query.setParameter("user", comment.getUserId());
         Comment commentInDB = new Comment();

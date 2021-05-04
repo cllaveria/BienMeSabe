@@ -46,6 +46,19 @@ public class UserDAOImpl implements UserDAO{
     }
 
     /**
+     * Implementation of interface method to recover the users present in the DB
+     * @return a list with the users in the DB
+     */
+    @Override
+    @Transactional
+    public List<User> findAllUsersWithAllProperties() {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<User> query = currentSession.createQuery("From User");
+        List<User> users = query.getResultList();
+        return users;
+    }
+            
+    /**
      * Implementation of interface method to recover the user present in the DB by id
      * @param id long that represents the id of the users to search
      * @return the user in the DB filtered by id
@@ -143,12 +156,12 @@ public class UserDAOImpl implements UserDAO{
         Session currentSession = entityManager.unwrap(Session.class);
         User user = null;
         try{
-            Query<Object[]> query = currentSession.createQuery("SELECT u.name, u.password,u.email  FROM User u WHERE alias=:alias and password=:pass");
+            Query<Object[]> query = currentSession.createQuery("SELECT u.id, u.name, u.password, u.email, u.alias  FROM User u WHERE alias=:alias and password=:pass");
             query.setParameter("alias", alias);
             query.setParameter("pass", pass);
             Object[] attr = query.getSingleResult();
             if(String.valueOf(attr[0]) != ""){
-                user = new User(String.valueOf(attr[0]), String.valueOf(attr[1]), String.valueOf(attr[2]));
+                user = new User(Long.parseLong(String.valueOf(attr[0])),String.valueOf(attr[1]), String.valueOf(attr[2]), String.valueOf(attr[3]), String.valueOf(attr[4]));
             }
             return user;
         }catch(Exception e){
@@ -161,12 +174,12 @@ public class UserDAOImpl implements UserDAO{
         Session currentSession = entityManager.unwrap(Session.class);
         User user = null;
         try{
-            Query<Object[]> query = currentSession.createQuery("SELECT u.name, u.password  FROM User u WHERE email=:email and password=:pass");
+            Query<Object[]> query = currentSession.createQuery("SELECT u.id, u.name, u.password,u.email, u.alias FROM User u WHERE email=:email and password=:pass");
             query.setParameter("email", email);
             query.setParameter("pass", pass);
             Object[] attr = query.getSingleResult();
             if(String.valueOf(attr[0]) != ""){
-                user = new User(String.valueOf(attr[0]), String.valueOf(attr[1]), email);
+                user = new User(Long.parseLong(String.valueOf(attr[0])),String.valueOf(attr[1]), String.valueOf(attr[2]), String.valueOf(attr[3]), String.valueOf(attr[4]));
             }
             return user;
         }catch(Exception e){
