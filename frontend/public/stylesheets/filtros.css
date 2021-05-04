@@ -1,0 +1,147 @@
+@import "common.css";
+
+/*---Recipes---*/
+
+.recipes_container{
+  margin: 80px auto;
+  padding: 45px 20px 10px;
+  text-align: center;
+}
+
+.typePlate_container {
+  padding: 45px 20px 10px;
+  text-align: center;
+}
+
+.tl_typePlate {
+  font-size: 64px;
+  font-family: "Alex Brush";
+  margin-bottom: 25px;
+}
+
+.tl_entrantes {
+  text-shadow: -3px 0px 2px #74de4f;
+}
+
+.tl_primeros {
+  text-shadow: -3px 0px 2px #85b4f3;
+}
+
+.tl_segundos {
+  text-shadow: -3px 0px 2px #bf8d9b;
+}
+
+.tl_postres {
+  text-shadow: -3px 0px 2px #34c9b6;
+}
+
+.tl_repos {
+  text-shadow: -3px 0px 2px #ff6b7b;
+}
+
+.recipes_cont {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  margin: auto;
+  width: 80%;
+  align-items: center;
+}
+
+@media (max-width: 1240px) {
+  .recipes_cont {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .recipes_cont {
+    grid-template-columns: 1fr;
+  }
+}
+
+.recipe {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 250px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.recipe > img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.recipe:hover > img {
+  opacity: 0.8;
+  transition: all 0.5s ease-in;
+}
+
+.entrantes:hover > .desc_rec {
+  color: #74de4f;
+}
+
+.primeros:hover > .desc_rec {
+  color: #85b4f3;
+}
+
+.segundos:hover > .desc_rec {
+  color: #bf8d9b;
+}
+
+.postres:hover > .desc_rec {
+  color: #34c9b6;
+}
+
+.repos:hover > .desc_rec {
+  color: #ff6b7b;
+}
+
+.desc_rec {
+  position: absolute;
+  padding: 10px 15px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+  max-width: 250px;
+}
+
+.desc_rec > h3 {
+  font-weight: bold;
+  border: outside 1px;
+}
+
+.info_rec {
+  float: left;
+}
+
+.score_rec {
+  float: right;
+}
+
+.time_rec {
+  display: flex;
+  justify-content: center;
+}
+
+p {
+  padding-bottom: 10px;
+}
+
+.clock {
+  margin-right: 3px;
+  color: #fca035;
+}
+
+.messageError {
+  display: none;
+  font-size: 16px;
+  color: white;
+  border: solid 1px red;
+  background-color: #d41717;
+  margin-bottom: 25px;
+  padding: 10px;
+}

@@ -46,12 +46,12 @@ public class IngredientController {
     
     /**
      * Method to recover the ingredient by id  // HTTP verb: GET url: http://localhost:8080/api/ingredient/getIngredientById/{IngredientId}
-     * @param id long that represents the id of the ingredient to search
+     * @param id string that represents the id of the ingredient to search
      * @return an ingredient filtered by id
      */
     @GetMapping("/getIngredientById/{ID}")
-    public Ingredient findIngredientById(@PathVariable Long id){
-        Ingredient ingredient = ingredientService.findIngredientById(id);
+    public Ingredient findIngredientById(@PathVariable String id){
+        Ingredient ingredient = ingredientService.findIngredientById(Long.parseLong(id));
         return ingredient;
     }
     
@@ -95,14 +95,14 @@ public class IngredientController {
     
     /**
      * Method to delete an ingredient by id  // HTTP verb: DELETE url: http://localhost:8080/api/ingredient/deleteIngredientById/{IngredientId}
-     * @param id long with the id of the ingredient to delete
+     * @param id string with the id of the ingredient to delete
      * @return a string informing that the ingredient id is deleted
      */
     @DeleteMapping("/deleteIngredientById/{id}")
-    public String deleteIngredientById(@PathVariable Long id){
-        Ingredient ingredient = ingredientService.findIngredientById(id);
+    public String deleteIngredientById(@PathVariable String id){
+        Ingredient ingredient = ingredientService.findIngredientById(Long.parseLong(id));
         if(ingredient != null) {
-           ingredientService.deleteIngredientById(id);
+           ingredientService.deleteIngredientById(Long.parseLong(id));
            return "Deleted ingredient id - "+id;
         }
         

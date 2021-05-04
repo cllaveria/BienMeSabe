@@ -21,6 +21,8 @@ public interface UserDAO {
      */
     public List<User> findAllUsers();
     
+    public List<User> findAllUsersWithAllProperties();
+            
     /**
      * Method to recover the user present in the DB by id
      * @param id long that represents the id of the users to search
@@ -49,6 +51,9 @@ public interface UserDAO {
      */
     public User findUserByAlias(String alias);
     
+    public User authenticateUserByAlias(String alias, String pass);
+    
+    public User authenticateUserByEmail(String email, String pass);
     /**
      * Method to create a user in the table users of the DB
      * @param user object that represents the user to persist
@@ -58,9 +63,41 @@ public interface UserDAO {
     
     /**
      * Method to modify an user in the table users of the DB
-     * @param user object that represents the user to modify
+     * @param userId long that represents the id of the user to modify
+     * @param newNIF string that represents the new NIF of the user
+     * @param imagePath string that represents the new image path of the user
+     * @param surnameNew string that represents the new surname of the user
+     * @param nameNew string that represents the new name of the user
+     * @param phoneNew string that represents the new phone of the user
+     * @return a boolean that indicates if the user is successfully updated or not
      */
-    public void modifyUser(User user);
+    public boolean modifyUser(Long userId, String newNIF, String imagePath, String nameNew, String surnameNew, String phoneNew);
+    
+    /**
+     * Method to modify the password of the user
+     * @param userId long that represents the id of the user to modify
+     * @param passwordOld string that represents the old password of the user
+     * @param passwordNew string that represents the new password of the user
+     * @return a boolean that indicates if the password of the user is successfully updated or not
+     */
+    public boolean modifyUserPassword(Long userId, String passwordOld, String passwordNew);
+    
+    /**
+     * Method to modify the email of the user
+     * @param userId long that represents the id of the user to modify
+     * @param emailOld string that represents the old email of the user
+     * @param emailNew string that represents the new email of the user
+     * @return a boolean that indicates if the email of the user is successfully updated or not
+     */
+    public boolean modifyUserEmail(Long userId, String emailOld, String emailNew);
+    
+    /**
+     * Method to modify the alais of the user
+     * @param userId long that represents the id of the user to modify
+     * @param aliasNew string that represents the new alias of the user
+     * @return a boolean that indicates if the alias of the user is successfully updated or not
+     */
+    public boolean modifyUserAlias(Long userId, String aliasNew);
     
     /**
      * Method to delete an user in the table users of the DB by id

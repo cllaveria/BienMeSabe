@@ -16,20 +16,53 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
     </script>
-    <script src="../javascripts/searchrecipes.js"></script>
+    <script src="../javascripts/recipes.js"></script>
 </head>
 
 <body>
     <!-- Header -->
     <%- include('./header'); %>
 
-    <!-- Recetas -->
-    <div class="recetas">
-        <h1>PAGINA DE RECETAS</h1>
-    </div>
+        <!-- Recipes -->
+        <div class="recipes_container">
+            <div class="typePlate_container">
+                <div class="tl_typePlate tl_entrantes">Entrantes</div>
+                <div class="recipes_cont" id="starters">
+                </div>
+                <button class="button btn_more" type="button">VER MÁS</button>
+            </div>
 
-    <!-- Footer -->
-    <%- include('./footer'); %>
+            <div class="typePlate_container">
+                <div class="tl_typePlate tl_primeros">Primeros</div>
+                <div class="recipes_cont" id="first">
+                </div>
+                <button class="button btn_more" type="button">VER MÁS</button>
+            </div>
+
+            <div class="typePlate_container">
+                <div class="tl_typePlate tl_segundos">Segundos</div>
+                <div class="recipes_cont" id="second">
+                </div>
+                <button class="button btn_more" type="button">VER MÁS</button>
+            </div>
+
+            <div class="typePlate_container">
+                <div class="tl_typePlate tl_postres">Postres</div>
+                <div class="recipes_cont" id="dessert">
+                </div>
+                <button class="button btn_more" type="button">VER MÁS</button>
+            </div>
+
+            <div class="typePlate_container">
+                <div class="tl_typePlate tl_repos">Repostería</div>
+                <div class="recipes_cont" id="cake">
+                </div>
+                <button class="button btn_more" type="button">VER MÁS</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <%- include('./footer'); %>
 </body>
 
 </html>

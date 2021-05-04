@@ -38,62 +38,6 @@
       </ol>
       <!-- Wrapper for slides -->
       <div class="carousel-inner">
-        <div class="carousel-item active" onclick="location.href='/';">
-          <img src="/images/recetas-generales-comidas-1024x512-1.jpg" alt="Los Angeles">
-          <div class="carousel-desc">
-            <div class="carousel-caption">
-              <div class="title">Título receta</div>
-              <h3>Nombre del autor</h3>
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item" onclick="location.href='/';">
-          <img src="/images/lasana-comida.jpg" alt="Chicago">
-          <div class="carousel-desc">
-            <div class="carousel-caption">
-              <div class="title">Título receta</div>
-              <h3>Nombre del autor</h3>
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item" onclick="location.href='/';">
-          <img src="/images/foto-slide.jpg" alt="Los Angeles">
-          <div class="carousel-desc">
-            <div class="carousel-caption">
-              <div class="title">Título receta</div>
-              <h3>Nombre del autor</h3>
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item" onclick="location.href='/';">
-          <img src="/images/hamburguesa-beyond-meat-scaled-e1577396155298.jpg" alt="New york">
-          <div class="carousel-desc">
-            <div class="carousel-caption">
-              <div class="title">Título receta</div>
-              <h3>Nombre del autor</h3>
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-              <img src="/images/tenedor.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-            </div>
-          </div>
-        </div>
       </div>
       <!-- Left and right controls -->
       <a class="carousel-control-prev" href="#carouselMulti" data-slide="prev">
@@ -188,7 +132,7 @@
           </select>
         </div>
       </div>
-      <input class="submit" type="submit" value="BUSCAR">
+      <input class="button submit" type="submit" value="BUSCAR">
     </div>
 
     <!-- Publicidad -->
@@ -199,24 +143,24 @@
     <div class="block_container">
       <!-- Recetas muestra -->
       <div class="rec_container">
-        <div class="recipe" onclick="location.href='/recetas/entrantes';">
+        <div class="recipeType">
           <img src="/images/entrantes.jpg" alt="Entrantes">
           <h1 class="title_recipe">Entrantes</h1>
         </div>
-        <div class="recipe" onclick="location.href='/recetas/primeros';">
+        <div class="recipeType">
           <img src="/images/primeros.jpg" alt="Primeros">
           <h1 class="title_recipe">Primeros</h1>
         </div>
-        <div class="recipe" onclick="location.href='/recetas/segundos';">
+        <div class="recipeType">
           <img src="/images/segundos.jpg" alt="Segundos">
           <h1 class="title_recipe">Segundos</h1>
         </div>
-        <div class="recipe" onclick="location.href='/recetas/postres';">
+        <div class="recipeType">
           <img src="/images/postres.jpg" alt="Postres">
           <h1 class="title_recipe">Postres</h1>
         </div>
-        <div class="recipe repos" onclick="location.href='/recetas/postres';">
-          <img src="/images/reposteria.jpg" alt="Postres">
+        <div class="recipeType repos">
+          <img src="/images/reposteria.jpg" alt="Reposteria">
           <h1 class="title_recipe">Repostería</h1>
         </div>
       </div>
@@ -242,7 +186,7 @@
       <div class="desc">
         <h2>¿Quieres subir tus propias recetas?</h2>
         <p>Regístrate y podrás subir todas las recetas que quieras y votar por las de otros usuarios.</p>
-        <button class="btn_checkIn" type="button" onclick="location.href='/registro';">REGÍSTRATE</button>
+        <button class="button btn_checkIn" type="button" onclick="location.href='/registro';">REGÍSTRATE</button>
       </div>
     </div>
 
@@ -250,44 +194,8 @@
     <div class="lastRec_container">
       <h2>ÚLTIMAS RECETAS</h2>
       <div class="latest_rec">
-        <div class="last_rec">
-          <img src="/images/ultimasrecetas.jpg" alt="subir-receta" style="width:100%;" onclick="location.href='/';">
-          <div class="rec_desc">
-            <h4>Macarrones con tomate, queso y verduras</h4>
-            <p>Nombre del autor</p>
-            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-          </div>
-        </div>
-        <div class="last_rec">
-          <img src="/images/ultimasrecetas.jpg" alt="subir-receta" style="width:100%;" onclick="location.href='/';">
-          <div class="rec_desc">
-            <h4>Título receta</h4>
-            <p>Nombre del autor</p>
-            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-          </div>
-        </div>
-        <div class="last_rec">
-          <img src="/images/ultimasrecetas.jpg" alt="subir-receta" style="width:100%;" onclick="location.href='/';">
-          <div class="rec_desc">
-            <h4>Título receta</h4>
-            <p>Nombre del autor</p>
-            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 15px; height: 30px;">
-          </div>
-        </div>
       </div>
-      <button class="btn_lastRec" type="button">VER MÁS</button>
+      <button class="button btn_lastRec" type="button">VER MÁS</button>
     </div>
 
     <!-- Footer -->

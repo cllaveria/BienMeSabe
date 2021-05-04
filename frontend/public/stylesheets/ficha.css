@@ -1,0 +1,375 @@
+@import "common.css";
+
+/*---Recipes---*/
+
+.recipe_container {
+  margin: 80px auto;
+  padding: 45px 0 0;
+  text-align: center;
+  width: 700px;
+}
+
+.recipe_container > img {
+  width: 700px;
+  height: 350px;
+  object-fit: cover;
+  margin-top: 20px;
+}
+
+.alias_cont {
+  display: flex;
+  margin: 15px auto;
+  justify-content: space-between;
+}
+
+.alias {
+  font-weight: bold;
+  justify-self: center;
+  align-self: center;
+  padding-bottom: 0;
+}
+
+.score_rec {
+  float: right;
+}
+
+@media (max-width: 800px) {
+  .recipe_container {
+    width: 500px;
+  }
+
+  .recipe_container > img {
+    width: 500px;
+    height: 250px;
+  }
+}
+
+.desc_rec {
+  margin: 50px 0 25px;
+  text-align: justify;
+  line-height: 17px;
+}
+
+@media (max-width: 600px) {
+  .recipe_container {
+    width: 400px;
+  }
+
+  .recipe_container > img {
+    width: 400px;
+    height: 200px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+
+  .alias_cont {
+    display: inline-grid;
+  }
+
+  .score_rec {
+    margin-top: 10px;;
+  }
+
+  .desc_rec {
+    margin: 30px 0 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .recipe_container {
+    width: 300px;
+  }
+
+  .recipe_container > img {
+    width: 300px;
+    height: 150px;
+  }
+}
+
+.ingredients_cont {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.details_rec {
+  justify-content: center;
+  padding-top: 15px;
+}
+
+.details_rec > p,
+.info_rec > p,
+.time_rec > p {
+  font-size: 12px;
+  padding-bottom: 10px;
+}
+
+#level {
+  padding-bottom: 5px;
+}
+
+#time {
+  padding-bottom: 0;
+}
+
+.time_rec {
+  display: flex;
+  justify-content: center;
+}
+
+.clock {
+  margin-right: 3px;
+  color: #fca035;
+  font-size: 14px;
+}
+
+.ingredients {
+  float: left;
+  text-align: left;
+  width: auto;
+  font-size: 14px;
+}
+
+.ingredients > h5 {
+  text-align: center;
+}
+
+.ingredient {
+  line-height: 20px;
+  list-style: inside;
+  list-style-type: circle;
+}
+
+.caloricTable {
+  display: table;
+  text-align: left;
+  font-size: 12px;
+  border-collapse: collapse;
+}
+
+.caloricTable > tr > td {
+  padding: 1px;
+  border: solid 1px #a6aa9c;
+}
+
+@media (max-width: 800px) {
+  .ingredients_cont {
+    margin: 0 auto 60px;
+    width: 300px;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .details_rec {
+    float: none;
+    width: inherit;
+    margin-right: 0;
+  }
+
+  .ingredients {
+    margin-left: 0;
+  }
+
+  .caloricTables {
+    margin: auto;
+  }
+}
+
+@media (max-width: 450px) {
+  .ingredients_cont {
+    margin: 0 auto 60px;
+    width: 200px;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .ingredients {
+    width: 200px;
+  }
+}
+
+.steps {
+  display: block;
+  margin-bottom: 50px;
+}
+
+.card {
+  border-radius: 0;
+  border: 0;
+}
+
+.card-header {
+  padding: 0;
+  border-bottom: 0;
+}
+
+.card-header > h5 {
+  padding-bottom: 0;
+}
+
+.btn {
+  width: 100%;
+  border: solid 2px #fca035;
+  border-bottom: 0;
+  border-radius: 0;
+}
+
+.btn.collapsed {
+  border: solid 1px #a6aa9c;
+}
+
+.btn:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.card-body {
+  display: inline-flex;
+  gap: 20px;
+  text-align: justify;
+  border: solid 2px #fca035;
+  line-height: 17px;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.card-body > p {
+  padding: 0;
+}
+
+.card-body > img {
+  width: 350px;
+}
+
+@media (max-width: 800px) {
+  .card-body > img {
+    width: 250px;
+  }
+}
+
+@media (max-width: 600px) {
+  .card-body {
+    display: block;
+    text-align: center;
+  }
+
+  .card-body > p {
+    padding: 10px;
+  }
+
+  .card-body > img {
+    width: 250px;
+  }
+}
+
+.advertisements > img {
+  width: 400px;
+  margin: 25px 0 100px;
+}
+
+@media (max-width: 800px) {
+  .advertisements > img {
+    margin: 25px 0 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .advertisements > img {
+    width: 300px;
+  }
+}
+
+.comment_cont {
+  display: none;
+  display: inline-flex;
+  direction: rtl;
+  gap: 80px;
+  margin: auto auto 60px;
+}
+
+.input_comment {
+  width: 500px;
+  justify-content: center;
+}
+
+.input_comment > textarea {
+  width: 500px;
+  min-height: 150px;
+  background-color: #f0f8ff;
+  border: solid 1px #a6aa9c;
+  padding: 10px;
+  direction: ltr;
+}
+
+.input_comment > textarea:focus {
+  border: solid 2px #fca035;
+  outline: 0;
+}
+
+.score_user {
+  font-size: 14px;
+  direction: rtl;
+  cursor: pointer;
+}
+
+.forkValue:hover,
+.forkValue:hover ~ .forkValue {
+  content: url("/images/tenedor-gold.svg");
+}
+
+.btn_send {
+  margin-top: 25px;
+}
+
+@media (max-width: 800px) {
+  .comment_cont {
+    display: none;
+    /* display: block; */
+    direction: rtl;
+  }
+
+  .score_user {
+    margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .input_comment {
+    width: 400px;
+  }
+
+  .input_comment > textarea {
+    width: 300px;
+  }
+}
+
+@media (max-width: 450px) {
+  .input_comment {
+    width: 300px;
+  }
+}
+
+.comments_users {
+  display: block;
+}
+
+.comment_user {
+  text-align: justify;
+  border: solid 1px #fca035;
+  padding: 10px;
+  margin-bottom: 15px;
+  line-height: 17px;
+}
+
+#alias {
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+#comment {
+  padding-bottom: 0;
+}

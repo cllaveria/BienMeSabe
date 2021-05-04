@@ -1,0 +1,72 @@
+@import "common.css";
+
+.login_container {
+  margin: 80px auto;
+  padding: 50px 20px 5px;
+  width: 350px;
+}
+
+@media screen and (max-width: 500px) {
+  .login_container {
+    width: 280px;
+  }
+}
+
+.messageError {
+  display: none;
+  font-size: 16px;
+  color: white;
+  border: solid 1px red;
+  background-color: #d41717;
+  margin-bottom: 25px;
+  padding: 10px;
+}
+
+#loginForm {
+  margin-top: 15px;
+}
+
+.inputs_form {
+  margin-bottom: 20px;
+}
+
+.inputs_form > label {
+  margin-bottom: 10px;
+}
+
+.inputs-group {
+  margin-bottom: 10px;
+  border-radius: 0.25rem;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+}
+
+.inputs-group > .form-control {
+  flex: 1 1 auto;
+  width: 1%;
+}
+
+#pswrd {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+#viewPass {
+  cursor: pointer;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem #fca035;
+  border: 0;
+}
+
+.btn_login {
+  margin: 35px auto;
+  display: block;
+}
+

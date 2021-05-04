@@ -7,6 +7,7 @@ package com.bienmesabe.rest.service.impl;
 
 import com.bienmesabe.rest.DAO.UserDAO;
 import com.bienmesabe.rest.domain.User;
+import com.bienmesabe.rest.service.TokenService;
 import com.bienmesabe.rest.service.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService{
      */
     @Autowired
     private UserDAO userDAO;
+    
+    @Autowired 
+    private TokenService tokenService;
     
     /**
      * Implementation of interface method to recover the users
@@ -75,6 +79,34 @@ public class UserServiceImpl implements UserService{
        return userDAO.findUserByAlias(alias);
     }
         
+    @Override
+    public User authenticateUser(String data){
+        User result = new User();
+        String[] splittedData = data.split("___");
+        String password = splittedData[0].split("---")[1], email = "", alias = "";
+        for (int i = 1; i<splittedData.length;i++){
+            String[] spplitedValues = splittedData[i].split("---");
+            String key = spplitedValues[0];
+            String values = spplitedValues.length > 1 ? spplitedValues[1] : "";
+            if(key.equals("email") && values != ""){
+                email = values;
+            }else if(key.equals("alias") && values != ""){
+               alias = values;
+            }
+        }
+        if(email != ""){
+            result = userDAO.authenticateUserByEmail(email, password);
+        }else{
+            result = userDAO.authenticateUserByAlias(alias, password);
+        }
+        if(result != null){
+            String token = tokenService.getJWTToken(result);
+            result.setToken(token);
+            return result;
+        }
+        return null;
+    }
+   
     /**
      * Implementation of interface method to create a user
      * @param user object that represents the user to persist
@@ -87,11 +119,86 @@ public class UserServiceImpl implements UserService{
 
     /**
      * Implementation of interface method to modify an user
-     * @param user object that represents the user to modify
+     * @param user string with the parameters of the user to update
+     * @return a boolean that indicates if the user is successfully updated or not
      */
     @Override
-    public void modifyUser(User user) {
-        userDAO.modifyUser(user);
+    public boolean modifyUser(String user) {
+        Long userId = 0L;
+        String newNIF ="", imagePath ="", nameNew ="", surnameNew ="", emailNew ="", phoneNew =""; 
+        String[] splittedUser = user.split("___");
+        String[] splittedUserIds = splittedUser[0].split("---");
+        userId = Long.parseLong(splittedUserIds[1]);
+        for (int i = 1; i<splittedUser.length;i++){
+            String[] spplitedValues = splittedUser[i].split("---");
+            String key = spplitedValues[0];
+            String values = spplitedValues[1];
+            
+            if(key.equals("nif")){
+                newNIF = values;
+            }
+            if(key.equals("image")){
+               imagePath = values;
+            }
+            if(key.equals("name")){
+                nameNew = values;
+            }
+            if(key.equals("surname")){
+                surnameNew = values;
+            }
+            if(key.equals("phone")){
+                phoneNew = values;
+            }
+        }
+
+        return userDAO.modifyUser(userId, newNIF, imagePath, nameNew, surnameNew, phoneNew);
+    }
+
+     /**
+     * Method to modify the password of the user
+     * @param pass string with the information of the user for change the password
+     * @return a boolean that indicates if the password of the user is successfully updated or not
+     */
+    @Override
+    public boolean modifyUserPassword(String pass){
+        Long userId = 0L;
+        String[] splittedPass = pass.split("___");
+        String[] splittedUserIds = splittedPass[0].split("---");
+        userId = Long.parseLong(splittedUserIds[1]);
+        String[] splittedPassword = splittedPass[1].split("---");
+        String[] splittedPasswordsValues = splittedPassword[1].split(",,,");
+        return userDAO.modifyUserPassword(userId, splittedPasswordsValues[0], splittedPasswordsValues[1]);
+    }
+    
+    /**
+     * Method to modify the email of the user
+     * @param mail string with the information of the user for change the email
+     * @return a boolean that indicates if the email of the user is successfully updated or not
+     */
+    @Override
+    public boolean modifyUserEmail(String mail){
+        Long userId = 0L;
+        String[] splittedMail = mail.split("___");
+        String[] splittedUserIds = splittedMail[0].split("---");
+        userId = Long.parseLong(splittedUserIds[1]);
+        String[] splittedEmails = splittedMail[1].split("---");
+        String[] splittedEmailsValues = splittedEmails[1].split(",,,");
+        return userDAO.modifyUserEmail(userId, splittedEmailsValues[0], splittedEmailsValues[1]);
+    }
+    
+    /**
+     * Method to modify the alias of the user
+     * @param alias string with the information of the user for change the alias
+     * @return a boolean that indicates if the alias of the user is successfully updated or not
+     */
+    @Override
+    public boolean modifyUserAlias(String alias){
+        Long userId = 0L;
+        String[] splittedMail = alias.split("___");
+        String[] splittedUserIds = splittedMail[0].split("---");
+        userId = Long.parseLong(splittedUserIds[1]);
+        String[] splittedEmails = splittedMail[1].split("---");
+        return userDAO.modifyUserAlias(userId, splittedEmails[1]);
     }
 
     /**

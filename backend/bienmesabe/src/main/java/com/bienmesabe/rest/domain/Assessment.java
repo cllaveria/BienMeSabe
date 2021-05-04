@@ -27,12 +27,12 @@ public class Assessment implements Serializable{
     private Long id;
     
     @Column(name="assessment")
-    private float assessmentValue;
+    private int assessmentValue;
     
     @Column(name="RECIPE_ID")
     private Long recipeId;
-    @Column(name="USER_TYPE")
-    private int type;
+    @Column(name="USER_ID")
+    private long userId;
 
     /**
      * Empty Constructor
@@ -44,12 +44,12 @@ public class Assessment implements Serializable{
      * Assessment Constructor with the required parameters
      * @param assessmentValue float that represents the assessment of the recipe to asign
      * @param recipeId long that represents the id of the recipe to asign
-     * @param type integer that represents the id of the user to asign
+     * @param userId long that represents the id of the user
      */
-    public Assessment(float assessmentValue, Long recipeId, int type) {
+    public Assessment(int assessmentValue, Long recipeId, long userId) {
         this.assessmentValue = assessmentValue;
         this.recipeId = recipeId;
-        this.type = type;
+        this.userId = userId;
     }
 
     /**
@@ -72,7 +72,7 @@ public class Assessment implements Serializable{
      * Method to recover the assessment value
      * @return a string that represents the assessment value
      */
-    public float getAssessmentValue() {
+        public int getAssessmentValue() {
         return assessmentValue;
     }
 
@@ -80,7 +80,7 @@ public class Assessment implements Serializable{
      * Method to asign the assessment value
      * @param assessmentValue string that represents the assessment value to asign
      */
-    public void setAssessmentValue(float assessmentValue) {
+    public void setAssessmentValue(int assessmentValue) {
         this.assessmentValue = assessmentValue;
     }
 
@@ -99,21 +99,23 @@ public class Assessment implements Serializable{
     public void setRecipeId(Long recipeId) {
         this.recipeId = recipeId;
     }
-
+    
     /**
-     * Méthod to recover the type of assessment's owner user
-     * @return a integer that represents the type of assessment's owner user
+     * Method to recover the id of the user
+     * @return a long that represents the id of the user
      */
-    public int getType() {
-        return type;
+    public long getUserId() {
+        return userId;
     }
 
     /**
-     * Méthod to asign the type of assessment's owner user
-     * @param type integer that represents the type of assessment's owner user to asign
+     * Method to asign the id of the user
+     * @param userId a long that represents the id of the user
      */
-    public void setType(int type) {
-        this.type = type;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
+
+    
     
 }

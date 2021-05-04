@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/nutricionistas.css' />
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include('./header'); %>
+
+        <!-- Nutritionist -->
+        <div class="nutri_container">
+            <div class="users_cont">
+                <div class="text_users">
+                    <h2>¿Estas buscando nutricionista, a poder ser cerca de casa?</h2>
+                    <h5 class="text">Si estás pensando en hacer dieta y para ello buscas los servicios de un nutricionista, apúntate a nuestra subscripción mensual. Para ello, tendrás que registrarte y, una vez estés en tu perfil, podrás ver los términos de dicha subscripción.
+                        Podrás encontrar nutricionistas cerca de casa, tener un plan de dieta personalizado por el nutricionista y valorar sus servicios.</h5>
+                    <button class="button btn_checkIn" type="button" onclick="location.href='/registro';">REGÍSTRATE</button>
+                </div>
+                <img src="/images/map.jpg" alt="Mapa">
+            </div>
+
+            <div class="adverti_cont">
+                <img src="/images/publi-nutri.jpg" alt="Publicidad">
+            </div>
+
+            <div class="nutri_cont">
+                <div class="text_nutri">
+                    <h2>¿Eres nutricionista y quieres ofrecer tus servicios?</h2>
+                    <h5 class="text">Si eres nutricionista y quieres ofrecer tus servicios, apúntate a nuestra subscripción mensual. Para ello, tendrás que registrarte y, una vez estés en tu perfil, podrás ver los términos de dicha subscripción.
+                        Podrás atender a usuarios registrados de todas partes de manera remota o cercanos a tu consulta de manera presencial.</h5>
+                    <button class="button btn_checkIn" type="button" onclick="location.href='/registro';">REGÍSTRATE</button>
+                </div>
+                <img class="img-resp" src="/images/nutricion.jpg" alt="Nutricionista">
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <%- include('./footer'); %>
+</body>
+
+</html>

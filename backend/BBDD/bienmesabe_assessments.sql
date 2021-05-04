@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: bienmesabe
+-- Host: localhost    Database: bienmesabe
 -- ------------------------------------------------------
 -- Server version	8.0.23
 
@@ -25,14 +25,10 @@ DROP TABLE IF EXISTS `assessments`;
 CREATE TABLE `assessments` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `RECIPE_ID` bigint NOT NULL,
-  `ASSESSMENT` decimal(2,2) NOT NULL,
-  `USER_TYPE` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_USER_TYPE_ASSESSMENT` (`USER_TYPE`),
-  KEY `fk_recipe_id_assessments` (`RECIPE_ID`),
-  CONSTRAINT `fk_recipe_id_assessments` FOREIGN KEY (`RECIPE_ID`) REFERENCES `recipe` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_USER_TYPE_ASSESSMENT` FOREIGN KEY (`USER_TYPE`) REFERENCES `usertypes` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `ASSESSMENT` int NOT NULL,
+  `USER_ID` bigint NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +37,7 @@ CREATE TABLE `assessments` (
 
 LOCK TABLES `assessments` WRITE;
 /*!40000 ALTER TABLE `assessments` DISABLE KEYS */;
+INSERT INTO `assessments` VALUES (17,2,5,3),(18,2,2,3);
 /*!40000 ALTER TABLE `assessments` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 17:07:58
+-- Dump completed on 2021-05-04 19:44:58

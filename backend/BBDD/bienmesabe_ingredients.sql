@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: bienmesabe
+-- Host: localhost    Database: bienmesabe
 -- ------------------------------------------------------
 -- Server version	8.0.23
 
@@ -36,7 +36,7 @@ CREATE TABLE `ingredients` (
   `SODIUM` decimal(10,6) DEFAULT NULL,
   `KCALX100G` decimal(10,6) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,43 +45,9 @@ CREATE TABLE `ingredients` (
 
 LOCK TABLES `ingredients` WRITE;
 /*!40000 ALTER TABLE `ingredients` DISABLE KEYS */;
-INSERT INTO `ingredients` VALUES (10,'HUEVO',0.680000,12.700000,9.700000,2.800000,3.600000,1.600000,0.680000,0.000000,0.360000,140.820000),(11,'PAN BLANCO',50.610000,8.470000,3.290000,0.717000,0.681000,1.355000,4.310000,2.400000,0.540000,265.930000),(12,'ACEITE DE ORUJO DE OLIVA',0.000000,0.000000,91.300000,13.000000,71.800000,6.500000,0.000000,0.000000,0.000000,821.700000);
+INSERT INTO `ingredients` VALUES (1,'Huevo',0.680000,12.700000,9.700000,2.800000,3.600000,1.600000,0.680000,0.000000,0.360000,140.820000),(2,'Pan blanco',50.610000,8.470000,3.290000,0.717000,0.681000,1.355000,4.310000,2.400000,0.540000,265.930000),(3,'Aceite orujo de oliva',0.000000,0.000000,91.300000,13.000000,71.800000,6.500000,0.000000,0.000000,0.000000,821.700000),(4,'Chocolate',50.610000,8.470000,3.290000,0.717000,0.681000,1.355000,4.310000,2.400000,0.540000,265.930000),(5,'Nata',50.610000,8.470000,3.290000,0.717000,0.681000,1.355000,4.310000,2.400000,0.540000,265.930000),(6,'Pan rallado',0.000000,0.000000,91.300000,13.000000,71.800000,6.500000,0.000000,0.000000,0.000000,821.700000),(7,'Jamón ibérico',50.610000,8.470000,3.290000,0.717000,0.681000,1.355000,4.310000,2.400000,0.540000,60.000000),(8,'Patata',50.610000,8.470000,3.290000,0.717000,0.681000,1.355000,4.310000,2.400000,0.540000,50.000000),(9,'Aceite de oliva',50.610000,8.470000,3.290000,0.717000,0.681000,1.355000,4.310000,2.400000,0.540000,50.000000),(10,'Sal',5.000000,8.470000,3.290000,0.717000,0.681000,1.355000,4.310000,2.400000,0.540000,50.000000);
 /*!40000 ALTER TABLE `ingredients` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `after_ingredient_insert` BEFORE INSERT ON `ingredients` FOR EACH ROW BEGIN
-   set NEW.KCALX100G = (NEW.CARBOHIDRATES * 4) +  (NEW.PROTEINS * 4) + (NEW.FAT * 9);
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `ingredients_BEFORE_INSERT` BEFORE UPDATE ON `ingredients` FOR EACH ROW BEGIN
-set NEW.KCALX100G = (NEW.CARBOHIDRATES * 4) +  (NEW.PROTEINS * 4) + (NEW.FAT * 9);
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -92,4 +58,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 17:08:00
+-- Dump completed on 2021-05-04 19:44:49

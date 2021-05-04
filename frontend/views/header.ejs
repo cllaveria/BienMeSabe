@@ -19,7 +19,7 @@
                     <div class="item_block">
                         <i class="fas fa-apple-alt item_icon"></i>
                         <span class="item nutri" type="button"
-                            onclick="location.href='/Nutricionistas';">NUTRICIONISTAS</span>
+                            onclick="location.href='/nutricionistas';">NUTRICIONISTAS</span>
                     </div>
                 </div>
             </ul>
@@ -30,13 +30,18 @@
                         <i class="fas fa-envelope login_icon cont"></i>
                         <span class="login contact" type="button" onclick="location.href='/';">CONTACTO</span>
                     </div>
-                    <div class="item_block">
+                    <div class="item_block" id="register">
                         <i class="fas fa-sign-in-alt login_icon"></i>
                         <span class="login" type="button" onclick="location.href='/registro';">REGISTRARSE</span>
                     </div>
-                    <div class="item_block">
+                    <div class="item_block" id="login">
                         <i class="fas fa-user login_icon"></i>
                         <span class="login" type="button" onclick="location.href='/login';">INICIAR SESIÓN</span>
+                    </div>
+                    <div class="item_block">
+                        <button class="btn_user" id='submit' onclick="location.href='/panelUsuario';">
+                            <i class="fas fa-user"></i> MI CUENTA
+                        </button>
                     </div>
                 </div>
             </ul>

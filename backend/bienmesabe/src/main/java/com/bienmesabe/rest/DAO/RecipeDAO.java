@@ -23,6 +23,12 @@ public interface RecipeDAO {
     public List<Recipe> getAllRecipes();
     
     /**
+     * Method to recover the recipes present in the DB ordered by assessment
+     * @return a list with the recipes in the DB ordered by assessment
+     */
+    public List<Recipe> getAllRecipesByAssessment();
+    
+    /**
      * Method to recover the ingredient present in the DB by ingredients
      * @param ingredientsForFilter list with the ingredients that must have the recipe
      * @return a list with the recipes in the DB filtered by ingredients
@@ -58,6 +64,19 @@ public interface RecipeDAO {
      */
     public Recipe getRecipeById(Long id);
     
+    /**
+     * Method to recover the recipes of the user
+     * @param userId long that represents the id of the user wich doesn't create the recipes
+     * @return a list with the recipes in the DB filtered by user
+     */
+    public List<Recipe> getRecipesOfUser(Long userId);
+    
+    /**
+     * Method to recover the recipes of the other users
+     * @param userId long that represents the id of the user wich doesn't create the recipes
+     * @return a list with the recipes in the DB filtered by user
+     */
+    public List<Recipe> getRecipesOfOtherUsers(Long userId);
     /**
      * Method to create a recipe in the table recipes of the DB
      * @param recipe object that represents the recipe to persist

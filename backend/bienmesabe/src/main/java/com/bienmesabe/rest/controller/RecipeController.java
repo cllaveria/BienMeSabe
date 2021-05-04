@@ -45,6 +45,15 @@ public class RecipeController {
     }
     
     /**
+     * Method to recover the recipes ordered by assessment desc // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipesByAssessment
+     * @return a list with the recipes ordered by assessment desc
+     */
+    @GetMapping("/getRecipesByAssessment")
+    public List<Recipe> getRecipesByAssessment(){
+        return recipeService.getAllRecipesByAssessment();
+    }
+    
+    /**
      * Method to recover the recipes by ingredients // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipeByIngredients/{IngredientsList}
      * @param ingredientsForFilter  list with the ingredients that must have the recipe
      * @return  a list with the recipes in the DB filtered by ingredients
@@ -87,12 +96,12 @@ public class RecipeController {
     
     /**
      * Method to recover the recipe by id // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipesById/{RecipeId}
-     * @param id long that represents the id of the recipe to search
+     * @param id string that represents the id of the recipe to search
      * @return the recipe in the DB filtered by id
      */
     @GetMapping("/getRecipesById/{id}")
-    public Recipe getRecipesById(@PathVariable long id){
-        return recipeService.getRecipeById(id);
+    public Recipe getRecipesById(@PathVariable String id){
+        return recipeService.getRecipeById(Long.parseLong(id));
     }
     
     /**
@@ -102,8 +111,29 @@ public class RecipeController {
      * @return a list of recipes that complies with the filters recived by parameter
      */
     @GetMapping("/getRecipesByFilters/{data}")
-    public List<Recipe> getRecipesById(@PathVariable String data){
+    public List<Recipe> getRecipesByFilters(@PathVariable String data){
         return recipeService.getRecipesByFilters(data);
+    }
+    
+    /**
+     * Method to recover the recipes by user id // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipesOfOtherUsers/{userId}
+     * @param userId string that represents the id of the user to search
+     * @return the list of recipes in the DB filtered by user id
+     */
+    @GetMapping("/getRecipesOfUser/{userId}")
+    public List<Recipe> getRecipesOfUser(@PathVariable String userId){
+        return recipeService.getRecipesOfOtherUsers(Long.parseLong(userId));
+    }
+    
+    /**
+     * Method to recover the recipes by user id // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipesOfOtherUsers/{userId}
+     * @param userId string that represents the id of the user not to search
+     * @return the list of recipes in the DB filtered by user id
+     */
+    @CrossOrigin(origins = "http://localhost:8080")
+    @GetMapping("/getRecipesOfOtherUsers/{userId}")
+    public List<Recipe> getRecipesOfOtherUsers(@PathVariable String userId){
+        return recipeService.getRecipesOfOtherUsers(Long.parseLong(userId));
     }
     
     /**
@@ -135,14 +165,14 @@ public class RecipeController {
     
     /**
      * Method to delete the recipe by id // HTTP verb: DELETE url: http://localhost:8080/api/recipe/deleteRecipeById/{RecipeId}
-     * @param id long with the id of the recipe to delete
+     * @param id string with the id of the recipe to delete
      * @return an string that informs the id of the deleted recipe
      */
     @DeleteMapping("deleteRecipeById/{id}")
-    public String deleteRecipeById(@PathVariable Long id){
-        Recipe recipe = recipeService.getRecipeById(id);
+    public String deleteRecipeById(@PathVariable String id){
+        Recipe recipe = recipeService.getRecipeById(Long.parseLong(id));
         if(recipe != null) {
-           recipeService.deleteRecipeById(id);
+           recipeService.deleteRecipeById(Long.parseLong(id));
            return "Deleted recipe id - "+id;
         }
         

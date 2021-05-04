@@ -1,0 +1,85 @@
+@import "common.css";
+
+.nutri_container {
+  margin: 80px auto;
+  padding: 25px 20px 5px;
+}
+
+.users_cont,
+.nutri_cont {
+  display: flex;
+  width: 800px;
+  margin: 75px auto;
+  gap: 40px;
+}
+
+.nutri_cont{
+  direction: rtl;
+}
+
+.users_cont > img,
+.nutri_cont > img {
+  width: 300px;
+}
+
+.adverti_cont {
+  width: 500px;
+  margin: 75px auto;
+}
+
+.adverti_cont > img {
+  width: 500px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.text_users,
+.text_nutri {
+  display: block;
+  text-align: center;
+}
+
+.text_nutri {
+  direction: ltr;
+}
+
+.text{
+  text-align : justify;
+}
+
+@media screen and (max-width: 880px) {
+  .users_cont,
+  .nutri_cont {
+    display: block;
+    width: 550px;
+    text-align: center;
+    margin: 25px auto;
+  }
+
+  .users_cont > img,
+  .nutri_cont > img {
+    margin-top: 25px;
+  }
+
+}
+
+@media screen and (max-width: 600px) {
+  .users_cont,
+  .nutri_cont {
+    width: 320px;
+    margin: 0px auto;
+  }
+
+  .adverti_cont {
+    width: 320px;
+  }
+  
+  .adverti_cont > img {
+    width: 320px;
+  }
+}
+
+.btn_checkIn {
+  margin-top: 10px;
+}
+
