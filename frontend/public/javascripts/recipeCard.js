@@ -12,6 +12,7 @@ $(document).ready(function () {
     let $totalDinner,
         $collapse,
         $heading,
+        $user,
         $carbohidrates = 0,
         $proteins = 0,
         $fat = 0,
@@ -26,6 +27,34 @@ $(document).ready(function () {
         $allUsers = [],
         $score = '',
         $comment = '';
+
+    let $token = localStorage.getItem('token');
+    let $IDuser = localStorage.getItem('id');
+    if ($token != '') {
+        $.ajax({
+            url: 'http://localhost:8080/api/recipe/getRecipesOfOtherUsers/' + $IDuser,
+            type: 'GET',
+            async: false,
+            headers: {
+                'Authorization': $token
+            },
+            dataType: 'json',
+            contentType: 'aplication/json',
+            success: function ($requestToken) {
+
+                $('#login').css('display', 'none');
+                $('#register').css('display', 'none');
+                $('.btn_user').css('display', 'inline-block');
+            },
+            error: function ($error) {
+                if ($error.responseText == '') {
+                    $('#login').css('display', 'inline-block');
+                    $('#register').css('display', 'inline-block');
+                    $('.btn_user').css('display', 'none');
+                }
+            }
+        });
+    }
 
     if ($arrayRecipe.length > 1) {
         $totalDinner = $arrayRecipe[1].substr(7, );
@@ -67,12 +96,18 @@ $(document).ready(function () {
         url: $urlRecipe + $idRecipe,
         type: 'GET',
         success: function ($recipe) {
-            console.log($recipe)
+            for (let i = 0; i < $allUsers.length; i++) {
+                if ($allUsers[i][0] == $recipe.userId) {
+                    $user = $allUsers[i][4]
+                }
+
+            }
+
             $('.title').html($recipe.name);
             $('.title').after('<img class="imgRec" src="' + $recipe.image + '" alt="Imagen receta">');
             let $forks = getForks($recipe.recipeAssessment);
             let $difficult = getDifficult($recipe.recipeDifficult);
-            $('.alias_cont').append('<h4 class="alias">Alias usuario</h4>');
+            $('.alias_cont').append('<h4 class="alias">' + $user + '</h4>');
             $('.alias_cont').append($forks);
             $('.init').find('p').append($recipe.recipeInitDescription);
             $('.ending').find('p').append($recipe.recipeEndingDescription);
@@ -129,7 +164,6 @@ $(document).ready(function () {
                 for (let i = 0; i < $ingredients.length; i++) {
                     for (let x = 0; x < $ingredientsRecipe.length; x++) {
                         if ($ingredients[i].id == $ingredientsRecipe[x].ingredientId) {
-                            console.log($ingredients[i])
                             $carbohidrates += $ingredients[i].carbohidrates;
                             $fat += $ingredients[i].fat;
                             $fiber += $ingredients[i].fiber;
@@ -183,8 +217,7 @@ $(document).ready(function () {
                                             <tr>\
                                                 <td>Sodio:</td>\
                                                 <td>' + $sodium.toFixed(2) + '</td>\
-                                            </tr>'
-                                            );
+                                            </tr>');
             }
         });
     }
@@ -321,9 +354,12 @@ $(document).ready(function () {
             if ($comment != '') {
                 $.ajax({
                     //TODO: Falta añadir el ID del usuario registrado que comenta.
-                    url: $urlAddComment + $idRecipe + '___' + $comment + '___3',
+                    url: $urlAddComment + $idRecipe + '___' + $comment + '___' + $IDuser,
                     type: 'POST',
                     async: false,
+                    headers: {
+                        'Authorization': $token
+                    },
                     success: function ($insertComment) {
                         if ($insertComment == '') {
                             $booleanComment = false;
@@ -338,9 +374,12 @@ $(document).ready(function () {
             if ($score != '') {
                 $.ajax({
                     //TODO: Falta añadir el ID del usuario que puntua.
-                    url: $urlAddAssessment + $idRecipe + '___' + $score + '___3',
+                    url: $urlAddAssessment + $idRecipe + '___' + $score + '___' + $IDuser,
                     type: 'POST',
                     async: false,
+                    headers: {
+                        'Authorization': $token
+                    },
                     success: function ($score) {
                         if ($score == '') {
                             $booleanAssessment = false;

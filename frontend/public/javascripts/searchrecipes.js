@@ -34,7 +34,7 @@ $(document).ready(function () {
     let $dinner;
     let $totalRecipes = [];
     let $countRecipe = 0;
-
+    
     if ($searchFilters.indexOf('dinner') > 1) {
         $allRecipes = $searchFilters.split('_');
         $dinners = $allRecipes[1].split('-');

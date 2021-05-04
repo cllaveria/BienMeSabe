@@ -60,6 +60,36 @@ $(document).ready(function () {
     let $forks, $difficult;
     let $insert = '';
 
+
+    let $token = localStorage.getItem('token');
+    let $IDuser = localStorage.getItem('id');
+
+    if ($token != '') {
+        $.ajax({
+            url: 'http://localhost:8080/api/recipe/getRecipesOfOtherUsers/' + $IDuser,
+            type: 'GET',
+            async: false,
+            headers: {
+                'Authorization': $token
+            },
+            dataType: 'json',
+            contentType: 'aplication/json',
+            success: function ($requestToken) {
+                
+                $('#login').css('display', 'none');
+                $('#register').css('display', 'none');
+                $('.btn_user').css('display', 'inline-block');
+            },
+            error: function ($error) {
+                if ($error.responseText == '') {
+                    $('#login').css('display', 'inline-block');
+                    $('#register').css('display', 'inline-block');
+                    $('.btn_user').css('display', 'none');
+                }
+            }
+        });
+    }
+
     $.ajax({
         url: $urlIngredients,
         type: 'GET',
@@ -419,7 +449,6 @@ $(document).ready(function () {
     });
 
     function insertRecipe($min, $max) {
-        console.log($latestRecipes)
         for (let i = $min; i < $max; i++) {
             for (let j = 0; j < $allUsers.length; j++) {
                 if ($allUsers[j][0] == $latestRecipes[i].userId) {

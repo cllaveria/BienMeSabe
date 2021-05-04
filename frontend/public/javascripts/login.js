@@ -22,7 +22,8 @@ $(document).ready(function () {
             success: function ($token){
                 console.log($token);
                 if($token != ''){
-                    localStorage.setItem('token', $token);
+                    localStorage.setItem('token', $token.token);
+                    localStorage.setItem('id', $token.id);
                     window.location = '/';
                 }else{
                     $('.messageError').css('display', 'block')
