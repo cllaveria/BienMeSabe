@@ -1,0 +1,42 @@
+@import "common.css";
+
+.policy_container {
+  margin: 80px auto;
+  padding:  70px 150px 0px;
+  text-align: justify;
+  line-height: 25px;
+}
+
+h1{
+  font-weight: bold;
+}
+
+@media (min-width: 1800px) {
+  .policy_container {
+    padding: 70px 250px;
+  }
+}
+
+@media (max-width: 1240px) {
+  .policy_container {
+    padding: 70px 100px 0px;
+  }
+}
+
+@media (max-width: 700px) {
+  .policy_container {
+    padding: 50px 50px 0px;
+  }
+
+  .title{
+    font-size: 30px;
+    line-height: normal;
+    text-align: initial;
+  }
+
+  h1{
+    font-size: 22px;
+    text-align: initial;
+  }
+}
+
