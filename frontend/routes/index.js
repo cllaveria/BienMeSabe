@@ -27,11 +27,20 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/panelUsuario', function(req, res, next) {
-  res.render('panelUsuario', { title: 'modificar datos' });
+  res.render('panelUsuario', { title: 'Modificar datos' });
 });
 
 router.get('/recetas/ficha', function(req, res, next) {
-  res.render('ficha', { title: 'ficha receta' });
+  res.render('ficha', { title: 'Ficha receta' });
 });
+
+router.get('/politica-privacidad', function(req, res, next) {
+  res.render('politica-privacidad', { title: 'Política de privacidad' });
+});
+
+router.get('/contacto', function(req, res, next) {
+  res.render('contacto', { title: 'Contacto' });
+});
+
 
 module.exports = router;
