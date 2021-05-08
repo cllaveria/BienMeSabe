@@ -38,4 +38,9 @@ router.get('/politica-privacidad', function(req, res, next) {
   res.render('politica-privacidad', { title: 'Política de privacidad' });
 });
 
+router.get('/contacto', function(req, res, next) {
+  res.render('contacto', { title: 'Contacto' });
+});
+
+
 module.exports = router;

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/contacto.css' />
+    <script src="../javascripts/login.js"></script>
+    <!-- Encriptador MD5 -->
+    <script src="http://pajhome.org.uk/crypt/md5/2.2/md5-min.js"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include('./header'); %>
+
+    <!-- Contact -->
+    <div class="contact_container">
+        <h2>Contacta con nosotros:</h2>
+        <div class="messageError">
+            El email no es correcto.
+        </div>
+        <form name="loginForm" id="loginForm">
+            <div class="inputs_form">
+                <label for="name">Nombre</label><text style="color:red;font-size:15px"> *</text>
+                <div class="inputs-group">
+                    <input class="form-control" type="text" id="name" placeholder="Nombre" required>
+                </div>
+            </div>
+            <div class="inputs_form">
+                <label for="email">Email</label><text style="color:red;font-size:15px"> *</text>
+                <div class="inputs-group">
+                    <input class="form-control" type="text" id="email" placeholder="Email" required>
+                </div>
+            </div>
+            <div class="inputs_form">
+                <label for="comment">Escribe tu comentario</label><text style="color:red;font-size:15px"> *</text>
+                <div class="inputs-group">
+                    <textarea class="form-control" id="textComment" placeholder="Escribe tu comentario" required ></textarea>
+                </div>
+            </div>
+            <button class="button btn_contact" id='submit'>ENVIAR</button>
+        </form>
+        <div class="info">
+            <p>BIEN ME SABE</p>
+            <p>info@bienmesabe.com</p>
+            <p>T.666 666 666</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <%- include('./footer'); %>
+</body>
+
+</html>
