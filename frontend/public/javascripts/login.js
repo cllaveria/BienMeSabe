@@ -1,8 +1,8 @@
 $(document).ready(function () {
     const $urlLogin = 'http://localhost:8080/api/user/loginUser?data=password---'
-    let $pswrd;
-    let $alias = '';
-    let $email = '';
+    let $pswrd,
+        $login;
+        
     $('#loginForm').on('submit', (e) => {
         e.preventDefault();
 
@@ -12,22 +12,22 @@ $(document).ready(function () {
         //$pswrd = hex_md5($('#pswrd').val());
 
         if (/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/.test($email)) {
-            $email = $('#email').val();
+            $login = '___email---' + $('#email').val();
         } else {
-            $alias = $('#email').val();
+            $login = '___alias---' + $('#email').val();
         }
         $.ajax({
-            url: $urlLogin + $pswrd + '___email---' + $email + '___alias---' + $alias,
+            url: $urlLogin + $pswrd + $login,
             type: 'POST',
-            success: function ($token){
+            success: function ($token) {
                 console.log($token);
-                if($token != ''){
+                if ($token != '') {
                     localStorage.setItem('token', $token.token);
                     localStorage.setItem('id', $token.id);
                     window.location = '/';
-                }else{
+                } else {
                     $('.messageError').css('display', 'block')
-                }       
+                }
             }
         });
     });

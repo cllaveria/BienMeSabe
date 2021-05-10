@@ -227,7 +227,9 @@ $(document).ready(function () {
                 url: $url + 'user/findUserByEmail/' + $email,
                 type: 'GET',
                 success: function (data) {
+                    console.log(data)
                     if (data.email == $email) {
+                        
                         changeIconsError($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
                         $('#iconExcEmail').children().html('El email introducido ya está registrado.')
                     }
@@ -511,7 +513,8 @@ $(document).ready(function () {
                 });
                 e.preventDefault();
             } else {
-                $.ajax($url + 'user/addUser/?', {
+                $.ajax({
+                    url: $url + 'user/addUser/?',
                     data: {
                         NIF: null,
                         password: $passEncrypted,
@@ -547,10 +550,10 @@ $(document).ready(function () {
      * @function register
      * @description Redirigim a la pàgina de login una vegada que s'ha completat el registre.
      */
-    function register(){
+    function register() {
         $('.checkIn_container').children().remove()
         $('.checkIn_container').html('<div style="height:300px;font-size:20px;display:flex;align-items: center;text-align: center;"><span style="color:green">Te registraste correctamente. <br>En breve serás redirigido a la página de login.</span></div>');
-        $('.checkIn_container').fadeOut(5000, function(){
+        $('.checkIn_container').fadeOut(5000, function () {
             window.location.href = '../login';
         });
     }

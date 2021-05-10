@@ -19,7 +19,34 @@
  */
 
 $(document).ready(function () {
-
+    /**
+     * @constant $urlIngredients
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els ingredients.
+     */
+    /**
+     * @constant $urlTypePlate
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els tipus de plats.
+     */
+    /**
+     * @constant $urlLatestRecipes
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar totes les receptes en ordre de les últimes afegides.
+     */
+    /**
+     * @constant $urlAllUsers
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els usuaris.
+     */
+    /**
+     * @constant $urlOrderByAssessment
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar totes les receptes en ordre de millor valorades.
+     */
+    /**
+     * @constant $urlRecipe
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor veure la fitxa de les receptes.
+     */
+    /**
+     * @constant $screenSize
+     * @description Constant per emmagatzemar les dimensions de la finestra del navegador.
+     */
     /** 
      * @var $ingredient 
      * @description Variable per emmagatzemar l'ingredient que introdueix l'usuari. 
@@ -44,25 +71,49 @@ $(document).ready(function () {
      * @var $ingredients 
      * @description Array per emmagatzemar els ingredients que es troben a la BBDD registrats i es mostren a l'usuari.
      */
-    const $urlIngredients = 'http://localhost:8080/api/ingredient/getIngredients';
-    const $urlTypePlate = 'http://localhost:8080/api/recipeTypes/getRecipeTypes';
-    const $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes';
-    const $urlAllUsers = 'http://localhost:8080/api/user/getUsers';
-    const $urlOrderByAssessment = 'http://localhost:8080/api/recipe/getRecipesByAssessment';
-    const $urlRecipe = 'http://localhost:3000/recetas/ficha?id=';
-    const $screenSize = window.screen.width;
-    let $ingredient, $numberPersons, $valueEnergMin, $valueEnergMax, $typePlate, $ingredientId, $userAlias;
-    let $ingredients = [];
-    let $recipePlates = [];
-    let $latestRecipes = [];
-    let $allUsers = [];
-    let $count = 0;
-    let $forks, $difficult;
-    let $insert = '';
+    const $urlIngredients = 'http://localhost:8080/api/ingredient/getIngredients',
+        $urlTypePlate = 'http://localhost:8080/api/recipeTypes/getRecipeTypes',
+        $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes',
+        $urlAllUsers = 'http://localhost:8080/api/user/getUsers',
+        $urlOrderByAssessment = 'http://localhost:8080/api/recipe/getRecipesByAssessment',
+        $urlRecipe = 'http://localhost:3000/recetas/ficha?id=',
+        $screenSize = window.screen.width;
+
+    let $ingredient,
+        $numberPersons,
+        $valueEnergMin,
+        $valueEnergMax,
+        $typePlate,
+        $ingredientId,
+        $userAlias,
+        $forks,
+        $difficult;
+
+    let $ingredients = [],
+        $recipePlates = [],
+        $latestRecipes = [],
+        $allUsers = [],
+        $count = 0,
+        $insert = '';
+
+    let $token = localStorage.getItem('token'),
+        $IDuser = localStorage.getItem('id');
+    //let $recipePlates = [];
+    //let $latestRecipes = [];
+    //let $allUsers = [];
+    //let $count = 0;
+    //let $forks, $difficult;
+    //let $insert = '';
+    //const $urlTypePlate = 'http://localhost:8080/api/recipeTypes/getRecipeTypes';
+    //const $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes';
+    //const $urlAllUsers = 'http://localhost:8080/api/user/getUsers';
+    //const $urlOrderByAssessment = 'http://localhost:8080/api/recipe/getRecipesByAssessment';
+    //const $urlRecipe = 'http://localhost:3000/recetas/ficha?id=';
+    //let $IDuser = localStorage.getItem('id');
+    //const $screenSize = window.screen.width;
 
 
-    let $token = localStorage.getItem('token');
-    let $IDuser = localStorage.getItem('id');
+
 
     if ($token != '') {
         $.ajax({
@@ -75,7 +126,7 @@ $(document).ready(function () {
             dataType: 'json',
             contentType: 'aplication/json',
             success: function ($requestToken) {
-                
+
                 $('#login').css('display', 'none');
                 $('#register').css('display', 'none');
                 $('.btn_user').css('display', 'inline-block');
@@ -125,6 +176,7 @@ $(document).ready(function () {
     });
 
     $.ajax({
+
         url: $urlOrderByAssessment,
         type: 'GET',
         async: false,

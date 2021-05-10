@@ -1,7 +1,16 @@
 $(document).ready(function () {
 
     const $urlModifyDataUser = 'http://localhost:8080/api/user/';
-    let $user, $alias, $email, $pswrd_1, $pswrd_2, $pswrd_3, $name, $surname, $phone;
+    let $user,
+        $alias,
+        $email,
+        $pswrd_1,
+        $pswrd_2,
+        $pswrd_3,
+        $name,
+        $surname,
+        $phone,
+        $nif;
     let $responseAlias, $responseEmail;
     let $concat = '';
 
@@ -48,11 +57,12 @@ $(document).ready(function () {
     $('#phone').html($user.phone)
     $('#alias').html($user.alias);
     $('#email').html($user.email);
+
     console.log($user.nif)
     if ($user.nif == null) {
         $('.nif').css('display', 'block')
     }
-    
+
     $('.btn_checkIn').on('click', () => {
 
         $name = $('#input_name').val();
@@ -63,8 +73,9 @@ $(document).ready(function () {
         $pswrd_1 = $('#input_psdw_1').val();
         $pswrd_2 = $('#input_psdw_2').val();
         $pswrd_3 = $('#input_psdw_3').val();
+        $nif = $('#input_nif').val()
 
-        if ($name != '' || $surname != '' || $phone != '') {
+        if ($name != '' || $surname != '' || $phone != '' || $nif != '') {
             if ($name != '') {
                 $concat = $concat.concat('___name---' + $name);
             }
@@ -74,9 +85,13 @@ $(document).ready(function () {
             if ($phone != '') {
                 $concat = $concat.concat('___phone---' + $phone);
             }
+            console.log($nif)
+            if ($nif != '') {
+                $concat = $concat.concat('___nif---' + $nif);
+            }
             console.log($concat)
             $.ajax({
-                url: $urlModifyDataUser + '/modifyUser/id---' + $user.id + $concat,
+                url: $urlModifyDataUser + 'modifyUser/id---' + $user.id + $concat,
                 type: 'PUT',
                 headers: {
                     'Authorization': $token
@@ -93,6 +108,8 @@ $(document).ready(function () {
                     }
                 }
             })
+
+            $concat = '';
         }
         if ($alias != '') {
             $.ajax({
@@ -162,5 +179,27 @@ $(document).ready(function () {
     $('.btn_checkOut').on('click', () => {
         localStorage.removeItem('token');
         window.location = '/';
-    })
+    });
+
+    $('.btn_deleteAccount').on('click', () => {
+        $.ajax({
+            url: $urlModifyDataUser + 'deleteUserById/' + $IDuser,
+            type: 'DELETE',
+            headers: {
+                'Authorization': $token
+            },
+            success: function () {
+
+                localStorage.removeItem('token');
+                localStorage.removeItem('id');
+
+                window.location = '/';
+            }
+
+        })
+
+
+
+
+    });
 });

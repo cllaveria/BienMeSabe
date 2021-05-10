@@ -29,11 +29,13 @@
             <pre class="prettyprint source linenums"><code>/**
  * @fileoverview Cerca de receptes personalitzat: 
  * &lt;p> Mostra per pantalla el resultat de la cerca personalitzada.&lt;/p>
+ * &lt;p> Mostra per pantalla el resultat de la cerca per tipus de plat.&lt;/p>
  * 
  * &lt;p> History&lt;/p>
- * 0.1 - Implementació de la cerca de receptes.  
+ * 0.1 - Implementació de la cerca de receptes.
+ * 0.2 - Implementació de la visualització de mes receptes per tipus de plat.  
  *  
- * @version     0.1
+ * @version     0.2
  * @author      Sergio Asensio Ruiz 
  * @copyright   bienmesabe.com
  * 
@@ -41,25 +43,183 @@
 
 $(document).ready(function () {
 
-    let $urlSearch = 'http://localhost:8080/api/recipe/getRecipesByFilters/';
-    let $search = (window.location.search).substr(1, );
+    const $urlSearch = 'http://localhost:8080/api/recipe/getRecipesByFilters/';
+    const $urlSearchPlate = 'http://localhost:8080/api/recipe/getRecipesByType/';
+    const $urlAllUsers = 'http://localhost:8080/api/user/getUsers';
+    const $urlTypePlate = 'http://localhost:8080/api/recipeTypes/getRecipeTypes';
+    const $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes';
+    const $urlRecipe = 'http://localhost:3000/recetas/ficha?id=';
+
+    let $searchFilters = (window.location.search).substr(1, );
+    let $searchId = (window.location.search).substr(1, 3);
+    let $searchLatestRecipes = (window.location.search).substr(1, 13);
+    let $allUsers = [];
+    let $allTypePlate = [];
+    let $allRecipes = [];
+    let $dinners = [];
+    let $typePlate;
+    let $userAlias;
+    let $dinner;
+    let $totalRecipes = [];
+    let $countRecipe = 0;
+    
+    if ($searchFilters.indexOf('dinner') > 1) {
+        $allRecipes = $searchFilters.split('_');
+        $dinners = $allRecipes[1].split('-');
+    }
 
     $.ajax({
-        url: $urlSearch + $search,
+        url: $urlAllUsers,
         type: 'GET',
-        success: function (data) {
-            for (let i = 0; i &lt; data.length; i++) {
-                console.log(data[i].recipeSteps.length)
-                $('.recetas').append('&lt;div style="border: 1px solid #CED4DA;display: flex;align-items: center;border-radius: .25rem;max-width: 60%;margin-left: 10px;padding: 0px 10px;">\
-                                        &lt;span id="recipes">&lt;text style="font-weight:700;">Receta:&lt;/text> ' + data[i].name + '&lt;br>\
-                                            &lt;text style="font-weight:700;">Total de pasos:&lt;/text> ' + data[i].recipeSteps.length + '\
-                                        &lt;/span>\
-                                        &lt;img style="width: 50%;margin-left:100px" src="' + data[i].image + '">&lt;/img>\
-                                        &lt;/div>\
-                                    &lt;/div>');
+        async: false,
+        success: function ($users) {
+            for (let i = 0; i &lt; $users.length; i++) {
+                $allUsers[i] = $users[i];
             }
         }
     });
+
+    $.ajax({
+        url: $urlTypePlate,
+        type: 'GET',
+        async: false,
+        success: function ($plate) {
+            for (let d = 0; d &lt; $plate.length; d++) {
+                $allTypePlate[d] = $plate[d];
+            }
+        }
+    })
+
+
+    if ($searchId == 'id=') {
+        $.ajax({
+            url: $urlSearchPlate + (window.location.search).substr(4, 5),
+            type: 'GET',
+            async: false,
+            success: function ($recipes) {
+                $totalRecipes = $recipes;
+                insertRecipes($countRecipe, ($countRecipe + 18), $recipes);
+            }
+        });
+    } else if ($searchLatestRecipes == 'latestRecipes') {
+        $.ajax({
+            url: $urlLatestRecipes,
+            type: 'GET',
+            async: false,
+            success: function ($recipes) {
+                $totalRecipes = $recipes;
+                insertRecipes($countRecipe, ($countRecipe + 18), $recipes);
+            }
+        });
+    } else {
+        $.ajax({
+            url: $urlSearch + $searchFilters,
+            type: 'GET',
+            async: false,
+            success: function ($recipes) {
+                if ($recipes.length == 0) {
+                    $('.messageError').css('display', 'inline-block')
+                } else {
+                    $totalRecipes = $recipes;
+                    insertRecipes($countRecipe, ($countRecipe + 18), $recipes);
+                }
+            }
+        });
+    }
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop().toFixed(0) > ($(document).height() - 1100)) {
+            insertRecipes($countRecipe, ($countRecipe + 18), $totalRecipes)
+        }
+    })
+
+    function insertRecipes($min, $max, $recipes) {
+        for (let i = $min; i &lt; $max /* $recipes.length */ ; i++) {
+            if($recipes[i] == null){
+                break;
+            }else{
+                for (let j = 0; j &lt; $allUsers.length; j++) {
+                    //TODO: BORRAR LO COMENTADO
+                    if ( /* $allUsers[j].id */ $allUsers[j][0] == $recipes[i].userId) {
+                        $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
+                    }
+                }
+                for (let x = 0; x &lt; $allTypePlate.length; x++) {
+                    if ($allTypePlate[x].id == $recipes[i].type) {
+                        $typePlate = $allTypePlate[x].name;
+                        if (i == 0) {
+                            if ((window.location.search).substr(1, 3) == 'id=') {
+                                $('.recipes_container').prepend('&lt;div class="tl_typePlate tl_' + $typePlate + '" >' + $typePlate + '&lt;/div>')
+                            }
+                        }
+                    }
+                }
+                let $forks = getForks($recipes[i].recipeAssessment);
+                let $difficult = getDifficult($recipes[i].recipeDifficult);
+                receivePlate($recipes[i], $userAlias, $forks, $difficult, $typePlate);
+            }
+            
+        }
+        $countRecipe = $max;
+    }
+
+    function receivePlate($recipe, $userAlias, $forks, $difficult, $classPlate) {
+        if ($dinners[1] != null) {
+            $dinner = $dinners[1];
+        } else {
+            $dinner = '';
+        }
+        $('.recipes_cont').append('&lt;div class="rcp_cnt">\
+                                    &lt;a href="' + $urlRecipe + $recipe.id + '_dinner=' + $dinner + '">\
+                                        &lt;div class="recipe ' + $classPlate + '">\
+                                            &lt;img src="' + $recipe.image + '" alt="' + $classPlate + '" style="width: 100%;">\
+                                            &lt;div class="desc_rec">\
+                                                &lt;h3 id="title">' + $recipe.name + '&lt;/h3>\
+                                                &lt;p id="author">' + $userAlias + '&lt;/p>\
+                                            &lt;/div>\
+                                        &lt;/div>\
+                                        &lt;div class="info_rec">\
+                                            &lt;p id="level">Dificultad: ' + $difficult + '&lt;/p>\
+                                            &lt;div class="time_rec">\
+                                                &lt;i class="fas fa-clock clock">&lt;/i>\
+                                                &lt;p id="time">' + $recipe.recipeTime + ' min&lt;/p>\
+                                            &lt;/div>\
+                                        &lt;/div>\
+                                        ' + $forks + '\
+                                        &lt;/a>\
+                                    &lt;/div>');
+    }
+
+    function getForks($forks) {
+        let $insertForks = '&lt;div class="score_rec">';
+        for (let i = 0; i &lt; $forks; i++) {
+            $insertForks = $insertForks.concat('&lt;img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
+        }
+        if ($forks != 5) {
+            let $numberForks = 5 - $forks;
+            for (let i = 0; i &lt; $numberForks; i++) {
+                $insertForks = $insertForks.concat('&lt;img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
+            }
+        }
+        $insertForks = $insertForks.concat('&lt;/div>');
+        return $insertForks;
+    }
+
+    function getDifficult($dificult) {
+        let $insertDificult = '';
+        switch ($dificult) {
+            case 0:
+                return $insertDificult = 'Muy baja';
+            case 1:
+                return $insertDificult = 'Baja';
+            case 2:
+                return $insertDificult = 'Media';
+            case 3:
+                return $insertDificult = 'Difícil';
+            case 4:
+                return $insertDificult = 'Muy difícil';
+        }
+    }
 });</code></pre>
         </article>
     </section>
@@ -70,13 +230,13 @@ $(document).ready(function () {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#$alias">$alias</a></li><li><a href="global.html#$booleaDirection">$booleaDirection</a></li><li><a href="global.html#$booleanAlias">$booleanAlias</a></li><li><a href="global.html#$booleanBusinessPhone">$booleanBusinessPhone</a></li><li><a href="global.html#$booleanCity">$booleanCity</a></li><li><a href="global.html#$booleanCompany">$booleanCompany</a></li><li><a href="global.html#$booleanEmail">$booleanEmail</a></li><li><a href="global.html#$booleanName">$booleanName</a></li><li><a href="global.html#$booleanNif">$booleanNif</a></li><li><a href="global.html#$booleanPassword">$booleanPassword</a></li><li><a href="global.html#$booleanPc">$booleanPc</a></li><li><a href="global.html#$booleanSurname">$booleanSurname</a></li><li><a href="global.html#$businessPhone">$businessPhone</a></li><li><a href="global.html#$city">$city</a></li><li><a href="global.html#$company">$company</a></li><li><a href="global.html#$direction">$direction</a></li><li><a href="global.html#$document">$document</a></li><li><a href="global.html#$email">$email</a></li><li><a href="global.html#$ingredient">$ingredient</a></li><li><a href="global.html#$ingredients">$ingredients</a></li><li><a href="global.html#$name">$name</a></li><li><a href="global.html#$nif">$nif</a></li><li><a href="global.html#$numberPersons">$numberPersons</a></li><li><a href="global.html#$pass">$pass</a></li><li><a href="global.html#$pc">$pc</a></li><li><a href="global.html#$phone">$phone</a></li><li><a href="global.html#$typePlate">$typePlate</a></li><li><a href="global.html#$url">$url</a></li><li><a href="global.html#$valueEnergMax">$valueEnergMax</a></li><li><a href="global.html#$valueEnergMin">$valueEnergMin</a></li><li><a href="global.html#addRequired">addRequired</a></li><li><a href="global.html#blur">blur</a></li><li><a href="global.html#checkCif">checkCif</a></li><li><a href="global.html#checkDocument">checkDocument</a></li><li><a href="global.html#checkLetter">checkLetter</a></li><li><a href="global.html#checkNie">checkNie</a></li><li><a href="global.html#checkNif">checkNif</a></li><li><a href="global.html#loading">loading</a></li><li><a href="global.html#on">on</a></li><li><a href="global.html#register">register</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#$alias">$alias</a></li><li><a href="global.html#$booleaDirection">$booleaDirection</a></li><li><a href="global.html#$booleanAlias">$booleanAlias</a></li><li><a href="global.html#$booleanBusinessPhone">$booleanBusinessPhone</a></li><li><a href="global.html#$booleanCity">$booleanCity</a></li><li><a href="global.html#$booleanCompany">$booleanCompany</a></li><li><a href="global.html#$booleanEmail">$booleanEmail</a></li><li><a href="global.html#$booleanName">$booleanName</a></li><li><a href="global.html#$booleanNif">$booleanNif</a></li><li><a href="global.html#$booleanPassword">$booleanPassword</a></li><li><a href="global.html#$booleanPc">$booleanPc</a></li><li><a href="global.html#$booleanSurname">$booleanSurname</a></li><li><a href="global.html#$businessPhone">$businessPhone</a></li><li><a href="global.html#$city">$city</a></li><li><a href="global.html#$company">$company</a></li><li><a href="global.html#$direction">$direction</a></li><li><a href="global.html#$document">$document</a></li><li><a href="global.html#$email">$email</a></li><li><a href="global.html#$ingredient">$ingredient</a></li><li><a href="global.html#$ingredients">$ingredients</a></li><li><a href="global.html#$name">$name</a></li><li><a href="global.html#$nif">$nif</a></li><li><a href="global.html#$numberPersons">$numberPersons</a></li><li><a href="global.html#$pass">$pass</a></li><li><a href="global.html#$pc">$pc</a></li><li><a href="global.html#$phone">$phone</a></li><li><a href="global.html#$screenSize">$screenSize</a></li><li><a href="global.html#$typePlate">$typePlate</a></li><li><a href="global.html#$url">$url</a></li><li><a href="global.html#$urlAllUsers">$urlAllUsers</a></li><li><a href="global.html#$urlIngredients">$urlIngredients</a></li><li><a href="global.html#$urlLatestRecipes">$urlLatestRecipes</a></li><li><a href="global.html#$urlOrderByAssessment">$urlOrderByAssessment</a></li><li><a href="global.html#$urlRecipe">$urlRecipe</a></li><li><a href="global.html#$urlTypePlate">$urlTypePlate</a></li><li><a href="global.html#$valueEnergMax">$valueEnergMax</a></li><li><a href="global.html#$valueEnergMin">$valueEnergMin</a></li><li><a href="global.html#addRequired">addRequired</a></li><li><a href="global.html#blur">blur</a></li><li><a href="global.html#checkCif">checkCif</a></li><li><a href="global.html#checkDocument">checkDocument</a></li><li><a href="global.html#checkLetter">checkLetter</a></li><li><a href="global.html#checkNie">checkNie</a></li><li><a href="global.html#checkNif">checkNif</a></li><li><a href="global.html#loading">loading</a></li><li><a href="global.html#on">on</a></li><li><a href="global.html#register">register</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Apr 12 2021 18:58:00 GMT+0200 (hora de verano de Europa central)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Thu May 06 2021 20:01:12 GMT+0200 (hora de verano de Europa central)
 </footer>
 
 <script> prettyPrint(); </script>
