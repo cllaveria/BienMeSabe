@@ -80,6 +80,29 @@ public class UserDAOImpl implements UserDAO{
             return null;
         }
     }
+    
+    /**
+     * Implementation of interface method to recover the user present in the DB by id
+     * @param id long that represents the id of the users to search
+     * @return the user in the DB filtered by id
+     */
+    @Override
+    @Transactional
+    public User findUserByIdWithAllProperties(Long id) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Object[]> query = currentSession.createQuery("from User u where u.id=:idToSearch");
+        query.setParameter("idToSearch", id);
+        User user = null;
+        try{
+            Object[] attr = query.getSingleResult();
+            if(String.valueOf(attr[0]) != ""){
+                user = new User(Long.parseLong(String.valueOf(attr[0])), String.valueOf(attr[1]), String.valueOf(attr[2]), String.valueOf(attr[3]), String.valueOf(attr[4]), String.valueOf(attr[5]), String.valueOf(attr[6]), Integer.parseInt(String.valueOf(attr[7])));
+            }
+            return user;
+        }catch(Exception e){
+            return null;
+        }
+    }
 
     /**
      * Implementation of interface method to recover the user present in the DB by name

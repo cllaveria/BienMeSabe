@@ -58,6 +58,17 @@ public class UserController{
     }
     
     /**
+     * Method to recover the user by id // HTTP verb: GET url: http://localhost:8080/api/user/getUserById/{UserId}
+     * @param id string that represents the id of the users to search
+     * @return the user filtered by id
+     */
+    @GetMapping("/getUserByIdWithAllProperties/{id}")
+    public User findUserByIdWithAllProperties(@PathVariable String id){
+        User user = userService.findUserByIdWithAllProperties(Long.parseLong(id));
+        return user;
+    }
+    
+    /**
      * Method to recover the user by name // HTTP verb: GET url: http://localhost:8080/api/user/findUserByName/{UserName}
      * @param name string that represents the name of the users to search
      * @return the user filtered by name

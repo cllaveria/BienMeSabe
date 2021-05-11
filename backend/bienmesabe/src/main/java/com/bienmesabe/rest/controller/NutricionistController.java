@@ -102,10 +102,19 @@ public class NutricionistController {
      * @return object that represents the modified nutricionist
      */
     @PutMapping("/modifyNutricionist")
-    public Nutricionist updateNutricionist(Nutricionist nutricionist){
-        nutricionistService.modifyNutricionist(nutricionist);
-        return nutricionist;
+    public Boolean updateNutricionist(String nutricionist){
+        try{
+            nutricionistService.modifyNutricionist(nutricionist);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
+    
+
+    // TODO
+    // VALORAR SI ES NECESARIO, SINO BORRARLO
+
     
     /**
      * Method to delete a nutricionist by id  // HTTP verb: DELETE url: http://localhost:8080/api/nutricionist/deleteNutricionistById/{NutricionistId}

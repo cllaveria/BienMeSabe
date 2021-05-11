@@ -41,7 +41,7 @@ public class BienmesabeApplication {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.cors().and().csrf().disable()
+			http.csrf().disable()
 				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
 				.antMatchers(HttpMethod.GET, "/api/recipe").permitAll()

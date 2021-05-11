@@ -31,6 +31,12 @@ public interface UserDAO {
     public User findUserById(Long id);
     
     /**
+     * Method to recover the user present in the DB by id
+     * @param id long that represents the id of the users to search
+     * @return the user in the DB filtered by id
+     */
+    public User findUserByIdWithAllProperties(Long id);
+    /**
      * Method to recover the user present in the DB by name
      * @param name string that represents the name of the users to search
      * @return the user in the DB filtered by name

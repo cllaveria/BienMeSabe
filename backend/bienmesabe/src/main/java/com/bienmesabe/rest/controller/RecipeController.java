@@ -141,7 +141,7 @@ public class RecipeController {
      * @return the recipe object persisted or null if not
      */
     @PostMapping("/addRecipe")
-    public Recipe addUser(Recipe recipe){
+    public Recipe addRecipe(Recipe recipe){
         recipe.setId(0L);
         Long createdRecipe = recipeService.createRecipe(recipe);
         if(createdRecipe > 0){

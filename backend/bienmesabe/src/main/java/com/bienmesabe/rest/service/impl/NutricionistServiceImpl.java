@@ -81,13 +81,16 @@ public class NutricionistServiceImpl implements NutricionistService {
         return id;
     }
 
+    // TODO
+    // split string i crear nuevo nutricionista
      /**
      * Implementation of interface method to modify an nutricionist in the table nutricionists of the DB
      * @param nutricionist object that represents the nutricionist to modify
      */
     @Override
-    public void modifyNutricionist(Nutricionist nutricionist) {
-        nutricionistDAO.modifyNutricionist(nutricionist);
+    public void modifyNutricionist(String nutricionist) {
+        Nutricionist nutr = new Nutricionist();
+        nutricionistDAO.modifyNutricionist(nutr);
     }
 
     /**
