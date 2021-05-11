@@ -46,7 +46,7 @@ public class TokenServiceImpl implements TokenService{
                                     .map(GrantedAuthority::getAuthority)
                                     .collect(Collectors.toList()))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 3600000))
+                .setExpiration(new Date(System.currentTimeMillis() + 14400000))//4h
                 .signWith(SignatureAlgorithm.HS512,
                         secretKey.getBytes()).compact();
         

@@ -146,13 +146,13 @@ public class RecipeController {
     
     @PostMapping("/addRecipe")
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    public Recipe addRecipe(@RequestBody Recipe recipe){
+    public Boolean addRecipe(@RequestBody Recipe recipe){
         Long createdRecipe = recipeService.createRecipe(recipe);
         if(createdRecipe > 0){
             recipe.setId(createdRecipe);
-            return recipe;
+            return true;
         }
-        return new Recipe();
+        return false;
     }
     
     /**
@@ -161,9 +161,14 @@ public class RecipeController {
      * @return the modified recipe
      */
     @PutMapping("/modifyRecipe")
-    public Recipe updateRecipe(Recipe recipe){
-        recipeService.modifyRecipe(recipe);
-        return recipe;
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    public Boolean updateRecipe(@RequestBody Recipe recipe){
+        try{
+            recipeService.modifyRecipe(recipe);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
     
     /**
