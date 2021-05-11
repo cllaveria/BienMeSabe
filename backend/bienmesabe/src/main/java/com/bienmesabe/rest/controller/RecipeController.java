@@ -8,7 +8,9 @@ package com.bienmesabe.rest.controller;
 import com.bienmesabe.rest.domain.Recipe;
 import com.bienmesabe.rest.service.RecipeService;
 import java.util.List;
+import javax.ws.rs.Consumes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -140,7 +142,9 @@ public class RecipeController {
      * @param recipe object that represents the recipe to persist
      * @return the recipe object persisted or null if not
      */
+    
     @PostMapping("/addRecipe")
+    @Consumes({"application/json"})
     public Recipe addRecipe(Recipe recipe){
         recipe.setId(0L);
         Long createdRecipe = recipeService.createRecipe(recipe);

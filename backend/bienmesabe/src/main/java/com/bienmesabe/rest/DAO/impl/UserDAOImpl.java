@@ -90,14 +90,11 @@ public class UserDAOImpl implements UserDAO{
     @Transactional
     public User findUserByIdWithAllProperties(Long id) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Object[]> query = currentSession.createQuery("from User u where u.id=:idToSearch");
+        Query<User> query = currentSession.createQuery("from User u where u.id=:idToSearch",User.class);
         query.setParameter("idToSearch", id);
         User user = null;
         try{
-            Object[] attr = query.getSingleResult();
-            if(String.valueOf(attr[0]) != ""){
-                user = new User(Long.parseLong(String.valueOf(attr[0])), String.valueOf(attr[1]), String.valueOf(attr[2]), String.valueOf(attr[3]), String.valueOf(attr[4]), String.valueOf(attr[5]), String.valueOf(attr[6]), Integer.parseInt(String.valueOf(attr[7])));
-            }
+            user = query.getSingleResult();
             return user;
         }catch(Exception e){
             return null;
