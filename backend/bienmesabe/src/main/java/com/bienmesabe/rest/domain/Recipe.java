@@ -78,6 +78,26 @@ public class Recipe implements Serializable{
         this.userId = userId;
     }
 
+    public Recipe(String image, String name, String preparationVideo, int type, Long userId, List<RecipeIngredients> recipeIngredients, List<RecipeStep> recipeSteps, Date createdAt, int active, int recipeDinners, float recipeKCAL, int recipeTime, int recipeDifficult, int recipeAssessment, String recipeInitDescription, String recipeEndingDescription) {
+        this.image = image;
+        this.name = name;
+        this.preparationVideo = preparationVideo;
+        this.type = type;
+        this.userId = userId;
+        this.recipeIngredients = recipeIngredients;
+        this.recipeSteps = recipeSteps;
+        this.createdAt = createdAt;
+        this.active = active;
+        this.recipeDinners = recipeDinners;
+        this.recipeKCAL = recipeKCAL;
+        this.recipeTime = recipeTime;
+        this.recipeDifficult = recipeDifficult;
+        this.recipeAssessment = recipeAssessment;
+        this.recipeInitDescription = recipeInitDescription;
+        this.recipeEndingDescription = recipeEndingDescription;
+    }
+
+    
     /**
      * Method to recover the id of the recipe
      * @return a long that represents the id of the recipe
