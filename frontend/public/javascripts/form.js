@@ -112,9 +112,30 @@ $(document).ready(function () {
      * @constant $url
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor.
      */
-    let $name, $phone, $alias, $email, $pass, $nif, $pc, $city, $company, $direction, $businessPhone;
-    let $booleanName, $booleanSurname, $booleanPhone, $booleanAlias, $booleanEmail, $booleanPassword, $booleanNif, $booleanPc, $booleanCity, $booleanDirection, $booleanCompany, $booleanBusinessPhone;
-    let $document = 'nif';
+    let $name,
+        $phone,
+        $alias,
+        $email,
+        $pass,
+        $nif,
+        $pc,
+        $city,
+        $company,
+        $direction,
+        $businessPhone,
+        $booleanName,
+        $booleanSurname,
+        $booleanPhone,
+        $booleanAlias,
+        $booleanEmail,
+        $booleanPassword,
+        $booleanNif,
+        $booleanPc,
+        $booleanCity,
+        $booleanDirection,
+        $booleanCompany,
+        $booleanBusinessPhone,
+        $document = 'nif';
     const $url = 'http://localhost:8080/api/';
 
     /**
@@ -199,12 +220,16 @@ $(document).ready(function () {
                     if (data.alias == $alias) {
                         changeIconsError($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
                         $('#iconExcAlias').children().html('El Alias introducido ya está registrado.')
+                    } else {
+                        changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
+                        $booleanAlias = true;
                     }
-                },
-                error: function () {
-                    changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
-                    $booleanAlias = true;
                 }
+                /* ,
+                                error: function () {
+                                    changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
+                                    $booleanAlias = true;
+                                } */
             });
         }
     });
@@ -229,15 +254,19 @@ $(document).ready(function () {
                 success: function (data) {
                     console.log(data)
                     if (data.email == $email) {
-                        
+
                         changeIconsError($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
                         $('#iconExcEmail').children().html('El email introducido ya está registrado.')
+                    } else {
+                        changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
+                        $booleanEmail = true;
                     }
-                },
-                error: function () {
-                    changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
-                    $booleanEmail = true;
                 }
+                /* ,
+                                error: function () {
+                                    changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
+                                    $booleanEmail = true;
+                                } */
             });
         }
     });

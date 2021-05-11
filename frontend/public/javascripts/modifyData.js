@@ -52,6 +52,7 @@ $(document).ready(function () {
         }
     });
 
+    console.log($user)
     $('#name').html($user.name);
     $('#surname').html($user.surname);
     $('#phone').html($user.phone)
@@ -195,11 +196,6 @@ $(document).ready(function () {
 
                 window.location = '/';
             }
-
-        })
-
-
-
-
+        });
     });
 });

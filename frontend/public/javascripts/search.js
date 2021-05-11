@@ -9,10 +9,11 @@
  * <p> · L'usuari pot visualitzar les últimes receptes afegides.</p>
  * 
  * <p> History</p>
- * 0.1 - Implementació del filtre de cerca de receptes.  
- * 0.2 - Implementació de la visualització de més receptes per tipus de plat, les últimes receptes afegides, i les receptes millor valorades en el slider.  
+ * <p> 0.1 - Implementació del filtre de cerca de receptes.</p>
+ * <p> 0.2 - Implementació de la visualització de més receptes per tipus de plat, les últimes receptes afegides, i les receptes millor valorades en el slider.</p>
+ * <p> 0.3 - Implementació de la verificació del token per saber si l'usuari ha iniciat, s'ha expirat o no ha iniciat sessió.</p>
  *  
- * @version     0.2
+ * @version     0.3
  * @author      Sergio Asensio Ruiz 
  * @copyright   bienmesabe.com
  * 
@@ -71,6 +72,43 @@ $(document).ready(function () {
      * @var $ingredients 
      * @description Array per emmagatzemar els ingredients que es troben a la BBDD registrats i es mostren a l'usuari.
      */
+    /** 
+     * @var $ingredientId 
+     * @description Variable per emmagatzemar l'ID dels ingredients en el desplegable.
+     */
+    /** 
+     * @var $userAlias 
+     * @description Variable per emmagatzemar l'alies de l'usuari que ha creat la recepta i mostrar-lo per pantalla.
+     */
+    /** 
+     * @var $forks 
+     * @description Variable per emmagatzemar la cadena per inserir en el DOM per veure la puntuació mitjana de les receptes.
+     */
+    /** 
+     * @var $difficult 
+     * @description Variable per emmagatzemar la dificultat de la recepta i mostar-lo per pantalla.
+     */
+    /** 
+     * @var $recipePlates 
+     * @description Array per emmagatzemar les receptes de la BBDD.
+     */
+    /** 
+     * @var $latestRecipes 
+     * @description Array per emmagatzemar les receptes de la BBDD ordenades per les últimes inserides.
+     */
+    /** 
+     * @var $allUsers 
+     * @description Array per emmagatzemar tots els usuaris de la BBDD.
+     */
+    /** 
+     * @var $count 
+     * @description Variable inicialitzada a 0 per contar les vegades que prenem el botó "VER MÁS" de les últimes receptes.
+     */
+    /** 
+     * @var $insert 
+     * @description Variable inicialitzada en blanc per emmagatzemar la cadena de les receptes a inserir.
+     */
+
     const $urlIngredients = 'http://localhost:8080/api/ingredient/getIngredients',
         $urlTypePlate = 'http://localhost:8080/api/recipeTypes/getRecipeTypes',
         $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes',
@@ -87,33 +125,18 @@ $(document).ready(function () {
         $ingredientId,
         $userAlias,
         $forks,
-        $difficult;
-
-    let $ingredients = [],
+        $difficult,
+        $ingredients = [],
         $recipePlates = [],
         $latestRecipes = [],
         $allUsers = [],
         $count = 0,
         $insert = '';
 
+    // TODO: implementar la validación del token en otro página.
+
     let $token = localStorage.getItem('token'),
         $IDuser = localStorage.getItem('id');
-    //let $recipePlates = [];
-    //let $latestRecipes = [];
-    //let $allUsers = [];
-    //let $count = 0;
-    //let $forks, $difficult;
-    //let $insert = '';
-    //const $urlTypePlate = 'http://localhost:8080/api/recipeTypes/getRecipeTypes';
-    //const $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes';
-    //const $urlAllUsers = 'http://localhost:8080/api/user/getUsers';
-    //const $urlOrderByAssessment = 'http://localhost:8080/api/recipe/getRecipesByAssessment';
-    //const $urlRecipe = 'http://localhost:3000/recetas/ficha?id=';
-    //let $IDuser = localStorage.getItem('id');
-    //const $screenSize = window.screen.width;
-
-
-
 
     if ($token != '') {
         $.ajax({
@@ -140,13 +163,14 @@ $(document).ready(function () {
             }
         });
     }
+    // TODO: hasta aquí la implementación del token.
 
     $.ajax({
         url: $urlIngredients,
         type: 'GET',
         success: function (data) {
             for (let i = 0; i < data.length; i++) {
-                $ingredients[i] = data[i];
+                $ingredients.push(data[i]); //$ingredients[i] = data[i];
                 $('#list_ingredient').append("<option>" + $ingredients[i].name + "</option>")
             }
         }
@@ -158,7 +182,7 @@ $(document).ready(function () {
         success: function (data) {
             $('#typePlate').append('<option value="all" selected>Selecciona una opción</option>');
             for (let i = 0; i < data.length; i++) {
-                $recipePlates[i] = data[i]
+                $recipePlates.push(data[i]); //$recipePlates[i] = data[i]
                 $('#typePlate').append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
             }
         }
@@ -170,7 +194,7 @@ $(document).ready(function () {
         async: false,
         success: function ($users) {
             for (let i = 0; i < $users.length; i++) {
-                $allUsers[i] = $users[i];
+                $allUsers.push($users[i]); //$allUsers[i] = $users[i];
             }
         }
     });
@@ -181,15 +205,30 @@ $(document).ready(function () {
         type: 'GET',
         async: false,
         success: function ($plateOrderByAssessment) {
-
             for (let i = 0; i < 4; i++) {
                 for (let j = 0; j < $allUsers.length; j++) {
                     if ($allUsers[j][0] == $plateOrderByAssessment[i].userId) {
                         $userAlias = $allUsers[j][4];
                     }
                 }
-                $forks = $getForks($plateOrderByAssessment[i].recipeAssessment)
+                $forks = getForks($plateOrderByAssessment[i].recipeAssessment);
+                $('.carousel-inner').append('<div class="carousel-item">\
+                                                <a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
+                                                    <img class="imgCarousel" src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
+                                                    <div class="carousel-desc">\
+                                                        <div class="carousel-caption">\
+                                                            <div class="title">' + $plateOrderByAssessment[i].name + '</div>\
+                                                            <h3>' + $userAlias + '</h3>\
+                                                            ' + $forks + '\
+                                                        </div>\
+                                                    </div>\
+                                                </a>\
+                                            </div>');
                 if (i == 0) {
+                    $('.carousel-item').addClass('active');
+                }
+            }
+            /* if (i == 0) {
                     $insert = $insert.concat('<div class="carousel-item active">\
                                                 <a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
                                                     <img class="imgCarousel" src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
@@ -217,7 +256,7 @@ $(document).ready(function () {
                                             </div>');
                 }
             }
-            $('.carousel-inner').append($insert)
+            $('.carousel-inner').append($insert); */
         }
     });
 
@@ -251,11 +290,10 @@ $(document).ready(function () {
      * @description Quan l'usuari selecciona l'ingredient, es comprova que no sigui buit i que aquest es trobi en el desplegable. Una vegada verificat, si és correcte, s'inserirà en el div $ingredients
      */
     $(document).on('change', '#inp_ingredient', () => {
-        // Iniciem els booleans.
+
         let $booleanIngredientList = false;
         let $booleanIngredientSelect = true;
 
-        // Guardem en una variable l'ingredient seleccionat.
         $ingredient = $('input[name=ingredient]').val();
 
         // Comprovem si l'ingredient introduït correspon a un ingredient que està a la llista.
@@ -395,6 +433,12 @@ $(document).ready(function () {
 
     });
 
+    /**
+     * @type {jQuery}
+     * @type each
+     * @listens .recipeType - Classe de les imatges de tipus de plat del DOM.
+     * @description Assignem una funció a cada tipus de plat enviant per paràmetre el tipus de plat, per quan polsem sobre qualsevol d'ells, faci la funció desitjada.
+     */
     $('.recipeType').each(function () {
         $(this).on('click', () => {
             switch ($(this).children().attr('alt')) {
@@ -419,6 +463,11 @@ $(document).ready(function () {
 
     });
 
+    /**
+     * @function checkTypePlate
+     * @description Quan polsem sobre qualsevol plat, ens envia a la pàgina de 'filtros' amb l'ID del tipus de plat corresponent.
+     * @param {string} $namePlate nom del tipus de plat seleccionat
+     */
     function checkTypePlate($namePlate) {
         for (let i = 0; i < $recipePlates.length; i++) {
             if ($recipePlates[i].name == $namePlate) {
@@ -427,7 +476,13 @@ $(document).ready(function () {
         }
     }
 
-    function $getForks($forks) {
+    /**
+     * @function getForks
+     * @description Concatenem una cadena per inserir en el DOM i mostrar la puntuació de la recepta.
+     * @param {string} $forks Número de forquilles (puntuació) que te la recepta.
+     * @return {string}
+     */
+    function getForks($forks) {
         let $insertForks = '<div class="score_rec">';
         for (let i = 0; i < $forks; i++) {
             $insertForks = $insertForks.concat('<img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
@@ -442,23 +497,95 @@ $(document).ready(function () {
         return $insertForks;
     }
 
+    /**
+     * @function getDificult
+     * @description Rebem un número que representa la dificultat de la recepta i l'hi assignem una cadena String amb el text de dificultat.
+     * @param {string} $dificult Número que representa la dificultat de la recepta.
+     * @return {string}
+     */
     function $getDificult($dificult) {
-        let $insertDificult;
+        //let $recipeDifficult
         switch ($dificult) {
             case 0:
-                return $insertDificult = 'Muy baja';
+                return /* $recipeDifficult= */ 'Muy baja';
             case 1:
-                return $insertDificult = 'Baja';
+                return /* $recipeDifficult= */ 'Baja';
             case 2:
-                return $insertDificult = 'Media';
+                return /* $recipeDifficult= */ 'Media';
             case 3:
-                return $insertDificult = 'Difícil';
+                return /* $recipeDifficult= */ 'Difícil';
             case 4:
-                return $insertDificult = 'Muy difícil';
+                return /* $recipeDifficult= */ 'Muy difícil';
         }
     }
 
-    function insertLatestRecipe($recipe, $userAlias, $difficult, $forks) {
+    /**
+     * @type {jQuery}
+     * @type click
+     * @method on
+     * @listens .btn_lastRec - Botó per veure més receptes en la secció d'últimes afegides.
+     * @description Funció per veure més receptes al pressionar sobre el botó "VER MÁS", segons les dimensions de la pantalla, mostrarem 3 (per a versions Mobile i Desktop) o 4 (per a versions de Tablet).
+     */
+    $('.btn_lastRec').on('click', () => {
+        if ($count == 2) {
+            window.location.href = '../recetas/filtros?latestRecipes'
+        } else if ($count == 0) {
+            if ($screenSize < 1240 && $screenSize > 700) {
+                insertRecipe(4, 8);
+            } else {
+                insertRecipe(3, 6);
+            }
+        } else if ($count == 1) {
+            if ($screenSize < 1240 && $screenSize > 700) {
+                insertRecipe(8, 12);
+            } else {
+                insertRecipe(6, 9);
+            }
+        }
+        $count++;
+    });
+
+    /**
+     * @function insertRecipe
+     * @description Funció per inserir en el DOM les últimes receptes afegides a la BBDD.
+     * @param {number} $min Número mínim per començar el compte en el for.
+     * @param {number} $max Numero màxim per finalitzar el compte en el for.
+     */
+    function insertRecipe($min, $max) {
+        for (let i = $min; i < $max; i++) {
+            for (let j = 0; j < $allUsers.length; j++) {
+                if ($allUsers[j][0] == $latestRecipes[i].userId) {
+                    $userAlias = $allUsers[j][4];
+                }
+            }
+
+            $forks = getForks($latestRecipes[i].recipeAssessment);
+            $difficult = $getDificult($latestRecipes[i].recipeDifficult);
+
+            $('.latest_rec').append('<div class="rcp_cnt">\
+                                    <a href="' + $urlRecipe + $latestRecipes[i].id + '">\
+                                        <div class="recipe">\
+                                            <img src="' + $latestRecipes[i].image + '">\
+                                            <div class="desc_rec">\
+                                                <h3 id="title">' + $latestRecipes[i].name + '</h3>\
+                                                <p id="author">' + $userAlias + '</p>\
+                                            </div>\
+                                        </div>\
+                                        <div class="info_rec">\
+                                            <p id="level">Dificultad: ' + $difficult + '</p>\
+                                            <div class="time_rec">\
+                                                <i class="fas fa-clock clock"></i>\
+                                                <p id="time">' + $latestRecipes[i].recipeTime + ' min</p>\
+                                            </div>\
+                                        </div>\
+                                        ' + $forks + '\
+                                    </a>\
+                                </div>');
+            //insertLatestRecipe($latestRecipes[i], $userAlias, $difficult, $forks)
+        }
+    }
+
+    /* function insertLatestRecipe($recipe, $userAlias, $difficult, $forks) {
         $('.latest_rec').append('<div class="rcp_cnt">\
                                     <a href="' + $urlRecipe + $recipe.id + '">\
                                         <div class="recipe">\
@@ -478,40 +605,5 @@ $(document).ready(function () {
                                         ' + $forks + '\
                                     </a>\
                                 </div>');
-    }
-
-    $('.btn_lastRec').on('click', () => {
-
-        if ($count == 2) {
-            window.location.href = '../recetas/filtros?latestRecipes'
-        } else if ($count == 0) {
-            if ($screenSize < 1240 && $screenSize > 700) {
-                insertRecipe(4, 8);
-            } else {
-                insertRecipe(3, 6);
-            }
-        } else if ($count == 1) {
-            if ($screenSize < 1240 && $screenSize > 700) {
-                insertRecipe(8, 12);
-            } else {
-                insertRecipe(6, 9);
-            }
-        }
-        $count++;
-    });
-
-    function insertRecipe($min, $max) {
-        for (let i = $min; i < $max; i++) {
-            for (let j = 0; j < $allUsers.length; j++) {
-                if ($allUsers[j][0] == $latestRecipes[i].userId) {
-                    $userAlias = $allUsers[j][4];
-                }
-            }
-
-            let $forks = $getForks($latestRecipes[i].recipeAssessment)
-            let $difficult = $getDificult($latestRecipes[i].recipeDifficult)
-
-            insertLatestRecipe($latestRecipes[i], $userAlias, $difficult, $forks)
-        }
-    }
+    } */
 });
