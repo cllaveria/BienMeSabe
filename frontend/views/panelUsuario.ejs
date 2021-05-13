@@ -62,9 +62,39 @@
                 placeholder="Introduce de nuevo la nueva contraseña">
         </div>
     </div>
+    <div style="display: flex;">
+        <button class="button btn_checkIn" id='submit'>ACTUALIZAR</button>
+        <button class="button btn_checkIn btn_checkOut" style="width: 115px;"
+            id='submit'>DESCONECTAR</button>
+        <!-- <button class="button btn_checkIn btn_deleteAccount" style="width: 150px;" id='submit'>BORRAR CUENTA</button> -->
+        <!-- Button trigger modal -->
+        <button type="button" class="button btn_checkIn" style="width: 150px;" data-toggle="modal"
+            data-target="#exampleModalCenter">
+            BORRAR CUENTA
+        </button>
 
-    <button class="button btn_checkIn" id='submit'>ACTUALIZAR</button>
-    <button class="button btn_checkIn btn_checkOut" style="width: 115px;" id='submit'>DESCONECTAR</button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Borrar cuenta</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Estás seguro que quieres borrar tu cuenta? una vez confirmado, no se podrán recuperar tus datos.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="button btn_checkIn btn_deleteAccount">Aceptar</button>
+                        <button type="button" class="button btn_checkIn" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <%- include('./footer'); %>

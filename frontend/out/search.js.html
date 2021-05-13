@@ -27,24 +27,55 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview Filtre per cercar les receptes de forma personalitzada: 
+ * @fileoverview · Filtre per cercar les receptes de forma personalitzada: 
  * &lt;p> 1) L'usuari selecciona els ingredients necessaris per trobar la recepta.&lt;/p>
  * &lt;p> 2) L'usuari introdueix per a quantes persones és la recepta a cercar.&lt;/p>
  * &lt;p> 3) L'usuari selecciona el valor energètic mínim a cercar.&lt;/p>
  * &lt;p> 4) L'usuari selecciona el valor energètic màxim a cercar.&lt;/p>
  * &lt;p> 5) L'usuari selecciona el tipus de plat a cercar.&lt;/p>
+ * &lt;p> · L'usuari selecciona el tipus de plat a cercar.&lt;/p>
+ * &lt;p> · L'usuari pot visualitzar les últimes receptes afegides.&lt;/p>
  * 
  * &lt;p> History&lt;/p>
- * 0.1 - Implementació del filtre de cerca de receptes.  
+ * &lt;p> 0.1 - Implementació del filtre de cerca de receptes.&lt;/p>
+ * &lt;p> 0.2 - Implementació de la visualització de més receptes per tipus de plat, les últimes receptes afegides, i les receptes millor valorades en el slider.&lt;/p>
+ * &lt;p> 0.3 - Implementació de la verificació del token per saber si l'usuari ha iniciat, s'ha expirat o no ha iniciat sessió.&lt;/p>
  *  
- * @version     0.1
+ * @version     0.3
  * @author      Sergio Asensio Ruiz 
  * @copyright   bienmesabe.com
  * 
  */
 
 $(document).ready(function () {
-
+    /**
+     * @constant $urlIngredients
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els ingredients.
+     */
+    /**
+     * @constant $urlTypePlate
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els tipus de plats.
+     */
+    /**
+     * @constant $urlLatestRecipes
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar totes les receptes en ordre de les últimes afegides.
+     */
+    /**
+     * @constant $urlAllUsers
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els usuaris.
+     */
+    /**
+     * @constant $urlOrderByAssessment
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar totes les receptes en ordre de millor valorades.
+     */
+    /**
+     * @constant $urlRecipe
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor veure la fitxa de les receptes.
+     */
+    /**
+     * @constant $screenSize
+     * @description Constant per emmagatzemar les dimensions de la finestra del navegador.
+     */
     /** 
      * @var $ingredient 
      * @description Variable per emmagatzemar l'ingredient que introdueix l'usuari. 
@@ -69,20 +100,215 @@ $(document).ready(function () {
      * @var $ingredients 
      * @description Array per emmagatzemar els ingredients que es troben a la BBDD registrats i es mostren a l'usuari.
      */
-    let $ingredient, $numberPersons, $valueEnergMin, $valueEnergMax, $typePlate, $ingredientId;
-    let $ingredients = [];
+    /** 
+     * @var $ingredientId 
+     * @description Variable per emmagatzemar l'ID dels ingredients en el desplegable.
+     */
+    /** 
+     * @var $userAlias 
+     * @description Variable per emmagatzemar l'alies de l'usuari que ha creat la recepta i mostrar-lo per pantalla.
+     */
+    /** 
+     * @var $forks 
+     * @description Variable per emmagatzemar la cadena per inserir en el DOM per veure la puntuació mitjana de les receptes.
+     */
+    /** 
+     * @var $difficult 
+     * @description Variable per emmagatzemar la dificultat de la recepta i mostar-lo per pantalla.
+     */
+    /** 
+     * @var $recipePlates 
+     * @description Array per emmagatzemar les receptes de la BBDD.
+     */
+    /** 
+     * @var $latestRecipes 
+     * @description Array per emmagatzemar les receptes de la BBDD ordenades per les últimes inserides.
+     */
+    /** 
+     * @var $allUsers 
+     * @description Array per emmagatzemar tots els usuaris de la BBDD.
+     */
+    /** 
+     * @var $count 
+     * @description Variable inicialitzada a 0 per contar les vegades que prenem el botó "VER MÁS" de les últimes receptes.
+     */
+    /** 
+     * @var $insert 
+     * @description Variable inicialitzada en blanc per emmagatzemar la cadena de les receptes a inserir.
+     */
+
+    const $urlIngredients = 'http://localhost:8080/api/ingredient/getIngredients',
+        $urlTypePlate = 'http://localhost:8080/api/recipeTypes/getRecipeTypes',
+        $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes',
+        $urlAllUsers = 'http://localhost:8080/api/user/getUsers',
+        $urlOrderByAssessment = 'http://localhost:8080/api/recipe/getRecipesByAssessment',
+        $urlRecipe = 'http://localhost:3000/recetas/ficha?id=',
+        $screenSize = window.screen.width;
+
+    let $ingredient,
+        $numberPersons,
+        $valueEnergMin,
+        $valueEnergMax,
+        $typePlate,
+        $ingredientId,
+        $userAlias,
+        $forks,
+        $difficult,
+        $ingredients = [],
+        $recipePlates = [],
+        $latestRecipes = [],
+        $allUsers = [],
+        $count = 0,
+        $insert = '';
+
+    // TODO: implementar la validación del token en otro página.
+
+    let $token = localStorage.getItem('token'),
+        $IDuser = localStorage.getItem('id');
+
+    if ($token != '') {
+        $.ajax({
+            url: 'http://localhost:8080/api/recipe/getRecipesOfOtherUsers/' + $IDuser,
+            type: 'GET',
+            async: false,
+            headers: {
+                'Authorization': $token
+            },
+            dataType: 'json',
+            contentType: 'aplication/json',
+            success: function ($requestToken) {
+
+                $('#login').css('display', 'none');
+                $('#register').css('display', 'none');
+                $('.btn_user').css('display', 'inline-block');
+            },
+            error: function ($error) {
+                if ($error.responseText == '') {
+                    $('#login').css('display', 'inline-block');
+                    $('#register').css('display', 'inline-block');
+                    $('.btn_user').css('display', 'none');
+                }
+            }
+        });
+    }
+    // TODO: hasta aquí la implementación del token.
 
     $.ajax({
-        url: 'http://localhost:8080/api/ingredient/getIngredients',
+        url: $urlIngredients,
         type: 'GET',
         success: function (data) {
             for (let i = 0; i &lt; data.length; i++) {
-                $ingredients[i] = data[i];
+                $ingredients.push(data[i]); //$ingredients[i] = data[i];
                 $('#list_ingredient').append("&lt;option>" + $ingredients[i].name + "&lt;/option>")
-                // data-id='" + $ingredients[i].id + "'
             }
         }
     });
+
+    $.ajax({
+        url: $urlTypePlate,
+        type: 'GET',
+        success: function (data) {
+            $('#typePlate').append('&lt;option value="all" selected>Selecciona una opción&lt;/option>');
+            for (let i = 0; i &lt; data.length; i++) {
+                $recipePlates.push(data[i]); //$recipePlates[i] = data[i]
+                $('#typePlate').append('&lt;option value="' + data[i].id + '">' + data[i].name + '&lt;/option>')
+            }
+        }
+    });
+
+    $.ajax({
+        url: $urlAllUsers,
+        type: 'GET',
+        async: false,
+        success: function ($users) {
+            for (let i = 0; i &lt; $users.length; i++) {
+                $allUsers.push($users[i]); //$allUsers[i] = $users[i];
+            }
+        }
+    });
+
+    $.ajax({
+
+        url: $urlOrderByAssessment,
+        type: 'GET',
+        async: false,
+        success: function ($plateOrderByAssessment) {
+            for (let i = 0; i &lt; 4; i++) {
+                for (let j = 0; j &lt; $allUsers.length; j++) {
+                    if ($allUsers[j][0] == $plateOrderByAssessment[i].userId) {
+                        $userAlias = $allUsers[j][4];
+                    }
+                }
+                $forks = getForks($plateOrderByAssessment[i].recipeAssessment);
+                $('.carousel-inner').append('&lt;div class="carousel-item">\
+                                                &lt;a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
+                                                    &lt;img class="imgCarousel" src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
+                                                    &lt;div class="carousel-desc">\
+                                                        &lt;div class="carousel-caption">\
+                                                            &lt;div class="title">' + $plateOrderByAssessment[i].name + '&lt;/div>\
+                                                            &lt;h3>' + $userAlias + '&lt;/h3>\
+                                                            ' + $forks + '\
+                                                        &lt;/div>\
+                                                    &lt;/div>\
+                                                &lt;/a>\
+                                            &lt;/div>');
+                if (i == 0) {
+                    $('.carousel-item').addClass('active');
+                }
+            }
+            /* if (i == 0) {
+                    $insert = $insert.concat('&lt;div class="carousel-item active">\
+                                                &lt;a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
+                                                    &lt;img class="imgCarousel" src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
+                                                    &lt;div class="carousel-desc">\
+                                                        &lt;div class="carousel-caption">\
+                                                            &lt;div class="title">' + $plateOrderByAssessment[i].name + '&lt;/div>\
+                                                            &lt;h3>' + $userAlias + '&lt;/h3>\
+                                                            ' + $forks + '\
+                                                        &lt;/div>\
+                                                    &lt;/div>\
+                                                &lt;/a>\
+                                            &lt;/div>');
+                } else {
+                    $insert = $insert.concat('&lt;div class="carousel-item">\
+                                                &lt;a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
+                                                    &lt;img class="imgCarousel" src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
+                                                    &lt;div class="carousel-desc">\
+                                                        &lt;div class="carousel-caption">\
+                                                            &lt;div class="title">' + $plateOrderByAssessment[i].name + '&lt;/div>\
+                                                            &lt;h3>' + $userAlias + '&lt;/h3>\
+                                                            ' + $forks + '\
+                                                        &lt;/div>\
+                                                    &lt;/div>\
+                                                &lt;/a>\
+                                            &lt;/div>');
+                }
+            }
+            $('.carousel-inner').append($insert); */
+        }
+    });
+
+    $.ajax({
+        url: $urlLatestRecipes,
+        type: 'GET',
+        async: false,
+        success: function ($latestRecipesAjax) {
+
+            for (let i = 0; i &lt; 12; i++) {
+                $latestRecipes[i] = $latestRecipesAjax[i];
+            }
+            if ($screenSize &lt; 1240 &amp;&amp; $screenSize > 700) {
+                insertRecipe(0, 4);
+            } else {
+                insertRecipe(0, 3);
+            }
+        }
+    })
+
+    $typePlate = $('[name=typePlate]').val();
+    $numberPersons = $('[name=numPer]').val();
+    $valueEnergMin = $('[name=valueMin]').val();
+    $valueEnergMax = $('[name=valueMax]').val();
 
     /**
      * @type {jQuery}
@@ -92,11 +318,10 @@ $(document).ready(function () {
      * @description Quan l'usuari selecciona l'ingredient, es comprova que no sigui buit i que aquest es trobi en el desplegable. Una vegada verificat, si és correcte, s'inserirà en el div $ingredients
      */
     $(document).on('change', '#inp_ingredient', () => {
-        // Iniciem els booleans.
+
         let $booleanIngredientList = false;
         let $booleanIngredientSelect = true;
 
-        // Guardem en una variable l'ingredient seleccionat.
         $ingredient = $('input[name=ingredient]').val();
 
         // Comprovem si l'ingredient introduït correspon a un ingredient que està a la llista.
@@ -149,7 +374,6 @@ $(document).ready(function () {
      */
     $('#numPer').on('change', () => {
         $numberPersons = $('#numPer option:selected').val();
-        console.log($numberPersons)
     });
 
     /**
@@ -161,7 +385,6 @@ $(document).ready(function () {
      */
     $('#valueMin').on('change', () => {
         $valueEnergMin = $('#valueMin option:selected').val();
-        console.log($valueEnergMin)
     });
 
     /**
@@ -173,7 +396,6 @@ $(document).ready(function () {
      */
     $('#valueMax').on('change', () => {
         $valueEnergMax = $('#valueMax option:selected').val();
-        console.log($valueEnergMax)
     });
 
     /**
@@ -185,7 +407,6 @@ $(document).ready(function () {
      */
     $('#typePlate').on('change', () => {
         $typePlate = $('#typePlate option:selected').val();
-        console.log($typePlate)
     });
 
     /**
@@ -196,20 +417,223 @@ $(document).ready(function () {
      * @description Detecta quan l'usuari polsa sobre el botó "BUSCAR" i envia els parametres corresponents de cerca a la pàgina "recetas".
      */
     $('.submit').on('click', function () {
+        let $search = '';
+        if ($('#ingredientes').children().length > 0) {
+            $search = 'ingredients-';
+            $('#ingredientes').children().each(function () {
+                $search = $search.concat($(this).find('.ingredient').attr('value'));
+                $search = $search.concat(',')
+            })
+            $search = $search.substr(0, $search.length - 1);
+        }
 
-        let $search = 'ingredients-';
+        if ($search.length > 0) {
+            if ($valueEnergMin != 'all' &amp;&amp; $valueEnergMax != 'all') {
+                $search = $search.concat('_kcal-' + $valueEnergMin + ',' + $valueEnergMax);
+            }
+        } else {
+            if ($valueEnergMin != 'all' &amp;&amp; $valueEnergMax != 'all') {
+                $search = $search.concat('kcal-' + $valueEnergMin + ',' + $valueEnergMax);
+            }
+        }
 
-        $('#ingredientes').children().each(function () {
-            $search = $search.concat($(this).find('.ingredient').attr('value'));
-            $search = $search.concat(',')
+        if ($search.length > 0) {
+            if ($typePlate != 'all' &amp;&amp; $typePlate != null) {
+                $search = $search.concat('_type-' + $typePlate);
+            }
+        } else {
+            if ($typePlate != 'all' &amp;&amp; $typePlate != null) {
+                $search = $search.concat('type-' + $typePlate);
+            }
+        }
+
+        if ($search.length > 0) {
+            if ($numberPersons != 'all') {
+                $search = $search.concat('_dinner-' + $numberPersons);
+            }
+        } else {
+            if ($numberPersons != 'all') {
+                $search = $search.concat('dinner-' + $numberPersons);
+            }
+        }
+
+        window.location.href = "../recetas/filtros?" + $search;
+
+    });
+
+    /**
+     * @type {jQuery}
+     * @type each
+     * @listens .recipeType - Classe de les imatges de tipus de plat del DOM.
+     * @description Assignem una funció a cada tipus de plat enviant per paràmetre el tipus de plat, per quan polsem sobre qualsevol d'ells, faci la funció desitjada.
+     */
+    $('.recipeType').each(function () {
+        $(this).on('click', () => {
+            switch ($(this).children().attr('alt')) {
+                case 'Entrantes':
+                    checkTypePlate('Entrantes');
+                    break;
+                case 'Primeros':
+                    checkTypePlate('Primeros');
+                    break;
+                case 'Segundos':
+                    checkTypePlate('Segundos');
+                    break;
+                case 'Postres':
+                    checkTypePlate('Postres');
+                    break;
+                case 'Reposteria':
+                    checkTypePlate('Repostería');
+                    break;
+
+            }
         })
 
-        $search = $search.substr(0, $search.length - 1);
-        $search = $search.concat('_kcal-' + $valueEnergMin + ',' + $valueEnergMax + '_type-21_dinner-' + $numberPersons);
+    });
 
-        window.location.href = "../recetas?" + $search;
+    /**
+     * @function checkTypePlate
+     * @description Quan polsem sobre qualsevol plat, ens envia a la pàgina de 'filtros' amb l'ID del tipus de plat corresponent.
+     * @param {string} $namePlate nom del tipus de plat seleccionat
+     */
+    function checkTypePlate($namePlate) {
+        for (let i = 0; i &lt; $recipePlates.length; i++) {
+            if ($recipePlates[i].name == $namePlate) {
+                window.location.href = '../recetas/filtros?id=' + $recipePlates[i].id
+            }
+        }
+    }
 
-    })
+    /**
+     * @function getForks
+     * @description Concatenem una cadena per inserir en el DOM i mostrar la puntuació de la recepta.
+     * @param {string} $forks Número de forquilles (puntuació) que te la recepta.
+     * @return {string}
+     */
+    function getForks($forks) {
+        let $insertForks = '&lt;div class="score_rec">';
+        for (let i = 0; i &lt; $forks; i++) {
+            $insertForks = $insertForks.concat('&lt;img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
+        }
+        if ($forks != 5) {
+            let $numberForks = 5 - $forks;
+            for (let i = 0; i &lt; $numberForks; i++) {
+                $insertForks = $insertForks.concat('&lt;img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
+            }
+        }
+        $insertForks = $insertForks.concat('&lt;/div>');
+        return $insertForks;
+    }
+
+    /**
+     * @function getDificult
+     * @description Rebem un número que representa la dificultat de la recepta i l'hi assignem una cadena String amb el text de dificultat.
+     * @param {string} $dificult Número que representa la dificultat de la recepta.
+     * @return {string}
+     */
+    function $getDificult($dificult) {
+        //let $recipeDifficult
+        switch ($dificult) {
+            case 0:
+                return /* $recipeDifficult= */ 'Muy baja';
+            case 1:
+                return /* $recipeDifficult= */ 'Baja';
+            case 2:
+                return /* $recipeDifficult= */ 'Media';
+            case 3:
+                return /* $recipeDifficult= */ 'Difícil';
+            case 4:
+                return /* $recipeDifficult= */ 'Muy difícil';
+        }
+    }
+
+    /**
+     * @type {jQuery}
+     * @type click
+     * @method on
+     * @listens .btn_lastRec - Botó per veure més receptes en la secció d'últimes afegides.
+     * @description Funció per veure més receptes al pressionar sobre el botó "VER MÁS", segons les dimensions de la pantalla, mostrarem 3 (per a versions Mobile i Desktop) o 4 (per a versions de Tablet).
+     */
+    $('.btn_lastRec').on('click', () => {
+        if ($count == 2) {
+            window.location.href = '../recetas/filtros?latestRecipes'
+        } else if ($count == 0) {
+            if ($screenSize &lt; 1240 &amp;&amp; $screenSize > 700) {
+                insertRecipe(4, 8);
+            } else {
+                insertRecipe(3, 6);
+            }
+        } else if ($count == 1) {
+            if ($screenSize &lt; 1240 &amp;&amp; $screenSize > 700) {
+                insertRecipe(8, 12);
+            } else {
+                insertRecipe(6, 9);
+            }
+        }
+        $count++;
+    });
+
+    /**
+     * @function insertRecipe
+     * @description Funció per inserir en el DOM les últimes receptes afegides a la BBDD.
+     * @param {number} $min Número mínim per començar el compte en el for.
+     * @param {number} $max Numero màxim per finalitzar el compte en el for.
+     */
+    function insertRecipe($min, $max) {
+        for (let i = $min; i &lt; $max; i++) {
+            for (let j = 0; j &lt; $allUsers.length; j++) {
+                if ($allUsers[j][0] == $latestRecipes[i].userId) {
+                    $userAlias = $allUsers[j][4];
+                }
+            }
+
+            $forks = getForks($latestRecipes[i].recipeAssessment);
+            $difficult = $getDificult($latestRecipes[i].recipeDifficult);
+
+            $('.latest_rec').append('&lt;div class="rcp_cnt">\
+                                    &lt;a href="' + $urlRecipe + $latestRecipes[i].id + '">\
+                                        &lt;div class="recipe">\
+                                            &lt;img src="' + $latestRecipes[i].image + '">\
+                                            &lt;div class="desc_rec">\
+                                                &lt;h3 id="title">' + $latestRecipes[i].name + '&lt;/h3>\
+                                                &lt;p id="author">' + $userAlias + '&lt;/p>\
+                                            &lt;/div>\
+                                        &lt;/div>\
+                                        &lt;div class="info_rec">\
+                                            &lt;p id="level">Dificultad: ' + $difficult + '&lt;/p>\
+                                            &lt;div class="time_rec">\
+                                                &lt;i class="fas fa-clock clock">&lt;/i>\
+                                                &lt;p id="time">' + $latestRecipes[i].recipeTime + ' min&lt;/p>\
+                                            &lt;/div>\
+                                        &lt;/div>\
+                                        ' + $forks + '\
+                                    &lt;/a>\
+                                &lt;/div>');
+            //insertLatestRecipe($latestRecipes[i], $userAlias, $difficult, $forks)
+        }
+    }
+
+    /* function insertLatestRecipe($recipe, $userAlias, $difficult, $forks) {
+        $('.latest_rec').append('&lt;div class="rcp_cnt">\
+                                    &lt;a href="' + $urlRecipe + $recipe.id + '">\
+                                        &lt;div class="recipe">\
+                                            &lt;img src="' + $recipe.image + '">\
+                                            &lt;div class="desc_rec">\
+                                                &lt;h3 id="title">' + $recipe.name + '&lt;/h3>\
+                                                &lt;p id="author">' + $userAlias + '&lt;/p>\
+                                            &lt;/div>\
+                                        &lt;/div>\
+                                        &lt;div class="info_rec">\
+                                            &lt;p id="level">Dificultad: ' + $difficult + '&lt;/p>\
+                                            &lt;div class="time_rec">\
+                                                &lt;i class="fas fa-clock clock">&lt;/i>\
+                                                &lt;p id="time">' + $recipe.recipeTime + ' min&lt;/p>\
+                                            &lt;/div>\
+                                        &lt;/div>\
+                                        ' + $forks + '\
+                                    &lt;/a>\
+                                &lt;/div>');
+    } */
 });</code></pre>
         </article>
     </section>
@@ -220,13 +644,13 @@ $(document).ready(function () {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#$alias">$alias</a></li><li><a href="global.html#$booleaDirection">$booleaDirection</a></li><li><a href="global.html#$booleanAlias">$booleanAlias</a></li><li><a href="global.html#$booleanBusinessPhone">$booleanBusinessPhone</a></li><li><a href="global.html#$booleanCity">$booleanCity</a></li><li><a href="global.html#$booleanCompany">$booleanCompany</a></li><li><a href="global.html#$booleanEmail">$booleanEmail</a></li><li><a href="global.html#$booleanName">$booleanName</a></li><li><a href="global.html#$booleanNif">$booleanNif</a></li><li><a href="global.html#$booleanPassword">$booleanPassword</a></li><li><a href="global.html#$booleanPc">$booleanPc</a></li><li><a href="global.html#$booleanSurname">$booleanSurname</a></li><li><a href="global.html#$businessPhone">$businessPhone</a></li><li><a href="global.html#$city">$city</a></li><li><a href="global.html#$company">$company</a></li><li><a href="global.html#$direction">$direction</a></li><li><a href="global.html#$document">$document</a></li><li><a href="global.html#$email">$email</a></li><li><a href="global.html#$ingredient">$ingredient</a></li><li><a href="global.html#$ingredients">$ingredients</a></li><li><a href="global.html#$name">$name</a></li><li><a href="global.html#$nif">$nif</a></li><li><a href="global.html#$numberPersons">$numberPersons</a></li><li><a href="global.html#$pass">$pass</a></li><li><a href="global.html#$pc">$pc</a></li><li><a href="global.html#$phone">$phone</a></li><li><a href="global.html#$typePlate">$typePlate</a></li><li><a href="global.html#$url">$url</a></li><li><a href="global.html#$valueEnergMax">$valueEnergMax</a></li><li><a href="global.html#$valueEnergMin">$valueEnergMin</a></li><li><a href="global.html#addRequired">addRequired</a></li><li><a href="global.html#blur">blur</a></li><li><a href="global.html#checkCif">checkCif</a></li><li><a href="global.html#checkDocument">checkDocument</a></li><li><a href="global.html#checkLetter">checkLetter</a></li><li><a href="global.html#checkNie">checkNie</a></li><li><a href="global.html#checkNif">checkNif</a></li><li><a href="global.html#loading">loading</a></li><li><a href="global.html#on">on</a></li><li><a href="global.html#register">register</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#$alias">$alias</a></li><li><a href="global.html#$allPlatesCakes">$allPlatesCakes</a></li><li><a href="global.html#$allPlatesDesserts">$allPlatesDesserts</a></li><li><a href="global.html#$allPlatesFirsts">$allPlatesFirsts</a></li><li><a href="global.html#$allPlatesSeconds">$allPlatesSeconds</a></li><li><a href="global.html#$allPlatesStarters">$allPlatesStarters</a></li><li><a href="global.html#$allTypePlate">$allTypePlate</a></li><li><a href="global.html#$allUsers">$allUsers</a></li><li><a href="global.html#$booleaDirection">$booleaDirection</a></li><li><a href="global.html#$booleanAlias">$booleanAlias</a></li><li><a href="global.html#$booleanBusinessPhone">$booleanBusinessPhone</a></li><li><a href="global.html#$booleanCity">$booleanCity</a></li><li><a href="global.html#$booleanCompany">$booleanCompany</a></li><li><a href="global.html#$booleanEmail">$booleanEmail</a></li><li><a href="global.html#$booleanName">$booleanName</a></li><li><a href="global.html#$booleanNif">$booleanNif</a></li><li><a href="global.html#$booleanPassword">$booleanPassword</a></li><li><a href="global.html#$booleanPc">$booleanPc</a></li><li><a href="global.html#$booleanSurname">$booleanSurname</a></li><li><a href="global.html#$businessPhone">$businessPhone</a></li><li><a href="global.html#$city">$city</a></li><li><a href="global.html#$company">$company</a></li><li><a href="global.html#$count">$count</a></li><li><a href="global.html#$countCakes">$countCakes</a></li><li><a href="global.html#$countDesserts">$countDesserts</a></li><li><a href="global.html#$countFirsts">$countFirsts</a></li><li><a href="global.html#$countSeconds">$countSeconds</a></li><li><a href="global.html#$countStarters">$countStarters</a></li><li><a href="global.html#$difficult">$difficult</a></li><li><a href="global.html#$direction">$direction</a></li><li><a href="global.html#$document">$document</a></li><li><a href="global.html#$email">$email</a></li><li><a href="global.html#$forks">$forks</a></li><li><a href="global.html#$ingredient">$ingredient</a></li><li><a href="global.html#$ingredientId">$ingredientId</a></li><li><a href="global.html#$ingredients">$ingredients</a></li><li><a href="global.html#$insert">$insert</a></li><li><a href="global.html#$latestRecipes">$latestRecipes</a></li><li><a href="global.html#$login">$login</a></li><li><a href="global.html#$name">$name</a></li><li><a href="global.html#$nif">$nif</a></li><li><a href="global.html#$numberPersons">$numberPersons</a></li><li><a href="global.html#$pass">$pass</a></li><li><a href="global.html#$pc">$pc</a></li><li><a href="global.html#$phone">$phone</a></li><li><a href="global.html#$pswrd">$pswrd</a></li><li><a href="global.html#$recipePlates">$recipePlates</a></li><li><a href="global.html#$screenSize">$screenSize</a></li><li><a href="global.html#$typePlate">$typePlate</a></li><li><a href="global.html#$url">$url</a></li><li><a href="global.html#$urlAllUsers">$urlAllUsers</a></li><li><a href="global.html#$urlIngredients">$urlIngredients</a></li><li><a href="global.html#$urlLatestRecipes">$urlLatestRecipes</a></li><li><a href="global.html#$urlLogin">$urlLogin</a></li><li><a href="global.html#$urlOrderByAssessment">$urlOrderByAssessment</a></li><li><a href="global.html#$urlRecipe">$urlRecipe</a></li><li><a href="global.html#$urlRecipes">$urlRecipes</a></li><li><a href="global.html#$urlType">$urlType</a></li><li><a href="global.html#$urlTypePlate">$urlTypePlate</a></li><li><a href="global.html#$userAlias">$userAlias</a></li><li><a href="global.html#$valueEnergMax">$valueEnergMax</a></li><li><a href="global.html#$valueEnergMin">$valueEnergMin</a></li><li><a href="global.html#addRequired">addRequired</a></li><li><a href="global.html#blur">blur</a></li><li><a href="global.html#checkCif">checkCif</a></li><li><a href="global.html#checkDocument">checkDocument</a></li><li><a href="global.html#checkLetter">checkLetter</a></li><li><a href="global.html#checkNie">checkNie</a></li><li><a href="global.html#checkNif">checkNif</a></li><li><a href="global.html#checkTypePlate">checkTypePlate</a></li><li><a href="global.html#getDificult">getDificult</a></li><li><a href="global.html#getForks">getForks</a></li><li><a href="global.html#insertPlates">insertPlates</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#loading">loading</a></li><li><a href="global.html#on">on</a></li><li><a href="global.html#receivePlate">receivePlate</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#urlTypePlate">urlTypePlate</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Apr 12 2021 18:58:00 GMT+0200 (hora de verano de Europa central)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue May 11 2021 17:13:18 GMT+0200 (hora de verano de Europa central)
 </footer>
 
 <script> prettyPrint(); </script>

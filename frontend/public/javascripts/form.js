@@ -112,9 +112,30 @@ $(document).ready(function () {
      * @constant $url
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor.
      */
-    let $name, $phone, $alias, $email, $pass, $nif, $pc, $city, $company, $direction, $businessPhone;
-    let $booleanName, $booleanSurname, $booleanPhone, $booleanAlias, $booleanEmail, $booleanPassword, $booleanNif, $booleanPc, $booleanCity, $booleanDirection, $booleanCompany, $booleanBusinessPhone;
-    let $document = 'nif';
+    let $name,
+        $phone,
+        $alias,
+        $email,
+        $pass,
+        $nif,
+        $pc,
+        $city,
+        $company,
+        $direction,
+        $businessPhone,
+        $booleanName,
+        $booleanSurname,
+        $booleanPhone,
+        $booleanAlias,
+        $booleanEmail,
+        $booleanPassword,
+        $booleanNif,
+        $booleanPc,
+        $booleanCity,
+        $booleanDirection,
+        $booleanCompany,
+        $booleanBusinessPhone,
+        $document = 'nif';
     const $url = 'http://localhost:8080/api/';
 
     /**
@@ -199,12 +220,16 @@ $(document).ready(function () {
                     if (data.alias == $alias) {
                         changeIconsError($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
                         $('#iconExcAlias').children().html('El Alias introducido ya está registrado.')
+                    } else {
+                        changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
+                        $booleanAlias = true;
                     }
-                },
-                error: function () {
-                    changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
-                    $booleanAlias = true;
                 }
+                /* ,
+                                error: function () {
+                                    changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
+                                    $booleanAlias = true;
+                                } */
             });
         }
     });
@@ -227,15 +252,21 @@ $(document).ready(function () {
                 url: $url + 'user/findUserByEmail/' + $email,
                 type: 'GET',
                 success: function (data) {
+                    console.log(data)
                     if (data.email == $email) {
+
                         changeIconsError($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
                         $('#iconExcEmail').children().html('El email introducido ya está registrado.')
+                    } else {
+                        changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
+                        $booleanEmail = true;
                     }
-                },
-                error: function () {
-                    changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
-                    $booleanEmail = true;
                 }
+                /* ,
+                                error: function () {
+                                    changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
+                                    $booleanEmail = true;
+                                } */
             });
         }
     });
@@ -511,7 +542,8 @@ $(document).ready(function () {
                 });
                 e.preventDefault();
             } else {
-                $.ajax($url + 'user/addUser/?', {
+                $.ajax({
+                    url: $url + 'user/addUser/?',
                     data: {
                         NIF: null,
                         password: $passEncrypted,
@@ -547,10 +579,10 @@ $(document).ready(function () {
      * @function register
      * @description Redirigim a la pàgina de login una vegada que s'ha completat el registre.
      */
-    function register(){
+    function register() {
         $('.checkIn_container').children().remove()
         $('.checkIn_container').html('<div style="height:300px;font-size:20px;display:flex;align-items: center;text-align: center;"><span style="color:green">Te registraste correctamente. <br>En breve serás redirigido a la página de login.</span></div>');
-        $('.checkIn_container').fadeOut(5000, function(){
+        $('.checkIn_container').fadeOut(5000, function () {
             window.location.href = '../login';
         });
     }

@@ -1,20 +1,48 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: recipes.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: recipes.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @fileoverview · Visualització de les dades de la recepta: 
- * <p> 1) Visualització de la imatge de la recepta.</p>
- * <p> 2) Visualització de l'usuari que ha creat la recepta.</p>
- * <p> 3) Visualització de la puntuació de la recepta.</p>
- * <p> 4) Visualització de la descripció de la recepta.</p>
- * <p> 5) Visualització dels ingredients de la recepta.</p>
- * <p> 6) Visualització de la taula kalorica de la recepta.</p>
- * <p> 7) Visualització del temps de la recepta.</p>
- * <p> 8) Visualització per a cuantes persones está feta la recepta.</p>
- * <p> 9) Visualització dels passos a realitzar per ver la recepta.</p>
- * <p> 10) Visualització dels comentaris dels usuaris que conté la recepta.</p>
- * <p> · Si l'usuari está registrat, aquest podrá valorar la recepta amb una puntuació de 1 a 5.</p>
- * <p> · Si l'usuari está registrat, aquest podrá comentar la recepta.</p>
+ * &lt;p> 1) Visualització de la imatge de la recepta.&lt;/p>
+ * &lt;p> 2) Visualització de l'usuari que ha creat la recepta.&lt;/p>
+ * &lt;p> 3) Visualització de la puntuació de la recepta.&lt;/p>
+ * &lt;p> 4) Visualització de la descripció de la recepta.&lt;/p>
+ * &lt;p> 5) Visualització dels ingredients de la recepta.&lt;/p>
+ * &lt;p> 6) Visualització de la taula kalorica de la recepta.&lt;/p>
+ * &lt;p> 7) Visualització del temps de la recepta.&lt;/p>
+ * &lt;p> 8) Visualització per a cuantes persones está feta la recepta.&lt;/p>
+ * &lt;p> 9) Visualització dels passos a realitzar per ver la recepta.&lt;/p>
+ * &lt;p> 10) Visualització dels comentaris dels usuaris que conté la recepta.&lt;/p>
+ * &lt;p> · Si l'usuari está registrat, aquest podrá valorar la recepta amb una puntuació de 1 a 5.&lt;/p>
+ * &lt;p> · Si l'usuari está registrat, aquest podrá comentar la recepta.&lt;/p>
  * 
- * <p> History</p>
- * <p> 0.1 - Implementació de la visualitzacióde la recepta + comentar i valorar.</p>
+ * &lt;p> History&lt;/p>
+ * &lt;p> 0.1 - Implementació de la visualitzacióde la recepta + comentar i valorar.&lt;/p>
  *  
  * @version     0.1
  * @author      Sergio Asensio Ruiz 
@@ -132,7 +160,7 @@ $(document).ready(function () {
         type: 'GET',
         async: false,
         success: function ($users) {
-            for (let i = 0; i < $users.length; i++) {
+            for (let i = 0; i &lt; $users.length; i++) {
                 $allUsers[i] = $users[i];
             }
         }
@@ -142,15 +170,15 @@ $(document).ready(function () {
         url: $urlType,
         type: 'GET',
         success: function ($typePlate) {
-            for (let i = 0; i < $typePlate.length; i++) {
+            for (let i = 0; i &lt; $typePlate.length; i++) {
                 $allTypePlate.push($typePlate[i]);
                 $.ajax({
                     url: $urlRecipes + $typePlate[i].id,
                     type: 'GET',
                     async: false,
                     success: function ($recipe) {
-                        for (let x = 0; x < $recipe.length; x++) {
-                            for (let j = 0; j < $allUsers.length; j++) {
+                        for (let x = 0; x &lt; $recipe.length; x++) {
+                            for (let j = 0; j &lt; $allUsers.length; j++) {
                                 //TODO: BORRAR LO COMENTADO
                                 if ( /* $allUsers[j].id */ $allUsers[j][0] == $recipe[x].userId) {
                                     $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
@@ -176,7 +204,7 @@ $(document).ready(function () {
                 });
             }
 
-            if ($screenSize <= 700) {
+            if ($screenSize &lt;= 700) {
                 if ($allPlatesStarters.length != 0) {
                     insertPlates(0, 4, $allPlatesStarters, '#starters', 'entrantes');
                 }
@@ -223,25 +251,25 @@ $(document).ready(function () {
      * @param {String} $classPlate String amb el tipus de plat que és la recepta per inserir la classe.
      */
     /* function receivePlate($recipe, $userAlias, $forks, $difficult, $typePlate, $classPlate) {
-        $($typePlate).append('<div class="rcp_cnt">\
-                                <a href="' + $urlRecipe + $recipe.id + '">\
-                                    <div class="recipe ' + $classPlate + '">\
-                                        <img src="' + $recipe.image + '" alt="Entrantes" style="width: 100%;">\
-                                        <div class="desc_rec">\
-                                            <h3 id="title">' + $recipe.name + '</h3>\
-                                            <p id="author">' + $userAlias + '</p>\
-                                        </div>\
-                                    </div>\
-                                    <div class="info_rec">\
-                                        <p id="level">Dificultad: ' + $difficult + '</p>\
-                                        <div class="time_rec">\
-                                            <i class="fas fa-clock clock"></i>\
-                                            <p id="time">' + $recipe.recipeTime + ' min</p>\
-                                        </div>\
-                                    </div>\
+        $($typePlate).append('&lt;div class="rcp_cnt">\
+                                &lt;a href="' + $urlRecipe + $recipe.id + '">\
+                                    &lt;div class="recipe ' + $classPlate + '">\
+                                        &lt;img src="' + $recipe.image + '" alt="Entrantes" style="width: 100%;">\
+                                        &lt;div class="desc_rec">\
+                                            &lt;h3 id="title">' + $recipe.name + '&lt;/h3>\
+                                            &lt;p id="author">' + $userAlias + '&lt;/p>\
+                                        &lt;/div>\
+                                    &lt;/div>\
+                                    &lt;div class="info_rec">\
+                                        &lt;p id="level">Dificultad: ' + $difficult + '&lt;/p>\
+                                        &lt;div class="time_rec">\
+                                            &lt;i class="fas fa-clock clock">&lt;/i>\
+                                            &lt;p id="time">' + $recipe.recipeTime + ' min&lt;/p>\
+                                        &lt;/div>\
+                                    &lt;/div>\
                                     ' + $forks + '\
-                                </a>\
-                            </div>');
+                                &lt;/a>\
+                            &lt;/div>');
     } */
 
     /**
@@ -251,17 +279,17 @@ $(document).ready(function () {
      * @return {string}
      */
     function getForks($forks) {
-        let $insertForks = '<div class="score_rec">';
-        for (let i = 0; i < $forks; i++) {
-            $insertForks = $insertForks.concat('<img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
+        let $insertForks = '&lt;div class="score_rec">';
+        for (let i = 0; i &lt; $forks; i++) {
+            $insertForks = $insertForks.concat('&lt;img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
         }
         if ($forks != 5) {
             let $numberForks = 5 - $forks;
-            for (let i = 0; i < $numberForks; i++) {
-                $insertForks = $insertForks.concat('<img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
+            for (let i = 0; i &lt; $numberForks; i++) {
+                $insertForks = $insertForks.concat('&lt;img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
             }
         }
-        $insertForks = $insertForks.concat('</div>');
+        $insertForks = $insertForks.concat('&lt;/div>');
         return $insertForks;
     }
 
@@ -296,7 +324,7 @@ $(document).ready(function () {
     $('.btn_more').each(function () {
         $(this).on('click', () => {
             let $typePlateButton = $(this).siblings()[1].id;
-            if ($screenSize <= 700) {
+            if ($screenSize &lt;= 700) {
                 if ($typePlateButton == 'starters') {
                     if ($countStarters == 0) {
                         insertPlates(4, 8, $allPlatesStarters, '#starters', 'entrantes');
@@ -405,8 +433,9 @@ $(document).ready(function () {
      */
 
     function insertPlates($count, $maxCount, $insertPlates, $insertTypePlate, $insertTypePlateSpanish) {
-        for (let i = $count; i < $maxCount; i++) {
-            for (let j = 0; j < $allUsers.length; j++) {
+        console.log($insertPlates)
+        for (let i = $count; i &lt; $maxCount; i++) {
+            for (let j = 0; j &lt; $allUsers.length; j++) {
                 //TODO: BORRAR LO COMENTADO
                 if ( /* $allUsers[j].id */ $allUsers[j][0] == $insertPlates[i].userId) {
                     $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
@@ -415,25 +444,25 @@ $(document).ready(function () {
             $forks = getForks($insertPlates[i].recipeAssessment);
             $difficult = getDifficult($insertPlates[i].recipeDifficult);
 
-            $($insertTypePlate).append('<div class="rcp_cnt">\
-                                        <a href="' + $urlRecipe + $insertPlates[i].id + '">\
-                                            <div class="recipe ' + $insertTypePlateSpanish + '">\
-                                                <img src="' + $insertPlates[i].image + '" alt="Entrantes" style="width: 100%;">\
-                                                <div class="desc_rec">\
-                                                    <h3 id="title">' + $insertPlates[i].name + '</h3>\
-                                                    <p id="author">' + $userAlias + '</p>\
-                                                </div>\
-                                            </div>\
-                                            <div class="info_rec">\
-                                                <p id="level">Dificultad: ' + $difficult + '</p>\
-                                                <div class="time_rec">\
-                                                    <i class="fas fa-clock clock"></i>\
-                                                    <p id="time">' + $insertPlates[i].recipeTime + ' min</p>\
-                                                </div>\
-                                            </div>\
+            $($insertTypePlate).append('&lt;div class="rcp_cnt">\
+                                        &lt;a href="' + $urlRecipe + $insertPlates[i].id + '">\
+                                            &lt;div class="recipe ' + $insertTypePlateSpanish + '">\
+                                                &lt;img src="' + $insertPlates[i].image + '" alt="Entrantes" style="width: 100%;">\
+                                                &lt;div class="desc_rec">\
+                                                    &lt;h3 id="title">' + $insertPlates[i].name + '&lt;/h3>\
+                                                    &lt;p id="author">' + $userAlias + '&lt;/p>\
+                                                &lt;/div>\
+                                            &lt;/div>\
+                                            &lt;div class="info_rec">\
+                                                &lt;p id="level">Dificultad: ' + $difficult + '&lt;/p>\
+                                                &lt;div class="time_rec">\
+                                                    &lt;i class="fas fa-clock clock">&lt;/i>\
+                                                    &lt;p id="time">' + $insertPlates[i].recipeTime + ' min&lt;/p>\
+                                                &lt;/div>\
+                                            &lt;/div>\
                                             ' + $forks + '\
-                                        </a>\
-                                    </div>');
+                                        &lt;/a>\
+                                    &lt;/div>');
             //function receivePlate($recipe, $userAlias, $forks, $difficult, $typePlate, $classPlate) {
             //}
             //receivePlate($insertPlates[i], $userAlias, $forks, $difficult, $insertTypePlate, $insertTypePlateSpanish);
@@ -446,11 +475,33 @@ $(document).ready(function () {
      * @param {string} $namePlate nom del plat.
      */
     function urlTypePlate($namePlate) {
-        for (let i = 0; i < $allTypePlate.length; i++) {
+        for (let i = 0; i &lt; $allTypePlate.length; i++) {
             if ($allTypePlate[i].name == $namePlate) {
                 window.location.href = '../recetas/filtros?id=' + $allTypePlate[i].id
             }
 
         }
     }
-});
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#$alias">$alias</a></li><li><a href="global.html#$allPlatesCakes">$allPlatesCakes</a></li><li><a href="global.html#$allPlatesDesserts">$allPlatesDesserts</a></li><li><a href="global.html#$allPlatesFirsts">$allPlatesFirsts</a></li><li><a href="global.html#$allPlatesSeconds">$allPlatesSeconds</a></li><li><a href="global.html#$allPlatesStarters">$allPlatesStarters</a></li><li><a href="global.html#$allTypePlate">$allTypePlate</a></li><li><a href="global.html#$allUsers">$allUsers</a></li><li><a href="global.html#$booleaDirection">$booleaDirection</a></li><li><a href="global.html#$booleanAlias">$booleanAlias</a></li><li><a href="global.html#$booleanBusinessPhone">$booleanBusinessPhone</a></li><li><a href="global.html#$booleanCity">$booleanCity</a></li><li><a href="global.html#$booleanCompany">$booleanCompany</a></li><li><a href="global.html#$booleanEmail">$booleanEmail</a></li><li><a href="global.html#$booleanName">$booleanName</a></li><li><a href="global.html#$booleanNif">$booleanNif</a></li><li><a href="global.html#$booleanPassword">$booleanPassword</a></li><li><a href="global.html#$booleanPc">$booleanPc</a></li><li><a href="global.html#$booleanSurname">$booleanSurname</a></li><li><a href="global.html#$businessPhone">$businessPhone</a></li><li><a href="global.html#$city">$city</a></li><li><a href="global.html#$company">$company</a></li><li><a href="global.html#$count">$count</a></li><li><a href="global.html#$countCakes">$countCakes</a></li><li><a href="global.html#$countDesserts">$countDesserts</a></li><li><a href="global.html#$countFirsts">$countFirsts</a></li><li><a href="global.html#$countSeconds">$countSeconds</a></li><li><a href="global.html#$countStarters">$countStarters</a></li><li><a href="global.html#$difficult">$difficult</a></li><li><a href="global.html#$direction">$direction</a></li><li><a href="global.html#$document">$document</a></li><li><a href="global.html#$email">$email</a></li><li><a href="global.html#$forks">$forks</a></li><li><a href="global.html#$ingredient">$ingredient</a></li><li><a href="global.html#$ingredientId">$ingredientId</a></li><li><a href="global.html#$ingredients">$ingredients</a></li><li><a href="global.html#$insert">$insert</a></li><li><a href="global.html#$latestRecipes">$latestRecipes</a></li><li><a href="global.html#$login">$login</a></li><li><a href="global.html#$name">$name</a></li><li><a href="global.html#$nif">$nif</a></li><li><a href="global.html#$numberPersons">$numberPersons</a></li><li><a href="global.html#$pass">$pass</a></li><li><a href="global.html#$pc">$pc</a></li><li><a href="global.html#$phone">$phone</a></li><li><a href="global.html#$pswrd">$pswrd</a></li><li><a href="global.html#$recipePlates">$recipePlates</a></li><li><a href="global.html#$screenSize">$screenSize</a></li><li><a href="global.html#$typePlate">$typePlate</a></li><li><a href="global.html#$url">$url</a></li><li><a href="global.html#$urlAllUsers">$urlAllUsers</a></li><li><a href="global.html#$urlIngredients">$urlIngredients</a></li><li><a href="global.html#$urlLatestRecipes">$urlLatestRecipes</a></li><li><a href="global.html#$urlLogin">$urlLogin</a></li><li><a href="global.html#$urlOrderByAssessment">$urlOrderByAssessment</a></li><li><a href="global.html#$urlRecipe">$urlRecipe</a></li><li><a href="global.html#$urlRecipes">$urlRecipes</a></li><li><a href="global.html#$urlType">$urlType</a></li><li><a href="global.html#$urlTypePlate">$urlTypePlate</a></li><li><a href="global.html#$userAlias">$userAlias</a></li><li><a href="global.html#$valueEnergMax">$valueEnergMax</a></li><li><a href="global.html#$valueEnergMin">$valueEnergMin</a></li><li><a href="global.html#addRequired">addRequired</a></li><li><a href="global.html#blur">blur</a></li><li><a href="global.html#checkCif">checkCif</a></li><li><a href="global.html#checkDocument">checkDocument</a></li><li><a href="global.html#checkLetter">checkLetter</a></li><li><a href="global.html#checkNie">checkNie</a></li><li><a href="global.html#checkNif">checkNif</a></li><li><a href="global.html#checkTypePlate">checkTypePlate</a></li><li><a href="global.html#getDificult">getDificult</a></li><li><a href="global.html#getForks">getForks</a></li><li><a href="global.html#insertPlates">insertPlates</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#loading">loading</a></li><li><a href="global.html#on">on</a></li><li><a href="global.html#receivePlate">receivePlate</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#urlTypePlate">urlTypePlate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue May 11 2021 17:13:18 GMT+0200 (hora de verano de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

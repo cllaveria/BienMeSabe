@@ -140,9 +140,30 @@ $(document).ready(function () {
      * @constant $url
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor.
      */
-    let $name, $phone, $alias, $email, $pass, $nif, $pc, $city, $company, $direction, $businessPhone;
-    let $booleanName, $booleanSurname, $booleanPhone, $booleanAlias, $booleanEmail, $booleanPassword, $booleanNif, $booleanPc, $booleanCity, $booleanDirection, $booleanCompany, $booleanBusinessPhone;
-    let $document = 'nif';
+    let $name,
+        $phone,
+        $alias,
+        $email,
+        $pass,
+        $nif,
+        $pc,
+        $city,
+        $company,
+        $direction,
+        $businessPhone,
+        $booleanName,
+        $booleanSurname,
+        $booleanPhone,
+        $booleanAlias,
+        $booleanEmail,
+        $booleanPassword,
+        $booleanNif,
+        $booleanPc,
+        $booleanCity,
+        $booleanDirection,
+        $booleanCompany,
+        $booleanBusinessPhone,
+        $document = 'nif';
     const $url = 'http://localhost:8080/api/';
 
     /**
@@ -227,12 +248,16 @@ $(document).ready(function () {
                     if (data.alias == $alias) {
                         changeIconsError($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
                         $('#iconExcAlias').children().html('El Alias introducido ya está registrado.')
+                    } else {
+                        changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
+                        $booleanAlias = true;
                     }
-                },
-                error: function () {
-                    changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
-                    $booleanAlias = true;
                 }
+                /* ,
+                                error: function () {
+                                    changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
+                                    $booleanAlias = true;
+                                } */
             });
         }
     });
@@ -255,15 +280,21 @@ $(document).ready(function () {
                 url: $url + 'user/findUserByEmail/' + $email,
                 type: 'GET',
                 success: function (data) {
+                    console.log(data)
                     if (data.email == $email) {
+
                         changeIconsError($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
                         $('#iconExcEmail').children().html('El email introducido ya está registrado.')
+                    } else {
+                        changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
+                        $booleanEmail = true;
                     }
-                },
-                error: function () {
-                    changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
-                    $booleanEmail = true;
                 }
+                /* ,
+                                error: function () {
+                                    changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
+                                    $booleanEmail = true;
+                                } */
             });
         }
     });
@@ -477,8 +508,6 @@ $(document).ready(function () {
         }
         if ($phone == '') {
             $phone = null;
-        } else {
-            $phoneEncrypted = hex_md5($phone);
         }
         if ($company == '') {
             $company = null;
@@ -528,11 +557,7 @@ $(document).ready(function () {
                     success: function () {
                         loading();
                         $('#loading').fadeOut(1500, function () {
-                            $('.checkIn_container').children().remove()
-                            $('.checkIn_container').html('&lt;div style="height:300px;font-size:20px;display:flex;align-items: center;text-align: center;">&lt;span style="color:green">Te registraste correctamente. &lt;br>En breve serás redirigido a la página de login.&lt;/span>&lt;/div>');
-                            $('.checkIn_container').fadeOut(1000, function(){
-                                window.location.href = '../login';
-                            });
+                            register();
                         });
                     }
                 });
@@ -545,7 +570,8 @@ $(document).ready(function () {
                 });
                 e.preventDefault();
             } else {
-                $.ajax($url + 'user/addUser/?', {
+                $.ajax({
+                    url: $url + 'user/addUser/?',
                     data: {
                         NIF: null,
                         password: $passEncrypted,
@@ -581,10 +607,10 @@ $(document).ready(function () {
      * @function register
      * @description Redirigim a la pàgina de login una vegada que s'ha completat el registre.
      */
-    function register(){
+    function register() {
         $('.checkIn_container').children().remove()
         $('.checkIn_container').html('&lt;div style="height:300px;font-size:20px;display:flex;align-items: center;text-align: center;">&lt;span style="color:green">Te registraste correctamente. &lt;br>En breve serás redirigido a la página de login.&lt;/span>&lt;/div>');
-        $('.checkIn_container').fadeOut(1000, function(){
+        $('.checkIn_container').fadeOut(5000, function () {
             window.location.href = '../login';
         });
     }
@@ -900,13 +926,13 @@ $(document).ready(function () {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#$alias">$alias</a></li><li><a href="global.html#$booleaDirection">$booleaDirection</a></li><li><a href="global.html#$booleanAlias">$booleanAlias</a></li><li><a href="global.html#$booleanBusinessPhone">$booleanBusinessPhone</a></li><li><a href="global.html#$booleanCity">$booleanCity</a></li><li><a href="global.html#$booleanCompany">$booleanCompany</a></li><li><a href="global.html#$booleanEmail">$booleanEmail</a></li><li><a href="global.html#$booleanName">$booleanName</a></li><li><a href="global.html#$booleanNif">$booleanNif</a></li><li><a href="global.html#$booleanPassword">$booleanPassword</a></li><li><a href="global.html#$booleanPc">$booleanPc</a></li><li><a href="global.html#$booleanSurname">$booleanSurname</a></li><li><a href="global.html#$businessPhone">$businessPhone</a></li><li><a href="global.html#$city">$city</a></li><li><a href="global.html#$company">$company</a></li><li><a href="global.html#$direction">$direction</a></li><li><a href="global.html#$document">$document</a></li><li><a href="global.html#$email">$email</a></li><li><a href="global.html#$ingredient">$ingredient</a></li><li><a href="global.html#$ingredients">$ingredients</a></li><li><a href="global.html#$name">$name</a></li><li><a href="global.html#$nif">$nif</a></li><li><a href="global.html#$numberPersons">$numberPersons</a></li><li><a href="global.html#$pass">$pass</a></li><li><a href="global.html#$pc">$pc</a></li><li><a href="global.html#$phone">$phone</a></li><li><a href="global.html#$typePlate">$typePlate</a></li><li><a href="global.html#$url">$url</a></li><li><a href="global.html#$valueEnergMax">$valueEnergMax</a></li><li><a href="global.html#$valueEnergMin">$valueEnergMin</a></li><li><a href="global.html#addRequired">addRequired</a></li><li><a href="global.html#blur">blur</a></li><li><a href="global.html#checkCif">checkCif</a></li><li><a href="global.html#checkDocument">checkDocument</a></li><li><a href="global.html#checkLetter">checkLetter</a></li><li><a href="global.html#checkNie">checkNie</a></li><li><a href="global.html#checkNif">checkNif</a></li><li><a href="global.html#loading">loading</a></li><li><a href="global.html#on">on</a></li><li><a href="global.html#register">register</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#$alias">$alias</a></li><li><a href="global.html#$allPlatesCakes">$allPlatesCakes</a></li><li><a href="global.html#$allPlatesDesserts">$allPlatesDesserts</a></li><li><a href="global.html#$allPlatesFirsts">$allPlatesFirsts</a></li><li><a href="global.html#$allPlatesSeconds">$allPlatesSeconds</a></li><li><a href="global.html#$allPlatesStarters">$allPlatesStarters</a></li><li><a href="global.html#$allTypePlate">$allTypePlate</a></li><li><a href="global.html#$allUsers">$allUsers</a></li><li><a href="global.html#$booleaDirection">$booleaDirection</a></li><li><a href="global.html#$booleanAlias">$booleanAlias</a></li><li><a href="global.html#$booleanBusinessPhone">$booleanBusinessPhone</a></li><li><a href="global.html#$booleanCity">$booleanCity</a></li><li><a href="global.html#$booleanCompany">$booleanCompany</a></li><li><a href="global.html#$booleanEmail">$booleanEmail</a></li><li><a href="global.html#$booleanName">$booleanName</a></li><li><a href="global.html#$booleanNif">$booleanNif</a></li><li><a href="global.html#$booleanPassword">$booleanPassword</a></li><li><a href="global.html#$booleanPc">$booleanPc</a></li><li><a href="global.html#$booleanSurname">$booleanSurname</a></li><li><a href="global.html#$businessPhone">$businessPhone</a></li><li><a href="global.html#$city">$city</a></li><li><a href="global.html#$company">$company</a></li><li><a href="global.html#$count">$count</a></li><li><a href="global.html#$countCakes">$countCakes</a></li><li><a href="global.html#$countDesserts">$countDesserts</a></li><li><a href="global.html#$countFirsts">$countFirsts</a></li><li><a href="global.html#$countSeconds">$countSeconds</a></li><li><a href="global.html#$countStarters">$countStarters</a></li><li><a href="global.html#$difficult">$difficult</a></li><li><a href="global.html#$direction">$direction</a></li><li><a href="global.html#$document">$document</a></li><li><a href="global.html#$email">$email</a></li><li><a href="global.html#$forks">$forks</a></li><li><a href="global.html#$ingredient">$ingredient</a></li><li><a href="global.html#$ingredientId">$ingredientId</a></li><li><a href="global.html#$ingredients">$ingredients</a></li><li><a href="global.html#$insert">$insert</a></li><li><a href="global.html#$latestRecipes">$latestRecipes</a></li><li><a href="global.html#$login">$login</a></li><li><a href="global.html#$name">$name</a></li><li><a href="global.html#$nif">$nif</a></li><li><a href="global.html#$numberPersons">$numberPersons</a></li><li><a href="global.html#$pass">$pass</a></li><li><a href="global.html#$pc">$pc</a></li><li><a href="global.html#$phone">$phone</a></li><li><a href="global.html#$pswrd">$pswrd</a></li><li><a href="global.html#$recipePlates">$recipePlates</a></li><li><a href="global.html#$screenSize">$screenSize</a></li><li><a href="global.html#$typePlate">$typePlate</a></li><li><a href="global.html#$url">$url</a></li><li><a href="global.html#$urlAllUsers">$urlAllUsers</a></li><li><a href="global.html#$urlIngredients">$urlIngredients</a></li><li><a href="global.html#$urlLatestRecipes">$urlLatestRecipes</a></li><li><a href="global.html#$urlLogin">$urlLogin</a></li><li><a href="global.html#$urlOrderByAssessment">$urlOrderByAssessment</a></li><li><a href="global.html#$urlRecipe">$urlRecipe</a></li><li><a href="global.html#$urlRecipes">$urlRecipes</a></li><li><a href="global.html#$urlType">$urlType</a></li><li><a href="global.html#$urlTypePlate">$urlTypePlate</a></li><li><a href="global.html#$userAlias">$userAlias</a></li><li><a href="global.html#$valueEnergMax">$valueEnergMax</a></li><li><a href="global.html#$valueEnergMin">$valueEnergMin</a></li><li><a href="global.html#addRequired">addRequired</a></li><li><a href="global.html#blur">blur</a></li><li><a href="global.html#checkCif">checkCif</a></li><li><a href="global.html#checkDocument">checkDocument</a></li><li><a href="global.html#checkLetter">checkLetter</a></li><li><a href="global.html#checkNie">checkNie</a></li><li><a href="global.html#checkNif">checkNif</a></li><li><a href="global.html#checkTypePlate">checkTypePlate</a></li><li><a href="global.html#getDificult">getDificult</a></li><li><a href="global.html#getForks">getForks</a></li><li><a href="global.html#insertPlates">insertPlates</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#loading">loading</a></li><li><a href="global.html#on">on</a></li><li><a href="global.html#receivePlate">receivePlate</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#urlTypePlate">urlTypePlate</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Apr 12 2021 18:58:00 GMT+0200 (hora de verano de Europa central)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue May 11 2021 17:13:18 GMT+0200 (hora de verano de Europa central)
 </footer>
 
 <script> prettyPrint(); </script>
