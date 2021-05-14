@@ -53,8 +53,9 @@ $(document).ready(function () {
             type: 'POST',
             success: function ($token) {
                 if ($token != '') {
-                    localStorage.setItem('token', $token.token);
                     localStorage.setItem('id', $token.id);
+                    localStorage.setItem('token', $token.token);
+                    
                     window.location = '/';
                 } else {
                     $('.messageError').css('display', 'block')

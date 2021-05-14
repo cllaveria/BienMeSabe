@@ -104,10 +104,6 @@ $(document).ready(function () {
      * @var $count 
      * @description Variable inicialitzada a 0 per contar les vegades que prenem el botó "VER MÁS" de les últimes receptes.
      */
-    /** 
-     * @var $insert 
-     * @description Variable inicialitzada en blanc per emmagatzemar la cadena de les receptes a inserir.
-     */
 
     const $urlIngredients = 'http://localhost:8080/api/ingredient/getIngredients',
         $urlTypePlate = 'http://localhost:8080/api/recipeTypes/getRecipeTypes',
@@ -130,8 +126,13 @@ $(document).ready(function () {
         $recipePlates = [],
         $latestRecipes = [],
         $allUsers = [],
-        $count = 0,
-        $insert = '';
+        $count = 0;
+
+    /** 
+     * @var $insert 
+     * @description Variable inicialitzada en blanc per emmagatzemar la cadena de les receptes a inserir.
+     */
+    /* $insert = ''; */
 
     // TODO: implementar la validación del token en otro página.
 

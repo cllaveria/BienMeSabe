@@ -1,6 +1,8 @@
 $(document).ready(function () {
 
-    const $urlModifyDataUser = 'http://localhost:8080/api/user/';
+    const $urlModifyDataUser = 'http://localhost:8080/api/user/',
+        $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes';
+
     let $user,
         $alias,
         $email,
@@ -10,9 +12,10 @@ $(document).ready(function () {
         $name,
         $surname,
         $phone,
-        $nif;
-    let $responseAlias, $responseEmail;
-    let $concat = '';
+        $nif,
+        $responseAlias,
+        $responseEmail,
+        $concat = '';
 
     let $token = localStorage.getItem('token');
     let $IDuser = localStorage.getItem('id');
@@ -44,10 +47,14 @@ $(document).ready(function () {
     }
 
     $.ajax({
-        url: 'http://localhost:8080/api/user/getUserById/' + $IDuser,
+        url: 'http://localhost:8080/api/user/getUserByIdWithAllProperties/' + $IDuser,
         type: 'GET',
         async: false,
+        headers: {
+            'Authorization': $token
+        },
         success: function ($userAjax) {
+            console.log($userAjax)
             $user = $userAjax;
         }
     });
@@ -179,6 +186,7 @@ $(document).ready(function () {
 
     $('.btn_checkOut').on('click', () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('id');
         window.location = '/';
     });
 
@@ -190,12 +198,58 @@ $(document).ready(function () {
                 'Authorization': $token
             },
             success: function () {
-
-                localStorage.removeItem('token');
                 localStorage.removeItem('id');
+                localStorage.removeItem('token');
+
 
                 window.location = '/';
             }
         });
     });
+
+    // TODO: Esto pertenece a la parte de ver las recetas y modificarlas.
+
+    $.ajax({
+        url: $urlLatestRecipes,
+        type: 'GET',
+        async: false,
+        headers: {
+            'Authorization': $token
+        },
+        success: function ($latestRecipes) {
+            $.each($latestRecipes, function ($index, $recipe) {
+                if ($recipe.userId == $IDuser) {
+                    $('#recipes').append(' <div id="listRecipes" style="display: flex;" value="' + $recipe.id + '"> \
+                                            Receta: ' + $recipe.name + '\
+                                                <button class="button btn_checkIn btn_viewRecipe" >VER RECETA</button>\
+                                                <button class="button btn_checkIn btn_modifyRecipe" >MODIFICAR RECETA</button>\
+                                                <button class="button btn_checkIn btn_deleteRecipe" >BORRAR RECETA</button>\
+                                            </div>');
+                }
+            });
+        }
+    });
+
+    $('.btn_viewRecipe').on('click', function () {
+        window.location = '/recetas/ficha?id=' + $(this).parents().attr('value');
+    });
+
+    $('.btn_deleteRecipe').on('click', function () {
+        console.log($(this).parents())
+        $.ajax({
+            url: 'http://localhost:8080/api/recipe/deleteRecipeById/' + $(this).parents().attr('value'),
+            type: 'DELETE',
+            headers: {
+                'Authorization': $token
+            },
+            success: function () {
+                location.reload();
+            }
+        });
+    });
+
+    $('.btn_modifyRecipe').on('click', function () {
+        // TODO: Cuenado se creen las páginas correspondientes, modificar el enlace.
+        window.location = '/panelUsuario/modificarReceta?id=' + $(this).parents().attr('value');
+    })
 });

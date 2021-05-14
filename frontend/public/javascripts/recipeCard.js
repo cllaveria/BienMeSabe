@@ -1,14 +1,150 @@
+/**
+ * @fileoverview · Visualització de les dades de la recepta: 
+ * <p> 1) Visualització de la imatge de la recepta.</p>
+ * <p> 2) Visualització de l'usuari que ha creat la recepta.</p>
+ * <p> 3) Visualització de la puntuació de la recepta.</p>
+ * <p> 4) Visualització de la descripció de la recepta.</p>
+ * <p> 5) Visualització dels ingredients de la recepta.</p>
+ * <p> 6) Visualització de la taula kalorica de la recepta.</p>
+ * <p> 7) Visualització del temps de la recepta.</p>
+ * <p> 8) Visualització per a cuantes persones está feta la recepta.</p>
+ * <p> 9) Visualització dels passos a realitzar per ver la recepta.</p>
+ * <p> 10) Visualització dels comentaris dels usuaris que conté la recepta.</p>
+ * <p> · Si l'usuari está registrat, aquest podrá valorar la recepta amb una puntuació de 1 a 5.</p>
+ * <p> · Si l'usuari está registrat, aquest podrá comentar la recepta.</p>
+ * 
+ * <p> History</p>
+ * <p> 0.1 - Implementació de la visualitzacióde la recepta + comentar i valorar.</p>
+ *  
+ * @version     0.1
+ * @author      Sergio Asensio Ruiz 
+ * @copyright   bienmesabe.com
+ * 
+ */
+
 $(document).ready(function () {
 
-    const $receivedData = (window.location.search).substr(1, );
-    const $urlRecipe = 'http://localhost:8080/api/recipe/getRecipesById/';
-    const $urlIngredients = 'http://localhost:8080/api/ingredient/getIngredients';
-    const $urlComments = 'http://localhost:8080/api/comment/getCommentsByRecipeId/';
-    const $urlAllUsers = 'http://localhost:8080/api/user/getUsers';
-    const $urlAddComment = 'http://localhost:8080/api/comment/addComment/';
-    const $urlAddAssessment = 'http://localhost:8080/api/assessment/addAssessment/';
-    const $arrayRecipe = $receivedData.split('_');
-    const $idRecipe = $arrayRecipe[0].substr(3, );
+    /**
+     * @constant $receivedData
+     * @description Constant per emmagatzemar la ruta rebuda per URL.
+     */
+    /**
+     * @constant $urlRecipe
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor veure la fitxa de les receptes.
+     */
+    /**
+     * @constant $urlIngredients
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els ingredients.
+     */
+    /**
+     * @constant $urlComments
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els comentaris de la recepta.
+     */
+    /**
+     * @constant $urlAllUsers
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els usuaris.
+     */
+    /**
+     * @constant $urlAddComment
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i poder comentar les receptes.
+     */
+    /**
+     * @constant $urlAddAssessment
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i poder valorar les receptes.
+     */
+    /**
+     * @constant $arrayRecipe
+     * @description Constant per emmagatzemar en forma d'array l'ID de la recepta i els comensals rebuts per URL.
+     */
+    /**
+     * @constant $idRecipe
+     * @description Constant per emmagatzemar l'ID de la recepta.
+     */
+
+
+    /** 
+     * @var $totalDinner 
+     * @description Variable per emmagatzemar els comensals de l'array.
+     */
+    /** 
+     * @var $collapse 
+     * @description Variable per emmagatzemar el tipus de collapse per mostrar en passos de la recepta.
+     */
+    /** 
+     * @var $heading 
+     * @description Variable per emmagatzemar el tipus de heading per mostrar en passos de la recepta.
+     */
+    /** 
+     * @var $user 
+     * @description Variable per emmagatzemar l'alies de l'usuari que ha creat la recepta.
+     */
+    /** 
+     * @var $carbohidrates 
+     * @description Variable inicialitzada a 0 per emmagatzemar els carbohidrats de la recepta.
+     */
+    /** 
+     * @var $proteins 
+     * @description Variable inicialitzada a 0 per emmagatzemar les proteïnes de la recepta.
+     */
+    /** 
+     * @var $fat 
+     * @description Variable inicialitzada a 0 per emmagatzemar les grases de la recepta.
+     */
+    /** 
+     * @var $satured 
+     * @description Variable inicialitzada a 0 per emmagatzemar les grases saturades de la recepta.
+     */
+    /** 
+     * @var $monoinsaturated 
+     * @description Variable inicialitzada a 0 per emmagatzemar les grases monosaturades de la recepta.
+     */
+    /** 
+     * @var $polyinsaturated 
+     * @description Variable inicialitzada a 0 per emmagatzemar les grases polyinsaturades de la recepta.
+     */
+    /** 
+     * @var $sugars 
+     * @description Variable inicialitzada a 0 per emmagatzemar els sucres de la recepta.
+     */
+    /** 
+     * @var $fiber 
+     * @description Variable inicialitzada a 0 per emmagatzemar les fibres de la recepta.
+     */
+    /** 
+     * @var $sodium 
+     * @description Variable inicialitzada a 0 per emmagatzemar el sodi de la recepta.
+     */
+    /** 
+     * @var $booleanComment 
+     * @description Boolean inicialitzat en true per verificar si l'usuari ha comentat la recepta o no.
+     */
+    /** 
+     * @var $booleanAssessment 
+     * @description Boolean inicialitzat en true per verificar si l'usuari ha puntuat la recepta o no.
+     */
+    /** 
+     * @var $allUsers 
+     * @description Array per emmagatzemar tots els usuaris de la BBDD.
+     */
+    /** 
+     * @var $score 
+     * @description Variable inicialitzada sense cap dada per emmagatzemar la puntuació de l'usuari que ha fet de la recepta.
+     */
+    /** 
+     * @var $comment 
+     * @description Variable inicialitzada sense cap dada per emmagatzemar el comentari de l'usuari que ha fet de la recepta.
+     */
+
+    const $receivedData = (window.location.search).substr(1, ),
+        $urlRecipe = 'http://localhost:8080/api/recipe/getRecipesById/',
+        $urlIngredients = 'http://localhost:8080/api/ingredient/getIngredients',
+        $urlComments = 'http://localhost:8080/api/comment/getCommentsByRecipeId/',
+        $urlAllUsers = 'http://localhost:8080/api/user/getUsers',
+        $urlAddComment = 'http://localhost:8080/api/comment/addComment/',
+        $urlAddAssessment = 'http://localhost:8080/api/assessment/addAssessment/',
+        $arrayRecipe = $receivedData.split('_'),
+        $idRecipe = $arrayRecipe[0].substr(3, );
+
     let $totalDinner,
         $collapse,
         $heading,
@@ -28,6 +164,7 @@ $(document).ready(function () {
         $score = '',
         $comment = '';
 
+    // TODO: implementar la validación del token en otro página.
     let $token = localStorage.getItem('token');
     let $IDuser = localStorage.getItem('id');
     if ($token != '') {
@@ -55,6 +192,7 @@ $(document).ready(function () {
             }
         });
     }
+    // TODO: hasta aquí la implementación del token.
 
     if ($arrayRecipe.length > 1) {
         $totalDinner = $arrayRecipe[1].substr(7, );
@@ -100,7 +238,6 @@ $(document).ready(function () {
                 if ($allUsers[i][0] == $recipe.userId) {
                     $user = $allUsers[i][4]
                 }
-
             }
 
             $('.title').html($recipe.name);
@@ -121,10 +258,15 @@ $(document).ready(function () {
 
             insertIngredients($recipe.recipeIngredients);
             insertSteps($recipe.recipeSteps);
-
         }
     });
 
+    /**
+     * @function getForks
+     * @description Concatenem una cadena per inserir en el DOM i mostrar la puntuació de la recepta.
+     * @param {string} $forks Número de forquilles (puntuació) que te la recepta.
+     * @return {string}
+     */
     function getForks($forks) {
         let $insertForks = '<div class="score_rec">';
         for (let i = 0; i < $forks; i++) {
@@ -140,22 +282,33 @@ $(document).ready(function () {
         return $insertForks;
     }
 
+    /**
+     * @function getDificult
+     * @description Rebem un número que representa la dificultat de la recepta i l'hi assignem una cadena String amb el text de dificultat.
+     * @param {string} $dificult Número que representa la dificultat de la recepta.
+     * @return {string}
+     */
     function getDifficult($dificult) {
-        let $insertDificult = '';
+        //let $insertDificult = '';
         switch ($dificult) {
             case 0:
-                return $insertDificult = 'Muy baja';
+                return /* $insertDificult =  */ 'Muy baja';
             case 1:
-                return $insertDificult = 'Baja';
+                return /* $insertDificult =  */ 'Baja';
             case 2:
-                return $insertDificult = 'Media';
+                return /* $insertDificult =  */ 'Media';
             case 3:
-                return $insertDificult = 'Difícil';
+                return /* $insertDificult =  */ 'Difícil';
             case 4:
-                return $insertDificult = 'Muy difícil';
+                return /* $insertDificult =  */ 'Muy difícil';
         }
     }
 
+    /**
+     * @function insertIngredients
+     * @description Rebem un número que representa la dificultat de la recepta i l'hi assignem una cadena String amb el text de dificultat.
+     * @param {object} $ingredientsRecipe objecte JSON amb totes les dades de l'ingredient.
+     */
     function insertIngredients($ingredientsRecipe) {
         $.ajax({
             url: $urlIngredients,
@@ -222,6 +375,11 @@ $(document).ready(function () {
         });
     }
 
+    /**
+     * @function insertSteps
+     * @description Inserim en el DOM els passos a realitzar per fer la recepta.
+     * @param {object} $stepsRecipe objecte JSON amb totes els passos a realitzar per fer la recepta.
+     */
     function insertSteps($stepsRecipe) {
         for (let i = 0; i < $stepsRecipe.length; i++) {
             assingCollapseHeading(i);
@@ -265,6 +423,11 @@ $(document).ready(function () {
         }
     }
 
+    /**
+     * @function assingCollapseHeading
+     * @description Inserim en el DOM les propietats collapse i heading.
+     * @param {number} $number Número que utilitzarem per assignar el collapse i el heading.
+     */
     function assingCollapseHeading($number) {
         switch ($number) {
             case 0:
@@ -334,6 +497,11 @@ $(document).ready(function () {
         });
     });
 
+    /**
+     * @function insertForks
+     * @description Modifiquem les imatges de les forquilles segons la puntuació que dona l'usuari a la recepta.
+     * @param {number} $score Número que representa la puntuació que ha fet l'usuari sobre la recepta.
+     */
     function insertForks($score) {
         let $arrayForks = []
         $('.forkValue').each(function () {
@@ -346,6 +514,13 @@ $(document).ready(function () {
         }
     }
 
+    /**
+     * @type {jQuery}
+     * @type click
+     * @method on
+     * @listens .button - Botó per inserir comentari i valoració.
+     * @description Funció per inserir a la BBDD el comentari i la valoració que ha realtizat l'usuari sobre la recepta, verificant previament si hi ha comentari o recepta o ambes coses.
+     */
     $('.button').on('click', () => {
         $comment = $('#textComment').val();
 
@@ -353,7 +528,6 @@ $(document).ready(function () {
 
             if ($comment != '') {
                 $.ajax({
-                    //TODO: Falta añadir el ID del usuario registrado que comenta.
                     url: $urlAddComment + $idRecipe + '___' + $comment + '___' + $IDuser,
                     type: 'POST',
                     async: false,
@@ -373,7 +547,6 @@ $(document).ready(function () {
 
             if ($score != '') {
                 $.ajax({
-                    //TODO: Falta añadir el ID del usuario que puntua.
                     url: $urlAddAssessment + $idRecipe + '___' + $score + '___' + $IDuser,
                     type: 'POST',
                     async: false,

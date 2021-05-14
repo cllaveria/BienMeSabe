@@ -16,6 +16,7 @@
  */
 
 $(document).ready(function () {
+    
     /** 
      * @var $name 
      * @description Variable per emmagatzemar el nom de l'usuari/nutricionista. 
@@ -136,6 +137,7 @@ $(document).ready(function () {
         $booleanCompany,
         $booleanBusinessPhone,
         $document = 'nif';
+
     const $url = 'http://localhost:8080/api/';
 
     /**

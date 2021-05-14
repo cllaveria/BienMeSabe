@@ -1,20 +1,8 @@
 /**
- * @fileoverview · Visualització de les dades de la recepta: 
- * <p> 1) Visualització de la imatge de la recepta.</p>
- * <p> 2) Visualització de l'usuari que ha creat la recepta.</p>
- * <p> 3) Visualització de la puntuació de la recepta.</p>
- * <p> 4) Visualització de la descripció de la recepta.</p>
- * <p> 5) Visualització dels ingredients de la recepta.</p>
- * <p> 6) Visualització de la taula kalorica de la recepta.</p>
- * <p> 7) Visualització del temps de la recepta.</p>
- * <p> 8) Visualització per a cuantes persones está feta la recepta.</p>
- * <p> 9) Visualització dels passos a realitzar per ver la recepta.</p>
- * <p> 10) Visualització dels comentaris dels usuaris que conté la recepta.</p>
- * <p> · Si l'usuari está registrat, aquest podrá valorar la recepta amb una puntuació de 1 a 5.</p>
- * <p> · Si l'usuari está registrat, aquest podrá comentar la recepta.</p>
+ * @fileoverview · Visualització de les receptes insertades en la BBDD. 
  * 
  * <p> History</p>
- * <p> 0.1 - Implementació de la visualitzacióde la recepta + comentar i valorar.</p>
+ * <p> 0.1 - Implementació de la visualització de les receptes</p>
  *  
  * @version     0.1
  * @author      Sergio Asensio Ruiz 
@@ -212,16 +200,6 @@ $(document).ready(function () {
         }
     });
 
-    /**
-     * @function receivePlate
-     * @description Funció per inserir en el DOM les receptes afegides a la BBDD.
-     * @param {object} $recipe objecte JSON amb les dades de la recepta.
-     * @param {String} $userAlias String amb l'alies de l'usuari que ha creat la recepta.
-     * @param {String} $forks Cadena String amb la puntuació que te la recepta.
-     * @param {String} $difficult String amb la dificultat de la recepta.
-     * @param {String} $typePlate Sring amb el tipus de plat que és la recepta.
-     * @param {String} $classPlate String amb el tipus de plat que és la recepta per inserir la classe.
-     */
     /* function receivePlate($recipe, $userAlias, $forks, $difficult, $typePlate, $classPlate) {
         $($typePlate).append('<div class="rcp_cnt">\
                                 <a href="' + $urlRecipe + $recipe.id + '">\
