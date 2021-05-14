@@ -30,6 +30,10 @@ router.get('/panelUsuario', function(req, res, next) {
   res.render('panelUsuario', { title: 'Modificar datos' });
 });
 
+router.get('/misRecetas', function(req, res, next) {
+  res.render('misRecetas', { title: 'Mis recetas' });
+});
+
 router.get('/recetas/ficha', function(req, res, next) {
   res.render('ficha', { title: 'Ficha receta' });
 });

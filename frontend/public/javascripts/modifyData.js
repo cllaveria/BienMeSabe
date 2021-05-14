@@ -64,7 +64,7 @@ $(document).ready(function () {
         $('.nif').css('display', 'block')
     }
 
-    $('.btn_checkIn').on('click', () => {
+    $('.btn_save').on('click', () => {
 
         $name = $('#input_name').val();
         $surname = $('#input_surname').val();
