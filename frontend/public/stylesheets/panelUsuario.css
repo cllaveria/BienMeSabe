@@ -1,0 +1,283 @@
+@import "common.css";
+
+.settings_container {
+  margin: 150px 100px;
+  border: solid 1px #a6aa9c;
+}
+
+@media screen and (max-width: 500px) {
+  .settings_container {
+    width: 280px;
+  }
+}
+
+.settings_container > h2 {
+  margin-bottom: 25px;
+}
+
+#sidebar-wrapper {
+  min-width: 200px;
+  height: auto;
+  text-align: center;
+}
+
+.bg-light {
+  background-color: #ffda9a !important;
+}
+
+a.bg-light:hover,
+a.bg-light:focus,
+.checked {
+  background-color: #fbc76f !important;
+  color: black;
+}
+
+.border-right {
+  border-right: 1px solid #a6aa9c !important;
+}
+
+.list-group-item {
+  border: solid 1px #a6aa9c;
+  padding: 25px;
+}
+
+.list-group-flush:last-child .list-group-item:last-child {
+  border-bottom: solid 1px #a6aa9c !important;
+}
+
+#page-content-wrapper {
+  padding: 25px 25px 150px;
+}
+
+.mt-4 {
+  font-weight: bold;
+}
+
+
+
+
+.list-group-item.toggled {
+  padding: 25px 10px;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: fit-content;
+  min-width: 0;
+}
+
+.siToggle,
+.noToggle{
+  padding-bottom: 0;
+}
+
+.noShow {
+  display: none;
+}
+
+
+
+
+#registerUser {
+  align-items: center;
+  margin-top: 25px;
+  margin-left: 50px;
+  width: 450px;
+}
+
+#registerNutritionist {
+  align-items: center;
+  margin-top: 25px;
+  margin-left: 50px;
+  width: 450px;
+}
+
+.inputs_form {
+  margin-bottom: 20px;
+}
+
+.inputs_form > label {
+  margin-bottom: 10px;
+}
+
+.inputs-group {
+  margin-bottom: 10px;
+  border-radius: 0.25rem;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+}
+
+.inputs-group > .form-control {
+  flex: 1 1 auto;
+  width: 1%;
+}
+
+#viewPass {
+  cursor: pointer;
+}
+
+#document {
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+}
+
+#pswrd,
+#nif {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+#viewPass,
+#document {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.inputs-group > .fa-info-circle {
+  margin-left: 5px;
+  border-radius: 100%;
+  color: #fca035;
+  cursor: pointer;
+}
+
+.inputs-group > .fa-exclamation-circle {
+  margin-left: 5px;
+  border-radius: 100%;
+  color: #d41717;
+  display: none;
+  cursor: pointer;
+}
+
+.inputs-group > .fa-check-circle {
+  margin-left: 5px;
+  border-radius: 100%;
+  color: green;
+  display: none;
+}
+
+.checkbox_container {
+  margin-bottom: 20px;
+  display: flow-root;
+}
+
+.checkbox {
+  float: right;
+}
+
+.btn_save {
+  margin: 40px auto;
+  display: block;
+}
+
+.fas {
+  position: relative;
+  display: inline-block;
+}
+
+.fas .tooltiptext {
+  visibility: hidden;
+  position: absolute;
+  width: 120px;
+  text-align: center;
+  font-size: 12px;
+  padding: 5px 0;
+  border-radius: 6px;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.fas:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media screen and (min-width: 610px) {
+  .tooltip {
+    top: -5px;
+    left: 125%;
+  }
+
+  .tooltip::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    right: 100%;
+    margin-top: 0px;
+    border-width: 5px;
+    border-style: solid;
+  }
+
+  #tooltipInfo::after {
+    border-color: transparent #fbc76f transparent transparent;
+  }
+
+  #tooltipExcl::after {
+    border-color: transparent #d41717 transparent transparent;
+  }
+}
+
+@media screen and (max-width: 609px) {
+  .tooltip {
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+  }
+
+  .tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+  }
+
+  #tooltipInfo::after {
+    border-color: #fbc76f transparent transparent transparent;
+  }
+
+  #tooltipExcl::after {
+    border-color: #d41717 transparent transparent transparent;
+  }
+}
+
+#tooltipInfo {
+  background-color: #fbc76f;
+  color: black;
+}
+
+#tooltipExcl {
+  background-color: #d41717;
+  color: white;
+}
+
+.form-control.success:focus {
+  box-shadow: 0 0 0 0.2rem green;
+  border: 0;
+}
+
+.form-control.error {
+  border: solid 2px #d41717;
+}
+
+.form-control.error:focus {
+  box-shadow: 0 0 0 0.2rem #d41717;
+  border: 0;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem #fca035;
+  border: 0;
+}
+
+.deleteAc {
+  font-size: 12px;
+  color: #c90000;
+  cursor: pointer;
+  margin-top: 80px;
+  margin-left: 50px;
+}
