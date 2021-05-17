@@ -6,6 +6,7 @@
 package com.bienmesabe.rest.service;
 
 import com.bienmesabe.rest.domain.User;
+import java.util.Date;
 
 /**
  *
@@ -13,4 +14,5 @@ import com.bienmesabe.rest.domain.User;
  */
 public interface TokenService {
     public String getJWTToken(User user);
+    public String methodTokenIsValidDate(String token);
 }

@@ -55,6 +55,8 @@ public class User implements Serializable{
 
     private String token;
     
+    private String tokenEndValidityDate;
+    
     /**
      * Empty Constructor
      */
@@ -334,6 +336,14 @@ public class User implements Serializable{
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getTokenEndValidityDate() {
+        return tokenEndValidityDate;
+    }
+
+    public void setTokenEndValidityDate(String tokenEndValidityDate) {
+        this.tokenEndValidityDate = tokenEndValidityDate;
     }
 
     

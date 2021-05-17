@@ -7,7 +7,9 @@ package com.bienmesabe.rest.controller;
 
 
 import com.bienmesabe.rest.domain.User;
+import com.bienmesabe.rest.service.TokenService;
 import com.bienmesabe.rest.service.UserService;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -36,6 +38,8 @@ public class UserController{
      */
     @Autowired
     private UserService userService;
+    
+
     
     /**
      * Method to recover the users  // HTTP verb: GET url: http://localhost:8080/api/user/getUsers

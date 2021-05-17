@@ -1,5 +1,6 @@
 com\bienmesabe\rest\service\AssessmentService.class
 com\bienmesabe\rest\DAO\impl\AssessmentDAOImpl.class
+com\bienmesabe\rest\controller\TokenController.class
 com\bienmesabe\rest\service\TokenService.class
 com\bienmesabe\rest\DAO\impl\UserDAOImpl.class
 com\bienmesabe\rest\service\CommentService.class
@@ -8,6 +9,7 @@ com\bienmesabe\rest\service\RecipeTypesService.class
 com\bienmesabe\rest\DAO\impl\CommentDAOImpl.class
 com\bienmesabe\rest\domain\Ingredient.class
 com\bienmesabe\rest\service\impl\RecipeTypesServiceImpl.class
+com\bienmesabe\rest\security\JWTAuthorizationFilter.class
 com\bienmesabe\rest\controller\NutricionistController.class
 com\bienmesabe\rest\DAO\AssessmentDAO.class
 com\bienmesabe\rest\domain\Comment.class
@@ -16,6 +18,7 @@ com\bienmesabe\rest\service\NutricionistService.class
 com\bienmesabe\rest\service\RecipeService.class
 com\bienmesabe\rest\service\impl\IngredientServiceImpl.class
 com\bienmesabe\rest\service\impl\UserServiceImpl.class
+com\bienmesabe\rest\BienmesabeApplication$WebSecurityConfig.class
 com\bienmesabe\rest\DAO\impl\RecipeTypeDAOImpl.class
 com\bienmesabe\rest\domain\RecipeTypes.class
 com\bienmesabe\rest\domain\UserTypes.class
@@ -26,6 +29,7 @@ com\bienmesabe\rest\domain\User.class
 com\bienmesabe\rest\controller\IngredientController.class
 com\bienmesabe\rest\service\impl\CommentServiceImpl.class
 com\bienmesabe\rest\domain\Recipe.class
+com\bienmesabe\rest\controller\CommentController.class
 com\bienmesabe\rest\DAO\NutricionistDAO.class
 com\bienmesabe\rest\DAO\impl\RecipeDAOImpl.class
 com\bienmesabe\rest\controller\AssessmentController.class

@@ -112,6 +112,7 @@ public class UserServiceImpl implements UserService{
         if(result != null){
             String token = tokenService.getJWTToken(result);
             result.setToken(token);
+            result.setTokenEndValidityDate(tokenService.methodTokenIsValidDate(token));
             return result;
         }
         return null;
