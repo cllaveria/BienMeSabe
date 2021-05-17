@@ -30,13 +30,8 @@ router.get('/panelUsuario', function(req, res, next) {
   res.render('panelUsuario', { title: 'Modificar datos' });
 });
 
-<<<<<<< HEAD
-router.get('/panelUsuario/modificarReceta', function(req, res, next) {
-  res.render('modificarReceta', { title: 'Modificar receta' });
-=======
 router.get('/misRecetas', function(req, res, next) {
   res.render('misRecetas', { title: 'Mis recetas' });
->>>>>>> develop
 });
 
 router.get('/recetas/ficha', function(req, res, next) {
