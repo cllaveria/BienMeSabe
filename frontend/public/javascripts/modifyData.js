@@ -158,7 +158,6 @@ $(document).ready(function () {
 
 
     const $urlModifyDataUser = 'http://localhost:8080/api/user/',
-        $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes',
         $url = 'http://localhost:8080/api/';
 
     let $user,
@@ -193,37 +192,14 @@ $(document).ready(function () {
         $booleanCity = true,
         $booleanBusinessPhone = true,
         $booleanDirection = true;
-
-    // TODO: implementar la validación del token en otro página.
-    let $token = localStorage.getItem('token');
-    let $IDuser = localStorage.getItem('id');
-
-    if ($token != '') {
-        $.ajax({
-            url: 'http://localhost:8080/api/recipe/getRecipesOfOtherUsers/' + $IDuser,
-            type: 'GET',
-            async: false,
-            headers: {
-                'Authorization': $token
-            },
-            dataType: 'json',
-            contentType: 'aplication/json',
-            success: function ($requestToken) {
-
-                $('#login').css('display', 'none');
-                $('#register').css('display', 'none');
-                $('.btn_user').css('display', 'inline-block');
-            },
-            error: function ($error) {
-                if ($error.responseText == '') {
-                    $('#login').css('display', 'inline-block');
-                    $('#register').css('display', 'inline-block');
-                    $('.btn_user').css('display', 'none');
-                }
-            }
-        });
+        
+    let $token, $IDuser;
+    let $result = token()
+    console.log($result)
+    if (token() == true) {
+        $token = localStorage.getItem('token');
+        $IDuser = localStorage.getItem('id');
     }
-    // TODO: hasta aquí la implementación del token.
 
     $.ajax({
         url: 'http://localhost:8080/api/user/getUserByIdWithAllProperties/' + $IDuser,
@@ -694,7 +670,7 @@ $(document).ready(function () {
      * @description Botó per fer les verificacions i funcions necessàries per emmagatzemar les dades de l'usuari i del nutricionista.
      */
     $('.btn_save').on('click', () => {
-        let $1,$2,$3,$4;
+        let $1, $2, $3, $4;
 
         if ($name != '' || $surnames != '' || $phone != '') {
 
@@ -764,7 +740,7 @@ $(document).ready(function () {
             }
         }
 
-        if($1 == false || $2 == false || $3 == false || $4 == false){
+        if ($1 == false || $2 == false || $3 == false || $4 == false) {
             $('#updateDataTrue').modal('show');
         }
     });
@@ -807,50 +783,5 @@ $(document).ready(function () {
         localStorage.removeItem('token');
         localStorage.removeItem('id');
         window.location = '/';
-    });
-
-    // TODO: Esto pertenece a la parte de ver las recetas y modificarlas.
-    $.ajax({
-        url: $urlLatestRecipes,
-        type: 'GET',
-        async: false,
-        headers: {
-            'Authorization': $token
-        },
-        success: function ($latestRecipes) {
-            $.each($latestRecipes, function ($index, $recipe) {
-                if ($recipe.userId == $IDuser) {
-                    $('#recipes').append(' <div id="listRecipes" style="display: flex;" value="' + $recipe.id + '"> \
-                                            Receta: ' + $recipe.name + '\
-                                                <button class="button btn_checkIn btn_viewRecipe" >VER RECETA</button>\
-                                                <button class="button btn_checkIn btn_modifyRecipe" >MODIFICAR RECETA</button>\
-                                                <button class="button btn_checkIn btn_deleteRecipe" >BORRAR RECETA</button>\
-                                            </div>');
-                }
-            });
-        }
-    });
-
-    $('.btn_viewRecipe').on('click', function () {
-        window.location = '/recetas/ficha?id=' + $(this).parents().attr('value');
-    });
-
-    $('.btn_deleteRecipe').on('click', function () {
-        console.log($(this).parents())
-        $.ajax({
-            url: 'http://localhost:8080/api/recipe/deleteRecipeById/' + $(this).parents().attr('value'),
-            type: 'DELETE',
-            headers: {
-                'Authorization': $token
-            },
-            success: function () {
-                location.reload();
-            }
-        });
-    });
-
-    $('.btn_modifyRecipe').on('click', function () {
-        // TODO: Cuenado se creen las páginas correspondientes, modificar el enlace.
-        window.location = '/panelUsuario/modificarReceta?id=' + $(this).parents().attr('value');
     });
 });

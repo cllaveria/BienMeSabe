@@ -115,6 +115,14 @@ $(document).ready(function () {
         $allPlatesCakes = [],
         $allTypePlate = [];
 
+    let $token, $IDuser;
+    let $result = token()
+    console.log($result)
+    if (token() == true) {
+        $token = localStorage.getItem('token');
+        $IDuser = localStorage.getItem('id');
+    }
+
     $.ajax({
         url: $urlAllUsers,
         type: 'GET',
@@ -139,9 +147,8 @@ $(document).ready(function () {
                     success: function ($recipe) {
                         for (let x = 0; x < $recipe.length; x++) {
                             for (let j = 0; j < $allUsers.length; j++) {
-                                //TODO: BORRAR LO COMENTADO
-                                if ( /* $allUsers[j].id */ $allUsers[j][0] == $recipe[x].userId) {
-                                    $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
+                                if ($allUsers[j][0] == $recipe[x].userId) {
+                                    $userAlias = $allUsers[j][4];
                                 }
                             }
 
@@ -200,28 +207,6 @@ $(document).ready(function () {
         }
     });
 
-    /* function receivePlate($recipe, $userAlias, $forks, $difficult, $typePlate, $classPlate) {
-        $($typePlate).append('<div class="rcp_cnt">\
-                                <a href="' + $urlRecipe + $recipe.id + '">\
-                                    <div class="recipe ' + $classPlate + '">\
-                                        <img src="' + $recipe.image + '" alt="Entrantes" style="width: 100%;">\
-                                        <div class="desc_rec">\
-                                            <h3 id="title">' + $recipe.name + '</h3>\
-                                            <p id="author">' + $userAlias + '</p>\
-                                        </div>\
-                                    </div>\
-                                    <div class="info_rec">\
-                                        <p id="level">Dificultad: ' + $difficult + '</p>\
-                                        <div class="time_rec">\
-                                            <i class="fas fa-clock clock"></i>\
-                                            <p id="time">' + $recipe.recipeTime + ' min</p>\
-                                        </div>\
-                                    </div>\
-                                    ' + $forks + '\
-                                </a>\
-                            </div>');
-    } */
-
     /**
      * @function getForks
      * @description Concatenem una cadena per inserir en el DOM i mostrar la puntuació de la recepta.
@@ -250,18 +235,17 @@ $(document).ready(function () {
      * @return {string}
      */
     function getDifficult($dificult) {
-        //let $insertDificult = '';
         switch ($dificult) {
             case 0:
-                return /* $insertDificult = */ 'Muy baja';
+                return 'Muy baja';
             case 1:
-                return /* $insertDificult = */ 'Baja';
+                return 'Baja';
             case 2:
-                return /* $insertDificult = */ 'Media';
+                return 'Media';
             case 3:
-                return /* $insertDificult = */ 'Difícil';
+                return 'Difícil';
             case 4:
-                return /* $insertDificult = */ 'Muy difícil';
+                return 'Muy difícil';
         }
     }
 
@@ -385,9 +369,8 @@ $(document).ready(function () {
     function insertPlates($count, $maxCount, $insertPlates, $insertTypePlate, $insertTypePlateSpanish) {
         for (let i = $count; i < $maxCount; i++) {
             for (let j = 0; j < $allUsers.length; j++) {
-                //TODO: BORRAR LO COMENTADO
-                if ( /* $allUsers[j].id */ $allUsers[j][0] == $insertPlates[i].userId) {
-                    $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
+                if ($allUsers[j][0] == $insertPlates[i].userId) {
+                    $userAlias = $allUsers[j][4];
                 }
             }
             $forks = getForks($insertPlates[i].recipeAssessment);
@@ -412,9 +395,6 @@ $(document).ready(function () {
                                             ' + $forks + '\
                                         </a>\
                                     </div>');
-            //function receivePlate($recipe, $userAlias, $forks, $difficult, $typePlate, $classPlate) {
-            //}
-            //receivePlate($insertPlates[i], $userAlias, $forks, $difficult, $insertTypePlate, $insertTypePlateSpanish);
         }
     }
 

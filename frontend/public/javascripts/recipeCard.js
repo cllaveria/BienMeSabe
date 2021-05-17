@@ -164,36 +164,6 @@ $(document).ready(function () {
         $score = '',
         $comment = '';
 
-    // TODO: implementar la validación del token en otro página.
-    let $token = localStorage.getItem('token');
-    let $IDuser = localStorage.getItem('id');
-    if ($token != '') {
-        $.ajax({
-            url: 'http://localhost:8080/api/recipe/getRecipesOfOtherUsers/' + $IDuser,
-            type: 'GET',
-            async: false,
-            headers: {
-                'Authorization': $token
-            },
-            dataType: 'json',
-            contentType: 'aplication/json',
-            success: function ($requestToken) {
-
-                $('#login').css('display', 'none');
-                $('#register').css('display', 'none');
-                $('.btn_user').css('display', 'inline-block');
-            },
-            error: function ($error) {
-                if ($error.responseText == '') {
-                    $('#login').css('display', 'inline-block');
-                    $('#register').css('display', 'inline-block');
-                    $('.btn_user').css('display', 'none');
-                }
-            }
-        });
-    }
-    // TODO: hasta aquí la implementación del token.
-
     if ($arrayRecipe.length > 1) {
         $totalDinner = $arrayRecipe[1].substr(7, );
         if ($totalDinner == '') {

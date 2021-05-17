@@ -118,6 +118,14 @@ $(document).ready(function () {
         $totalRecipes = [],
         $countRecipe = 0;
 
+    let $token, $IDuser;
+    let $result = token()
+    console.log($result)
+    if (token() == true) {
+        $token = localStorage.getItem('token');
+        $IDuser = localStorage.getItem('id');
+    }
+
     if ($searchFilters.indexOf('dinner') > 1) {
         $allRecipes = $searchFilters.split('_');
         $dinners = $allRecipes[1].split('-');

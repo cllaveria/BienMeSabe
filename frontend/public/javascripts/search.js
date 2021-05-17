@@ -132,46 +132,21 @@ $(document).ready(function () {
      * @var $insert 
      * @description Variable inicialitzada en blanc per emmagatzemar la cadena de les receptes a inserir.
      */
-    /* $insert = ''; */
 
-    // TODO: implementar la validación del token en otro página.
-
-    let $token = localStorage.getItem('token'),
-        $IDuser = localStorage.getItem('id');
-
-    if ($token != '') {
-        $.ajax({
-            url: 'http://localhost:8080/api/recipe/getRecipesOfOtherUsers/' + $IDuser,
-            type: 'GET',
-            async: false,
-            headers: {
-                'Authorization': $token
-            },
-            dataType: 'json',
-            contentType: 'aplication/json',
-            success: function ($requestToken) {
-
-                $('#login').css('display', 'none');
-                $('#register').css('display', 'none');
-                $('.btn_user').css('display', 'inline-block');
-            },
-            error: function ($error) {
-                if ($error.responseText == '') {
-                    $('#login').css('display', 'inline-block');
-                    $('#register').css('display', 'inline-block');
-                    $('.btn_user').css('display', 'none');
-                }
-            }
-        });
-    }
-    // TODO: hasta aquí la implementación del token.
+     let $token, $IDuser;
+     let $result = token()
+     console.log($result)
+     if(token() == true){
+         $token = localStorage.getItem('token');
+         $IDuser = localStorage.getItem('id');
+     }
 
     $.ajax({
         url: $urlIngredients,
         type: 'GET',
         success: function (data) {
             for (let i = 0; i < data.length; i++) {
-                $ingredients.push(data[i]); //$ingredients[i] = data[i];
+                $ingredients.push(data[i]);
                 $('#list_ingredient').append("<option>" + $ingredients[i].name + "</option>")
             }
         }
@@ -183,7 +158,7 @@ $(document).ready(function () {
         success: function (data) {
             $('#typePlate').append('<option value="all" selected>Selecciona una opción</option>');
             for (let i = 0; i < data.length; i++) {
-                $recipePlates.push(data[i]); //$recipePlates[i] = data[i]
+                $recipePlates.push(data[i]);
                 $('#typePlate').append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
             }
         }
@@ -195,7 +170,7 @@ $(document).ready(function () {
         async: false,
         success: function ($users) {
             for (let i = 0; i < $users.length; i++) {
-                $allUsers.push($users[i]); //$allUsers[i] = $users[i];
+                $allUsers.push($users[i]);
             }
         }
     });
@@ -229,35 +204,6 @@ $(document).ready(function () {
                     $('.carousel-item').addClass('active');
                 }
             }
-            /* if (i == 0) {
-                    $insert = $insert.concat('<div class="carousel-item active">\
-                                                <a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
-                                                    <img class="imgCarousel" src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
-                                                    <div class="carousel-desc">\
-                                                        <div class="carousel-caption">\
-                                                            <div class="title">' + $plateOrderByAssessment[i].name + '</div>\
-                                                            <h3>' + $userAlias + '</h3>\
-                                                            ' + $forks + '\
-                                                        </div>\
-                                                    </div>\
-                                                </a>\
-                                            </div>');
-                } else {
-                    $insert = $insert.concat('<div class="carousel-item">\
-                                                <a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
-                                                    <img class="imgCarousel" src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
-                                                    <div class="carousel-desc">\
-                                                        <div class="carousel-caption">\
-                                                            <div class="title">' + $plateOrderByAssessment[i].name + '</div>\
-                                                            <h3>' + $userAlias + '</h3>\
-                                                            ' + $forks + '\
-                                                        </div>\
-                                                    </div>\
-                                                </a>\
-                                            </div>');
-                }
-            }
-            $('.carousel-inner').append($insert); */
         }
     });
 
@@ -582,29 +528,6 @@ $(document).ready(function () {
                                         ' + $forks + '\
                                     </a>\
                                 </div>');
-            //insertLatestRecipe($latestRecipes[i], $userAlias, $difficult, $forks)
         }
     }
-
-    /* function insertLatestRecipe($recipe, $userAlias, $difficult, $forks) {
-        $('.latest_rec').append('<div class="rcp_cnt">\
-                                    <a href="' + $urlRecipe + $recipe.id + '">\
-                                        <div class="recipe">\
-                                            <img src="' + $recipe.image + '">\
-                                            <div class="desc_rec">\
-                                                <h3 id="title">' + $recipe.name + '</h3>\
-                                                <p id="author">' + $userAlias + '</p>\
-                                            </div>\
-                                        </div>\
-                                        <div class="info_rec">\
-                                            <p id="level">Dificultad: ' + $difficult + '</p>\
-                                            <div class="time_rec">\
-                                                <i class="fas fa-clock clock"></i>\
-                                                <p id="time">' + $recipe.recipeTime + ' min</p>\
-                                            </div>\
-                                        </div>\
-                                        ' + $forks + '\
-                                    </a>\
-                                </div>');
-    } */
 });
