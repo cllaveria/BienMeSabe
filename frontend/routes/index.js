@@ -34,6 +34,10 @@ router.get('/misRecetas', function(req, res, next) {
   res.render('misRecetas', { title: 'Mis recetas' });
 });
 
+router.get('/crearReceta', function(req, res, next) {
+  res.render('crearReceta', { title: 'Crear receta' });
+});
+
 router.get('/recetas/ficha', function(req, res, next) {
   res.render('ficha', { title: 'Ficha receta' });
 });

@@ -1,0 +1,14 @@
+@import "common.css";
+
+.login_container {
+  margin: 80px auto;
+  padding: 50px 20px 5px;
+  width: 350px;
+}
+
+
+.btn_login {
+  margin: 35px auto;
+  display: block;
+}
+
