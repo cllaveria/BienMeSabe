@@ -1,0 +1,121 @@
+@import "common.css";
+
+.settings_container {
+  margin: 150px 100px;
+  border: solid 1px #a6aa9c;
+}
+
+@media screen and (max-width: 500px) {
+  .settings_container {
+    width: 280px;
+  }
+}
+
+.settings_container > h2 {
+  margin-bottom: 25px;
+}
+
+#sidebar-wrapper {
+  min-width: 200px;
+  height: auto;
+  text-align: center;
+}
+
+.bg-light {
+  background-color: #ffda9a !important;
+}
+
+a.bg-light:hover,
+a.bg-light:focus,
+.checked {
+  background-color: #fbc76f !important;
+  color: black;
+}
+
+.border-right {
+  border-right: 1px solid #a6aa9c !important;
+}
+
+.list-group-item {
+  border: solid 1px #a6aa9c;
+  padding: 25px;
+}
+
+.list-group-flush:last-child .list-group-item:last-child {
+  border-bottom: solid 1px #a6aa9c !important;
+}
+
+#page-content-wrapper {
+  padding: 25px 25px 150px;
+  width: 100%;
+}
+
+.mt-4 {
+  font-weight: bold;
+}
+
+
+
+
+.list-group-item.toggled {
+  padding: 25px 10px;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: fit-content;
+  min-width: 0;
+}
+
+.siToggle,
+.noToggle{
+  padding-bottom: 0;
+}
+
+.noShow {
+  display: none;
+}
+
+
+.btn_add,
+.btn_add:focus {
+  margin: 40px auto;
+  display: block;
+  width: 150px;
+  float: right;
+}
+
+table {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  
+}
+
+tr {
+  border: solid 1px #a6aa9c;
+  padding: 10px;
+}
+
+td {
+  padding: 10px;
+}
+
+.nameRec {
+  float: left;
+}
+
+.icon {
+  cursor: pointer;
+}
+.icon:hover {
+  cursor: pointer;
+  color: #fca035;
+}
+
+.val {
+  display: inline-flex;
+  margin-top: 40px;
+  float: right;
+  gap: 15px;
+}
+
