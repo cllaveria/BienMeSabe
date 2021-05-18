@@ -28,7 +28,6 @@ import io.jsonwebtoken.UnsupportedJwtException;
  *
  * @author RAUL
  */
-
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
     private final String HEADER = "Authorization";

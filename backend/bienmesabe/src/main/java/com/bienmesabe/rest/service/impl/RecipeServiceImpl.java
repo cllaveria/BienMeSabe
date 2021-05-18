@@ -41,6 +41,7 @@ public class RecipeServiceImpl implements RecipeService{
      * Implementation of interface  to recover the recipes ordered by assessment
      * @return a list with the recipes ordered by assessment
      */
+    @Override
     public List<Recipe> getAllRecipesByAssessment(){
         return recipeDAO.getAllRecipesByAssessment();
     }

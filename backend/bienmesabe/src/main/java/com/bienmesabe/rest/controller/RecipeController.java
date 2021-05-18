@@ -8,13 +8,16 @@ package com.bienmesabe.rest.controller;
 import com.bienmesabe.rest.domain.Recipe;
 import com.bienmesabe.rest.service.RecipeService;
 import java.util.List;
+import javax.ws.rs.Consumes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -130,7 +133,6 @@ public class RecipeController {
      * @param userId string that represents the id of the user not to search
      * @return the list of recipes in the DB filtered by user id
      */
-    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/getRecipesOfOtherUsers/{userId}")
     public List<Recipe> getRecipesOfOtherUsers(@PathVariable String userId){
         return recipeService.getRecipesOfOtherUsers(Long.parseLong(userId));
@@ -141,15 +143,16 @@ public class RecipeController {
      * @param recipe object that represents the recipe to persist
      * @return the recipe object persisted or null if not
      */
+    
     @PostMapping("/addRecipe")
-    public Recipe addUser(Recipe recipe){
-        recipe.setId(0L);
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    public Boolean addRecipe(@RequestBody Recipe recipe){
         Long createdRecipe = recipeService.createRecipe(recipe);
         if(createdRecipe > 0){
             recipe.setId(createdRecipe);
-            return recipe;
+            return true;
         }
-        return new Recipe();
+        return false;
     }
     
     /**
@@ -158,9 +161,14 @@ public class RecipeController {
      * @return the modified recipe
      */
     @PutMapping("/modifyRecipe")
-    public Recipe updateRecipe(Recipe recipe){
-        recipeService.modifyRecipe(recipe);
-        return recipe;
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    public Boolean updateRecipe(@RequestBody Recipe recipe){
+        try{
+            recipeService.modifyRecipe(recipe);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
     
     /**

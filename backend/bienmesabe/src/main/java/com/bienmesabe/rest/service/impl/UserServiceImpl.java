@@ -48,6 +48,16 @@ public class UserServiceImpl implements UserService{
     public User findUserById(Long id) {
         return userDAO.findUserById(id);
     }
+    
+    /**
+     * Implementation of interface method to recover the user by id
+     * @param id long that represents the id of the users to search
+     * @return the user filtered by id
+     */
+    @Override
+    public User findUserByIdWithAllProperties(Long id) {
+        return userDAO.findUserByIdWithAllProperties(id);
+    }
 
     /**
      * Implementation of interface method to recover the user by name
@@ -102,6 +112,7 @@ public class UserServiceImpl implements UserService{
         if(result != null){
             String token = tokenService.getJWTToken(result);
             result.setToken(token);
+            result.setTokenEndValidityDate(tokenService.methodTokenIsValidDate(token));
             return result;
         }
         return null;
