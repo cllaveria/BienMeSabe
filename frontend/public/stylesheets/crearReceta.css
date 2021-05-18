@@ -1,14 +1,51 @@
 @import "common.css";
 
-.login_container {
+.recipe_container {
   margin: 80px auto;
-  padding: 50px 20px 5px;
-  width: 350px;
+  padding: 100px;
 }
 
+.top {
+  margin-top: 40px;
+  display: grid;
+  gap: 50px;
+  grid-template-columns: 3fr 1fr;
+}
 
-.btn_login {
+.nameRec {
+  display: grid;
+}
+
+.custom-file-label {
+  border: solid 1px #a6aa9c;
+  background-color: #f0f8ff;
+}
+
+.custom-file-input:focus~.custom-file-label {
+  box-shadow: 0 0 0 0.2rem #fca035;
+  border: 0;
+  outline: 0;
+}
+
+label {
+  padding-bottom: 10px;
+}
+
+input {
+  border: solid 1px #a6aa9c;
+  background-color: #f0f8ff;
+  height: 38px;
+  border-radius: 3px;
+  padding: 6px 12px;
+}
+
+input:focus {
+  box-shadow: 0 0 0 0.2rem #fca035;
+  border: 0;
+  outline: 0;
+}
+
+.btn_save {
   margin: 35px auto;
   display: block;
 }
-

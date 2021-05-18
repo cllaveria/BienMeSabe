@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!-- Bootstrap core JS-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/dropzone/dist/min/dropzone.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link rel='stylesheet' href='/stylesheets/crearReceta.css' />
@@ -22,14 +26,56 @@
     <!-- Header -->
     <%- include('./header'); %>
 
-    <!-- Login -->
-    <div class="recipe_container">
-            <button class="button btn_login" id='submit'>ENVIAR</button>
-        
-    </div>
+        <!-- Add recipe -->
+        <div class="recipe_container">
+            <div class="title">Crear receta</div>
+            <div class="top">
+                <div class="nameRec">
+                    <label>Nombre de la receta</label>
+                    <input type="text" placeholder="Introduce el nombre de la receta">
+                </div>
+                <div class="nameRec">
+                    <label>Imagen/video principal</label>
+                    <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
+                        <div class="fallback">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
+                                <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Footer -->
-    <%- include('./footer'); %>
+            <button class="button btn_save" type="button" data-toggle="modal"
+                data-target="#exampleModalCenter">GUARDAR</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Receta creada</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Su nueva receta esta en proceso de validación, una vez sea aceptada podrá verla en su panel
+                            de usuario.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="button btn_checkIn"
+                                onclick="location.href='/misRecetas';">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <%- include('./footer'); %>
 </body>
 
 </html>
