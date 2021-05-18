@@ -1,20 +1,8 @@
 /**
- * @fileoverview · Visualització de les dades de la recepta: 
- * <p> 1) Visualització de la imatge de la recepta.</p>
- * <p> 2) Visualització de l'usuari que ha creat la recepta.</p>
- * <p> 3) Visualització de la puntuació de la recepta.</p>
- * <p> 4) Visualització de la descripció de la recepta.</p>
- * <p> 5) Visualització dels ingredients de la recepta.</p>
- * <p> 6) Visualització de la taula kalorica de la recepta.</p>
- * <p> 7) Visualització del temps de la recepta.</p>
- * <p> 8) Visualització per a cuantes persones está feta la recepta.</p>
- * <p> 9) Visualització dels passos a realitzar per ver la recepta.</p>
- * <p> 10) Visualització dels comentaris dels usuaris que conté la recepta.</p>
- * <p> · Si l'usuari está registrat, aquest podrá valorar la recepta amb una puntuació de 1 a 5.</p>
- * <p> · Si l'usuari está registrat, aquest podrá comentar la recepta.</p>
+ * @fileoverview · Visualització de les receptes insertades en la BBDD. 
  * 
  * <p> History</p>
- * <p> 0.1 - Implementació de la visualitzacióde la recepta + comentar i valorar.</p>
+ * <p> 0.1 - Implementació de la visualització de les receptes</p>
  *  
  * @version     0.1
  * @author      Sergio Asensio Ruiz 
@@ -127,6 +115,14 @@ $(document).ready(function () {
         $allPlatesCakes = [],
         $allTypePlate = [];
 
+    let $token, $IDuser;
+    let $result = token()
+    console.log($result)
+    if (token() == true) {
+        $token = localStorage.getItem('token');
+        $IDuser = localStorage.getItem('id');
+    }
+
     $.ajax({
         url: $urlAllUsers,
         type: 'GET',
@@ -151,9 +147,8 @@ $(document).ready(function () {
                     success: function ($recipe) {
                         for (let x = 0; x < $recipe.length; x++) {
                             for (let j = 0; j < $allUsers.length; j++) {
-                                //TODO: BORRAR LO COMENTADO
-                                if ( /* $allUsers[j].id */ $allUsers[j][0] == $recipe[x].userId) {
-                                    $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
+                                if ($allUsers[j][0] == $recipe[x].userId) {
+                                    $userAlias = $allUsers[j][4];
                                 }
                             }
 
@@ -213,38 +208,6 @@ $(document).ready(function () {
     });
 
     /**
-     * @function receivePlate
-     * @description Funció per inserir en el DOM les receptes afegides a la BBDD.
-     * @param {object} $recipe objecte JSON amb les dades de la recepta.
-     * @param {String} $userAlias String amb l'alies de l'usuari que ha creat la recepta.
-     * @param {String} $forks Cadena String amb la puntuació que te la recepta.
-     * @param {String} $difficult String amb la dificultat de la recepta.
-     * @param {String} $typePlate Sring amb el tipus de plat que és la recepta.
-     * @param {String} $classPlate String amb el tipus de plat que és la recepta per inserir la classe.
-     */
-    /* function receivePlate($recipe, $userAlias, $forks, $difficult, $typePlate, $classPlate) {
-        $($typePlate).append('<div class="rcp_cnt">\
-                                <a href="' + $urlRecipe + $recipe.id + '">\
-                                    <div class="recipe ' + $classPlate + '">\
-                                        <img src="' + $recipe.image + '" alt="Entrantes" style="width: 100%;">\
-                                        <div class="desc_rec">\
-                                            <h3 id="title">' + $recipe.name + '</h3>\
-                                            <p id="author">' + $userAlias + '</p>\
-                                        </div>\
-                                    </div>\
-                                    <div class="info_rec">\
-                                        <p id="level">Dificultad: ' + $difficult + '</p>\
-                                        <div class="time_rec">\
-                                            <i class="fas fa-clock clock"></i>\
-                                            <p id="time">' + $recipe.recipeTime + ' min</p>\
-                                        </div>\
-                                    </div>\
-                                    ' + $forks + '\
-                                </a>\
-                            </div>');
-    } */
-
-    /**
      * @function getForks
      * @description Concatenem una cadena per inserir en el DOM i mostrar la puntuació de la recepta.
      * @param {string} $forks Número de forquilles (puntuació) que te la recepta.
@@ -272,18 +235,17 @@ $(document).ready(function () {
      * @return {string}
      */
     function getDifficult($dificult) {
-        //let $insertDificult = '';
         switch ($dificult) {
             case 0:
-                return /* $insertDificult = */ 'Muy baja';
+                return 'Muy baja';
             case 1:
-                return /* $insertDificult = */ 'Baja';
+                return 'Baja';
             case 2:
-                return /* $insertDificult = */ 'Media';
+                return 'Media';
             case 3:
-                return /* $insertDificult = */ 'Difícil';
+                return 'Difícil';
             case 4:
-                return /* $insertDificult = */ 'Muy difícil';
+                return 'Muy difícil';
         }
     }
 
@@ -407,9 +369,8 @@ $(document).ready(function () {
     function insertPlates($count, $maxCount, $insertPlates, $insertTypePlate, $insertTypePlateSpanish) {
         for (let i = $count; i < $maxCount; i++) {
             for (let j = 0; j < $allUsers.length; j++) {
-                //TODO: BORRAR LO COMENTADO
-                if ( /* $allUsers[j].id */ $allUsers[j][0] == $insertPlates[i].userId) {
-                    $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
+                if ($allUsers[j][0] == $insertPlates[i].userId) {
+                    $userAlias = $allUsers[j][4];
                 }
             }
             $forks = getForks($insertPlates[i].recipeAssessment);
@@ -434,9 +395,6 @@ $(document).ready(function () {
                                             ' + $forks + '\
                                         </a>\
                                     </div>');
-            //function receivePlate($recipe, $userAlias, $forks, $difficult, $typePlate, $classPlate) {
-            //}
-            //receivePlate($insertPlates[i], $userAlias, $forks, $difficult, $insertTypePlate, $insertTypePlateSpanish);
         }
     }
 

@@ -20,7 +20,9 @@
     <link rel='stylesheet' href='/stylesheets/panelUsuario.css' />
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-        </script>
+    </script>
+    <script src="../javascripts/token.js"></script>
+    <script src="../javascripts/checkDocument.js"></script>
     <script src="../javascripts/modifyData.js"></script>
     <!-- Encriptador MD5 -->
     <script src="http://pajhome.org.uk/crypt/md5/2.2/md5-min.js"></script>
@@ -31,336 +33,339 @@
     <!-- Header -->
     <%- include('./header'); %>
 
-        <!-- Settings -->
-        <div class="settings_container">
-            <div class="d-flex" id="wrapper">
-                <!-- Sidebar-->
-                <div class="bg-light border-right" id="sidebar-wrapper">
-                    <div class="list-group list-group-flush">
-                        <a class="list-group-item list-group-item-action bg-light checked" href="/panelUsuario">
-                            <p class="noToggle">Configuración</p>
-                            <p class="siToggle noShow">Con</p>
-                        </a>
-                        <a class="list-group-item list-group-item-action bg-light" href="/misRecetas">
-                            <p class="noToggle">Mis recetas</p>
-                            <p class="siToggle noShow">Rec</p>
-                        </a>
-                        <a class="list-group-item list-group-item-action bg-light" href="#!">
-                            <p class="noToggle">Nutricionistas</p>
-                            <p class="siToggle noShow">Nu</p>
-                        </a>
-                        <button class="btn btn-primary" id="menu-toggle">
-                            <p class="noToggle">Cerrar</p>
-                            <p class="siToggle noShow">Col</p>
-                        </button>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation"><span
-                                class="navbar-toggler-icon"></span></button>
-                    </div>
+    <!-- Settings -->
+    <div class="settings_container">
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar-->
+            <div class="bg-light border-right" id="sidebar-wrapper">
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action bg-light checked" href="/panelUsuario">
+                        <p class="noToggle">Configuración</p>
+                        <p class="siToggle noShow">Con</p>
+                    </a>
+                    <a class="list-group-item list-group-item-action bg-light" href="/misRecetas">
+                        <p class="noToggle">Mis recetas</p>
+                        <p class="siToggle noShow">Rec</p>
+                    </a>
+                    <a class="list-group-item list-group-item-action bg-light" href="#!">
+                        <p class="noToggle">Nutricionistas</p>
+                        <p class="siToggle noShow">Nu</p>
+                    </a>
+                    <button class="btn btn-primary" id="menu-toggle">
+                        <p class="noToggle">Cerrar</p>
+                        <p class="siToggle noShow">Col</p>
+                    </button>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation"><span
+                            class="navbar-toggler-icon"></span></button>
                 </div>
-                <!-- Page Content-->
-                <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        <h1 class="mt-4">Configuración de Usuario</h1>
-                        <div id="registerUser">
-                            <div class="inputs_form">
-                                <label for="name">Nombre:</label><span id="name" style="margin-left: 10px;"></span>
-                                <div class="inputs-group">
-                                    <input class="form-control" type="text" id="input_name" placeholder="Nombre">
+            </div>
+            <!-- Page Content-->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <h1 class="mt-4">Configuración de Usuario</h1>
+                    <div id="registerUser">
+                        <div class="inputs_form">
+                            <label for="name">Nombre:</label><span id="name" style="margin-left: 10px;"></span>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="input_name" placeholder="Nombre">
 
-                                    <i class="fas fa-info-circle" id="iconInfoName">
-                                        <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio. Mínimo 5
-                                            letras. Máximo 50 letras.</span>
-                                    </i>
-                                    <i class="fas fa-exclamation-circle" id="iconExcName">
-                                        <span class="tooltiptext tooltip" id="tooltipExcl">Campo obligatorio. Mínimo 5
-                                            letras. Máximo 50 letras.</span>
-                                    </i>
-                                    <i class="fas fa-check-circle" id="iconCheckName"></i>
-                                </div>
+                                <i class="fas fa-info-circle" id="iconInfoName">
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio. Mínimo 5
+                                        letras. Máximo 50 letras.</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcName">
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">Campo obligatorio. Mínimo 5
+                                        letras. Máximo 50 letras.</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckName"></i>
                             </div>
-                            <div class="inputs_form">
-                                <label for="surnames">Apellidos:</label><span id="surname"
-                                    style="margin-left: 10px;"></span>
-                                <div class="inputs-group">
-                                    <input class="form-control" type="text" id="input_surnames" placeholder="Apellidos">
-                                    <i class="fas fa-info-circle" id="iconInfoSurnames">
-                                        <span class="tooltiptext tooltip" id="tooltipInfo">Mínimo 5 letras. Máximo 100
-                                            letras</span>
-                                    </i>
-                                    <i class="fas fa-exclamation-circle" id="iconExcSurnames">
-                                        <span class="tooltiptext tooltip" id="tooltipExcl">Mínimo 5 letras. Máximo 100
-                                            letras</span>
-                                    </i>
-                                    <i class="fas fa-check-circle" id="iconCheckSurnames"></i>
-                                </div>
+                        </div>
+                        <div class="inputs_form">
+                            <label for="surnames">Apellidos:</label><span id="surname"
+                                style="margin-left: 10px;"></span>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="input_surnames" placeholder="Apellidos">
+                                <i class="fas fa-info-circle" id="iconInfoSurnames">
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Mínimo 5 letras. Máximo 100
+                                        letras</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcSurnames">
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">Mínimo 5 letras. Máximo 100
+                                        letras</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckSurnames"></i>
                             </div>
-                            <div class="inputs_form">
-                                <label for="phone">Teléfono:</label></label><span id="phone"
-                                    style="margin-left: 10px;"></span>
-                                <div class="inputs-group">
-                                    <input class="form-control" type="text" id="input_phone" placeholder="Teléfono">
-                                    <i class="fas fa-info-circle" id="iconInfoPhone">
-                                        <span class="tooltiptext tooltip" id="tooltipInfo">Necesarios 9 dígitos.</span>
-                                    </i>
-                                    <i class="fas fa-exclamation-circle" id="iconExcPhone">
-                                        <span class="tooltiptext tooltip" id="tooltipExcl">Necesarios 9 dígitos.</span>
-                                    </i>
-                                    <i class="fas fa-check-circle" id="iconCheckPhone"></i>
-                                </div>
+                        </div>
+                        <div class="inputs_form">
+                            <label for="phone">Teléfono:</label></label><span id="phone"
+                                style="margin-left: 10px;"></span>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="input_phone" placeholder="Teléfono">
+                                <i class="fas fa-info-circle" id="iconInfoPhone">
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Necesarios 9 dígitos.</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcPhone">
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">Necesarios 9 dígitos.</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckPhone"></i>
                             </div>
-                            <div class="inputs_form">
-                                <label for="alias">Alias:</label><span id="alias" style="margin-left: 10px;"></span>
-                                <div class="inputs-group">
-                                    <input class="form-control" type="text" id="input_alias" placeholder="Alias"
-                                        id='alias' required>
-                                    <i class="fas fa-info-circle" id="iconInfoAlias">
-                                        <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio. Mínimo 3
-                                            letras. Máximo 50 letras.</span>
-                                    </i>
-                                    <i class="fas fa-exclamation-circle" id="iconExcAlias">
-                                        <span class="tooltiptext tooltip" id="tooltipExcl">Campo obligatorio. Mínimo
-                                            3 letras. Máximo 50 letras.</span>
-                                    </i>
-                                    <i class="fas fa-check-circle" id="iconCheckAlias"></i>
-                                </div>
+                        </div>
+                        <div class="inputs_form">
+                            <label for="alias">Alias:</label><span id="alias" style="margin-left: 10px;"></span>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="input_alias" placeholder="Alias" id='alias'
+                                    required>
+                                <i class="fas fa-info-circle" id="iconInfoAlias">
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio. Mínimo 3
+                                        letras. Máximo 50 letras.</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcAlias">
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">Campo obligatorio. Mínimo
+                                        3 letras. Máximo 50 letras.</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckAlias"></i>
                             </div>
-                            <div class="inputs_form">
-                                <label for="email">Email:</label><span id="email" style="margin-left: 10px;"></span>
-                                <div class="inputs-group">
-                                    <input class="form-control" type="text" id="input_email" placeholder="Email">
-                                    <i class="fas fa-info-circle" id="iconInfoEmail">
-                                        <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio. Introduce
-                                            un email
-                                            valido</span>
-                                    </i>
-                                    <i class="fas fa-exclamation-circle" id="iconExcEmail">
-                                        <span class="tooltiptext tooltip" id="tooltipExcl"></span>
-                                    </i>
-                                    <i class="fas fa-check-circle" id="iconCheckEmail"></i>
-                                </div>
+                        </div>
+                        <div class="inputs_form">
+                            <label for="email">Email:</label><span id="email" style="margin-left: 10px;"></span>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="input_email" placeholder="Email">
+                                <i class="fas fa-info-circle" id="iconInfoEmail">
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio. Introduce
+                                        un email
+                                        valido</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcEmail">
+                                    <span class="tooltiptext tooltip" id="tooltipExcl"></span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckEmail"></i>
                             </div>
-                            <div class="inputs_form">
-                                <label for="pswrd">Contraseña:</label><span id="psdw" style="margin-left: 10px;"></span>
-                                <div class="inputs-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="viewPass"><i class="fa fa-eye"></i></span>
-                                    </div>
-                                    <input class="form-control" type="text" id="input_psdw_1"
-                                        placeholder="Introduce la contraseña antigua">
-                                    <i class="fas fa-info-circle" id="iconInfoPswrd">
-                                        <span class="tooltiptext tooltip" id="tooltipInfo">
-                                            <span>Campo obligatorio. <br>Requisitos mínimos para la contraseña
-                                                (siguiendo este
-                                                orden)<br>
-                                                - La primera letra tiene que ser mayuscula (A - Z).<br>
-                                                - 5 carácteres alfanuméricos (A - Z, a - z, 0 - 9, _).<br>
-                                                - 2 números (0 - 9).<br>
-                                                - 1 carácter no alfanumérico (! " · $ % & / ( ) = _ ^ * ... ).</span>
-                                        </span>
-                                    </i>
-                                    <i class="fas fa-check-circle" id="iconCheckPswrd"></i>
+                        </div>
+                        <div class="inputs_form">
+                            <label for="pswrd">Contraseña:</label><span id="psdw" style="margin-left: 10px;"></span>
+                            <div class="inputs-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="viewPass_1"><i class="fa fa-eye"></i></span>
                                 </div>
-                                <div class="inputs-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="viewPass"><i class="fa fa-eye"></i></span>
-                                    </div>
-                                    <input class="form-control" type="text" id="input_psdw_2"
-                                        placeholder="Introduce la nueva contraseña">
-                                    <i class="fas fa-info-circle" id="iconInfoPswrd">
-                                        <span class="tooltiptext tooltip" id="tooltipInfo">
-                                            <span>Campo obligatorio. <br>Requisitos mínimos para la contraseña
-                                                (siguiendo este
-                                                orden)<br>
-                                                - La primera letra tiene que ser mayuscula (A - Z).<br>
-                                                - 5 carácteres alfanuméricos (A - Z, a - z, 0 - 9, _).<br>
-                                                - 2 números (0 - 9).<br>
-                                                - 1 carácter no alfanumérico (! " · $ % & / ( ) = _ ^ * ... ).</span>
-                                        </span>
-                                    </i>
-                                    <i class="fas fa-exclamation-circle" id="iconExcPswrd">
-                                        <span class="tooltiptext tooltip" id="tooltipExcl">La contraseña no cumple los
-                                            requisitos mínimos. Recuerda:<br> - La primera letra tiene que ser mayuscula
-                                            (A -
-                                            Z).<br>
+                                <input class="form-control" type="password" id="input_psdw_1"
+                                    placeholder="Introduce la contraseña antigua">
+                                <i class="fas fa-info-circle" id="iconInfoPswrd_1">
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">
+                                        <span>Introduce la contraseña que estás usando actualmente.</span>
+                                    </span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcPswrd_1">
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">
+                                        La contraseña introducida no es correcta.</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckPswrd_1"></i>
+                            </div>
+                            <div class="inputs-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="viewPass_2"><i class="fa fa-eye"></i></span>
+                                </div>
+                                <input class="form-control" type="password" id="input_psdw_2"
+                                    placeholder="Introduce la nueva contraseña">
+                                <i class="fas fa-info-circle" id="iconInfoPswrd_2">
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">
+                                        <span>Campo obligatorio. <br>Requisitos mínimos para la contraseña
+                                            (siguiendo este
+                                            orden)<br>
+                                            - La primera letra tiene que ser mayuscula (A - Z).<br>
                                             - 5 carácteres alfanuméricos (A - Z, a - z, 0 - 9, _).<br>
                                             - 2 números (0 - 9).<br>
                                             - 1 carácter no alfanumérico (! " · $ % & / ( ) = _ ^ * ... ).</span>
-                                    </i>
-                                    <i class="fas fa-check-circle" id="iconCheckPswrd"></i>
+                                    </span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcPswrd_2">
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">La contraseña no cumple los
+                                        requisitos mínimos. Recuerda:<br> - La primera letra tiene que ser mayuscula
+                                        (A -
+                                        Z).<br>
+                                        - 5 carácteres alfanuméricos (A - Z, a - z, 0 - 9, _).<br>
+                                        - 2 números (0 - 9).<br>
+                                        - 1 carácter no alfanumérico (! " · $ % & / ( ) = _ ^ * ... ).</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckPswrd_2"></i>
+                            </div>
+                            <div class="inputs-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="viewPass_3"><i class="fa fa-eye"></i></span>
                                 </div>
-                                <div class="inputs-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="viewPass"><i class="fa fa-eye"></i></span>
-                                    </div>
-                                    <input class="form-control" type="text" id="input_psdw_3"
-                                        placeholder="Introduce de nuevo la nueva contraseña">
-                                    <i class="fas fa-info-circle" id="iconInfoPswrd">
-                                        <span class="tooltiptext tooltip" id="tooltipInfo">
-                                            <span>Campo obligatorio. <br>Requisitos mínimos para la contraseña
-                                                (siguiendo este
-                                                orden)<br>
-                                                - La primera letra tiene que ser mayuscula (A - Z).<br>
-                                                - 5 carácteres alfanuméricos (A - Z, a - z, 0 - 9, _).<br>
-                                                - 2 números (0 - 9).<br>
-                                                - 1 carácter no alfanumérico (! " · $ % & / ( ) = _ ^ * ... ).</span>
-                                        </span>
-                                    </i>
-                                    <i class="fas fa-exclamation-circle" id="iconExcPswrd">
-                                        <span class="tooltiptext tooltip" id="tooltipExcl">La contraseña no cumple los
-                                            requisitos mínimos. Recuerda:<br> - La primera letra tiene que ser mayuscula
-                                            (A -
-                                            Z).<br>
-                                            - 5 carácteres alfanuméricos (A - Z, a - z, 0 - 9, _).<br>
-                                            - 2 números (0 - 9).<br>
-                                            - 1 carácter no alfanumérico (! " · $ % & / ( ) = _ ^ * ... ).</span>
-                                    </i>
-                                    <i class="fas fa-check-circle" id="iconCheckPswrd"></i>
-                                </div>
+                                <input class="form-control" type="password" id="input_psdw_3"
+                                    placeholder="Introduce de nuevo la nueva contraseña">
+                                <i class="fas fa-info-circle" id="iconInfoPswrd_3">
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">
+                                        <span>Vuelve a introducir la nueva contraseña.</span>
+                                    </span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcPswrd_3">
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">La contraseña introducida no
+                                        coincide con la nueva contraseña.</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckPswrd_3"></i>
                             </div>
                         </div>
-                        <div id="registerNutritionist">
-                            <div class="inputs_form">
-                                <label for="nif">NIF/DNI/NIE/CIF:</label><span id="nif"
-                                    style="margin-left: 10px;"></span>
-                                <div class="inputs-group">
-                                    <select id="document">
-                                        <option value="nif" selected="selected">NIF/DNI</option>
-                                        <option value="nie">NIE</option>
-                                        <option value="cif">CIF</option>
-                                    </select>
-                                    <input class="form-control" type="text" id="input_nif" placeholder="NIF/DNI/NIE/CIF"
-                                        id='nif'>
-                                    <i class="fas fa-info-circle" id="iconInfoNif">
-                                        <span class="tooltiptext tooltip" id="tooltipInfo">Necesarios 9 dígitos.</span>
-                                    </i>
-                                    <i class="fas fa-exclamation-circle" id="iconExcNif">
-                                        <span class="tooltiptext tooltip" id="tooltipExcl"></span>
-                                    </i>
-                                    <i class="fas fa-check-circle" id="iconCheckNif"></i>
-                                </div>
-                            </div>
-                            <div class="inputs_form">
-                                <label for="pc">Código Postal:</label><span id="pc" style="margin-left: 10px;"></span>
-                                <div class="inputs-group">
-                                    <input class="form-control" type="text" id="input_pc" placeholder="Código Postal">
-                                    <i class="fas fa-info-circle" id="iconInfoPc">
-                                        <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio.
-                                            Necesarios 5 dígitos.</span>
-                                    </i>
-                                    <i class="fas fa-exclamation-circle" id="iconExcPc">
-                                        <span class="tooltiptext tooltip" id="tooltipExcl">Campo obligatorio.
-                                            Necesarios 5 dígitos.</span>
-                                    </i>
-                                    <i class="fas fa-check-circle" id="iconCheckPc"></i>
-                                </div>
-                            </div>
-                            <div class="inputs_form">
-                                <label for="city">Población:</label><span id="city" style="margin-left: 10px;"></span>
-                                <div class="inputs-group">
-                                    <input class="form-control" type="text" id="input_city" placeholder="Población">
-                                    <i class="fas fa-info-circle" id="iconInfoCity">
-                                        <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio. Mínimo 3
-                                            letras. Máximo 50 letras.</span>
-                                    </i>
-                                    <i class="fas fa-exclamation-circle" id="iconExcCity">
-                                        <span class="tooltiptext tooltip" id="tooltipExcl">Campo obligatorio. Mínimo 3
-                                            letras. Máximo 50 letras.</span>
-                                    </i>
-                                    <i class="fas fa-check-circle" id="iconCheckCity"></i>
-                                </div>
-                            </div>
-                            <div class="inputs_form">
-                                <label for="direction">Dirección:</label><span id="direction"
-                                    style="margin-left: 10px;"></span>
-                                <div class="inputs-group">
-                                    <input class="form-control" type="text" id="input_direction"
-                                        placeholder="Dirección">
-                                    <i class="fas fa-info-circle" id="iconInfoDire">
-                                        <span class="tooltiptext tooltip" id="tooltipInfo">Mínimo 5 letras. Máximo 100
-                                            letras.</span>
-                                    </i>
-                                    <i class="fas fa-exclamation-circle" id="iconExcDire">
-                                        <span class="tooltiptext tooltip" id="tooltipExcl">Mínimo 5 letras. Máximo 100
-                                            letras.</span>
-                                    </i>
-                                    <i class="fas fa-check-circle" id="iconCheckDire"></i>
-                                </div>
-                            </div>
-                            <div class="inputs_form">
-                                <label for="company">Compañía:</label><span id="company"
-                                    style="margin-left: 10px;"></span>
-                                <div class="inputs-group">
-                                    <input class="form-control" type="text" id="input_company" placeholder="Compañía">
-                                    <i class="fas fa-info-circle" id="iconInfoComp">
-                                        <span class="tooltiptext tooltip" id="tooltipInfo">Mínimo 2 letras. Máximo 50
-                                            letras.</span>
-                                    </i>
-                                    <i class="fas fa-exclamation-circle" id="iconExcComp">
-                                        <span class="tooltiptext tooltip" id="tooltipExcl">Mínimo 2 letras. Máximo 50
-                                            letras.</span>
-                                    </i>
-                                    <i class="fas fa-check-circle" id="iconCheckComp"></i>
-                                </div>
-                            </div>
-                            <div class="inputs_form">
-                                <label for="business_phone">Teléfono de empresa</label><span id="business_phone"
-                                    style="margin-left: 10px;"></span>
-                                <div class="inputs-group">
-                                    <input class="form-control" type="text" id="input_business_phone"
-                                        placeholder="Teléfono de empresa" minlength='9' maxlength='9'>
-                                    <i class="fas fa-info-circle" id="iconInfoBusPhon">
-                                        <span class="tooltiptext tooltip" id="tooltipInfo">Necesarios 9
-                                            dígitos.</span>
-                                    </i>
-                                    <i class="fas fa-exclamation-circle" id="iconExcBusPhon">
-                                        <span class="tooltiptext tooltip" id="tooltipExcl">Necesarios 9
-                                            dígitos.</span>
-                                    </i>
-                                    <i class="fas fa-check-circle" id="iconCheckBusPhon"></i>
-                                </div>
+                    </div>
+                    <div id="registerNutritionist">
+                        <div class="inputs_form">
+                            <label for="nif">NIF/DNI/NIE/CIF:</label><span id="nif" style="margin-left: 10px;"></span>
+                            <div class="inputs-group">
+                                <select id="document">
+                                    <option value="nif" selected="selected">NIF/DNI</option>
+                                    <option value="nie">NIE</option>
+                                    <option value="cif">CIF</option>
+                                </select>
+                                <input class="form-control" type="text" id="input_nif" placeholder="NIF/DNI/NIE/CIF"
+                                    id='nif'>
+                                <i class="fas fa-info-circle" id="iconInfoNif">
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Necesarios 9 dígitos.</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcNif">
+                                    <span class="tooltiptext tooltip" id="tooltipExcl"></span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckNif"></i>
                             </div>
                         </div>
-                        <button class="button btn_save" id='submit'>GUARDAR</button>
-                        <!-- <button class="button btn_checkIn btn_checkOut" style="width: 115px;" id='submit'>DESCONECTAR</button> -->
-                        
-                        <!-- Button trigger modal -->
-                        <div class="deleteAc">
-                            <a type="link" data-toggle="modal" data-target="#exampleModalCenter">
-                                Darse de baja de BienMeSabe
-                            </a>
+                        <div class="inputs_form">
+                            <label for="pc">Código Postal:</label><span id="pc" style="margin-left: 10px;"></span>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="input_pc" placeholder="Código Postal">
+                                <i class="fas fa-info-circle" id="iconInfoPc">
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio.
+                                        Necesarios 5 dígitos.</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcPc">
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">Campo obligatorio.
+                                        Necesarios 5 dígitos.</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckPc"></i>
+                            </div>
                         </div>
-                        
+                        <div class="inputs_form">
+                            <label for="city">Población:</label><span id="city" style="margin-left: 10px;"></span>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="input_city" placeholder="Población">
+                                <i class="fas fa-info-circle" id="iconInfoCity">
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Campo obligatorio. Mínimo 3
+                                        letras. Máximo 50 letras.</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcCity">
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">Campo obligatorio. Mínimo 3
+                                        letras. Máximo 50 letras.</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckCity"></i>
+                            </div>
+                        </div>
+                        <div class="inputs_form">
+                            <label for="direction">Dirección:</label><span id="direction"
+                                style="margin-left: 10px;"></span>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="input_direction" placeholder="Dirección">
+                                <i class="fas fa-info-circle" id="iconInfoDire">
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Mínimo 5 letras. Máximo 100
+                                        letras.</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcDire">
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">Mínimo 5 letras. Máximo 100
+                                        letras.</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckDire"></i>
+                            </div>
+                        </div>
+                        <div class="inputs_form">
+                            <label for="company">Compañía:</label><span id="company" style="margin-left: 10px;"></span>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="input_company" placeholder="Compañía">
+                                <i class="fas fa-info-circle" id="iconInfoComp">
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Mínimo 2 letras. Máximo 50
+                                        letras.</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcComp">
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">Mínimo 2 letras. Máximo 50
+                                        letras.</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckComp"></i>
+                            </div>
+                        </div>
+                        <div class="inputs_form">
+                            <label for="business_phone">Teléfono de empresa</label><span id="business_phone"
+                                style="margin-left: 10px;"></span>
+                            <div class="inputs-group">
+                                <input class="form-control" type="text" id="input_business_phone"
+                                    placeholder="Teléfono de empresa" minlength='9' maxlength='9'>
+                                <i class="fas fa-info-circle" id="iconInfoBusPhon">
+                                    <span class="tooltiptext tooltip" id="tooltipInfo">Necesarios 9
+                                        dígitos.</span>
+                                </i>
+                                <i class="fas fa-exclamation-circle" id="iconExcBusPhon">
+                                    <span class="tooltiptext tooltip" id="tooltipExcl">Necesarios 9
+                                        dígitos.</span>
+                                </i>
+                                <i class="fas fa-check-circle" id="iconCheckBusPhon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="button btn_save" id='submit'>GUARDAR</button>
+                    <!-- <button class="button btn_checkIn btn_checkOut" style="width: 115px;" id='submit'>DESCONECTAR</button> -->
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalCenterTitle">Eliminar cuenta</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ¿Está seguro que quiere borrar su cuenta? Una vez confirmado, no se podrán recuperar sus datos.
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button"
-                                            class="button btn_checkIn btn_deleteAccount">Aceptar</button>
-                                        <button type="button" class="button btn_checkIn"
-                                            data-dismiss="modal">Cancelar</button>
-                                    </div>
+                    <!-- Button trigger modal -->
+                    <div class="deleteAc">
+                        <a type="link" data-toggle="modal" data-target="#exampleModalCenter">
+                            Darse de baja de BienMeSabe
+                        </a>
+                    </div>                  
+
+                    <!-- Modal delete account -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Eliminar cuenta</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ¿Está seguro que quiere borrar su cuenta? Una vez confirmado, no se podrán recuperar
+                                    sus datos.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="button btn_checkIn btn_deleteAccount">Aceptar</button>
+                                    <button type="button" class="button btn_checkIn"
+                                        data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal update data true -->
+                    <div class="modal fade" id="updateDataTrue" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Datos actualizados correctamente.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="button btn_accept">Aceptar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- <div class="recipes_container" style="margin:100px 0px 0px 100px;">
+
+        <!-- <div class="recipes_container" style="margin:100px 0px 0px 100px;">
             <label for="name">Nombre: </label><span id="name" style="margin-left: 10px;"></span>
             <div style="width: 40%; margin-bottom: 25px">
                 <input class="form-control" type="text" id="input_name" placeholder="Modificar Nombre">
@@ -396,10 +401,10 @@
             </div>
         </div> -->
 
-        </div>
+    </div>
 
-        <!-- Footer -->
-        <%- include('./footer'); %>
+    <!-- Footer -->
+    <%- include('./footer'); %>
 </body>
 
 </html>

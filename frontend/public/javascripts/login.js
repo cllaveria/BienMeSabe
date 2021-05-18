@@ -32,6 +32,30 @@ $(document).ready(function () {
 
     /**
      * @type {jQuery}
+     * @type mouseenter
+     * @method on
+     * @listens viewPass - ID de la casella per veure el password.
+     * @description Quan es passa per sobre de la icona de la contrasenya, la contrasenya escrita per l'usuari passa a ser 
+     * visible canviant l'atribut type de l'id pswrd per un string vuit.
+     */
+    $('#viewPass').on('mouseenter', () => {
+        $('#pswrd').attr('type', '');
+    });
+
+    /**
+     * @type {jQuery}
+     * @type mouseleave
+     * @method on
+     * @listens viewPass - ID de la casella per veure el password.
+     * @description Quan es passa per sobre de la icona de la contrasenya, la contrasenya escrita per l'usuari deixa de ser 
+     * visible canviant l'atribut type de l'id pswrd per password.
+     */
+    $('#viewPass').on('mouseleave', () => {
+        $('#pswrd').attr('type', 'password');
+    });
+    
+    /**
+     * @type {jQuery}
      * @type submit
      * @method on
      * @listens loginForm - ID del botó del formulari del login.
@@ -53,8 +77,9 @@ $(document).ready(function () {
             type: 'POST',
             success: function ($token) {
                 if ($token != '') {
-                    localStorage.setItem('token', $token.token);
                     localStorage.setItem('id', $token.id);
+                    localStorage.setItem('token', $token.token);
+
                     window.location = '/';
                 } else {
                     $('.messageError').css('display', 'block')
