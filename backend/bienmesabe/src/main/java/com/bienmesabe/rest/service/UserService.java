@@ -56,6 +56,8 @@ public interface UserService {
      */
     public User findUserByAlias(String alias);
     
+    public int getUserValoration(long id);
+    
     
     public User authenticateUser(String data);
 

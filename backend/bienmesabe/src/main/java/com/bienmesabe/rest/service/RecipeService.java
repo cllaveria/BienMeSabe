@@ -84,6 +84,10 @@ public interface RecipeService {
      */
     public List<Recipe> getRecipesOfOtherUsers(Long userId);
     
+    
+    public List<Recipe> getRecipesNotActive();
+            
+            
     /**
      * Method to create a recipe
      * @param recipe object that represents the recipe to persist
@@ -96,6 +100,8 @@ public interface RecipeService {
      * @param recipe object that represents the recipe to modify
      */
     public void modifyRecipe(Recipe recipe);
+    
+    public Boolean setRecipeAsActive(Long id);
     
     /**
      * Method to delete an recipe

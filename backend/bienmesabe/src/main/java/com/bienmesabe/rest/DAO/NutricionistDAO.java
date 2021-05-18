@@ -50,9 +50,15 @@ public interface NutricionistDAO {
     
     /**
      * Method to modify an nutricionist in the table nutricionists of the DB
-     * @param nutricionist object that represents the nutricionist to modify
+     * @param nutricionistId
+     * @param companyName
+     * @param companyDirection
+     * @param companyPostalCode
+     * @param companyCity
+     * @param companyPhone
+     * @return 
      */
-    public void modifyNutricionist(Nutricionist nutricionist);
+    public Boolean modifyNutricionist(Long nutricionistId, String companyName, String companyDirection, String companyPostalCode, String companyCity, String companyPhone);
     
     /**
      * Method to delete an nutricionist in the table nutricionists of the DB by id

@@ -77,6 +77,9 @@ public interface RecipeDAO {
      * @return a list with the recipes in the DB filtered by user
      */
     public List<Recipe> getRecipesOfOtherUsers(Long userId);
+    
+    
+    public List<Recipe> getRecipesNotActive();
     /**
      * Method to create a recipe in the table recipes of the DB
      * @param recipe object that represents the recipe to persist
@@ -89,6 +92,9 @@ public interface RecipeDAO {
      * @param recipe object that represents the recipe to modify
      */
     public void modifyRecipe(Recipe recipe);
+    
+    
+    public Boolean setRecipeAsActive(Long id);
     
     /**
      * Method to delete an recipe in the table recipes of the DB by id
