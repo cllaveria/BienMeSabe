@@ -54,7 +54,7 @@ public interface NutricionistService {
      * Method to modify an nutricionist in the table nutricionists of the DB
      * @param nutricionist object that represents the nutricionist to modify
      */
-    public void modifyNutricionist(Nutricionist nutricionist);
+    public void modifyNutricionist(String nutricionist);
     
     /**
      * Method to delete an nutricionist in the table nutricionists of the DB by id
