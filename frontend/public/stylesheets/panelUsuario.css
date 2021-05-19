@@ -68,11 +68,11 @@ a.bg-light:focus,
 }
 
 .list-group-item.toggled {
-  padding: 25px 10px;
+  padding: 10px 5px;
 }
 
 #wrapper.toggled #sidebar-wrapper {
-  width: fit-content;
+  width: 45px;
   min-width: 0;
 }
 
@@ -85,6 +85,36 @@ a.bg-light:focus,
   display: none;
 }
 
+.fas.noShow {
+  display: none;
+}
+
+.btn_coll {
+  margin-top: 40px;
+  color: #495057;
+  padding: 5px;
+}
+
+.btn_coll:hover {
+  color: black;
+  background-color: #fbc76f;
+}
+
+.btn_coll:focus {
+  box-shadow: none;
+}
+
+.collapseBtn {
+  display: inline-flex;
+}
+
+.fa-chevron-left {
+  font-size: 18px;
+}
+
+p.noToggle {
+  margin-left: 10px;
+}
 /* @media (max-width: 700px) {
   .list-group-item.toggled {
     padding: 25px 10px;
