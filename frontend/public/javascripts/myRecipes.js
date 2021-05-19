@@ -23,9 +23,9 @@ $(document).ready(function () {
                 if ($recipe.userId == $IDuser) {
                     console.log($recipe)
                     $forks = getForks($recipe.recipeAssessment);
-                    $('#recipes').append('<tr>\
-                                            <td class="nameRec" value="' + $recipe.id + '"><a href="http://localhost:3000/recetas/ficha?id=' + $recipe.id + '">' + $recipe.name + '</a></td>\
-                                            <td><i class="fas fa-pen icon"></i></td>\
+                    $('#recipes').append('<tr value="' + $recipe.id + '">\
+                                            <td class="nameRec" ><a href="http://localhost:3000/recetas/ficha?id=' + $recipe.id + '">' + $recipe.name + '</a></td>\
+                                            <td><i class="fas fa-pen icon btn_modifyRecipe"></i></td>\
                                             <td><i class="fas fa-trash-alt icon btn_deleteRecipe"></i></td>\
                                             <td>' + $forks + '</td>\
                                         </tr>');
@@ -62,7 +62,6 @@ $(document).ready(function () {
     })
 
     $('.btn_modifyRecipe').on('click', function () {
-        // TODO: Cuenado se creen las páginas correspondientes, modificar el enlace.
-        window.location = '/panelUsuario/modificarReceta?id=' + $(this).parent().parent().attr('value');
+        window.location = '/crearReceta?id=' + $(this).parent().parent().attr('value');
     });
 });

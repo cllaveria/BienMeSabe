@@ -1,14 +1,117 @@
 @import "common.css";
 
-.login_container {
+.recipe_container {
   margin: 80px auto;
-  padding: 50px 20px 5px;
-  width: 350px;
+  padding: 80px 0;
+  width: 1000px;
 }
 
+@media (max-width: 1240px) {
+  .recipe_container {
+    width: 850px;
+  }
+}
 
-.btn_login {
+.top {
+  margin-top: 40px;
+  display: grid;
+  gap: 50px;
+  grid-template-columns: 3fr 1fr;
+  margin-bottom: 35px;
+}
+
+.inputs {
+  display: grid;
+}
+
+.custom-file-label {
+  border: solid 1px #a6aa9c;
+  background-color: #f0f8ff;
+}
+
+.custom-file-input:focus ~ .custom-file-label {
+  box-shadow: 0 0 0 0.2rem #fca035;
+  border: 0;
+  outline: 0;
+}
+
+label {
+  padding-bottom: 10px;
+}
+
+input,
+textarea,
+select,
+datalist {
+  border: solid 1px #a6aa9c;
+  background-color: #f0f8ff;
+  height: 38px;
+  border-radius: 3px;
+  padding: 6px 12px;
+}
+
+input:focus,
+textarea:focus,
+datalist:focus {
+  box-shadow: 0 0 0 0.2rem #fca035;
+  border: 0;
+  outline: 0;
+}
+
+select:focus {
+  border: solid 2px #fca035;
+  outline: 0;
+}
+
+textarea {
+  min-height: 150px;
+  margin-bottom: 35px;
+}
+
+.ingr_cont,
+.pasos_cont {
+  margin: auto;
+  padding: 10px 50px;
+}
+
+.ingredients {
+  display: inline-flex;
+  gap: 30px;
+  width: 100%;
+}
+
+.cantidad {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.btn_addIngr {
+  margin: 15px auto 35px;
+  display: flow-root;
+  width: fit-content;
+}
+
+.btn_addPasos {
+  margin: auto auto 35px;
+  display: flow-root;
+  width: fit-content;
+}
+
+.pasos {
+  display: grid;
+  gap: 50px;
+  grid-template-columns: 3fr 1fr;
+}
+
+.desc_pas {
+  min-height: 100px;
+}
+
+.dropzone {
+  align-content: flex-start;
+}
+
+.btn_save {
   margin: 35px auto;
   display: block;
 }
-
