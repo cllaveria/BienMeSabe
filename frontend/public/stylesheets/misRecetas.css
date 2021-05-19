@@ -139,6 +139,11 @@ td {
 
 .nameRec {
   float: left;
+  cursor: pointer;
+}
+
+.nameRec:hover {
+  color: #fca035; 
 }
 
 .icon {
