@@ -208,48 +208,6 @@ $(document).ready(function () {
     });
 
     /**
-     * @function getForks
-     * @description Concatenem una cadena per inserir en el DOM i mostrar la puntuació de la recepta.
-     * @param {string} $forks Número de forquilles (puntuació) que te la recepta.
-     * @return {string}
-     */
-    function getForks($forks) {
-        let $insertForks = '<div class="score_rec">';
-        for (let i = 0; i < $forks; i++) {
-            $insertForks = $insertForks.concat('<img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
-        }
-        if ($forks != 5) {
-            let $numberForks = 5 - $forks;
-            for (let i = 0; i < $numberForks; i++) {
-                $insertForks = $insertForks.concat('<img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
-            }
-        }
-        $insertForks = $insertForks.concat('</div>');
-        return $insertForks;
-    }
-
-    /**
-     * @function getDificult
-     * @description Rebem un número que representa la dificultat de la recepta i l'hi assignem una cadena String amb el text de dificultat.
-     * @param {string} $dificult Número que representa la dificultat de la recepta.
-     * @return {string}
-     */
-    function getDifficult($dificult) {
-        switch ($dificult) {
-            case 0:
-                return 'Muy baja';
-            case 1:
-                return 'Baja';
-            case 2:
-                return 'Media';
-            case 3:
-                return 'Difícil';
-            case 4:
-                return 'Muy difícil';
-        }
-    }
-
-    /**
      * @type {jQuery}
      * @type each
      * @listens .btn_more - Classe dels botons "VER MÁS" de les receptes.

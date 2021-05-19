@@ -47,7 +47,7 @@ token();
 
 function token() {
 
-    if ($localToken != '') {
+    if ($localToken != null) {
         let $token = $localToken.substr(7, );
         $.ajax({
             url: 'http://localhost:8080/api/tokenValidity/validateDate/',
@@ -90,6 +90,7 @@ function token() {
 
     return $boolean;
 }
+
 $(document).ready(function () {
     
     let $localToken = localStorage.getItem('token'),
@@ -103,7 +104,7 @@ $(document).ready(function () {
 
     function token() {
 
-        if ($localToken != '') {
+        if ($localToken != null) {
             let $token = $localToken.substr(7, );
             $.ajax({
                 url: 'http://localhost:8080/api/tokenValidity/validateDate/',

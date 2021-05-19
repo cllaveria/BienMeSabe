@@ -133,13 +133,12 @@ $(document).ready(function () {
      * @description Variable inicialitzada en blanc per emmagatzemar la cadena de les receptes a inserir.
      */
 
-     let $token, $IDuser;
-     let $result = token()
-     console.log($result)
-     if(token() == true){
-         $token = localStorage.getItem('token');
-         $IDuser = localStorage.getItem('id');
-     }
+    let $token, $IDuser;
+
+    if (token() == true) {
+        $token = localStorage.getItem('token');
+        $IDuser = localStorage.getItem('id');
+    }
 
     $.ajax({
         url: $urlIngredients,
@@ -188,6 +187,7 @@ $(document).ready(function () {
                     }
                 }
                 $forks = getForks($plateOrderByAssessment[i].recipeAssessment);
+                // Inserim en el carrousel DOM les receptes millor valroades.
                 $('.carousel-inner').append('<div class="carousel-item">\
                                                 <a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
                                                     <img class="imgCarousel" src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
@@ -217,9 +217,9 @@ $(document).ready(function () {
                 $latestRecipes[i] = $latestRecipesAjax[i];
             }
             if ($screenSize < 1240 && $screenSize > 700) {
-                insertRecipe(0, 4);
+                insertRecipe(0, 4, $allUsers, $latestRecipes, $urlRecipe);
             } else {
-                insertRecipe(0, 3);
+                insertRecipe(0, 3, $allUsers, $latestRecipes, $urlRecipe);
             }
         }
     })
@@ -424,49 +424,6 @@ $(document).ready(function () {
     }
 
     /**
-     * @function getForks
-     * @description Concatenem una cadena per inserir en el DOM i mostrar la puntuació de la recepta.
-     * @param {string} $forks Número de forquilles (puntuació) que te la recepta.
-     * @return {string}
-     */
-    function getForks($forks) {
-        let $insertForks = '<div class="score_rec">';
-        for (let i = 0; i < $forks; i++) {
-            $insertForks = $insertForks.concat('<img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
-        }
-        if ($forks != 5) {
-            let $numberForks = 5 - $forks;
-            for (let i = 0; i < $numberForks; i++) {
-                $insertForks = $insertForks.concat('<img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
-            }
-        }
-        $insertForks = $insertForks.concat('</div>');
-        return $insertForks;
-    }
-
-    /**
-     * @function getDificult
-     * @description Rebem un número que representa la dificultat de la recepta i l'hi assignem una cadena String amb el text de dificultat.
-     * @param {string} $dificult Número que representa la dificultat de la recepta.
-     * @return {string}
-     */
-    function $getDificult($dificult) {
-        //let $recipeDifficult
-        switch ($dificult) {
-            case 0:
-                return /* $recipeDifficult= */ 'Muy baja';
-            case 1:
-                return /* $recipeDifficult= */ 'Baja';
-            case 2:
-                return /* $recipeDifficult= */ 'Media';
-            case 3:
-                return /* $recipeDifficult= */ 'Difícil';
-            case 4:
-                return /* $recipeDifficult= */ 'Muy difícil';
-        }
-    }
-
-    /**
      * @type {jQuery}
      * @type click
      * @method on
@@ -478,56 +435,17 @@ $(document).ready(function () {
             window.location.href = '../recetas/filtros?latestRecipes'
         } else if ($count == 0) {
             if ($screenSize < 1240 && $screenSize > 700) {
-                insertRecipe(4, 8);
+                insertRecipe(4, 8, $allUsers, $latestRecipes, $urlRecipe);
             } else {
-                insertRecipe(3, 6);
+                insertRecipe(3, 6, $allUsers, $latestRecipes, $urlRecipe);
             }
         } else if ($count == 1) {
             if ($screenSize < 1240 && $screenSize > 700) {
-                insertRecipe(8, 12);
+                insertRecipe(8, 12, $allUsers, $latestRecipes, $urlRecipe);
             } else {
-                insertRecipe(6, 9);
+                insertRecipe(6, 9, $allUsers, $latestRecipes, $urlRecipe);
             }
         }
         $count++;
     });
-
-    /**
-     * @function insertRecipe
-     * @description Funció per inserir en el DOM les últimes receptes afegides a la BBDD.
-     * @param {number} $min Número mínim per començar el compte en el for.
-     * @param {number} $max Numero màxim per finalitzar el compte en el for.
-     */
-    function insertRecipe($min, $max) {
-        for (let i = $min; i < $max; i++) {
-            for (let j = 0; j < $allUsers.length; j++) {
-                if ($allUsers[j][0] == $latestRecipes[i].userId) {
-                    $userAlias = $allUsers[j][4];
-                }
-            }
-
-            $forks = getForks($latestRecipes[i].recipeAssessment);
-            $difficult = $getDificult($latestRecipes[i].recipeDifficult);
-
-            $('.latest_rec').append('<div class="rcp_cnt">\
-                                    <a href="' + $urlRecipe + $latestRecipes[i].id + '">\
-                                        <div class="recipe">\
-                                            <img src="' + $latestRecipes[i].image + '">\
-                                            <div class="desc_rec">\
-                                                <h3 id="title">' + $latestRecipes[i].name + '</h3>\
-                                                <p id="author">' + $userAlias + '</p>\
-                                            </div>\
-                                        </div>\
-                                        <div class="info_rec">\
-                                            <p id="level">Dificultad: ' + $difficult + '</p>\
-                                            <div class="time_rec">\
-                                                <i class="fas fa-clock clock"></i>\
-                                                <p id="time">' + $latestRecipes[i].recipeTime + ' min</p>\
-                                            </div>\
-                                        </div>\
-                                        ' + $forks + '\
-                                    </a>\
-                                </div>');
-        }
-    }
 });
