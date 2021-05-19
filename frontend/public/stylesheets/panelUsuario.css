@@ -115,29 +115,8 @@ a.bg-light:focus,
 p.noToggle {
   margin-left: 10px;
 }
-/* @media (max-width: 700px) {
-  .list-group-item.toggled {
-    padding: 25px 10px;
-  }
 
-  #wrapper.toggled #sidebar-wrapper {
-    width: fit-content;
-    min-width: 0;
-  }
 
-  .siToggle,
-  .noToggle {
-    padding-bottom: 0;
-  }
-
-  .noShow {
-    display: block;
-  }
-
-  .siShow {
-    display: none;
-  }
-} */
 
 #registerUser,
 #registerNutritionist {
