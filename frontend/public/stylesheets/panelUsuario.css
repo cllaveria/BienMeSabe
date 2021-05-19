@@ -3,11 +3,19 @@
 .settings_container {
   margin: 150px 100px;
   border: solid 1px #a6aa9c;
+  overflow: hidden;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 820px) {
   .settings_container {
-    width: 280px;
+    margin: 100px 50px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .settings_container {
+    margin: 80px 0;
+    width: 100%;
   }
 }
 
@@ -49,24 +57,27 @@ a.bg-light:focus,
   padding: 25px 25px 150px;
 }
 
+@media screen and (max-width: 400px) {
+  #page-content-wrapper {
+    padding: 25px 0 150px;
+  }
+}
+
 .mt-4 {
   font-weight: bold;
 }
 
-
-
-
 .list-group-item.toggled {
-  padding: 25px 10px;
+  padding: 10px 5px;
 }
 
 #wrapper.toggled #sidebar-wrapper {
-  width: fit-content;
+  width: 45px;
   min-width: 0;
 }
 
 .siToggle,
-.noToggle{
+.noToggle {
   padding-bottom: 0;
 }
 
@@ -74,21 +85,66 @@ a.bg-light:focus,
   display: none;
 }
 
+.fas.noShow {
+  display: none;
+}
+
+.btn_coll {
+  margin-top: 40px;
+  color: #495057;
+  padding: 5px;
+}
+
+.btn_coll:hover {
+  color: black;
+  background-color: #fbc76f;
+}
+
+.btn_coll:focus {
+  box-shadow: none;
+}
+
+.collapseBtn {
+  display: inline-flex;
+}
+
+.fa-chevron-left {
+  font-size: 18px;
+}
+
+p.noToggle {
+  margin-left: 10px;
+}
 
 
 
-#registerUser {
+#registerUser,
+#registerNutritionist {
   align-items: center;
   margin-top: 25px;
   margin-left: 50px;
   width: 450px;
 }
 
-#registerNutritionist {
-  align-items: center;
-  margin-top: 25px;
-  margin-left: 50px;
-  width: 450px;
+@media screen and (max-width: 1020px) {
+  #registerUser,
+  #registerNutritionist {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  #registerUser,
+  #registerNutritionist {
+    margin-left: 10px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  #registerUser,
+  #registerNutritionist {
+    width: 220px;
+  }
 }
 
 .inputs_form {
