@@ -32,9 +32,9 @@ public class BienmesabeApplication {
         SpringApplication.run(BienmesabeApplication.class, args);
     }
 
-    @EnableGlobalMethodSecurity(prePostEnabled = true)
     @EnableWebSecurity
     @Configuration
+    @EnableGlobalMethodSecurity(prePostEnabled = true)
     class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
@@ -70,7 +70,6 @@ public class BienmesabeApplication {
                     .antMatchers(HttpMethod.GET, "/api/ingredient/getIngredients").permitAll()
                     .antMatchers(HttpMethod.POST, "/api/comment/addComment/{recipeId}/{comment}/{userId}").permitAll()
                     .antMatchers(HttpMethod.GET, "/api/tokenValidity/validateDate/").permitAll()
-                    .antMatchers(HttpMethod.GET, "/api/tokenValidity/validateDate").permitAll()
                     .anyRequest().authenticated();
         }
     }
