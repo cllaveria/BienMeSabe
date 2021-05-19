@@ -7,7 +7,9 @@ package com.bienmesabe.rest.controller;
 
 
 import com.bienmesabe.rest.domain.User;
+import com.bienmesabe.rest.service.TokenService;
 import com.bienmesabe.rest.service.UserService;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,6 +39,8 @@ public class UserController{
     @Autowired
     private UserService userService;
     
+
+    
     /**
      * Method to recover the users  // HTTP verb: GET url: http://localhost:8080/api/user/getUsers
      * @return a list with the users
@@ -54,6 +58,17 @@ public class UserController{
     @GetMapping("/getUserById/{id}")
     public User findUserById(@PathVariable String id){
         User user = userService.findUserById(Long.parseLong(id));
+        return user;
+    }
+    
+    /**
+     * Method to recover the user by id // HTTP verb: GET url: http://localhost:8080/api/user/getUserById/{UserId}
+     * @param id string that represents the id of the users to search
+     * @return the user filtered by id
+     */
+    @GetMapping("/getUserByIdWithAllProperties/{id}")
+    public User findUserByIdWithAllProperties(@PathVariable String id){
+        User user = userService.findUserByIdWithAllProperties(Long.parseLong(id));
         return user;
     }
     

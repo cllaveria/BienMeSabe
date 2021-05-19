@@ -29,6 +29,13 @@ public interface UserService {
     public User findUserById(Long id);
     
     /**
+     * Method to recover the user by id
+     * @param id long that represents the id of the users to search
+     * @return the user filtered by id
+     */
+    public User findUserByIdWithAllProperties(Long id);
+    
+    /**
      * Method to recover the user by name
      * @param name string that represents the name of the users to search
      * @return the user filtered by name

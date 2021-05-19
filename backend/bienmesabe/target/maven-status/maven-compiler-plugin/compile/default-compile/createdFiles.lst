@@ -1,5 +1,6 @@
 com\bienmesabe\rest\service\AssessmentService.class
 com\bienmesabe\rest\DAO\impl\AssessmentDAOImpl.class
+com\bienmesabe\rest\controller\TokenController.class
 com\bienmesabe\rest\service\TokenService.class
 com\bienmesabe\rest\DAO\impl\UserDAOImpl.class
 com\bienmesabe\rest\service\CommentService.class
