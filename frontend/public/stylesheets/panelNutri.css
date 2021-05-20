@@ -6,66 +6,166 @@
   overflow: hidden;
 }
 
-.btn_add,
-.btn_add:focus {
-  margin: 40px auto;
-  display: block;
-  width: 150px;
-  float: right;
+.mt-4 {
+  margin-bottom: 50px;
 }
 
-.tableRec {
-  width: 100%;
-  overflow-y: hidden;
+/*---User page---*/
+.nutrist_cont {
+  display: inline-flex;
+  gap: 50px; 
 }
 
-table {
-  width: 100%;
-  text-align: center;
-  border-collapse: collapse;
-}
-
-tr {
+.nutrist {
   border: solid 1px #a6aa9c;
-  padding: 10px;
+  display: inline-flex;
+  gap: 20px;
+  padding: 20px;
+  margin-left: 30px;
 }
 
-td {
-  padding: 10px;
-}
-
-.nameRec {
-  float: left;
+#nameNutri {
+  padding-bottom: 0;
+  margin-right: 30px;
   cursor: pointer;
 }
 
-.nameRec:hover {
-  color: #fca035; 
+i {
+  cursor: pointer;
 }
 
-.icon {
-  cursor: pointer;
-}
-.icon:hover {
-  cursor: pointer;
+#nameNutri:hover,
+i:hover {
   color: #fca035;
 }
 
-.val {
-  display: inline-flex;
-  margin-top: 40px;
-  float: right;
-  gap: 15px;
+.far,
+.fas {
+  font-size: 18px;
 }
 
-@media screen and (max-width: 700px) {
-  .btn_add,
-  .btn_add:focus,
-  .val {
-    float: none;
-  }
+.diet {
+  border: solid 1px #a6aa9c;
+  height: 40px;
+  padding: 10px;
+  margin-top: 10px;
+}
 
-  table {
-    width: 450px;
-  }
+#fichero {
+  padding-bottom: 0;
+}
+
+.search_nutri {
+  margin-top: 150px;
+  width: 100%;
+}
+
+h1 {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.h5 {
+  margin-left: 30px;
+}
+
+.postCod {
+  margin-left: 200px;
+  margin-top: 20px;
+}
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input {
+  margin-right: 30px;
+  height: 40px;
+  background-color: #f0f8ff;
+  border: 1px solid #ced4da;
+  padding: 15px;
+  width: 200px;
+}
+
+.nutritionists {
+  margin: 80px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  width: 800px;
+}
+
+.infoNutri {
+  text-align: center;
+  border: solid 1px #a6aa9c;
+  width: 200px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.infoNutri:hover {
+  box-shadow: 0 0 0 0.2rem #fca035;
+  border: 0;
+}
+
+#name{
+  padding-bottom: 10px;
+}
+
+#dire {
+  padding-bottom: 5px;
+}
+
+#titul {
+  padding-bottom: 20px;
+}
+
+.nutrist_container {
+  display: none;
+}
+
+/*---Nutritionist page---*/
+.user_cont {
+  display: inline-flex;
+  gap: 50px;
+  margin-top: 20px;
+}
+
+.desc_nutri {
+  margin: 100px 50px 0;
+  width: 800px;
+}
+
+.inputs {
+  display: grid;
+  margin-bottom: 25px;
+}
+
+#input_titul,
+textarea {
+  border: solid 1px #a6aa9c;
+  background-color: #f0f8ff;
+  height: 38px;
+  border-radius: 3px;
+  padding: 6px 12px;  
+}
+
+#input_titul {
+  width: 500px;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+}
+
+.buttons {
+  margin: 20px ;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.btn_see,
+.btn_see:focus {
+  width: fit-content;
 }

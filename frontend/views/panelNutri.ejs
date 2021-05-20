@@ -16,13 +16,10 @@
     <!-- Core theme JS-->
     <script src="../javascripts/collapseSidebar.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel='stylesheet' href='/stylesheets/misRecetas.css' />
+    <link rel='stylesheet' href='/stylesheets/panelNutri.css' />
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
         </script>
-    <script src="../javascripts/token.js"></script>
-    <script src="../javascripts/insertRecipe.js"></script>
-    <script src="../javascripts/myRecipes.js"></script>
     <!-- Encriptador MD5 -->
     <script src="http://pajhome.org.uk/crypt/md5/2.2/md5-min.js"></script>
 
@@ -36,40 +33,202 @@
         <div class="settings_container">
             <div class="d-flex" id="wrapper">
                 <!-- Sidebar-->
-                <div class="bg-light border-right" id="sidebar-wrapper">
-                    <div class="list-group list-group-flush">
-                        <a class="list-group-item list-group-item-action bg-light" href="/panelUsuario">
-                            <p class="noToggle">Configuración</p>
-                            <i class="fas fa-cog siToggle noShow"></i>
-                        </a>
-                        <a class="list-group-item list-group-item-action bg-light" href="/misRecetas">
-                            <p class="noToggle">Mis recetas</p>
-                            <i class="fas fa-utensils siToggle noShow"></i>
-                        </a>
-                        <a class="list-group-item list-group-item-action bg-light checked" href="/panelNutri">
-                            <p class="noToggle">Nutricionistas</p>
-                            <i class="fas fa-apple-alt siToggle noShow"></i>
-                        </a>
-                        <button class="btn btn_coll" id="menu-toggle">
-                            <div class="collapseBtn">
-                                <i class="fas fa-chevron-left noToggle"></i>
-                                <i class="fas fa-chevron-left noToggle"></i>
-                                <p class="noToggle">Cerrar</p>
+                <%- include('./lateral-menu'); %>
+                    <!-- Page Content-->
+                    <div id="page-content-wrapper">
+                        <div class="container-fluid">
+                            <!-- User page -->
+                            <div class="user_container">
+                                <h1 class="mt-4">Mi nutricionista</h1>
+                                <div class="nutrist_cont">
+                                    <div class="nutrist">
+                                        <h5 id="nameNutri">Nombre del nutricionista</h5>
+                                        <i class="far fa-envelope"></i>
+                                        <i class="fas fa-trash-alt"></i>
+                                    </div>
+                                    <div class="diet">
+                                        <p id="fichero">Archivo dieta personal</p>
+                                    </div>
+                                </div>
+                                <div class="search_nutri">
+                                    <h1>¿Quieres cambiar de nutricionista?</h1>
+                                    <h5 class="h5">Busca tu nutricionista más cercano</h5>
+                                    <div class="postCod">
+                                        <label>Introduce tu código postal</label>
+                                        <input type="text" placeholder="Código postal">
+                                        <button class="button btn_add" id='submit'>BUSCAR</button>
+                                    </div>
+                                </div>
+                                <div class="nutritionists">
+                                    <div class="infoNutri" onclick="location.href='/fichaNutri';">
+                                        <p id="name">Nombre del nutricionista</p>
+                                        <p id="dire">Dirección</p>
+                                        <p id="titul">Titulación</p>
+                                        <div class="score_user">
+                                            <img class="forkValue" id="fork1" value="5" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork2" value="4" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork3" value="3" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork4" value="2" src="/images/tenedor-black.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork5" value="1" src="/images/tenedor-black.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                        </div>
+                                    </div>
+                                    <div class="infoNutri" onclick="location.href='/fichaNutri';">
+                                        <p id="name">Nombre del nutricionista</p>
+                                        <p id="dire">Dirección</p>
+                                        <p id="titul">Titulación</p>
+                                        <div class="score_user">
+                                            <img class="forkValue" id="fork1" value="5" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork2" value="4" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork3" value="3" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork4" value="2" src="/images/tenedor-black.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork5" value="1" src="/images/tenedor-black.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                        </div>
+                                    </div>
+                                    <div class="infoNutri" onclick="location.href='/fichaNutri';">
+                                        <p id="name">Nombre del nutricionista</p>
+                                        <p id="dire">Dirección</p>
+                                        <p id="titul">Titulación</p>
+                                        <div class="score_user">
+                                            <img class="forkValue" id="fork1" value="5" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork2" value="4" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork3" value="3" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork4" value="2" src="/images/tenedor-black.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork5" value="1" src="/images/tenedor-black.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                        </div>
+                                    </div>
+                                    <div class="infoNutri" onclick="location.href='/fichaNutri';">
+                                        <p id="name">Nombre del nutricionista</p>
+                                        <p id="dire">Dirección</p>
+                                        <p id="titul">Titulación</p>
+                                        <div class="score_user">
+                                            <img class="forkValue" id="fork1" value="5" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork2" value="4" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork3" value="3" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork4" value="2" src="/images/tenedor-black.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork5" value="1" src="/images/tenedor-black.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                        </div>
+                                    </div>
+                                    <div class="infoNutri" onclick="location.href='/fichaNutri';">
+                                        <p id="name">Nombre del nutricionista</p>
+                                        <p id="dire">Dirección</p>
+                                        <p id="titul">Titulación</p>
+                                        <div class="score_user">
+                                            <img class="forkValue" id="fork1" value="5" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork2" value="4" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork3" value="3" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork4" value="2" src="/images/tenedor-black.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork5" value="1" src="/images/tenedor-black.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                        </div>
+                                    </div>
+                                    <div class="infoNutri" onclick="location.href='/fichaNutri';">
+                                        <p id="name">Nombre del nutricionista</p>
+                                        <p id="dire">Dirección</p>
+                                        <p id="titul">Titulación</p>
+                                        <div class="score_user">
+                                            <img class="forkValue" id="fork1" value="5" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork2" value="4" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork3" value="3" src="/images/tenedor-gold.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork4" value="2" src="/images/tenedor-black.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                            <img class="forkValue" id="fork5" value="1" src="/images/tenedor-black.svg"
+                                                alt="tenerdor" style="width: 15px; height: 30px;">
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="collapseBtn">
-                                <i class="fas fa-chevron-right siToggle noShow"></i>
-                                <i class="fas fa-chevron-right siToggle noShow"></i>
+
+                            <!-- Nutritionist page -->
+                            <div class="nutrist_container">
+                                <h1 class="mt-4">Mi nutricionista</h1>
+                                <div class="user_cont">
+                                    <div class="nutrist">
+                                        <h5 id="nameNutri">Nombre del usuario</h5>
+                                        <i class="far fa-envelope"></i>
+                                        <i class="fas fa-trash-alt"></i>
+                                    </div>
+                                    <div class="diet">
+                                        <p id="fichero">Archivo dieta personal</p>
+                                    </div>
+                                </div>
+                                <div class="user_cont">
+                                    <div class="nutrist">
+                                        <h5 id="nameNutri">Nombre del usuario</h5>
+                                        <i class="far fa-envelope"></i>
+                                        <i class="fas fa-trash-alt"></i>
+                                    </div>
+                                    <div class="diet">
+                                        <p id="fichero">Archivo dieta personal</p>
+                                    </div>
+                                </div>
+                                <div class="user_cont">
+                                    <div class="nutrist">
+                                        <h5 id="nameNutri">Nombre del usuario</h5>
+                                        <i class="far fa-envelope"></i>
+                                        <i class="fas fa-trash-alt"></i>
+                                    </div>
+                                    <div class="diet">
+                                        <p id="fichero">Archivo dieta personal</p>
+                                    </div>
+                                </div>
+                                <div class="user_cont">
+                                    <div class="nutrist">
+                                        <h5 id="nameNutri">Nombre del usuario</h5>
+                                        <i class="far fa-envelope"></i>
+                                        <i class="fas fa-trash-alt"></i>
+                                    </div>
+                                    <div class="diet">
+                                        <p id="fichero">Archivo dieta personal</p>
+                                    </div>
+                                </div>
+                                <div class="desc_nutri">
+                                    <h1>Preséntate a los usuarios</h1>
+                                    <div class="inputs">
+                                        <label>Titulación</label>
+                                        <input id="input_titul" type="text" placeholder="Introduce tu titulación">
+                                    </div>
+                                    <div class="inputs">
+                                        <label>Descripción</label>
+                                        <textarea class="desc_pas" id="desc_pas_4" type="text"
+                                            placeholder="Introduce una descripción sobre ti"></textarea>
+                                    </div>
+                                    <div class="buttons">
+                                        <button class="button btn_saveDes">GUARDAR</button>
+                                        <button class="button btn_see" onclick="location.href='/fichaNutri';">VER MI FICHA</button>
+                                    </div>
+                                </div>
                             </div>
-                        </button>
+                        </div>
                     </div>
-                </div>
-                <!-- Page Content-->
-                <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        <h1 class="mt-4">Mi nutricionista</h1>
-                        
-                    </div>
-                </div>
+
             </div>
         </div>
 
