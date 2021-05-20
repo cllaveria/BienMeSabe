@@ -1,3 +1,4 @@
+<script src="../javascripts/dropdownMenu.js"></script>
 <header>
     <nav class="navbar fixed-top navbar-expand-sm navbar-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -39,12 +40,43 @@
                         <span class="login" type="button" onclick="location.href='/login';">INICIAR SESIÓN</span>
                     </div>
                     <div class="item_block">
-                        <button class="btn_user" id='submit' onclick="location.href='/panelUsuario';">
+                        <button class="btn_user" id='submit'>
                             <i class="fas fa-user"></i> MI CUENTA
                         </button>
+                    </div>
+                    <div class="dropdownMenuResp noShowdropdown">
+                        <div class="item_block" id="login">
+                            <span class="login" type="button"
+                                onclick="location.href='/panelUsuario';">Configuración</span>
+                        </div>
+                        <div class="item_block" id="login">
+                            <span class="login" type="button" onclick="location.href='/misRecetas';">Mis recetas</span>
+                        </div>
+                        <div class="item_block" id="login">
+                            <span class="login" type="button"
+                                onclick="location.href='/panelNutri';">Nutricionistas</span>
+                        </div>
+                        <div class="item_block" id="login">
+                            <button class="button btn_checkOut" style="width: 115px;" id='submit'>DESCONECTAR</button>
+                        </div>
+
                     </div>
                 </div>
             </ul>
         </div>
     </nav>
+    <div class="dropdownMenu noShowdropdown">
+        <a class="list-group-item list-group-item-action bg-light" id="conf" href="/panelUsuario">
+            <p class="noToggle">Configuración</p>
+        </a>
+        <a class="list-group-item list-group-item-action bg-light" id="myRec" href="/misRecetas">
+            <p class="noToggle">Mis recetas</p>
+        </a>
+        <a class="list-group-item list-group-item-action bg-light" id="nutri" href="/panelNutri">
+            <p class="noToggle">Nutricionistas</p>
+        </a>
+        <div class="list-group-item ">
+            <button class="button btn_checkIn btn_checkOut" style="width: 115px;" id='submit'>DESCONECTAR</button>
+        </div>
+    </div>
 </header
