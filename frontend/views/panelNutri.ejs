@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!-- Bootstrap core JS-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../javascripts/collapseSidebar.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/misRecetas.css' />
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+    <script src="../javascripts/token.js"></script>
+    <script src="../javascripts/insertRecipe.js"></script>
+    <script src="../javascripts/myRecipes.js"></script>
+    <!-- Encriptador MD5 -->
+    <script src="http://pajhome.org.uk/crypt/md5/2.2/md5-min.js"></script>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include('./header'); %>
+
+        <!-- Settings -->
+        <div class="settings_container">
+            <div class="d-flex" id="wrapper">
+                <!-- Sidebar-->
+                <div class="bg-light border-right" id="sidebar-wrapper">
+                    <div class="list-group list-group-flush">
+                        <a class="list-group-item list-group-item-action bg-light" href="/panelUsuario">
+                            <p class="noToggle">Configuración</p>
+                            <i class="fas fa-cog siToggle noShow"></i>
+                        </a>
+                        <a class="list-group-item list-group-item-action bg-light" href="/misRecetas">
+                            <p class="noToggle">Mis recetas</p>
+                            <i class="fas fa-utensils siToggle noShow"></i>
+                        </a>
+                        <a class="list-group-item list-group-item-action bg-light checked" href="/panelNutri">
+                            <p class="noToggle">Nutricionistas</p>
+                            <i class="fas fa-apple-alt siToggle noShow"></i>
+                        </a>
+                        <button class="btn btn_coll" id="menu-toggle">
+                            <div class="collapseBtn">
+                                <i class="fas fa-chevron-left noToggle"></i>
+                                <i class="fas fa-chevron-left noToggle"></i>
+                                <p class="noToggle">Cerrar</p>
+                            </div>
+                            <div class="collapseBtn">
+                                <i class="fas fa-chevron-right siToggle noShow"></i>
+                                <i class="fas fa-chevron-right siToggle noShow"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <!-- Page Content-->
+                <div id="page-content-wrapper">
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Mi nutricionista</h1>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <%- include('./footer'); %>
+</body>
+
+</html>
