@@ -38,8 +38,16 @@ router.get('/crearReceta', function(req, res, next) {
   res.render('crearReceta', { title: 'Crear receta' });
 });
 
+router.get('/panelNutri', function(req, res, next) {
+  res.render('panelNutri', { title: 'Nutricionistas' });
+});
+
 router.get('/recetas/ficha', function(req, res, next) {
   res.render('ficha', { title: 'Ficha receta' });
+});
+
+router.get('/fichaNutri', function(req, res, next) {
+  res.render('fichaNutri', { title: 'Ficha nutricionista' });
 });
 
 router.get('/politica-privacidad', function(req, res, next) {
