@@ -85,13 +85,15 @@ textarea {
   gap: 5px;
 }
 
-.btn_addIngr {
+.btn_addIngr,
+.btn_addIngr:focus {
   margin: 15px auto 35px;
   display: flow-root;
   width: fit-content;
 }
 
-.btn_addPasos {
+.btn_addPasos,
+.btn_addPasos:focus {
   margin: auto auto 35px;
   display: flow-root;
   width: fit-content;

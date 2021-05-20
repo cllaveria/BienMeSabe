@@ -311,6 +311,10 @@ p.noToggle {
   color: white;
 }
 
+.form-control {
+  background-color: #f0f8ff;
+}
+
 .form-control.success:focus {
   box-shadow: 0 0 0 0.2rem green;
   border: 0;

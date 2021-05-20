@@ -1,0 +1,145 @@
+@import "common.css";
+
+.nutri_container {
+  margin: 80px auto;
+  padding: 45px 0 0;
+  width: 700px;
+}
+
+.score_rec {
+  float: right;
+}
+
+#nameNutri,
+h5 {
+  display: block;
+  padding-bottom: 30px;
+}
+
+#nameNutri {
+  font-weight: 500;
+}
+
+@media (max-width: 800px) {
+  .nutri_container {
+    width: 500px;
+  }
+}
+
+.descNutri {
+  margin: 25px 0 25px;
+  text-align: justify;
+  line-height: 17px;
+}
+
+@media (max-width: 600px) {
+  .nutri_container {
+    width: 400px;
+  }
+
+  .score_rec {
+    margin-top: 10px;;
+  }
+
+  .descNutri {
+    margin: 30px 0 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .nutri_container {
+    width: 300px;
+  }
+}
+
+.comment_cont {
+  display: none;
+  display: inline-flex;
+  direction: rtl;
+  gap: 80px;
+  margin: 100px auto 60px;
+  text-align: center;
+}
+
+.input_comment {
+  width: 500px;
+  justify-content: center;
+}
+
+.input_comment > textarea {
+  width: 500px;
+  min-height: 150px;
+  background-color: #f0f8ff;
+  border: solid 1px #a6aa9c;
+  padding: 10px;
+  direction: ltr;
+}
+
+.input_comment > textarea:focus {
+  border: solid 2px #fca035;
+  outline: 0;
+}
+
+.score_user {
+  font-size: 14px;
+  direction: rtl;
+  cursor: pointer;
+}
+
+.forkValue:hover,
+.forkValue:hover ~ .forkValue {
+  content: url("/images/tenedor-gold.svg");
+}
+
+.btn_send {
+  margin: 25px auto;
+  align-content: space-around;
+}
+
+@media (max-width: 800px) {
+  .comment_cont {
+    display: none;
+    direction: rtl;
+  }
+
+  .score_user {
+    margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .input_comment {
+    width: 400px;
+  }
+
+  .input_comment > textarea {
+    width: 300px;
+  }
+}
+
+@media (max-width: 450px) {
+  .input_comment {
+    width: 300px;
+  }
+}
+
+.comments_users {
+  display: block;
+}
+
+.comment_user {
+  text-align: justify;
+  border: solid 1px #fca035;
+  padding: 10px;
+  margin-bottom: 15px;
+  line-height: 17px;
+}
+
+#alias {
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+#comment {
+  padding-bottom: 0;
+}
