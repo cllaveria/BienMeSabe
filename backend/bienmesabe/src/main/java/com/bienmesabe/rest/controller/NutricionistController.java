@@ -98,11 +98,11 @@ public class NutricionistController {
     
     /**
      * Method to modify a nutricionist  // HTTP verb: PUT url: http://localhost:8080/api/nutricionist/modifyNutricionist
-     * @param nutricionist object that represents the nutricionist to modify
+     * @param nutricionist string that represents the nutricionist to modify
      * @return object that represents the modified nutricionist
      */
-    @PutMapping("/modifyNutricionist")
-    public Boolean updateNutricionist(String nutricionist){
+    @PutMapping("/modifyNutricionist/{nutricionist}")
+    public Boolean updateNutricionist(@PathVariable String nutricionist){
         try{
             nutricionistService.modifyNutricionist(nutricionist);
             return true;

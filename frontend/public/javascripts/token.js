@@ -47,7 +47,7 @@ token();
 
 function token() {
 
-    if ($localToken != '') {
+    if ($localToken != null) {
         let $token = $localToken.substr(7, );
         $.ajax({
             url: 'http://localhost:8080/api/tokenValidity/validateDate/',
@@ -66,6 +66,7 @@ function token() {
                     if ($date.getMinutes() > $arrayHours[1]) {
                         $boolean = false;
                     }
+                    $boolean = true;
                 } else if ($date.getDate() > $arrayDate[0]) {
                     $boolean = false;
                 } else {
@@ -73,11 +74,11 @@ function token() {
                 }
             }
         });
-
         if ($boolean == true) {
             $('#login').css('display', 'none');
             $('#register').css('display', 'none');
             $('.btn_user').css('display', 'inline-block');
+
         } else {
             $('#login').css('display', 'inline-block');
             $('#register').css('display', 'inline-block');
@@ -90,6 +91,7 @@ function token() {
 
     return $boolean;
 }
+
 $(document).ready(function () {
     
     let $localToken = localStorage.getItem('token'),
@@ -103,7 +105,7 @@ $(document).ready(function () {
 
     function token() {
 
-        if ($localToken != '') {
+        if ($localToken != null) {
             let $token = $localToken.substr(7, );
             $.ajax({
                 url: 'http://localhost:8080/api/tokenValidity/validateDate/',
@@ -113,15 +115,16 @@ $(document).ready(function () {
                     token: $token
                 },
                 success: function ($dateToken) {
-
                     $arrayValidityToken = $dateToken.split(' ');
                     $arrayDate = $arrayValidityToken[0].split('-');
                     $arrayHours = $arrayValidityToken[1].split(':');
 
-                    if ($date.getHours() > $arrayHours[0]) {
-                        if ($date.getMinutes() > $arrayHours[1]) {
+                    if ($date.getHours() >= $arrayHours[0]) {
+                        $boolean = true;
+                        if ($date.getMinutes() >= $arrayHours[1]) {
                             $boolean = false;
                         }
+                        
                     } else if ($date.getDate() > $arrayDate[0]) {
                         $boolean = false;
                     } else {
@@ -129,7 +132,7 @@ $(document).ready(function () {
                     }
                 }
             });
-
+        
             if ($boolean == true) {
                 $('#login').css('display', 'none');
                 $('#register').css('display', 'none');

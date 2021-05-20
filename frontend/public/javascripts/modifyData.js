@@ -194,8 +194,7 @@ $(document).ready(function () {
         $booleanDirection = true;
         
     let $token, $IDuser;
-    let $result = token()
-    console.log($result)
+
     if (token() == true) {
         $token = localStorage.getItem('token');
         $IDuser = localStorage.getItem('id');

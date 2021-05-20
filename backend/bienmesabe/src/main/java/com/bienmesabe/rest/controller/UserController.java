@@ -105,6 +105,11 @@ public class UserController{
         return user;
     }
     
+    
+    @GetMapping("/getUserValoration/{id}")
+    public int getUserValoration(@PathVariable int id){
+        return userService.getUserValoration(id);
+    }
     /**
      * Method to create the user // HTTP verb: POST url: http://localhost:8080/api/user/addUser
      * @param user object that represents the user to create

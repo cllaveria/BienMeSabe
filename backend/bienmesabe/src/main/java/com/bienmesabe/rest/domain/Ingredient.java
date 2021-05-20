@@ -54,7 +54,8 @@ public class Ingredient implements Serializable{
     @Column(name="KCALX100G")
     private float kcal;
 
-    @OneToOne(mappedBy="ingredient")
+    @JoinColumn(name="ingredient")
+    @OneToOne()
     private RecipeIngredients recipeIngredient;
     
     @OneToMany(mappedBy="ingredient")
