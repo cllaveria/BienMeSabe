@@ -187,6 +187,11 @@ public class RecipeServiceImpl implements RecipeService{
         return recipeDAO.getRecipesOfOtherUsers(userId);
     }
     
+    @Override
+    public List<Recipe> getRecipesNotActive() {
+        return recipeDAO.getRecipesNotActive();
+    }
+    
     /**
      * Implementation of interface method to create a recipe
      * @param recipe object that represents the recipe to persist
@@ -206,6 +211,11 @@ public class RecipeServiceImpl implements RecipeService{
         recipeDAO.modifyRecipe(recipe);
     }
 
+    @Override
+    public Boolean setRecipeAsActive(Long id){
+        return recipeDAO.setRecipeAsActive(id);
+    }
+    
     /**
      * Implementation of interface method to delete an recipe
      * @param id long with the id of the recipe to delete
@@ -224,6 +234,8 @@ public class RecipeServiceImpl implements RecipeService{
         masterList.retainAll(secondaryList);
         return masterList;
     }
+
+    
 
     
 }

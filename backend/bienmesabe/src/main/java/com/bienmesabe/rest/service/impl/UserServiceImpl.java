@@ -5,7 +5,9 @@
  */
 package com.bienmesabe.rest.service.impl;
 
+import com.bienmesabe.rest.DAO.RecipeDAO;
 import com.bienmesabe.rest.DAO.UserDAO;
+import com.bienmesabe.rest.domain.Recipe;
 import com.bienmesabe.rest.domain.User;
 import com.bienmesabe.rest.service.TokenService;
 import com.bienmesabe.rest.service.UserService;
@@ -26,6 +28,9 @@ public class UserServiceImpl implements UserService{
      */
     @Autowired
     private UserDAO userDAO;
+    
+    @Autowired
+    private RecipeDAO recipeDAO;
     
     @Autowired 
     private TokenService tokenService;
@@ -79,6 +84,27 @@ public class UserServiceImpl implements UserService{
         return userDAO.findUserByEmail(email);
     }
 
+    @Override
+    public int getUserValoration(long id){
+        float value = 0;
+        int counter = 0;
+        List<Recipe> recipeList = recipeDAO.getRecipesOfUser(id);
+        for(Recipe recipe : recipeList){
+            if(recipe.getRecipeAssessment() > 0){
+                value += recipe.getRecipeAssessment();
+                counter++;
+            }
+                
+        }
+        if(counter > 0){
+            value = value / counter;
+            return Math.round(value);
+        }else{
+            return 0;
+        }
+        
+    }
+    
     /**
      * Implementation of interface method to recover the user by alias
      * @param alias string that represents the alias of the users to search

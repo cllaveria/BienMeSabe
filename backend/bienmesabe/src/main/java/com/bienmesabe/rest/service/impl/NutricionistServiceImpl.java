@@ -89,8 +89,33 @@ public class NutricionistServiceImpl implements NutricionistService {
      */
     @Override
     public void modifyNutricionist(String nutricionist) {
-        Nutricionist nutr = new Nutricionist();
-        nutricionistDAO.modifyNutricionist(nutr);
+        Long nutricionistId = 0L;
+        String companyName = "", companyDirection ="", companyPostalCode ="" , companyCity = "", companyPhone = "";
+        String[] splittedNutricionist = nutricionist.split("___");
+        String[] splittedNutricionistIds = splittedNutricionist[0].split("---");
+        nutricionistId = Long.parseLong(splittedNutricionistIds[1]);
+        for (int i = 1; i<splittedNutricionist.length;i++){
+            String[] spplitedValues = splittedNutricionist[i].split("---");
+            String key = spplitedValues[0];
+            String values = spplitedValues[1];
+            
+            if(key.equals("name")){
+                companyName = values;
+            }
+            if(key.equals("direction")){
+               companyDirection = values;
+            }
+            if(key.equals("postalCode")){
+                companyPostalCode = values;
+            }
+            if(key.equals("city")){
+                companyCity = values;
+            }
+            if(key.equals("phone")){
+                companyPhone = values;
+            }
+        }
+        nutricionistDAO.modifyNutricionist(nutricionistId, companyName, companyDirection, companyPostalCode, companyCity, companyPhone);
     }
 
     /**

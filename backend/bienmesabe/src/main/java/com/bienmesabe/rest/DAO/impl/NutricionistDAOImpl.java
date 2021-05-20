@@ -138,9 +138,33 @@ public class NutricionistDAOImpl implements NutricionistDAO{
      */
     @Override
     @Transactional
-    public void modifyNutricionist(Nutricionist nutricionist) {
+    public Boolean modifyNutricionist(Long nutricionistId, String companyName, String companyDirection, String companyPostalCode, String companyCity, String companyPhone) {
         Session currentSession = entityManager.unwrap(Session.class);
-        currentSession.saveOrUpdate(nutricionist);
+        try{
+            String updates = "update Nutricionist set ";
+            
+            if(companyName != null && !companyName.isEmpty()) updates +=  "companyName=:newCompanyName, ";
+            if(companyDirection != null && !companyDirection.isEmpty()) updates +=  "companyDirection=:newCompanyDirection, ";
+            if(companyPostalCode != null && !companyPostalCode.isEmpty()) updates +=  "companyPostalCode=:newCompanyPostalCode, ";
+            if(companyCity != null && !companyCity.isEmpty()) updates +=  "companyCity=:newCompanyCity, ";
+            if(companyPhone != null && !companyPhone.isEmpty()) updates +=  "companyPhone=:newCompanyPhone, ";
+            
+            updates = updates.substring(0, updates.length() -2);
+            updates += " WHERE id=:nutricionistId";
+            Query<Nutricionist> query = currentSession.createQuery(updates);
+            query.setParameter("nutricionistId", nutricionistId);
+            
+            if(companyName != null && !companyName.isEmpty()) query.setParameter("newCompanyName", companyName);
+            if(companyDirection != null && !companyDirection.isEmpty()) query.setParameter("newCompanyDirection", companyDirection);
+            if(companyPostalCode != null && !companyPostalCode.isEmpty()) query.setParameter("newCompanyPostalCode", companyPostalCode);
+            if(companyCity != null && !companyCity.isEmpty()) query.setParameter("newCompanyCity", companyCity);
+            if(companyPhone != null && !companyPhone.isEmpty()) query.setParameter("newCompanyPhone", companyPhone);
+            
+            query.executeUpdate();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 
     /**

@@ -18,7 +18,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link rel='stylesheet' href='/stylesheets/crearReceta.css' />
     <script src="../javascripts/token.js"></script>
-    <script src="../javascripts/login.js"></script>
+    <script src="../javascripts/addModifyRecipe.js"></script>
     <!-- Encriptador MD5 -->
     <script src="http://pajhome.org.uk/crypt/md5/2.2/md5-min.js"></script>
 </head>
@@ -33,7 +33,7 @@
             <div class="top">
                 <div class="inputs">
                     <label>Nombre de la receta</label>
-                    <input type="text" placeholder="Introduce el nombre de la receta">
+                    <input id="inp_name" type="text" placeholder="Introduce el nombre de la receta">
                 </div>
                 <div class="inputs">
                     <label>Imagen/video principal</label>
@@ -41,7 +41,7 @@
                         <div class="fallback">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
-                                <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
+                                <label class="custom-file-label" id="imageVideoRecipe" for="dropzoneBasicUpload">Elije archivo</label>
                             </div>
                         </div>
                     </div>
@@ -49,201 +49,210 @@
             </div>
             <div class="inputs">
                 <label>Descripción de la receta</label>
-                <textarea type="text" placeholder="Introduce la descripción de la receta"></textarea>
+                <textarea id="inp_description" type="text" placeholder="Introduce la descripción de la receta"></textarea>
             </div>
             <label>Introduce los ingredientes y su cantidad</label>
-            <div class="ingr_cont">
-                <div class="ingredients">
-                    <div class="cantidad">
-                        <select>
-                            <option>u.</option>
-                            <option>gr</option>
-                        </select>
-                        <input type="text" placeholder="Cantidad" style="width: 150px;">
+            <div id="ingredients">
+                <div class="ingr_cont">
+                    <div class="ingredients">
+                        <div class="cantidad">
+                            <select>
+                                <option>u.</option>
+                                <option>gr</option>
+                                <option>chr.</option>
+                            </select>
+                            <input type="text" placeholder="Cantidad" style="width: 150px;">
+                        </div>
+                        <input list="list_ingredient" name="ingredient" id="inp_ingredient_0"
+                            placeholder="Introduce un ingrediente esté o no en la lista" style="width: 100%;">
+                        <datalist id="list_ingredient"></datalist>
                     </div>
-                    <input list="list_ingredient" name="ingredient" id="inp_ingredient"
-                        placeholder="Introduce un ingrediente esté o no en la lista" style="width: 100%;">
-                    <datalist id="list_ingredient"></datalist>
+                </div>
+                <div class="ingr_cont">
+                    <div class="ingredients">
+                        <div class="cantidad">
+                            <select>
+                                <option>u.</option>
+                                <option>gr</option>
+                                <option>chr.</option>
+                            </select>
+                            <input type="text" placeholder="Cantidad" style="width: 150px;">
+                        </div>
+                        <input list="list_ingredient" name="ingredient" id="inp_ingredient_1"
+                            placeholder="Introduce un ingrediente esté o no en la lista" style="width: 100%;">
+                        <datalist id="list_ingredient"></datalist>
+                    </div>
+                </div>
+                <div class="ingr_cont">
+                    <div class="ingredients">
+                        <div class="cantidad">
+                            <select>
+                                <option>u.</option>
+                                <option>gr</option>
+                                <option>chr.</option>
+                            </select>
+                            <input type="text" placeholder="Cantidad" style="width: 150px;">
+                        </div>
+                        <input list="list_ingredient" name="ingredient" id="inp_ingredient_2"
+                            placeholder="Introduce un ingrediente esté o no en la lista" style="width: 100%;">
+                        <datalist id="list_ingredient"></datalist>
+                    </div>
+                </div>
+                <div class="ingr_cont">
+                    <div class="ingredients">
+                        <div class="cantidad">
+                            <select>
+                                <option>u.</option>
+                                <option>gr</option>
+                                <option>chr.</option>
+                            </select>
+                            <input type="text" placeholder="Cantidad" style="width: 150px;">
+                        </div>
+                        <input list="list_ingredient" name="ingredient" id="inp_ingredient_3"
+                            placeholder="Introduce un ingrediente esté o no en la lista" style="width: 100%;">
+                        <datalist id="list_ingredient"></datalist>
+                    </div>
+                </div>
+                <div class="ingr_cont">
+                    <div class="ingredients">
+                        <div class="cantidad">
+                            <select>
+                                <option>u.</option>
+                                <option>gr</option>
+                                <option>chr.</option>
+                            </select>
+                            <input type="text" placeholder="Cantidad" style="width: 150px;">
+                        </div>
+                        <input list="list_ingredient" name="ingredient" id="inp_ingredient_4"
+                            placeholder="Introduce un ingrediente esté o no en la lista" style="width: 100%;">
+                        <datalist id="list_ingredient"></datalist>
+                    </div>
+                </div>
+                <div class="ingr_cont">
+                    <div class="ingredients">
+                        <div class="cantidad">
+                            <select>
+                                <option>u.</option>
+                                <option>gr</option>
+                                <option>chr.</option>
+                            </select>
+                            <input type="text" placeholder="Cantidad" style="width: 150px;">
+                        </div>
+                        <input list="list_ingredient" name="ingredient" id="inp_ingredient_5"
+                            placeholder="Introduce un ingrediente esté o no en la lista" style="width: 100%;">
+                        <datalist id="list_ingredient"></datalist>
+                    </div>
                 </div>
             </div>
-            <div class="ingr_cont">
-                <div class="ingredients">
-                    <div class="cantidad">
-                        <select>
-                            <option>u.</option>
-                            <option>gr</option>
-                        </select>
-                        <input type="text" placeholder="Cantidad" style="width: 150px;">
-                    </div>
-                    <input list="list_ingredient" name="ingredient" id="inp_ingredient"
-                        placeholder="Introduce un ingrediente esté o no en la lista" style="width: 100%;">
-                    <datalist id="list_ingredient"></datalist>
-                </div>
-            </div>
-            <div class="ingr_cont">
-                <div class="ingredients">
-                    <div class="cantidad">
-                        <select>
-                            <option>u.</option>
-                            <option>gr</option>
-                        </select>
-                        <input type="text" placeholder="Cantidad" style="width: 150px;">
-                    </div>
-                    <input list="list_ingredient" name="ingredient" id="inp_ingredient"
-                        placeholder="Introduce un ingrediente esté o no en la lista" style="width: 100%;">
-                    <datalist id="list_ingredient"></datalist>
-                </div>
-            </div>
-            <div class="ingr_cont">
-                <div class="ingredients">
-                    <div class="cantidad">
-                        <select>
-                            <option>u.</option>
-                            <option>gr</option>
-                        </select>
-                        <input type="text" placeholder="Cantidad" style="width: 150px;">
-                    </div>
-                    <input list="list_ingredient" name="ingredient" id="inp_ingredient"
-                        placeholder="Introduce un ingrediente esté o no en la lista" style="width: 100%;">
-                    <datalist id="list_ingredient"></datalist>
-                </div>
-            </div>
-            <div class="ingr_cont">
-                <div class="ingredients">
-                    <div class="cantidad">
-                        <select>
-                            <option>u.</option>
-                            <option>gr</option>
-                        </select>
-                        <input type="text" placeholder="Cantidad" style="width: 150px;">
-                    </div>
-                    <input list="list_ingredient" name="ingredient" id="inp_ingredient"
-                        placeholder="Introduce un ingrediente esté o no en la lista" style="width: 100%;">
-                    <datalist id="list_ingredient"></datalist>
-                </div>
-            </div>
-            <div class="ingr_cont">
-                <div class="ingredients">
-                    <div class="cantidad">
-                        <select>
-                            <option>u.</option>
-                            <option>gr</option>
-                        </select>
-                        <input type="text" placeholder="Cantidad" style="width: 150px;">
-                    </div>
-                    <input list="list_ingredient" name="ingredient" id="inp_ingredient"
-                        placeholder="Introduce un ingrediente esté o no en la lista" style="width: 100%;">
-                    <datalist id="list_ingredient"></datalist>
-                </div>
-            </div>
-            <button class="button btn_addIngr" type="button" data-toggle="modal"
-                data-target="#exampleModalCenter">Añadir más ingredientes</button>
+            
+            <button class="button btn_addIngr" type="button">Añadir más ingredientes</button>
             <label>Introduce los pasos de la receta</label>
-            <div class="pasos_cont">
-                <div class="pasos">
-                    <div class="inputs">
-                        <label>Descripción paso 1</label>
-                        <textarea class="desc_pas" type="text"
-                            placeholder="Introduce la descripción del paso 1"></textarea>
+            <div id="steps">
+                <div class="pasos_cont">
+                    <div class="pasos">
+                        <div class="inputs">
+                            <label>Descripción paso 1</label>
+                            <textarea class="desc_pas" id="desc_pas_0" type="text"
+                                placeholder="Introduce la descripción del paso 1"></textarea>
+                        </div>
+                        <div class="inputs dropzone">
+                            <label>Imagen paso 1</label>
+                            <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
+                                <div class="fallback">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
+                                        <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="inputs dropzone">
-                        <label>Imagen paso 1</label>
-                        <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
-                            <div class="fallback">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
-                                    <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
+                </div>
+                <div class="pasos_cont">
+                    <div class="pasos">
+                        <div class="inputs">
+                            <label>Descripción paso 2</label>
+                            <textarea class="desc_pas" id="desc_pas_1" type="text"
+                                placeholder="Introduce la descripción del paso 2"></textarea>
+                        </div>
+                        <div class="inputs dropzone">
+                            <label>Imagen paso 2</label>
+                            <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
+                                <div class="fallback">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
+                                        <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pasos_cont">
+                    <div class="pasos">
+                        <div class="inputs">
+                            <label>Descripción paso 3</label>
+                            <textarea class="desc_pas" id="desc_pas_2" type="text"
+                                placeholder="Introduce la descripción del paso 3"></textarea>
+                        </div>
+                        <div class="inputs dropzone">
+                            <label>Imagen paso 3</label>
+                            <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
+                                <div class="fallback">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
+                                        <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pasos_cont">
+                    <div class="pasos">
+                        <div class="inputs">
+                            <label>Descripción paso 4</label>
+                            <textarea class="desc_pas" id="desc_pas_3" type="text"
+                                placeholder="Introduce la descripción del paso 4"></textarea>
+                        </div>
+                        <div class="inputs dropzone">
+                            <label>Imagen paso 4</label>
+                            <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
+                                <div class="fallback">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
+                                        <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pasos_cont">
+                    <div class="pasos">
+                        <div class="inputs">
+                            <label>Descripción paso 5</label>
+                            <textarea class="desc_pas" id="desc_pas_4" type="text"
+                                placeholder="Introduce la descripción del paso 5"></textarea>
+                        </div>
+                        <div class="inputs dropzone">
+                            <label>Imagen paso 5</label>
+                            <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
+                                <div class="fallback">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
+                                        <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="pasos_cont">
-                <div class="pasos">
-                    <div class="inputs">
-                        <label>Descripción paso 2</label>
-                        <textarea class="desc_pas" type="text"
-                            placeholder="Introduce la descripción del paso 2"></textarea>
-                    </div>
-                    <div class="inputs dropzone">
-                        <label>Imagen paso 2</label>
-                        <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
-                            <div class="fallback">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
-                                    <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pasos_cont">
-                <div class="pasos">
-                    <div class="inputs">
-                        <label>Descripción paso 3</label>
-                        <textarea class="desc_pas" type="text"
-                            placeholder="Introduce la descripción del paso 3"></textarea>
-                    </div>
-                    <div class="inputs dropzone">
-                        <label>Imagen paso 3</label>
-                        <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
-                            <div class="fallback">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
-                                    <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pasos_cont">
-                <div class="pasos">
-                    <div class="inputs">
-                        <label>Descripción paso 4</label>
-                        <textarea class="desc_pas" type="text"
-                            placeholder="Introduce la descripción del paso 4"></textarea>
-                    </div>
-                    <div class="inputs dropzone">
-                        <label>Imagen paso 4</label>
-                        <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
-                            <div class="fallback">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
-                                    <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pasos_cont">
-                <div class="pasos">
-                    <div class="inputs">
-                        <label>Descripción paso 5</label>
-                        <textarea class="desc_pas" type="text"
-                            placeholder="Introduce la descripción del paso 5"></textarea>
-                    </div>
-                    <div class="inputs dropzone">
-                        <label>Imagen paso 5</label>
-                        <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
-                            <div class="fallback">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
-                                    <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="button btn_addPasos" type="button" data-toggle="modal"
-                data-target="#exampleModalCenter">Añadir más pasos</button>
+            <button class="button btn_addPasos" type="button">Añadir más pasos</button>
             <div class="inputs">
                 <label>Comentario final</label>
-                <textarea type="text" placeholder="Introduce la descripción de la receta"></textarea>
+                <textarea id="inp_descriptionEnding" type="text" placeholder="Introduce la descripción final de la receta"></textarea>
             </div>
             <button class="button btn_save" type="button" data-toggle="modal"
                 data-target="#exampleModalCenter">GUARDAR</button>

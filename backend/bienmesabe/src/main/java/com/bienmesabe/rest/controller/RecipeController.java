@@ -138,6 +138,11 @@ public class RecipeController {
         return recipeService.getRecipesOfOtherUsers(Long.parseLong(userId));
     }
     
+    @GetMapping("/getRecipesNotActive")
+    public List<Recipe> getRecipesNotActive(){
+        return recipeService.getRecipesNotActive();
+    }
+    
     /**
      * Method to create the recipe // HTTP verb: POST url: http://localhost:8080/api/recipe/addRecipe
      * @param recipe object that represents the recipe to persist
@@ -171,6 +176,10 @@ public class RecipeController {
         }
     }
     
+    @PutMapping("/setRecipeAsActive/{id}")
+    public Boolean setRecipeAsActive(@PathVariable String id){
+        return recipeService.setRecipeAsActive(Long.parseLong(id));
+    }
     /**
      * Method to delete the recipe by id // HTTP verb: DELETE url: http://localhost:8080/api/recipe/deleteRecipeById/{RecipeId}
      * @param id string with the id of the recipe to delete

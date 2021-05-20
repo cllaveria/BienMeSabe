@@ -1,12 +1,12 @@
 $(document).ready(function () {
-    const $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes';
+    const $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes',
+        $urlUserValoration = 'http://localhost:8080/api/user/getUserValoration/';
 
     let $forks;
-    
+
     let $token, $IDuser;
-    let $result = token()
-    console.log($result)
-    if(token() == true){
+
+    if (token() == true) {
         $token = localStorage.getItem('token');
         $IDuser = localStorage.getItem('id');
     }
@@ -23,9 +23,9 @@ $(document).ready(function () {
                 if ($recipe.userId == $IDuser) {
                     console.log($recipe)
                     $forks = getForks($recipe.recipeAssessment);
-                    $('#recipes').append('<tr>\
-                                            <td class="nameRec" value="' + $recipe.id + '"><a href="http://localhost:3000/recetas/ficha?id=' + $recipe.id + '">' + $recipe.name + '</a></td>\
-                                            <td><i class="fas fa-pen icon"></i></td>\
+                    $('#recipes').append('<tr value="' + $recipe.id + '">\
+                                            <td class="nameRec" ><a href="http://localhost:3000/recetas/ficha?id=' + $recipe.id + '">' + $recipe.name + '</a></td>\
+                                            <td><i class="fas fa-pen icon btn_modifyRecipe"></i></td>\
                                             <td><i class="fas fa-trash-alt icon btn_deleteRecipe"></i></td>\
                                             <td>' + $forks + '</td>\
                                         </tr>');
@@ -35,7 +35,7 @@ $(document).ready(function () {
     });
 
     $('.btn_deleteRecipe').on('click', function () {
-        
+
         $.ajax({
             url: 'http://localhost:8080/api/recipe/deleteRecipeById/' + $(this).parent().parent().attr('value'),
             type: 'DELETE',
@@ -48,8 +48,20 @@ $(document).ready(function () {
         });
     });
 
+    $.ajax({
+        url: $urlUserValoration + $IDuser,
+        type: 'GET',
+        headers: {
+            'Authorization': $token
+        },
+        success: function ($valoration) {
+            $forks = getForks($valoration)
+                $('.val').append('<p>Valoración media:</p>\
+                                     '+$forks);
+        }
+    })
+
     $('.btn_modifyRecipe').on('click', function () {
-        // TODO: Cuenado se creen las páginas correspondientes, modificar el enlace.
-        window.location = '/panelUsuario/modificarReceta?id=' + $(this).parent().parent().attr('value');
+        window.location = '/crearReceta?id=' + $(this).parent().parent().attr('value');
     });
 });
