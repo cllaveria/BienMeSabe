@@ -20,6 +20,33 @@
   margin-bottom: 35px;
 }
 
+@media (max-width: 1020px) {
+  .recipe_container {
+    width: 620px;
+  }
+
+  .top {
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 700px) {
+  .recipe_container {
+    width: 500px;
+  }
+
+  .top {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 550px) {
+  .recipe_container {
+    width: 300px;
+  }
+}
+
 .inputs {
   display: grid;
 }
@@ -74,6 +101,13 @@ textarea {
   padding: 10px 50px;
 }
 
+@media (max-width: 1020px) {
+  .ingr_cont,
+  .pasos_cont {
+    padding: 10px 20px;
+  }
+}
+
 .ingredients {
   display: inline-flex;
   gap: 30px;
@@ -83,6 +117,10 @@ textarea {
 .cantidad {
   display: inline-flex;
   gap: 5px;
+}
+
+.quan {
+  width: 150px;
 }
 
 .btn_addIngr,
@@ -105,12 +143,63 @@ textarea {
   grid-template-columns: 3fr 1fr;
 }
 
+@media (max-width: 1020px) {
+  .pasos {
+    gap: 35px;
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .pasos {
+    gap: 0;
+    grid-template-columns: 1fr;
+    margin-bottom: 20px;
+  }
+
+  textarea {
+    margin-bottom: 15px;
+  }
+
+  .ingredients {
+    gap: 20px;
+  }
+
+  .quan {
+    width: 80px;
+  }
+  
+  .dropzone {
+    width: 250px;
+  }
+
+  .inputs.dropzone {
+    justify-self: right;
+  }
+}
+
+@media (max-width: 550px) {
+  .ingredients {
+    display: grid;
+    gap: 10px;
+  }
+}
+
 .desc_pas {
   min-height: 100px;
 }
 
 .dropzone {
   align-content: flex-start;
+}
+
+.custom-file-input {
+  cursor: pointer;
+}
+
+.custom-file-label::after {
+  content: url("/images/subir-archivo.svg");
+  width: 40px;
 }
 
 .btn_save {
