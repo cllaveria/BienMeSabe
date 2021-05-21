@@ -13,7 +13,7 @@
 /*---User page---*/
 .nutrist_cont {
   display: inline-flex;
-  gap: 50px; 
+  gap: 50px;
 }
 
 .nutrist {
@@ -73,6 +73,7 @@ h1 {
   margin-left: 200px;
   margin-top: 20px;
 }
+
 label {
   display: block;
   margin-bottom: 10px;
@@ -108,7 +109,7 @@ input {
   border: 0;
 }
 
-#name{
+#name {
   padding-bottom: 10px;
 }
 
@@ -121,7 +122,11 @@ input {
 }
 
 .nutrist_container {
-  display: none;
+  display: block;
+}
+
+.user_container {
+  display: block;
 }
 
 /*---Nutritionist page---*/
@@ -147,7 +152,7 @@ textarea {
   background-color: #f0f8ff;
   height: 38px;
   border-radius: 3px;
-  padding: 6px 12px;  
+  padding: 6px 12px;
 }
 
 #input_titul {
@@ -160,7 +165,7 @@ textarea {
 }
 
 .buttons {
-  margin: 20px ;
+  margin: 20px;
   display: flex;
   justify-content: space-evenly;
 }

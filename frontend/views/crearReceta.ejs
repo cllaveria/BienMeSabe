@@ -40,7 +40,7 @@
                     <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
                         <div class="fallback">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
+                                <input type="file" class="custom-file-input" name="imageVideoRecipe" id="dropzoneBasicUpload">
                                 <label class="custom-file-label" id="imageVideoRecipe" for="dropzoneBasicUpload">Elije archivo</label>
                             </div>
                         </div>
@@ -56,10 +56,10 @@
                 <div class="ingr_cont">
                     <div class="ingredients">
                         <div class="cantidad">
-                            <select>
-                                <option>u.</option>
-                                <option>gr</option>
-                                <option>chr.</option>
+                            <select class="ingredient">
+                                <option value="U">u.</option>
+                                <option value="G">gr</option>
+                                <option value="S">chr.</option>
                             </select>
                             <input class="quan" type="text" placeholder="Cantidad">
                         </div>
@@ -71,10 +71,10 @@
                 <div class="ingr_cont">
                     <div class="ingredients">
                         <div class="cantidad">
-                            <select>
-                                <option>u.</option>
-                                <option>gr</option>
-                                <option>chr.</option>
+                            <select class="ingredient">
+                                <option value="U">u.</option>
+                                <option value="G">gr</option>
+                                <option value="S">chr.</option>
                             </select>
                             <input class="quan" type="text" placeholder="Cantidad">
                         </div>
@@ -86,10 +86,10 @@
                 <div class="ingr_cont">
                     <div class="ingredients">
                         <div class="cantidad">
-                            <select>
-                                <option>u.</option>
-                                <option>gr</option>
-                                <option>chr.</option>
+                            <select class="ingredient">
+                                <option value="U">u.</option>
+                                <option value="G">gr</option>
+                                <option value="S">chr.</option>
                             </select>
                             <input class="quan" type="text" placeholder="Cantidad">
                         </div>
@@ -101,10 +101,10 @@
                 <div class="ingr_cont">
                     <div class="ingredients">
                         <div class="cantidad">
-                            <select>
-                                <option>u.</option>
-                                <option>gr</option>
-                                <option>chr.</option>
+                            <select class="ingredient">
+                                <option value="U">u.</option>
+                                <option value="G">gr</option>
+                                <option value="S">chr.</option>
                             </select>
                             <input class="quan" type="text" placeholder="Cantidad">
                         </div>
@@ -116,10 +116,10 @@
                 <div class="ingr_cont">
                     <div class="ingredients">
                         <div class="cantidad">
-                            <select>
-                                <option>u.</option>
-                                <option>gr</option>
-                                <option>chr.</option>
+                            <select class="ingredient">
+                                <option value="U">u.</option>
+                                <option value="G">gr</option>
+                                <option value="S">chr.</option>
                             </select>
                             <input class="quan" type="text" placeholder="Cantidad">
                         </div>
@@ -131,10 +131,10 @@
                 <div class="ingr_cont">
                     <div class="ingredients">
                         <div class="cantidad">
-                            <select>
-                                <option>u.</option>
-                                <option>gr</option>
-                                <option>chr.</option>
+                            <select class="ingredient">
+                                <option value="U">u.</option>
+                                <option value="G">gr</option>
+                                <option value="S">chr.</option>
                             </select>
                             <input class="quan" type="text" placeholder="Cantidad">
                         </div>
@@ -161,7 +161,7 @@
                                 <div class="fallback">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
-                                        <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
+                                        <label class="custom-file-label" id="imageStep" for="dropzoneBasicUpload">Elije archivo</label>
                                     </div>
                                 </div>
                             </div>
@@ -274,7 +274,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="button btn_checkIn"
-                                onclick="location.href='/misRecetas';">Aceptar</button>
+                                >Aceptar</button>
                         </div>
                     </div>
                 </div>

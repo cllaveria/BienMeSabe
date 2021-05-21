@@ -4,11 +4,19 @@ $(document).ready(function () {
 
     let $idRecipe = (window.location.search).substr(4, ),
         $arrayIngredients = [],
+        $arrayIngredientsAdd = [],
+        $arrayStepsAdd = [],
         $ingredientUnity,
         $countModifyRecipeIngredients = 0,
         $countAddRecipeIngredients = 6,
         $countModiyRecipeSteps = 0,
-        $countAddRecipeSteps = 5;
+        $countAddRecipeSteps = 5,
+        $nameRecipe,
+        $descriptionInitRecipe,
+        $endscriptionFinalRecipe,
+        $imageVideoRecipe;
+
+    let $image = new FormData();
 
     let $token, $IDuser;
 
@@ -47,25 +55,25 @@ $(document).ready(function () {
                         $.each($arrayIngredients, function ($indexX, $nameIngredients) {
                             if ($nameIngredients.id == $recipeIngredients.ingredientId) {
                                 if ($recipeIngredients.ingredientUnity == 'G') {
-                                    $ingredientUnity = '<option>u.</option>\
-                                                        <option selected>gr</option>\
-                                                        <option>chr.</option>';
+                                    $ingredientUnity = '<option value="U">u.</option>\
+                                                        <option value="G" selected>gr</option>\
+                                                        <option value="S">chr.</option>';
                                 } else if ($recipeIngredients.ingredientUnity == 'U') {
-                                    $ingredientUnity = '<option selected>u.</option>\
-                                                        <option>gr</option>\
-                                                        <option>chr.</option>';
+                                    $ingredientUnity = '<option value="U" selected>u.</option>\
+                                                        <option value="G">gr</option>\
+                                                        <option value="S">chr.</option>';
                                 } else if ($recipeIngredients.ingredientUnity == 'S') {
-                                    $ingredientUnity = '<option>u.</option>\
-                                                        <option>gr</option>\
-                                                        <option selected>chr.</option>';
+                                    $ingredientUnity = '<option value="U">u.</option>\
+                                                        <option value="G">gr</option>\
+                                                        <option value="S" selected>chr.</option>';
                                 }
                                 $('#ingredients').append('<div class="ingr_cont">\
                                                             <div class="ingredients">\
                                                                 <div class="cantidad">\
-                                                                    <select>\
+                                                                    <select class="ingredient">\
                                                                         ' + $ingredientUnity + '\
                                                                     </select>\
-                                                                    <input type="text" placeholder="Cantidad" value="' + $recipeIngredients.ingredientQTY + '" style="width: 150px;">\
+                                                                    <input class="quan" type="text" placeholder="Cantidad" value="' + $recipeIngredients.ingredientQTY + '">\
                                                                 </div>\
                                                                 <input list="list_ingredient" name="ingredient" id="inp_ingredient_' + $indexI + '"\
                                                                 placeholder="Introduce un ingrediente esté o no en la lista" value="' + $nameIngredients.name + '" style="width: 100%;">\
@@ -97,7 +105,7 @@ $(document).ready(function () {
                                                             <div class="fallback">\
                                                                 <div class="custom-file">\
                                                                     <input type="file" class="custom-file-input" id="dropzoneBasicUpload">\
-                                                                    <label class="custom-file-label" for="dropzoneBasicUpload">' + trimImage($recipeSteps.image) + '</label>\
+                                                                    <label class="custom-file-label" id="imageStep" for="dropzoneBasicUpload">' + trimImage($recipeSteps.image) + '</label>\
                                                                 </div>\
                                                             </div>\
                                                         </div>\
@@ -116,8 +124,11 @@ $(document).ready(function () {
     } else {
         addIngredients($countAddRecipeIngredients);
         addSteps($countAddRecipeSteps)
-        console.log('no entra porque no tiene id')
     }
+
+    $.each($arrayIngredients, function ($index, $ingredients) {
+        $('#list_ingredient').append("<option>" + $ingredients.name + "</option>");
+    });
 
     function trimImage($image) {
         return ($image).substr(7, );
@@ -128,12 +139,12 @@ $(document).ready(function () {
             $('#ingredients').append('<div class="ingr_cont">\
                                         <div class="ingredients">\
                                             <div class="cantidad">\
-                                                <select>\
-                                                    <option>u.</option>\
-                                                    <option>gr</option>\
-                                                    <option>chr.</option>\
-                                                </select>\
-                                                <input type="text" placeholder="Cantidad" style="width: 150px;">\
+                                            <select class="ingredient">\
+                                                <option value="U">u.</option>\
+                                                <option value="G">gr</option>\
+                                                <option value="S">chr.</option>\
+                                            </select>\
+                                                <input class="quan" type="text" placeholder="Cantidad">\
                                             </div>\
                                             <input list="list_ingredient" name="ingredient" id="inp_ingredient_' + $addIngredients + '"\
                                             placeholder="Introduce un ingrediente esté o no en la lista" style="width: 100%;">\
@@ -159,7 +170,7 @@ $(document).ready(function () {
                                                             <div class="fallback">\
                                                                 <div class="custom-file">\
                                                                     <input type="file" class="custom-file-input" id="dropzoneBasicUpload">\
-                                                                    <label class="custom-file-label" for="dropzoneBasicUpload"></label>\
+                                                                    <label class="custom-file-label" id="imageStep" for="dropzoneBasicUpload"></label>\
                                                                 </div>\
                                                             </div>\
                                                         </div>\
@@ -169,4 +180,27 @@ $(document).ready(function () {
             $addSteps++;
         });
     }
+
+    $('.btn_save').on('click', () => {
+        $nameRecipe = $('#inp_name').val();
+        console.log($('input[name="imageVideoRecipe"')[0].files[0])
+
+        $image.append('image', $('input[name="imageVideoRecipe"')[0].files[0]);
+        $descriptionInitRecipe = $('#inp_description').val();
+
+        $('.ingredients').each(function () {
+            $arrayIngredientsAdd.push([$(this).find('.ingredient option:selected').val(), $(this).find('.quan').val(), $(this).find('input[name=ingredient]').val()]);
+        });
+
+        $('.pasos_cont').each(function () {
+            $arrayStepsAdd.push([$(this).find('.desc_pas').val(), $(this).find('#imageStep').prev().val()])
+        })
+
+        $endscriptionFinalRecipe = $('#inp_descriptionEnding').val();
+
+        console.log($image.get('image'))
+        
+    });
 });
+
+/* onclick="location.href='/misRecetas';" */
