@@ -1,6 +1,20 @@
 @import "common.css";
 @import "panelUsuario.css";
 
+@media screen and (max-width: 920px) {
+  .settings_container {
+    margin: 100px 50px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .settings_container {
+    margin: 80px 0;
+    width: 100%;
+    overflow: hidden;
+  }
+}
+
 #page-content-wrapper {
   width: 100%;
   overflow: hidden;
@@ -55,6 +69,42 @@ i:hover {
   padding-bottom: 0;
 }
 
+@media (max-width: 1240px) and (min-width: 1020px) {
+  .nutrist_cont {
+    gap: 20px;
+  }
+
+  .nutrist {
+    margin-left: 0px;
+  }
+
+  #fichero {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1020px) and (min-width: 770px) {
+  .nutrist_cont {
+    width: 400px;
+  }
+}
+
+@media (max-width: 1020px) {
+  .nutrist_cont {
+    display: grid;
+    gap: 20px;
+  }
+
+  .nutrist {
+    margin-left: 0px;
+    justify-content: space-between;
+  }
+
+  .diet {
+    justify-self: right;
+  }
+}
+
 .search_nutri {
   margin-top: 150px;
   width: 100%;
@@ -94,6 +144,44 @@ input {
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
   width: 800px;
+}
+
+@media (max-width: 1240px) {
+  .nutritionists {
+    grid-template-columns: repeat(2, 1fr);
+    width: 450px;
+  }
+
+  .postCod {
+    margin-left: 100px;
+  }
+}
+
+@media (max-width: 820px) {
+  .nutritionists {
+    grid-template-columns: 1fr;
+    width: 200px;
+  }
+
+  .postCod {
+    margin-left: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .postCod > label,
+  input,
+  .btn_add {
+    margin: auto;
+  }
+
+  .h5 {
+    margin-left: 0;
+  }
+
+  .btn_add {
+    margin-top: 10px;
+  }
 }
 
 .infoNutri {
@@ -136,9 +224,35 @@ input {
   margin-top: 20px;
 }
 
+@media (max-width: 1240px) and (min-width: 1020px) {
+  .user_cont {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1020px) and (min-width: 770px) {
+  .user_cont {
+    width: 400px;
+  }
+}
+
+@media (max-width: 1020px) {
+  .user_cont {
+    display: grid;
+    gap: 0;
+  }
+}
+
 .desc_nutri {
   margin: 100px 50px 0;
   width: 800px;
+}
+
+@media (max-width: 1320px) {
+  .desc_nutri {
+    margin: 100px 10px 0;
+    width: 600px;
+  }
 }
 
 .inputs {
@@ -162,6 +276,28 @@ textarea {
 textarea {
   width: 100%;
   height: 150px;
+}
+
+@media (max-width: 1100px) {
+  .desc_nutri {
+    width: 400px;
+  }
+
+  #input_titul {
+    width: 100%;
+  }
+}
+
+@media (max-width: 780px) {
+  .desc_nutri {
+    width: 350px;
+  }
+}
+
+@media (max-width: 780px) {
+  .desc_nutri {
+    width: 280px;
+  }
 }
 
 .buttons {
