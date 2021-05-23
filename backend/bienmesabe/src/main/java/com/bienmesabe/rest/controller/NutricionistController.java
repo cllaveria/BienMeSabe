@@ -10,13 +10,16 @@ import com.bienmesabe.rest.domain.NutricionistDegree;
 import com.bienmesabe.rest.service.NutricionistDegreeService;
 import com.bienmesabe.rest.service.NutricionistService;
 import java.util.List;
+import javax.ws.rs.Consumes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -119,7 +122,8 @@ public class NutricionistController {
      * @return boolean that indicates if the degree has been successfully inserted into DB
      */
     @PostMapping("/addNutricionistDegree")
-    public boolean addNutricionist(NutricionistDegree degree){
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    public boolean addNutricionist(@RequestBody NutricionistDegree degree){
         return nutricionistDegreeService.insertNutricionistDegree(degree);
     }
     
