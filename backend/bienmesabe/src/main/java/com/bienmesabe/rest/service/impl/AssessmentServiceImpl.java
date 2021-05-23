@@ -64,7 +64,7 @@ public class AssessmentServiceImpl implements AssessmentService{
     public Boolean modifyAssessment(String data){
         Assessment newAssessment = new Assessment();
         String[] splittedData = data.split("___");
-        for (int i = 1; i<splittedData.length;i++){
+        for (int i = 0; i<splittedData.length;i++){
             String[] spplitedValues = splittedData[i].split("---");
             String key = spplitedValues[0];
             String values =  spplitedValues[1];
