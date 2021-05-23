@@ -6,6 +6,8 @@
 package com.bienmesabe.rest.controller;
 
 import com.bienmesabe.rest.domain.Nutricionist;
+import com.bienmesabe.rest.domain.NutricionistDegree;
+import com.bienmesabe.rest.service.NutricionistDegreeService;
 import com.bienmesabe.rest.service.NutricionistService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,12 @@ public class NutricionistController {
     private NutricionistService nutricionistService;
     
     /**
+     * Bean of the nutricionist degree service (Interface)
+     */
+    @Autowired
+    private NutricionistDegreeService nutricionistDegreeService;
+    
+    /**
      * Method to recover the nutricionists  // HTTP verb: GET url: http://localhost:8080/api/nutricionist/getNutricionists
      * @return a list with the nutricionists
      */
@@ -45,7 +53,7 @@ public class NutricionistController {
     }
     
     /**
-     * Method to recover the nutricionists by id  // HTTP verb: GET url: http://localhost:8080/api/nutricionist/findNutricionistByCP/{PostalCode}
+     * Method to recover the nutricionist by id  // HTTP verb: GET url: http://localhost:8080/api/nutricionist/getNutricionistById/{id}
      * @param id string that represents the id of the nutricionist to search
      * @return the nutricionist filtered by id
      */
@@ -61,15 +69,14 @@ public class NutricionistController {
      * @return a list with the nutricionists filtered by postal code
      */
     @GetMapping("/findNutricionistByCP/{cp}")
-    public Nutricionist findNutricionistByCP(@PathVariable String cp){
-        Nutricionist nutricionist = nutricionistService.findNutricionistByCP(cp);
-        return nutricionist;
+    public List<Nutricionist> findNutricionistByCP(@PathVariable String cp){
+        List<Nutricionist> nutricionists = nutricionistService.findNutricionistByCP(cp);
+        return nutricionists;
     }
     
     /**
-     * Method to recover the nutricionists by postal code range  // HTTP verb: GET url: http://localhost:8080/api/nutricionist/findNutricionistByCPRange/{PostalCodeMin}/{PostalCodeMax}
-     * @param cpMin string that represents the mimimum postal code of the nutricionists to search
-     * @param cpMax string that represents the maximum postal code of the nutricionists to search
+     * Method to recover the nutricionists by postal code range  // HTTP verb: GET url: http://localhost:8080/api/nutricionist/findNutricionistByCPRange/{PostalCodeRanges}
+     * @param cpRanges string that represents the mimimum and maximum postal code to search
      * @return a list with the nutricionists filtered by postal code range
      */
     @GetMapping("/findNutricionistByCPRange/{cpRanges}")
@@ -78,6 +85,16 @@ public class NutricionistController {
         String cpMax = cpRanges.split("-")[1];
         List<Nutricionist> nutricionists = nutricionistService.findNutricionistByCPRange(cpMin, cpMax);
         return nutricionists;
+    }
+    
+    /**
+     * Method to recover the nutricionists assessment  // HTTP verb: GET url: http://localhost:8080/api/nutricionist/getNutricionistAssessment/{id}
+     * @param id string that represents the id of the nutricionist to search
+     * @return the assessment of the nutricionist
+     */
+    @GetMapping("/getNutricionistAssessment/{id}")
+    public int getNutricionistAssessment(@PathVariable String id){
+        return nutricionistService.getNutricionistAssessment(id);
     }
     
     /**
@@ -97,6 +114,16 @@ public class NutricionistController {
     }
     
     /**
+     * Method to create a nutricionist degree // HTTP verb: POST url: http://localhost:8080/api/nutricionist/addNutricionistDegree
+     * @param degree object that represents the nutricionist degree to create
+     * @return boolean that indicates if the degree has been successfully inserted into DB
+     */
+    @PostMapping("/addNutricionistDegree")
+    public boolean addNutricionist(NutricionistDegree degree){
+        return nutricionistDegreeService.insertNutricionistDegree(degree);
+    }
+    
+    /**
      * Method to modify a nutricionist  // HTTP verb: PUT url: http://localhost:8080/api/nutricionist/modifyNutricionist
      * @param nutricionist string that represents the nutricionist to modify
      * @return object that represents the modified nutricionist
@@ -110,12 +137,7 @@ public class NutricionistController {
             return false;
         }
     }
-    
 
-    // TODO
-    // VALORAR SI ES NECESARIO, SINO BORRARLO
-
-    
     /**
      * Method to delete a nutricionist by id  // HTTP verb: DELETE url: http://localhost:8080/api/nutricionist/deleteNutricionistById/{NutricionistId}
      * @param id long with the id of the nutricionist to delete

@@ -85,6 +85,10 @@ public interface RecipeService {
     public List<Recipe> getRecipesOfOtherUsers(Long userId);
     
     
+    /**
+     * Method to recover the recipes that are not active
+     * @return a list with the recipes that are not active
+     */
     public List<Recipe> getRecipesNotActive();
             
             
@@ -101,7 +105,12 @@ public interface RecipeService {
      */
     public void modifyRecipe(Recipe recipe);
     
-    public Boolean setRecipeAsActive(Long id);
+    /**
+     * Method to asign a recipe as active
+     * @param id long that represents the id of the recipe
+     * @return a boolean that indicates if the recipe has been successfully set as active or not
+     */
+    public boolean setRecipeAsActive(Long id);
     
     /**
      * Method to delete an recipe

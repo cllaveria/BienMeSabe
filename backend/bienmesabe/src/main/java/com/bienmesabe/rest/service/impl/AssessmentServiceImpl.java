@@ -7,7 +7,6 @@ package com.bienmesabe.rest.service.impl;
 
 import com.bienmesabe.rest.DAO.AssessmentDAO;
 import com.bienmesabe.rest.domain.Assessment;
-import com.bienmesabe.rest.domain.Comment;
 import com.bienmesabe.rest.service.AssessmentService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +27,8 @@ public class AssessmentServiceImpl implements AssessmentService{
     private AssessmentDAO assessmentDAO;
     
     /**
-     * Implementation of interface method to recover the comments present in the DB
-     * @return a list with the comments in the DB
+     * Implementation of interface method to recover the assessments present in the DB
+     * @return a list with the assessments in the DB
      */
     @Override
     public List<Assessment> findAllAssessments() {
@@ -37,9 +36,9 @@ public class AssessmentServiceImpl implements AssessmentService{
     }
     
     /**
-     * Implementation of interface method to recover the recipe comments
+     * Implementation of interface method to recover the recipe assessments
      * @param recipeId long that represents the id of the recipe
-     * @return a list of the recipe comments
+     * @return a list of the recipe assessments
      */
     @Override
     public List<Assessment> findAllAssessmentsOfRecipe(Long recipeId) {
@@ -54,5 +53,31 @@ public class AssessmentServiceImpl implements AssessmentService{
     @Override
     public Long createAssessment(Assessment assessment) {
         return assessmentDAO.createAssessment(assessment);
+    }
+    
+    /**
+     * Implementation of interface method to modify an assessment
+     * @param data string that represents the attributes of the assessment
+     * @return a boolean that represents if the assessment has been successfully updated or not
+     */
+    @Override
+    public Boolean modifyAssessment(String data){
+        Assessment newAssessment = new Assessment();
+        String[] splittedData = data.split("___");
+        for (int i = 1; i<splittedData.length;i++){
+            String[] spplitedValues = splittedData[i].split("---");
+            String key = spplitedValues[0];
+            String values =  spplitedValues[1];
+            if(key.equals("recipe") && values != ""){
+                newAssessment.setRecipeId(Long.parseLong(values));
+            }else if(key.equals("user") && values != ""){
+               newAssessment.setUserId(Long.parseLong(values));
+            }else if(key.equals("value") && values != ""){
+                newAssessment.setAssessmentValue(Integer.parseInt(values));
+            }
+        }
+        
+        return assessmentDAO.modifyAssessment(newAssessment);
+        
     }
 }

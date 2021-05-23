@@ -13,7 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -31,9 +31,10 @@ public class IngredientVitamin implements Serializable{
 
     @Column(name="VITAMIN_QTY")
     private float qty;
-    //@ManyToOne
-    @Column(name="VITAMIN_ID")
-    private String vitaminId;
+
+    @OneToOne
+    @JoinColumn(name="vitamin_id")
+    private Vitamin vitamin;
 
     @ManyToOne
     @JoinColumn(name="INGREDIENT_ID")
@@ -48,24 +49,19 @@ public class IngredientVitamin implements Serializable{
     /**
      * IngredientVitamin Constructor with the required parameters
      * @param ingredientId long that represents the id of the ingredient
-     * @param vitaminId long that represents the id of the vitamin
      */
-    public IngredientVitamin(Long ingredientId,String vitaminId) {
-        this.vitaminId = vitaminId;
+    public IngredientVitamin(Long ingredientId) {
         this.ingredient.setId(ingredientId);
     }
 
-    
     /**
      * IngredientVitamin Constructor with the required parameters
      * @param ingredientId long that represents the id of the ingredient
      * @param qty float that represents the quantity of the ingredient vitamin
-     * @param vitaminId long that represents the id of the vitmain
      */
-    public IngredientVitamin(Long ingredientId, float qty, String vitaminId) {
+    public IngredientVitamin(Long ingredientId, float qty) {
         this.ingredient.setId(ingredientId);
         this.qty = qty;
-        this.vitaminId = vitaminId;
     }
 
     /**
@@ -101,35 +97,35 @@ public class IngredientVitamin implements Serializable{
     }
 
     /**
-     * Method to recover the quantity of the vitmain for the ingredient
-     * @return a long that represents the quantity of the vitmain for the ingredient
+     * Method to recover the quantity of the vitamin for the ingredient
+     * @return a long that represents the quantity of the vitamin for the ingredient
      */
     public float getQty() {
         return qty;
     }
 
     /**
-     * Method to asign the quantity of the vitmain for the ingredient
-     * @param qty long that represents the quantity of the vitmain for the ingredient to asign
+     * Method to asign the quantity of the vitamin for the ingredient
+     * @param qty long that represents the quantity of the vitamin for the ingredient to asign
      */
     public void setQty(float qty) {
         this.qty = qty;
     }
 
     /**
-     * Method to recover the id of the vitmain
-     * @return a long that represents the id of the vitmain
+     * Method to recover the vitamin for the ingredient
+     * @return an object that represents the vitamin for the ingredient
      */
-    public String getVitaminId() {
-        return vitaminId;
+    public Vitamin getVitamin() {
+        return vitamin;
     }
 
     /**
-     * Method to asign the id of the vitmain
-     * @param vitaminId long that represents the id of the vitmain to asign
+     * Method to asign the vitamin for the ingredient
+     * @param vitamin object that represents the vitamin for the ingredient
      */
-    public void setVitaminId(String vitaminId) {
-        this.vitaminId = vitaminId;
+    public void setVitamin(Vitamin vitamin) {
+        this.vitamin = vitamin;
     }
     
     

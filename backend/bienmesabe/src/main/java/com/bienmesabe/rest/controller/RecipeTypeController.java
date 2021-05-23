@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 @RequestMapping("/api/recipeTypes")
 public class RecipeTypeController {
+    
     /**
      * Bean of the recipe types service (Interface)
      */

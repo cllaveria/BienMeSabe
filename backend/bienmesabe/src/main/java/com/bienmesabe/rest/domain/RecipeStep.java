@@ -11,8 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -31,9 +29,8 @@ public class RecipeStep implements Serializable{
     @Column(name="STEP_DESCRIPTION")
     private String stepDescription;
     
-    @ManyToOne
-    @JoinColumn(name="RECIPE_ID")
-    private Recipe recipe;
+    @Column(name="RECIPE_ID")
+    private long recipeId;
 
     @Column(name="STEP_IMAGE")
     private String image;
@@ -49,10 +46,25 @@ public class RecipeStep implements Serializable{
      * @param stepDescription string that represents the description of the recipe's step
      */
     public RecipeStep(Long recipeId, String stepDescription) {
-        this.recipe.setId(recipeId);
+        this.recipeId = recipeId;
         this.stepDescription = stepDescription;
     }
 
+    /**
+     * RecipeStep Constructor with the required parameters
+     * @param id  long that represents the id of the recipe step
+     * @param recipeId long that represents the id of the recipe
+     * @param stepDescription string that represents the description of the recipe's step
+     * @param image string that represents teh path of the step image
+     */
+    public RecipeStep(Long id, String stepDescription, long recipeId, String image) {
+        this.id = id;
+        this.stepDescription = stepDescription;
+        this.recipeId = recipeId;
+        this.image = image;
+    }
+
+    
     /**
      * Method to recover the id of the recipe step
      * @return a long that represents the id of the recipe step
@@ -74,7 +86,7 @@ public class RecipeStep implements Serializable{
      * @return a long that represents the id of the recipe
      */
     public Long getRecipeId() {
-        return this.recipe.getId();
+        return this.recipeId ;
     }
     
     /**
@@ -82,7 +94,7 @@ public class RecipeStep implements Serializable{
      * @param recipeId long that represents the id of the recipe to asign
      */
     public void setRecipeId(Long recipeId) {
-        this.recipe.setId(recipeId);
+        this.recipeId = recipeId;
     }
 
     /**

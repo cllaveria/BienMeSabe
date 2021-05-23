@@ -14,24 +14,26 @@ import java.util.List;
  * @version 11/04/2021
  */
 public interface NutricionistDAO {
+    
     /**
      * Method to recover the nutricionists present in the DB
      * @return a list with the nutricionists present in the DB
      */
     public List<Nutricionist> findAllNutricionist();
+    
     /**
      * Method to recover the nutricionists present in the DB by id
      * @param id long that represents the id of the nutricionist to search
-     * @return the ingredient in the DB filtered by id
+     * @return the nutricionist in the DB filtered by id
      */
     public Nutricionist findNutricionistById(Long id);
     
     /**
      * Method to recover the nutricionists present in the DB by id
      * @param cp string that represents the postal code of the nutricionists to search
-     * @return the ingredient in the DB filtered by postal code
+     * @return list with the nutricionists in the DB filtered by postal code
      */
-    public Nutricionist findNutricionistByCP(String cp);
+    public List<Nutricionist> findNutricionistByCP(String cp);
     
     /**
      * Method to recover the nutricionist present in the DB by postal code range
@@ -42,6 +44,13 @@ public interface NutricionistDAO {
     public List<Nutricionist> findNutricionistByCPRange(String cpMin, String cpMax);
     
     /**
+     * Method to recover the nutricionist assessment present in the DB
+     * @param id long that represents the id of the nutricionist to search
+     * @return an integer of the value of the assessment
+     */
+    public int getNutricionistAssessment(Long id);
+    
+    /**
      * Method to create an nutricionist in the table nutricionists of the DB
      * @param nutricionist object that represents the nutricionist to persist
      * @return a long with the id of the persisted nutricionist
@@ -50,13 +59,13 @@ public interface NutricionistDAO {
     
     /**
      * Method to modify an nutricionist in the table nutricionists of the DB
-     * @param nutricionistId
-     * @param companyName
-     * @param companyDirection
-     * @param companyPostalCode
-     * @param companyCity
-     * @param companyPhone
-     * @return 
+     * @param nutricionistId long that represents the id of the nutricionist to modify
+     * @param companyName string that represents the company name of the nutricionist to asign
+     * @param companyDirection string that represents the company direction of the nutricionist to asign
+     * @param companyPostalCode string that represents the company postal code of the nutricionist to asign
+     * @param companyCity string that represents the company city of the nutricionist to asign
+     * @param companyPhone string that represents the company phone of the nutricionist to asign
+     * @return a boolean that represents if the nutricionist information has been successfully updated or not
      */
     public Boolean modifyNutricionist(Long nutricionistId, String companyName, String companyDirection, String companyPostalCode, String companyCity, String companyPhone);
     
@@ -65,4 +74,6 @@ public interface NutricionistDAO {
      * @param id long with the id of the nutricionist to delete
      */
     public void deleteNutricionistById(Long id);
+    
+    
 }

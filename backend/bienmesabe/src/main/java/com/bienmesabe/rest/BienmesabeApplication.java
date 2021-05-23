@@ -16,8 +16,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
-
 /**
  * Main method for the application
  * @author RAUL RAMOS CENDRERO
@@ -27,52 +25,56 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @ComponentScan(basePackages = "com.bienmesabe.rest")
 public class BienmesabeApplication {
 
-        @Autowired
-        private UserDAO userDAO;
-	public static void main(String[] args) {
+    /**
+     * Main method
+     * @param args string array that contains the arguments for use in the main method
+     */
+    public static void main(String[] args) {
 		SpringApplication.run(BienmesabeApplication.class, args);
 	}
         
-        
-        @EnableWebSecurity
-	@Configuration
-        @EnableGlobalMethodSecurity(prePostEnabled = true)
-	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    /**
+     * Method to enable the Web Security
+     */ 
+    @EnableWebSecurity
+    @Configuration
+    @EnableGlobalMethodSecurity(prePostEnabled = true)
+    class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-		@Override
-		protected void configure(HttpSecurity http) throws Exception {
-			http.cors().and().csrf().disable()
-				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-				.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/api/recipe").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipes").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByAssessment").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipeByIngredients/{ingredients}").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByKCal/{kcalMin}/{kcalMax}").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByType/{type}").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByDinners/{dinners}").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesById/{id}").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByFilters/{data}").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesOfOtherUsers/{userId}").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/user/getUserById/{userId}").permitAll()
-                                .antMatchers(HttpMethod.POST, "/api/user/addUser").permitAll()
-                                .antMatchers(HttpMethod.POST, "/api/user/loginUser").permitAll()                                
-                                .antMatchers(HttpMethod.POST, "/api/user/loginUser/{data}").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/ingredient/getIngredients").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/recipeTypes/getRecipeTypes").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipes").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/user/getUsers").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/comment/getCommentsByRecipeId/{id}").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/user/findUserByAlias/{alias}").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/user/findUserByEmail/{email}").permitAll()
-                                .antMatchers(HttpMethod.POST, "/api/user/addUser/").permitAll()
-                                .antMatchers(HttpMethod.POST, "/api/nutricionist/addNutricionist/").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByAssessment").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/recipeTypes/getRecipeTypes").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/ingredient/getIngredients").permitAll()
-                                .antMatchers(HttpMethod.POST, "/api/comment/addComment/{recipeId}/{comment}/{userId}").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/tokenValidity/validateDate/").permitAll()
-				.anyRequest().authenticated();
-		}
-	}
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http.cors().and().csrf().disable()
+                .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/api/recipe").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipes").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByAssessment").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipeByIngredients/{ingredients}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByKCal/{kcalMin}/{kcalMax}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByType/{type}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByDinners/{dinners}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesById/{id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByFilters/{data}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesOfOtherUsers/{userId}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/user/getUserById/{userId}").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/user/addUser").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/user/loginUser").permitAll()                                
+                .antMatchers(HttpMethod.POST, "/api/user/loginUser/{data}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/ingredient/getIngredients").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/recipeTypes/getRecipeTypes").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipes").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/user/getUsers").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/comment/getCommentsByRecipeId/{id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/user/findUserByAlias/{alias}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/user/findUserByEmail/{email}").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/user/addUser/").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/nutricionist/addNutricionist/").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/recipe/getRecipesByAssessment").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/recipeTypes/getRecipeTypes").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/ingredient/getIngredients").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/comment/addComment/{recipeId}/{comment}/{userId}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/tokenValidity/validateDate/").permitAll()
+                .anyRequest().authenticated();
+        }
+    }
 }

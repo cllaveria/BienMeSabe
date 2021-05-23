@@ -56,9 +56,18 @@ public interface UserService {
      */
     public User findUserByAlias(String alias);
     
+    /**
+     * Method to recover the user valoration
+     * @param id  long that represents the id of the users to search
+     * @return an integer that represents the valoration of the user
+     */
     public int getUserValoration(long id);
     
-    
+    /**
+     * Method to authenticate an user
+     * @param data string that contains the information of the user to do the authentication
+     * @return an object that represents the user
+     */
     public User authenticateUser(String data);
 
     /**

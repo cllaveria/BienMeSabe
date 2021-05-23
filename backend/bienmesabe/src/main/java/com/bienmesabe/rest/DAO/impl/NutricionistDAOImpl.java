@@ -7,10 +7,10 @@ package com.bienmesabe.rest.DAO.impl;
 
 import com.bienmesabe.rest.DAO.NutricionistDAO;
 import com.bienmesabe.rest.domain.Nutricionist;
+import com.bienmesabe.rest.domain.NutricionistAssessment;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -66,20 +66,17 @@ public class NutricionistDAOImpl implements NutricionistDAO{
     }
 
     /**
-     * Implementation of interface method to recover the nutricionists present in the DB by id
+     * Implementation of interface method to recover the nutricionists present in the DB by cp
      * @param cp string that represents the postal code of the nutricionists to search
-     * @return the nutricionist filtered by postal code
+     * @return the list of the nutricionist filtered by postal code
      */
     @Override
     @Transactional
-    public Nutricionist findNutricionistByCP(String cp) {
+    public List<Nutricionist> findNutricionistByCP(String cp) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Nutricionist> query = currentSession.createQuery("FROM Nutricionist WHERE companyPostalCode=:companyPostalCode", Nutricionist.class);
         query.setParameter("companyPostalCode", cp);
-        Nutricionist nutricionist = query.getSingleResult();
-        nutricionist.setPassword("");
-        nutricionist.setNIF("");
-        nutricionist.setPhone("");
+        List<Nutricionist> nutricionist = query.getResultList();
         return nutricionist;
     }
 
@@ -105,6 +102,26 @@ public class NutricionistDAOImpl implements NutricionistDAO{
         return nutricionists;
     }
 
+    /**
+     * Implementation of interface method to recover the assessment of the nutricionist in the DB
+     * @param id long that represents the id of the nutricionist
+     * @return an integer that represents the value of the assessment of the nutricionist
+     */
+    @Override
+    @Transactional
+    public int getNutricionistAssessment(Long id){
+        float assessment = 0;
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<NutricionistAssessment> query = currentSession.createQuery("FROM NutricionistAssessment WHERE nutricionistId=:id", NutricionistAssessment.class);
+        query.setParameter("id", id);
+        List<NutricionistAssessment> assessments = query.getResultList();
+        for(NutricionistAssessment na : assessments){
+            assessment+= na.getAssessmentValue();
+        }
+        
+        return Math.round(assessment/assessments.size());
+    }
+    
     /**
      * Implementation of interface method to create an nutricionist in the table nutricionists of the DB
      * @param nutricionist object that represents the nutricionist to persist
@@ -134,7 +151,13 @@ public class NutricionistDAOImpl implements NutricionistDAO{
 
     /**
      * Implementation of interface method to modify an nutricionist in the table nutricionists of the DB
-     * @param nutricionist object that represents the nutricionist to modify
+     * @param nutricionistId long that represents the id of the nutricionist to modify
+     * @param companyName string that represents the company name of the nutricionist to asign
+     * @param companyDirection string that represents the company direction of the nutricionist to asign
+     * @param companyPostalCode string that represents the company postal code of the nutricionist to asign
+     * @param companyCity string that represents the company city of the nutricionist to asign
+     * @param companyPhone string that represents the company phone of the nutricionist to asign
+     * @return a boolean that represents if the nutricionist information has been successfully updated or not
      */
     @Override
     @Transactional

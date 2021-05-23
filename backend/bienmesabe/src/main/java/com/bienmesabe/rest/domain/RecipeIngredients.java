@@ -6,15 +6,12 @@
 package com.bienmesabe.rest.domain;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -31,18 +28,20 @@ public class RecipeIngredients implements Serializable{
     @JoinColumn(name="id")
     private Long id;
     
-    @OneToOne
-    @JoinColumn(name="INGREDIENT_ID")
-    private Ingredient ingredient;
+    
+    @Column(name="INGREDIENT_ID")
+    private long ingredientId;
     
     @Column(name="INGREDIENT_QTY")
     private float ingredientQTY;
     @Column(name="INGREDIENT_UNITY")
     private String ingredientUnity;
-
-    @ManyToOne
-    @JoinColumn(name="RECIPE_ID")
-    private Recipe recipe;
+    
+    @Column(name="INGREDIENT_KCAL")
+    private float ingredientKCAL;
+    
+    @Column(name="RECIPE_ID")
+    private long recipeId;
     
     /**
      * Empty Constructor
@@ -58,12 +57,30 @@ public class RecipeIngredients implements Serializable{
      * @param ingredientUnity string that represents the measurement unit of the recipe ingredient to asign
      */
     public RecipeIngredients(long recipeId, long ingredientId, float ingredientQTY, String ingredientUnity) {
-        this.recipe.setId(recipeId);
-        this.ingredient.setId(ingredientId);
+        this.recipeId = recipeId;
+        this.ingredientId =ingredientId;
         this.ingredientQTY = ingredientQTY;
         this.ingredientUnity = ingredientUnity;
     }
+    /**
+     * RecipeIngredients Constructor with the required parameters
+     * @param id long that represents the id of the recipe ingredient to asign
+     * @param recipeId long that represents the id of the recipe to asign
+     * @param ingredientId long that represents the id of the class ingredient to asign
+     * @param ingredientQTY float that represents the quantity of the recipe ingredient to asign
+     * @param ingredientKCAL float that represents the total Kcal of the ingredient
+     * @param ingredientUnity string that represents the measurement unit of the recipe ingredient to asign
+     */
+    public RecipeIngredients(Long id, long ingredientId, float ingredientQTY, String ingredientUnity, float ingredientKCAL, long recipeId) {
+        this.id = id;
+        this.ingredientId = ingredientId;
+        this.ingredientQTY = ingredientQTY;
+        this.ingredientUnity = ingredientUnity;
+        this.ingredientKCAL = ingredientKCAL;
+        this.recipeId = recipeId;
+    }
       
+   
     /**
      * Method to recover the id of the recipe ingredient
      * @return a long that represents the id of the recipe ingredient
@@ -85,7 +102,7 @@ public class RecipeIngredients implements Serializable{
      * @return a long that represents the id of the recipe
      */
     public long getRecipeId() {
-        return recipe.getId();
+        return recipeId;
     }
 
     /**
@@ -93,7 +110,7 @@ public class RecipeIngredients implements Serializable{
      * @param recipeId long that represents the id of the recipe to asign
      */
     public void setRecipeId(long recipeId) {
-        this.recipe.setId(recipeId);
+        this.recipeId = recipeId;
     }
 
     /**
@@ -101,14 +118,14 @@ public class RecipeIngredients implements Serializable{
      * @return a long that represents the id of the class ingredient
      */
     public long getIngredientId() {
-        return ingredient.getId();
+        return ingredientId;
     }
     /**
      * Method to asign the id of the class ingredient
      * @param ingredientId long that represents the id of the class ingredient to asign
      */
     public void setIngredientId(long ingredientId) {
-        this.ingredient.setId(ingredientId);
+        this.ingredientId = ingredientId;
     }
 
     /**
@@ -141,6 +158,22 @@ public class RecipeIngredients implements Serializable{
      */
     public void setIngredientUnity(String ingredientUnity) {
         this.ingredientUnity = ingredientUnity;
+    }
+
+    /**
+     * Method to recover the Kcals of the recipe ingredient
+     * @return a float that represents the Kcals of the recipe ingredient
+     */
+    public float getIngredientKCAL() {
+        return ingredientKCAL;
+    }
+
+    /**
+     * Method to asign  the Kcals of the recipe ingredient
+     * @param ingredientKCAL float that represents the Kcals of the recipe ingredient
+     */
+    public void setIngredientKCAL(float ingredientKCAL) {
+        this.ingredientKCAL = ingredientKCAL;
     }
     
     

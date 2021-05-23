@@ -22,7 +22,8 @@ public interface CommentDAO {
     public List<Comment> findAllComments();
     
     /**
-     * Method to recover the comments of the recipe
+     * Method to recover all the comments of the recipe
+     * @param recipeId long that represents the id of the recipe
      * @return a list with the comments of the recipe
      */
     public List<Comment> findAllCommentsOfRecipe(Long recipeId);
