@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -71,5 +72,15 @@ public class AssessmentController {
            return null;
        assessment.setId(id);
        return assessment;
+    }
+    
+    /**
+     * Method to update the assessment // HTTP verb: PUT url: http://localhost:8080/api/assessment/modifyAssessment/{info}
+     * @param info string with all the information of the assessment to persist
+     * @return the created assessment
+     */
+    @PutMapping("/modifyAssessment/{info}")
+    public boolean modifyAssessment(@PathVariable String info){
+        return assessmentService.modifyAssessment(info);
     }
 }
