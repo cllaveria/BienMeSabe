@@ -131,7 +131,7 @@ public class AssessmentDAOImpl implements AssessmentDAO{
     @Transactional
     public boolean modifyAssessment(Assessment assessment){
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Assessment> query = currentSession.createQuery("update Assessment set assessmentValue=:newValue WHERE recipeId=:recipe and userId=:user", Assessment.class);
+        Query<Assessment> query = currentSession.createQuery("update Assessment set assessmentValue=:newValue WHERE recipeId=:recipe and userId=:user");
         query.setParameter("recipe", assessment.getRecipeId());
         query.setParameter("user", assessment.getUserId());
         query.setParameter("newValue", assessment.getAssessmentValue());
