@@ -67,23 +67,24 @@ $(document).ready(function () {
                     'Authorization': $token
                 },
                 success: function ($nutricionists) {
+                    //TODO: Pendiente de hacer lo de la valoración.
                     $('.nutritionists').empty();
                     $('.messageError').css('display', 'none');
-                    $('.nutritionists').append('<div class="infoNutri"><a href="http://localhost:3000/fichaNutri?id=' + $nutricionists.id + '"\
-                                                <p id="name">' + $nutricionists.name + '</p>\
-                                                <p id="dire">' + $nutricionists.companyDirection + '</p>\
-                                                <p id="titul">Titulación</p>\
+                    $('.nutritionists').append('<div class="infoNutri"><a href="http://localhost:3000/fichaNutri?id=' + $nutricionists[0].id + '"\
+                                                <p id="name">' + $nutricionists[0].name + '</p>\
+                                                <p id="dire">' + $nutricionists[0].companyDirection + '</p>\
+                                                <p id="titul"></p>\
                                                 <div class="score_user">\
                                                     <img class="forkValue" id="fork1" value="5" src="/images/tenedor-gold.svg"\
-                                                        alt="tenerdor" style="width: 15px; height: 30px;">\
+                                                        alt="tenedor" style="width: 15px; height: 30px;">\
                                                     <img class="forkValue" id="fork2" value="4" src="/images/tenedor-gold.svg"\
-                                                        alt="tenerdor" style="width: 15px; height: 30px;">\
+                                                        alt="tenedor" style="width: 15px; height: 30px;">\
                                                     <img class="forkValue" id="fork3" value="3" src="/images/tenedor-gold.svg"\
-                                                        alt="tenerdor" style="width: 15px; height: 30px;">\
+                                                        alt="tenedor" style="width: 15px; height: 30px;">\
                                                     <img class="forkValue" id="fork4" value="2" src="/images/tenedor-black.svg"\
-                                                        alt="tenerdor" style="width: 15px; height: 30px;">\
+                                                        alt="tenedor" style="width: 15px; height: 30px;">\
                                                     <img class="forkValue" id="fork5" value="1" src="/images/tenedor-black.svg"\
-                                                        alt="tenerdor" style="width: 15px; height: 30px;"></a>\
+                                                        alt="tenedor" style="width: 15px; height: 30px;"></a>\
                                                 </div>')
                 },
                 error: function () {

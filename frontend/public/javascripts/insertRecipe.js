@@ -42,12 +42,12 @@ function getForks($forks) {
     let $insertForks = '<div class="score_rec">';
 
     for (let i = 0; i < $forks; i++) {
-        $insertForks = $insertForks.concat('<img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
+        $insertForks = $insertForks.concat('<img src="/images/tenedor-gold.svg" alt="tenedor" style="width: 20px; height: 40px;">');
     }
     if ($forks != 5) {
         let $numberForks = 5 - $forks;
         for (let i = 0; i < $numberForks; i++) {
-            $insertForks = $insertForks.concat('<img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
+            $insertForks = $insertForks.concat('<img src="/images/tenedor-black.svg" alt="tenedor" style="width: 20px; height: 40px;">');
         }
     }
     $insertForks = $insertForks.concat('</div>');
@@ -73,7 +73,7 @@ function insertRecipe($min, $max, $allUsers, $latestRecipes, $urlRecipe) {
         $('.latest_rec').append('<div class="rcp_cnt">\
                                 <a href="' + $urlRecipe + $latestRecipes[i].id + '">\
                                     <div class="recipe">\
-                                        <img src="' + $latestRecipes[i].image + '">\
+                                        <img src="' + $latestRecipes[i].image + '" alt="image_' + $latestRecipes[i].name + '">\
                                         <div class="desc_rec">\
                                             <h3 id="title">' + $latestRecipes[i].name + '</h3>\
                                             <p id="author">' + $userAlias + '</p>\

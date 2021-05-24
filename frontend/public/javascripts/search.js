@@ -195,7 +195,7 @@ $(document).ready(function () {
                 // Inserim en el carrousel DOM les receptes millor valroades.
                 $('.carousel-inner').append('<div class="carousel-item">\
                                                 <a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
-                                                    <img class="imgCarousel" src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
+                                                    <img class="imgCarousel" src="' + $plateOrderByAssessment[i].image + '" alt="image_' + $plateOrderByAssessment[i].name + '">\
                                                     <div class="carousel-desc">\
                                                         <div class="carousel-caption">\
                                                             <div class="title">' + $plateOrderByAssessment[i].name + '</div>\
