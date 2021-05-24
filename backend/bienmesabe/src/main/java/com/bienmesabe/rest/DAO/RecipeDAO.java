@@ -94,7 +94,7 @@ public interface RecipeDAO {
      * Method to modify an recipe in the table recipes of the DB
      * @param recipe object that represents the recipe to modify
      */
-    public void modifyRecipe(Recipe recipe);
+    public boolean modifyRecipe(Recipe recipe);
     
     /**
      * Method to asign a recipe as active

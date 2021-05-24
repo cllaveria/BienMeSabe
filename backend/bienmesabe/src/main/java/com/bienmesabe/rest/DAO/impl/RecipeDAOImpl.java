@@ -216,9 +216,26 @@ public class RecipeDAOImpl implements RecipeDAO {
      */
     @Override
     @Transactional
-    public void modifyRecipe(Recipe recipe) {
+    public boolean modifyRecipe(Recipe recipe) {
         Session currentSession = entityManager.unwrap(Session.class);
-        currentSession.saveOrUpdate(recipe); 
+
+        Query<Recipe> query = currentSession.createQuery("update Recipe set image=:newImage, name=:newName, preparationVideo=:video, type=:recipeType, recipeDinners=:dinners, recipeTime=:time, recipeDifficult=:difficult,recipeInitDescription=:initDescription, recipeEndingDescription=:endingDescription  where id=:recipeId");
+        query.setParameter("recipeId", recipe.getId());
+        query.setParameter("newImage", recipe.getImage());
+        query.setParameter("newName", recipe.getName());
+        query.setParameter("video", recipe.getPreparationVideo());
+        query.setParameter("recipeType", recipe.getType());
+        query.setParameter("dinners", recipe.getRecipeDinners());
+        query.setParameter("time", recipe.getRecipeTime());
+        query.setParameter("difficult", recipe.getRecipeDifficult());
+        query.setParameter("initDescription", recipe.getRecipeInitDescription());
+        query.setParameter("endingDescription", recipe.getRecipeEndingDescription());
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception ee){
+            return false;
+        }
     }
 
     /**
