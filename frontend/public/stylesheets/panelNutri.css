@@ -49,13 +49,8 @@ i {
 }
 
 #nameNutri:hover,
-i:hover {
+.nutrist > i:hover {
   color: #fca035;
-}
-
-.far,
-.fas {
-  font-size: 18px;
 }
 
 .diet {

@@ -58,6 +58,11 @@
   margin-bottom: 10px;
 }
 
+.inputs_form > p {
+  display: inline-flex;
+  margin-left: 5px;
+}
+
 .inputs-group {
   margin-bottom: 10px;
   border-radius: 0.25rem;

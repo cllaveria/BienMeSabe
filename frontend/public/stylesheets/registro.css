@@ -32,6 +32,11 @@
   margin-bottom: 10px;
 }
 
+.inputs_form > p {
+  display: inline-flex;
+  margin-left: 5px;
+}
+
 .inputs-group {
   margin-bottom: 10px;
   border-radius: 0.25rem;
@@ -143,11 +148,11 @@
     border-style: solid;
   }
 
-  #tooltipInfo::after {
+  .tooltipInfo::after {
     border-color: transparent #fbc76f transparent transparent;
   }
 
-  #tooltipExcl::after {
+  .tooltipExcl::after {
     border-color: transparent #d41717 transparent transparent;
   }
 }
@@ -169,21 +174,21 @@
     border-style: solid;
   }
 
-  #tooltipInfo::after {
+  .tooltipInfo::after {
     border-color: #fbc76f transparent transparent transparent;
   }
 
-  #tooltipExcl::after {
+  .tooltipExcl::after {
     border-color: #d41717 transparent transparent transparent;
   }
 }
 
-#tooltipInfo {
+.tooltipInfo {
   background-color: #fbc76f;
   color: black;
 }
 
-#tooltipExcl {
+.tooltipExcl {
   background-color: #d41717;
   color: white;
 }
