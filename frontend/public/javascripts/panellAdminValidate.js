@@ -26,13 +26,10 @@ $(document).ready(function () {
         },
         success: function ($userAjax) {
             if ($userAjax.type == 3) {
-                $('.list-group-flush').before('<a class="list-group-item list-group-item-action bg-light" id="conf" href="/panelAdministrador">\
+                $('.list-group-flush').prepend('<a class="list-group-item list-group-item-action bg-light" id="administrator" href="/panelAdministrador">\
                                                     <p class="noToggle">Administración</p>\
                                                     <i class="fas fa-user siToggle noShow"></i>\
                                                 </a>');
-                $('.dropdownMenu').prepend('<a class="list-group-item list-group-item-action menudp" href="/panelAdministrador">\
-                                            <p>Administración</p>\
-                                        </a>')
             }
         }
     });

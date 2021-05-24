@@ -6,6 +6,9 @@ $(document).ready(function () {
     var endpoint = url.substr(lastSlash, url.length);
 
     switch (endpoint) {
+        case "/panelAdministrador":
+            $("#administrator").addClass("checked");
+            break;
         case "/panelUsuario":
             $("#conf").addClass("checked");
             break;
