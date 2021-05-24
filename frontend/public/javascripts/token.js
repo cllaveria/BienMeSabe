@@ -86,12 +86,12 @@ function token() {
             }
         });
         if ($boolean == true) {
-            $('#login').css('display', 'none');
+            $('.loginNoShow').css('display', 'none');
             $('#register').css('display', 'none');
             $('.btn_user').css('display', 'inline-block');
 
         } else {
-            $('#login').css('display', 'inline-block');
+            $('.loginNoShow').css('display', 'inline-block');
             $('#register').css('display', 'inline-block');
             $('.btn_user').css('display', 'none');
 
@@ -182,11 +182,11 @@ $(document).ready(function () {
                 }
             });
             if ($boolean == true) {
-                $('#login').css('display', 'none');
+                $('.loginNoShow').css('display', 'none');
                 $('#register').css('display', 'none');
                 $('.btn_user').css('display', 'inline-block');
             } else {
-                $('#login').css('display', 'inline-block');
+                $('.loginNoShow').css('display', 'inline-block');
                 $('#register').css('display', 'inline-block');
                 $('.btn_user').css('display', 'none');
 

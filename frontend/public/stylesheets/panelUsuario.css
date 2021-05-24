@@ -93,9 +93,15 @@ a.bg-light:focus,
   margin-top: 40px;
   color: #495057;
   padding: 5px;
+  cursor: pointer;
 }
 
 .btn_coll:hover {
+  color: black;
+  background-color: #fbc76f;
+}
+
+.collapseBtn:hover > i {
   color: black;
   background-color: #fbc76f;
 }
@@ -115,8 +121,6 @@ a.bg-light:focus,
 p.noToggle {
   margin-left: 10px;
 }
-
-
 
 #registerUser,
 #registerNutritionist {
@@ -292,21 +296,21 @@ p.noToggle {
     border-style: solid;
   }
 
-  #tooltipInfo::after {
+  .tooltipInfo::after {
     border-color: #fbc76f transparent transparent transparent;
   }
 
-  #tooltipExcl::after {
+  .tooltipExcl::after {
     border-color: #d41717 transparent transparent transparent;
   }
 }
 
-#tooltipInfo {
+.tooltipInfo {
   background-color: #fbc76f;
   color: black;
 }
 
-#tooltipExcl {
+.tooltipExcl {
   background-color: #d41717;
   color: white;
 }
