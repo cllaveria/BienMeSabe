@@ -23,146 +23,188 @@
  */
 
 $(document).ready(function () {
-
     /**
      * @constant $receivedData
+     * @type {String}
      * @description Constant per emmagatzemar la ruta rebuda per URL.
      */
+    const $receivedData = (window.location.search).substr(1, );
     /**
-     * @constant $urlRecipe
+     * @constant $urlRecipe 
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor veure la fitxa de les receptes.
      */
+    const $urlRecipe = 'http://localhost:8080/api/recipe/getRecipesById/';
     /**
-     * @constant $urlIngredients
+     * @constant $urlIngredients 
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els ingredients.
      */
+    const $urlIngredients = 'http://localhost:8080/api/ingredient/getIngredients';
     /**
-     * @constant $urlComments
-     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els comentaris de la recepta.
-     */
-    /**
-     * @constant $urlAllUsers
+     * @constant $urlAllUsers 
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els usuaris.
      */
+    const $urlAllUsers = 'http://localhost:8080/api/user/getUsers';
     /**
-     * @constant $urlAddComment
+     * @constant $urlAddComment 
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor i poder comentar les receptes.
      */
+    const $urlAddComment = 'http://localhost:8080/api/comment/addComment/';
     /**
-     * @constant $urlAddAssessment
+     * @constant $urlAddAssessment 
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor i poder valorar les receptes.
      */
+    const $urlAddAssessment = 'http://localhost:8080/api/assessment/addAssessment/';
+    /**
+     * @constant $urlModifyAssessment 
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i poder modificar la valoració de les receptes.
+     */
+    const $urlModifyAssessment = 'http://localhost:8080/api/assessment/modifyAssessment/';
     /**
      * @constant $arrayRecipe
+     * @type {Array}
      * @description Constant per emmagatzemar en forma d'array l'ID de la recepta i els comensals rebuts per URL.
      */
+    const $arrayRecipe = $receivedData.split('_');
     /**
      * @constant $idRecipe
+     * @type {number}
      * @description Constant per emmagatzemar l'ID de la recepta.
      */
-
-
+    const $idRecipe = $arrayRecipe[0].substr(3, );
     /** 
      * @var $totalDinner 
+     * @type {number}
      * @description Variable per emmagatzemar els comensals de l'array.
      */
+    let $totalDinner;
     /** 
      * @var $collapse 
+     * @type {String}
      * @description Variable per emmagatzemar el tipus de collapse per mostrar en passos de la recepta.
      */
+
+    let $collapse;
     /** 
      * @var $heading 
+     * @type {String}
      * @description Variable per emmagatzemar el tipus de heading per mostrar en passos de la recepta.
      */
+    let $heading;
     /** 
      * @var $user 
+     * @type {String}
      * @description Variable per emmagatzemar l'alies de l'usuari que ha creat la recepta.
      */
+    let $user;
     /** 
      * @var $carbohidrates 
+     * @type {number}
      * @description Variable inicialitzada a 0 per emmagatzemar els carbohidrats de la recepta.
      */
+    let $carbohidrates = 0;
     /** 
      * @var $proteins 
+     * @type {number}
      * @description Variable inicialitzada a 0 per emmagatzemar les proteïnes de la recepta.
      */
+    let $proteins = 0;
     /** 
      * @var $fat 
+     * @type {number}
      * @description Variable inicialitzada a 0 per emmagatzemar les grases de la recepta.
      */
+    let $fat = 0;
     /** 
      * @var $satured 
+     * @type {number}
      * @description Variable inicialitzada a 0 per emmagatzemar les grases saturades de la recepta.
      */
+
+    let $satured = 0;
     /** 
      * @var $monoinsaturated 
+     * @type {number}
      * @description Variable inicialitzada a 0 per emmagatzemar les grases monosaturades de la recepta.
      */
+    let $monoinsaturated = 0;
     /** 
      * @var $polyinsaturated 
+     * @type {number}
      * @description Variable inicialitzada a 0 per emmagatzemar les grases polyinsaturades de la recepta.
      */
+    let $polyinsaturated = 0;
     /** 
      * @var $sugars 
+     * @type {number}
      * @description Variable inicialitzada a 0 per emmagatzemar els sucres de la recepta.
      */
+    let $sugars = 0;
     /** 
      * @var $fiber 
+     * @type {number}
      * @description Variable inicialitzada a 0 per emmagatzemar les fibres de la recepta.
      */
+    let $fiber = 0;
     /** 
      * @var $sodium 
+     * @type {number}
      * @description Variable inicialitzada a 0 per emmagatzemar el sodi de la recepta.
      */
+    let $sodium = 0;
     /** 
      * @var $booleanComment 
+     * @type {boolean}
      * @description Boolean inicialitzat en true per verificar si l'usuari ha comentat la recepta o no.
      */
+    let $booleanComment = true;
     /** 
      * @var $booleanAssessment 
+     * @type {boolean}
      * @description Boolean inicialitzat en true per verificar si l'usuari ha puntuat la recepta o no.
      */
+    let $booleanAssessment = true;
     /** 
      * @var $allUsers 
+     * @type {Array}
      * @description Array per emmagatzemar tots els usuaris de la BBDD.
      */
+    let $allUsers = [];
     /** 
      * @var $score 
+     * @type {number}
      * @description Variable inicialitzada sense cap dada per emmagatzemar la puntuació de l'usuari que ha fet de la recepta.
      */
+    let $score = '';
     /** 
      * @var $comment 
+     * @type {String}
      * @description Variable inicialitzada sense cap dada per emmagatzemar el comentari de l'usuari que ha fet de la recepta.
      */
+    let $comment = '';
+    /** 
+     * @var $token
+     * @type {String}
+     * @description Variable de tipus String per emmagatzemar el token desat en localStorage.
+     */
+    let $token;
+    /** 
+     * @var $IDuser
+     * @type {number}
+     * @description Variable de tipus String per emmagatzemar l'ID de l'usuari desat en localStorage.
+     */
+    let $IDuser;
+    let $saveRecipe;
 
-    const $receivedData = (window.location.search).substr(1, ),
-        $urlRecipe = 'http://localhost:8080/api/recipe/getRecipesById/',
-        $urlIngredients = 'http://localhost:8080/api/ingredient/getIngredients',
-        $urlComments = 'http://localhost:8080/api/comment/getCommentsByRecipeId/',
-        $urlAllUsers = 'http://localhost:8080/api/user/getUsers',
-        $urlAddComment = 'http://localhost:8080/api/comment/addComment/',
-        $urlAddAssessment = 'http://localhost:8080/api/assessment/addAssessment/',
-        $arrayRecipe = $receivedData.split('_'),
-        $idRecipe = $arrayRecipe[0].substr(3, );
-
-    let $totalDinner,
-        $collapse,
-        $heading,
-        $user,
-        $carbohidrates = 0,
-        $proteins = 0,
-        $fat = 0,
-        $satured = 0,
-        $monoinsaturated = 0,
-        $polyinsaturated = 0,
-        $sugars = 0,
-        $fiber = 0,
-        $sodium = 0,
-        $booleanComment = true,
-        $booleanAssessment = true,
-        $allUsers = [],
-        $score = '',
-        $comment = '';
+    if (token() == true) {
+        $token = localStorage.getItem('token');
+        $IDuser = localStorage.getItem('id');
+    }
 
     if ($arrayRecipe.length > 1) {
         $totalDinner = $arrayRecipe[1].substr(7, );
@@ -185,31 +227,17 @@ $(document).ready(function () {
     });
 
     $.ajax({
-        url: $urlComments + $idRecipe,
-        type: 'GET',
-        success: function ($comments) {
-            for (let i = 0; i < $comments.length; i++) {
-                for (let x = 0; x < $allUsers.length; x++) {
-                    if ($comments[i].userId == $allUsers[x][0]) {
-                        $('.comments_users').append('<div class="comment_user">\
-                                                        <p id="alias">' + $allUsers[x][4] + '</p>\
-                                                        <p id="comment">' + $comments[i].commentValue + '</p>')
-                    }
-                }
-            }
-        }
-    });
-
-    $.ajax({
         url: $urlRecipe + $idRecipe,
         type: 'GET',
+        async: false,
         success: function ($recipe) {
             for (let i = 0; i < $allUsers.length; i++) {
                 if ($allUsers[i][0] == $recipe.userId) {
                     $user = $allUsers[i][4]
                 }
             }
-
+            $saveRecipe = $recipe;
+            console.log($recipe)
             $('.title').html($recipe.name);
             $('.title').after('<img class="imgRec" src="' + $recipe.image + '" alt="Imagen receta">');
             let $forks = getForks($recipe.recipeAssessment);
@@ -228,6 +256,17 @@ $(document).ready(function () {
 
             insertIngredients($recipe.recipeIngredients);
             insertSteps($recipe.recipeSteps);
+
+            $.each($recipe.comments, function ($i, $commentsRecipe) {
+                console.log($commentsRecipe)
+                for (let x = 0; x < $allUsers.length; x++) {
+                    if ($commentsRecipe.userId == $allUsers[x][0]) {
+                        $('.comments_users').append('<div class="comment_user">\
+                                                        <p id="alias">' + $allUsers[x][4] + '</p>\
+                                                        <p id="comment">' + $commentsRecipe.commentValue + '</p>');
+                    }
+                }
+            });
         }
     });
 
@@ -259,18 +298,17 @@ $(document).ready(function () {
      * @return {string}
      */
     function getDifficult($dificult) {
-        //let $insertDificult = '';
         switch ($dificult) {
             case 0:
-                return /* $insertDificult =  */ 'Muy baja';
+                return 'Muy baja';
             case 1:
-                return /* $insertDificult =  */ 'Baja';
+                return 'Baja';
             case 2:
-                return /* $insertDificult =  */ 'Media';
+                return 'Media';
             case 3:
-                return /* $insertDificult =  */ 'Difícil';
+                return 'Difícil';
             case 4:
-                return /* $insertDificult =  */ 'Muy difícil';
+                return 'Muy difícil';
         }
     }
 
@@ -443,7 +481,12 @@ $(document).ready(function () {
         }
     }
 
-
+    /**
+     * @type {jQuery}
+     * @method each
+     * @listens forkValue - ID de les forquilles.
+     * @description Selecciona la forquilla segons la puntuació que prem l'usuari.
+     */
     $('.forkValue').each(function () {
         $(this).on('click', () => {
             $score = $(this).attr('value');
@@ -488,10 +531,10 @@ $(document).ready(function () {
      * @type {jQuery}
      * @type click
      * @method on
-     * @listens .button - Botó per inserir comentari i valoració.
-     * @description Funció per inserir a la BBDD el comentari i la valoració que ha realtizat l'usuari sobre la recepta, verificant previament si hi ha comentari o recepta o ambes coses.
+     * @listens .btn_send - Botó per inserir comentari i valoració.
+     * @description Funció per inserir a la BBDD el comentari i la valoració que ha realtizat l'usuari sobre la recepta, verificant previament si hi ha comentari o valoració o ambes coses.
      */
-    $('.button').on('click', () => {
+    $('.btn_send').on('click', () => {
         $comment = $('#textComment').val();
 
         if ($comment != '' || $score != '') {
@@ -507,7 +550,7 @@ $(document).ready(function () {
                     success: function ($insertComment) {
                         if ($insertComment == '') {
                             $booleanComment = false;
-                            console.log('ya comentaste esta receta');
+                            $('#sameComment').modal('show');
                         } else {
                             $booleanComment = true;
                         }
@@ -523,11 +566,17 @@ $(document).ready(function () {
                     headers: {
                         'Authorization': $token
                     },
-                    success: function ($score) {
-                        if ($score == '') {
-                            $booleanAssessment = false;
-                            console.log('ya puntuaste esta receta');
-                        } else {
+                    success: function ($insertAssessment) {
+                        if($insertAssessment == ''){
+                            $.each($saveRecipe.assessments, function ($i, $assessmentsRecipe) {
+                                if ($assessmentsRecipe.assessmentValue == $score) {
+                                    $booleanAssessment = false;
+                                    $('#sameAssessment').modal('show');
+                                } else {
+                                    $('#updateAssessment').modal('show');
+                                }
+                            });
+                        }else{
                             $booleanAssessment = true;
                         }
                     }
@@ -536,8 +585,28 @@ $(document).ready(function () {
             if ($booleanComment == true && $booleanAssessment == true) {
                 location.reload();
             }
-        } else {
-            console.log('no se comenta ni se hace ninguna valoración.');
         }
+    });
+
+    /**
+     * @type {jQuery}
+     * @type click
+     * @method on
+     * @listens .btn_accept - Botó per aceptar la modificació de la valoració de l'usuari.
+     * @description Funció per inserir a la BBDD la modificació de la valoració que va realitzar en un altre moment l'usuari.
+     */
+    $('.btn_accept').on('click', function () {
+        $.ajax({
+            url: $urlModifyAssessment + 'recipe---' + $saveRecipe.id + '___value---' + $score + '___user---' + $IDuser,
+            type: 'PUT',
+            async: false,
+            headers: {
+                'Authorization': $token
+            },
+            async: false,
+            success: function () {
+                location.reload();
+            }
+        });        
     });
 });

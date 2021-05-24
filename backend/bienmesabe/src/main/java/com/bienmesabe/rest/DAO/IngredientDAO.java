@@ -15,6 +15,7 @@ import java.util.List;
  * @version 11/04/2021
  */
 public interface IngredientDAO {
+    
     /**
      * Method to recover the ingredients present in the DB
      * @return a list with the ingredients in the DB

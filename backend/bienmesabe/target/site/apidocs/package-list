@@ -1,0 +1,8 @@
+com.bienmesabe.rest
+com.bienmesabe.rest.DAO
+com.bienmesabe.rest.DAO.impl
+com.bienmesabe.rest.controller
+com.bienmesabe.rest.domain
+com.bienmesabe.rest.security
+com.bienmesabe.rest.service
+com.bienmesabe.rest.service.impl

@@ -39,7 +39,7 @@ public class NutricionistServiceImpl implements NutricionistService {
     /**
      * Implementation of interface method to recover the nutricionists present in the DB by id
      * @param id long that represents the id of the nutricionist to search
-     * @return the ingredient in the DB filtered by id
+     * @return the nutricionist in the DB filtered by id
      */
     @Override
     public Nutricionist findNutricionistById(Long id) {
@@ -50,12 +50,12 @@ public class NutricionistServiceImpl implements NutricionistService {
     /**
      * Implementation of interface method to recover the nutricionists present in the DB by id
      * @param cp string that represents the postal code of the nutricionists to search
-     * @return the ingredient in the DB filtered by postal code
+     * @return the list of the nutricionists in the DB filtered by postal code
      */
     @Override
-    public Nutricionist findNutricionistByCP(String cp) {
-        Nutricionist nutricionist = nutricionistDAO.findNutricionistByCP(cp);
-        return nutricionist;
+    public List<Nutricionist> findNutricionistByCP(String cp) {
+        List<Nutricionist> nutricionists= nutricionistDAO.findNutricionistByCP(cp);
+        return nutricionists;
     }
 
     /**
@@ -69,6 +69,16 @@ public class NutricionistServiceImpl implements NutricionistService {
         List<Nutricionist> listNutricionists = nutricionistDAO.findNutricionistByCPRange(cpMin, cpMax);
         return listNutricionists;
     }
+    
+    /**
+     * Implementation of interface method to recover the assessment of the nutricionist filtered by id
+     * @param id long that represents the id of the nutricionist
+     * @return an integer that represents the assessement of the nutricionist
+     */
+    @Override
+    public int getNutricionistAssessment(String id){
+        return nutricionistDAO.getNutricionistAssessment(Long.parseLong(id));
+    }
 
     /**
      * Implementation of interface method to create an nutricionist in the table nutricionists of the DB
@@ -81,8 +91,6 @@ public class NutricionistServiceImpl implements NutricionistService {
         return id;
     }
 
-    // TODO
-    // split string i crear nuevo nutricionista
      /**
      * Implementation of interface method to modify an nutricionist in the table nutricionists of the DB
      * @param nutricionist object that represents the nutricionist to modify

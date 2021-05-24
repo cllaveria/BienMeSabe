@@ -170,7 +170,12 @@ public class UserDAOImpl implements UserDAO{
         }
     }
     
-    
+    /**
+     * Implementation of interface method to authenticate an user by alias
+     * @param alias string that represents the alias of the user
+     * @param pass string that represents the password of the user
+     * @return an object of type user, or a null value if not exists in the DB
+     */
     @Override
     public User authenticateUserByAlias(String alias, String pass){
         Session currentSession = entityManager.unwrap(Session.class);
@@ -189,6 +194,12 @@ public class UserDAOImpl implements UserDAO{
         }
     }
     
+    /**
+     * Implementation of interface method to authenticate an user by email
+     * @param email string that represents the email of the user
+     * @param pass string that represents the password of the user
+     * @return an object of type user, or a null value if not exists in the DB
+     */
     @Override
     public User authenticateUserByEmail(String email, String pass){
         Session currentSession = entityManager.unwrap(Session.class);
@@ -304,7 +315,7 @@ public class UserDAOImpl implements UserDAO{
     }
     
     /**
-     * Method to modify the email of the user
+     * Implementation of interface method to modify the email of the user
      * @param userId long that represents the id of the user to modify
      * @param emailOld string that represents the old email of the user
      * @param emailNew string that represents the new email of the user
@@ -334,7 +345,7 @@ public class UserDAOImpl implements UserDAO{
     }
     
     /**
-     * Method to modify the alais of the user
+     * Implementation of interface method to modify the alais of the user
      * @param userId long that represents the id of the user to modify
      * @param aliasNew string that represents the new alias of the user
      * @return a boolean that indicates if the alias of the user is successfully updated or not

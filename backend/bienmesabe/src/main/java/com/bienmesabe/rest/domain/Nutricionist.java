@@ -5,8 +5,12 @@
  */
 package com.bienmesabe.rest.domain;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -29,7 +33,13 @@ public class Nutricionist extends User{
     private String companyCity;
     @Column(name="COMPANY_TELEPHONE")
     private String companyPhone;
+    
+    @OneToMany(mappedBy = "nutricionist", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<NutricionistDegree> nutricionistDegree;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "NUTRICIONIST_ID")
+    private List<NutricionistAssessment> assessments;
     /**
      * Empty Constructor
      */
@@ -132,4 +142,37 @@ public class Nutricionist extends User{
         this.companyPhone = companyPhone;
     }
 
+    /**
+     * Method to recover the list of the degrees of the nutricionist  
+     * @return a list that represents the degrees of the nutricionist  
+     */
+    public List<NutricionistDegree> getNutricionistDegree() {
+        return nutricionistDegree;
+    }
+
+    /**
+     * Method to asign the list of the degrees of the nutricionist  
+     * @param nutricionistDegree list that represents the degrees of the nutricionist  
+     */
+    public void setNutricionistDegree(List<NutricionistDegree> nutricionistDegree) {
+        this.nutricionistDegree = nutricionistDegree;
+    }
+
+    /**
+     * Method to recover the list of the assessments of the nutricionist  
+     * @return a list that represents the assessments of the nutricionist  
+     */
+    public List<NutricionistAssessment> getAssessments() {
+        return assessments;
+    }
+
+    /**
+     * Method to asign the list of the assessments of the nutricionist  
+     * @param assessments list that represents the assessments of the nutricionist  
+     */
+    public void setAssessments(List<NutricionistAssessment> assessments) {
+        this.assessments = assessments;
+    }
+
+    
 }

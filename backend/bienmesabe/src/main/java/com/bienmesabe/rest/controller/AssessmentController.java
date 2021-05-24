@@ -8,7 +8,6 @@ package com.bienmesabe.rest.controller;
 
 
 import com.bienmesabe.rest.domain.Assessment;
-import com.bienmesabe.rest.domain.Comment;
 import com.bienmesabe.rest.service.AssessmentService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -38,22 +37,29 @@ public class AssessmentController {
     @Autowired
     private AssessmentService assessmentService;
     
-      @GetMapping("/getAssessments")
+    /**
+     * Method to recover all the assessments // HTTP verb: GET url: http://localhost:8080/api/assessment/getAssessments
+     * @return a list with all recipe assessments
+     */
+    @GetMapping("/getAssessments")
     public List<Assessment> getAssessments(){
         return assessmentService.findAllAssessments();
     }
     
+    /**
+     * Method to recover all the assessments of a recipe // HTTP verb: GET url: http://localhost:8080/api/assessment/getAssessmentsByRecipeId/{id}
+     * @param id string that represents the id of the recipe
+     * @return a list with all of the assessments of the recipe
+     */
     @GetMapping("/getAssessmentsByRecipeId/{id}")
     public List<Assessment> getAssessmentsById(@PathVariable String id){
         return assessmentService.findAllAssessmentsOfRecipe(Long.parseLong(id));
     }
     
     /**
-     * Method to create the assessment // HTTP verb: POST url: http://localhost:8080/api/assessment/addAssessment/{recipeId}/{assessment}/{userId}
-     * @param recipeId string that represents the id of the recipe
-     * @param assessmentValue string that represents the assessment value
-     * @param userId string that represents the id of the user
-     * @return the created user
+     * Method to create the assessment // HTTP verb: POST url: http://localhost:8080/api/assessment/addAssessment/{info}
+     * @param info string with all the information of the assessment to persist
+     * @return the created assessment
      */
     @PostMapping("/addAssessment/{info}")
     public Assessment addAssessment(@PathVariable String info){
@@ -66,5 +72,15 @@ public class AssessmentController {
            return null;
        assessment.setId(id);
        return assessment;
+    }
+    
+    /**
+     * Method to update the assessment // HTTP verb: PUT url: http://localhost:8080/api/assessment/modifyAssessment/{info}
+     * @param info string with all the information of the assessment to persist
+     * @return the created assessment
+     */
+    @PutMapping("/modifyAssessment/{info}")
+    public boolean modifyAssessment(@PathVariable String info){
+        return assessmentService.modifyAssessment(info);
     }
 }

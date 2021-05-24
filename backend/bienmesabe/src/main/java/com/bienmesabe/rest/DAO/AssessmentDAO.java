@@ -6,7 +6,6 @@
 package com.bienmesabe.rest.DAO;
 
 import com.bienmesabe.rest.domain.Assessment;
-import com.bienmesabe.rest.domain.Comment;
 import java.util.List;
 
 /**
@@ -28,10 +27,18 @@ public interface AssessmentDAO {
      * @return a list with the assessments of the recipe
      */
     public List<Assessment> findAllAssessmentsOfRecipe(Long recipeId);
+    
     /**
      * Method to create an assessment in the table assessments of the DB
      * @param assessment object that represents the assessment to persist
      * @return a long with the id of the persisted assessment
      */
     public Long createAssessment(Assessment assessment);
+    
+    /**
+     * Method to update an assessment in the table assessments of the DB
+     * @param assessment object that represents the assessment to modify
+     * @return a boolean that indicates if the assessment is successfully updated or not
+     */
+    public boolean modifyAssessment(Assessment assessment);
 }

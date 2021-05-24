@@ -70,7 +70,6 @@ function insertRecipe($min, $max, $allUsers, $latestRecipes, $urlRecipe) {
 
         $forks = getForks($latestRecipes[i].recipeAssessment);
         $difficult = getDifficult($latestRecipes[i].recipeDifficult);
-
         $('.latest_rec').append('<div class="rcp_cnt">\
                                 <a href="' + $urlRecipe + $latestRecipes[i].id + '">\
                                     <div class="recipe">\

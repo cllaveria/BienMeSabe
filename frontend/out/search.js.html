@@ -26,7 +26,8 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
+            <pre class="prettyprint source linenums"><code>//TODO: SERGIO | RETOCAR DOCUMENTACIÓN (VARIABLES Y CONSTANTES)
+/**
  * @fileoverview · Filtre per cercar les receptes de forma personalitzada: 
  * &lt;p> 1) L'usuari selecciona els ingredients necessaris per trobar la recepta.&lt;/p>
  * &lt;p> 2) L'usuari introdueix per a quantes persones és la recepta a cercar.&lt;/p>
@@ -156,50 +157,19 @@ $(document).ready(function () {
         $allUsers = [],
         $count = 0;
 
-    /** 
-     * @var $insert 
-     * @description Variable inicialitzada en blanc per emmagatzemar la cadena de les receptes a inserir.
-     */
-    /* $insert = ''; */
+    let $token, $IDuser;
 
-    // TODO: implementar la validación del token en otro página.
-
-    let $token = localStorage.getItem('token'),
+    if (token() == true) {
+        $token = localStorage.getItem('token');
         $IDuser = localStorage.getItem('id');
-
-    if ($token != '') {
-        $.ajax({
-            url: 'http://localhost:8080/api/recipe/getRecipesOfOtherUsers/' + $IDuser,
-            type: 'GET',
-            async: false,
-            headers: {
-                'Authorization': $token
-            },
-            dataType: 'json',
-            contentType: 'aplication/json',
-            success: function ($requestToken) {
-
-                $('#login').css('display', 'none');
-                $('#register').css('display', 'none');
-                $('.btn_user').css('display', 'inline-block');
-            },
-            error: function ($error) {
-                if ($error.responseText == '') {
-                    $('#login').css('display', 'inline-block');
-                    $('#register').css('display', 'inline-block');
-                    $('.btn_user').css('display', 'none');
-                }
-            }
-        });
     }
-    // TODO: hasta aquí la implementación del token.
 
     $.ajax({
         url: $urlIngredients,
         type: 'GET',
         success: function (data) {
             for (let i = 0; i &lt; data.length; i++) {
-                $ingredients.push(data[i]); //$ingredients[i] = data[i];
+                $ingredients.push(data[i]);
                 $('#list_ingredient').append("&lt;option>" + $ingredients[i].name + "&lt;/option>")
             }
         }
@@ -211,7 +181,7 @@ $(document).ready(function () {
         success: function (data) {
             $('#typePlate').append('&lt;option value="all" selected>Selecciona una opción&lt;/option>');
             for (let i = 0; i &lt; data.length; i++) {
-                $recipePlates.push(data[i]); //$recipePlates[i] = data[i]
+                $recipePlates.push(data[i]);
                 $('#typePlate').append('&lt;option value="' + data[i].id + '">' + data[i].name + '&lt;/option>')
             }
         }
@@ -223,7 +193,7 @@ $(document).ready(function () {
         async: false,
         success: function ($users) {
             for (let i = 0; i &lt; $users.length; i++) {
-                $allUsers.push($users[i]); //$allUsers[i] = $users[i];
+                $allUsers.push($users[i]);
             }
         }
     });
@@ -241,6 +211,7 @@ $(document).ready(function () {
                     }
                 }
                 $forks = getForks($plateOrderByAssessment[i].recipeAssessment);
+                // Inserim en el carrousel DOM les receptes millor valroades.
                 $('.carousel-inner').append('&lt;div class="carousel-item">\
                                                 &lt;a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
                                                     &lt;img class="imgCarousel" src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
@@ -257,35 +228,6 @@ $(document).ready(function () {
                     $('.carousel-item').addClass('active');
                 }
             }
-            /* if (i == 0) {
-                    $insert = $insert.concat('&lt;div class="carousel-item active">\
-                                                &lt;a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
-                                                    &lt;img class="imgCarousel" src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
-                                                    &lt;div class="carousel-desc">\
-                                                        &lt;div class="carousel-caption">\
-                                                            &lt;div class="title">' + $plateOrderByAssessment[i].name + '&lt;/div>\
-                                                            &lt;h3>' + $userAlias + '&lt;/h3>\
-                                                            ' + $forks + '\
-                                                        &lt;/div>\
-                                                    &lt;/div>\
-                                                &lt;/a>\
-                                            &lt;/div>');
-                } else {
-                    $insert = $insert.concat('&lt;div class="carousel-item">\
-                                                &lt;a href="' + $urlRecipe + $plateOrderByAssessment[i].id + '">\
-                                                    &lt;img class="imgCarousel" src="' + $plateOrderByAssessment[i].image + '" alt="' + $plateOrderByAssessment[i].name + '">\
-                                                    &lt;div class="carousel-desc">\
-                                                        &lt;div class="carousel-caption">\
-                                                            &lt;div class="title">' + $plateOrderByAssessment[i].name + '&lt;/div>\
-                                                            &lt;h3>' + $userAlias + '&lt;/h3>\
-                                                            ' + $forks + '\
-                                                        &lt;/div>\
-                                                    &lt;/div>\
-                                                &lt;/a>\
-                                            &lt;/div>');
-                }
-            }
-            $('.carousel-inner').append($insert); */
         }
     });
 
@@ -299,9 +241,9 @@ $(document).ready(function () {
                 $latestRecipes[i] = $latestRecipesAjax[i];
             }
             if ($screenSize &lt; 1240 &amp;&amp; $screenSize > 700) {
-                insertRecipe(0, 4);
+                insertRecipe(0, 4, $allUsers, $latestRecipes, $urlRecipe);
             } else {
-                insertRecipe(0, 3);
+                insertRecipe(0, 3, $allUsers, $latestRecipes, $urlRecipe);
             }
         }
     })
@@ -506,49 +448,6 @@ $(document).ready(function () {
     }
 
     /**
-     * @function getForks
-     * @description Concatenem una cadena per inserir en el DOM i mostrar la puntuació de la recepta.
-     * @param {string} $forks Número de forquilles (puntuació) que te la recepta.
-     * @return {string}
-     */
-    function getForks($forks) {
-        let $insertForks = '&lt;div class="score_rec">';
-        for (let i = 0; i &lt; $forks; i++) {
-            $insertForks = $insertForks.concat('&lt;img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
-        }
-        if ($forks != 5) {
-            let $numberForks = 5 - $forks;
-            for (let i = 0; i &lt; $numberForks; i++) {
-                $insertForks = $insertForks.concat('&lt;img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
-            }
-        }
-        $insertForks = $insertForks.concat('&lt;/div>');
-        return $insertForks;
-    }
-
-    /**
-     * @function getDificult
-     * @description Rebem un número que representa la dificultat de la recepta i l'hi assignem una cadena String amb el text de dificultat.
-     * @param {string} $dificult Número que representa la dificultat de la recepta.
-     * @return {string}
-     */
-    function $getDificult($dificult) {
-        //let $recipeDifficult
-        switch ($dificult) {
-            case 0:
-                return /* $recipeDifficult= */ 'Muy baja';
-            case 1:
-                return /* $recipeDifficult= */ 'Baja';
-            case 2:
-                return /* $recipeDifficult= */ 'Media';
-            case 3:
-                return /* $recipeDifficult= */ 'Difícil';
-            case 4:
-                return /* $recipeDifficult= */ 'Muy difícil';
-        }
-    }
-
-    /**
      * @type {jQuery}
      * @type click
      * @method on
@@ -560,81 +459,19 @@ $(document).ready(function () {
             window.location.href = '../recetas/filtros?latestRecipes'
         } else if ($count == 0) {
             if ($screenSize &lt; 1240 &amp;&amp; $screenSize > 700) {
-                insertRecipe(4, 8);
+                insertRecipe(4, 8, $allUsers, $latestRecipes, $urlRecipe);
             } else {
-                insertRecipe(3, 6);
+                insertRecipe(3, 6, $allUsers, $latestRecipes, $urlRecipe);
             }
         } else if ($count == 1) {
             if ($screenSize &lt; 1240 &amp;&amp; $screenSize > 700) {
-                insertRecipe(8, 12);
+                insertRecipe(8, 12, $allUsers, $latestRecipes, $urlRecipe);
             } else {
-                insertRecipe(6, 9);
+                insertRecipe(6, 9, $allUsers, $latestRecipes, $urlRecipe);
             }
         }
         $count++;
     });
-
-    /**
-     * @function insertRecipe
-     * @description Funció per inserir en el DOM les últimes receptes afegides a la BBDD.
-     * @param {number} $min Número mínim per començar el compte en el for.
-     * @param {number} $max Numero màxim per finalitzar el compte en el for.
-     */
-    function insertRecipe($min, $max) {
-        for (let i = $min; i &lt; $max; i++) {
-            for (let j = 0; j &lt; $allUsers.length; j++) {
-                if ($allUsers[j][0] == $latestRecipes[i].userId) {
-                    $userAlias = $allUsers[j][4];
-                }
-            }
-
-            $forks = getForks($latestRecipes[i].recipeAssessment);
-            $difficult = $getDificult($latestRecipes[i].recipeDifficult);
-
-            $('.latest_rec').append('&lt;div class="rcp_cnt">\
-                                    &lt;a href="' + $urlRecipe + $latestRecipes[i].id + '">\
-                                        &lt;div class="recipe">\
-                                            &lt;img src="' + $latestRecipes[i].image + '">\
-                                            &lt;div class="desc_rec">\
-                                                &lt;h3 id="title">' + $latestRecipes[i].name + '&lt;/h3>\
-                                                &lt;p id="author">' + $userAlias + '&lt;/p>\
-                                            &lt;/div>\
-                                        &lt;/div>\
-                                        &lt;div class="info_rec">\
-                                            &lt;p id="level">Dificultad: ' + $difficult + '&lt;/p>\
-                                            &lt;div class="time_rec">\
-                                                &lt;i class="fas fa-clock clock">&lt;/i>\
-                                                &lt;p id="time">' + $latestRecipes[i].recipeTime + ' min&lt;/p>\
-                                            &lt;/div>\
-                                        &lt;/div>\
-                                        ' + $forks + '\
-                                    &lt;/a>\
-                                &lt;/div>');
-            //insertLatestRecipe($latestRecipes[i], $userAlias, $difficult, $forks)
-        }
-    }
-
-    /* function insertLatestRecipe($recipe, $userAlias, $difficult, $forks) {
-        $('.latest_rec').append('&lt;div class="rcp_cnt">\
-                                    &lt;a href="' + $urlRecipe + $recipe.id + '">\
-                                        &lt;div class="recipe">\
-                                            &lt;img src="' + $recipe.image + '">\
-                                            &lt;div class="desc_rec">\
-                                                &lt;h3 id="title">' + $recipe.name + '&lt;/h3>\
-                                                &lt;p id="author">' + $userAlias + '&lt;/p>\
-                                            &lt;/div>\
-                                        &lt;/div>\
-                                        &lt;div class="info_rec">\
-                                            &lt;p id="level">Dificultad: ' + $difficult + '&lt;/p>\
-                                            &lt;div class="time_rec">\
-                                                &lt;i class="fas fa-clock clock">&lt;/i>\
-                                                &lt;p id="time">' + $recipe.recipeTime + ' min&lt;/p>\
-                                            &lt;/div>\
-                                        &lt;/div>\
-                                        ' + $forks + '\
-                                    &lt;/a>\
-                                &lt;/div>');
-    } */
 });</code></pre>
         </article>
     </section>
@@ -645,13 +482,13 @@ $(document).ready(function () {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#$alias">$alias</a></li><li><a href="global.html#$allPlatesCakes">$allPlatesCakes</a></li><li><a href="global.html#$allPlatesDesserts">$allPlatesDesserts</a></li><li><a href="global.html#$allPlatesFirsts">$allPlatesFirsts</a></li><li><a href="global.html#$allPlatesSeconds">$allPlatesSeconds</a></li><li><a href="global.html#$allPlatesStarters">$allPlatesStarters</a></li><li><a href="global.html#$allRecipes">$allRecipes</a></li><li><a href="global.html#$allTypePlate">$allTypePlate</a></li><li><a href="global.html#$allUsers">$allUsers</a></li><li><a href="global.html#$arrayRecipe">$arrayRecipe</a></li><li><a href="global.html#$booleaDirection">$booleaDirection</a></li><li><a href="global.html#$booleanAlias">$booleanAlias</a></li><li><a href="global.html#$booleanAssessment">$booleanAssessment</a></li><li><a href="global.html#$booleanBusinessPhone">$booleanBusinessPhone</a></li><li><a href="global.html#$booleanCity">$booleanCity</a></li><li><a href="global.html#$booleanComment">$booleanComment</a></li><li><a href="global.html#$booleanCompany">$booleanCompany</a></li><li><a href="global.html#$booleanEmail">$booleanEmail</a></li><li><a href="global.html#$booleanName">$booleanName</a></li><li><a href="global.html#$booleanNif">$booleanNif</a></li><li><a href="global.html#$booleanPassword">$booleanPassword</a></li><li><a href="global.html#$booleanPc">$booleanPc</a></li><li><a href="global.html#$booleanSurname">$booleanSurname</a></li><li><a href="global.html#$businessPhone">$businessPhone</a></li><li><a href="global.html#$carbohidrates">$carbohidrates</a></li><li><a href="global.html#$city">$city</a></li><li><a href="global.html#$collapse">$collapse</a></li><li><a href="global.html#$comment">$comment</a></li><li><a href="global.html#$company">$company</a></li><li><a href="global.html#$count">$count</a></li><li><a href="global.html#$countCakes">$countCakes</a></li><li><a href="global.html#$countDesserts">$countDesserts</a></li><li><a href="global.html#$countFirsts">$countFirsts</a></li><li><a href="global.html#$countRecipe">$countRecipe</a></li><li><a href="global.html#$countSeconds">$countSeconds</a></li><li><a href="global.html#$countStarters">$countStarters</a></li><li><a href="global.html#$difficult">$difficult</a></li><li><a href="global.html#$dinner">$dinner</a></li><li><a href="global.html#$dinners">$dinners</a></li><li><a href="global.html#$direction">$direction</a></li><li><a href="global.html#$document">$document</a></li><li><a href="global.html#$email">$email</a></li><li><a href="global.html#$fat">$fat</a></li><li><a href="global.html#$fiber">$fiber</a></li><li><a href="global.html#$forks">$forks</a></li><li><a href="global.html#$heading">$heading</a></li><li><a href="global.html#$idRecipe">$idRecipe</a></li><li><a href="global.html#$ingredient">$ingredient</a></li><li><a href="global.html#$ingredientId">$ingredientId</a></li><li><a href="global.html#$ingredients">$ingredients</a></li><li><a href="global.html#$insert">$insert</a></li><li><a href="global.html#$latestRecipes">$latestRecipes</a></li><li><a href="global.html#$login">$login</a></li><li><a href="global.html#$monoinsaturated">$monoinsaturated</a></li><li><a href="global.html#$name">$name</a></li><li><a href="global.html#$nif">$nif</a></li><li><a href="global.html#$numberPersons">$numberPersons</a></li><li><a href="global.html#$pass">$pass</a></li><li><a href="global.html#$pc">$pc</a></li><li><a href="global.html#$phone">$phone</a></li><li><a href="global.html#$polyinsaturated">$polyinsaturated</a></li><li><a href="global.html#$proteins">$proteins</a></li><li><a href="global.html#$pswrd">$pswrd</a></li><li><a href="global.html#$receivedData">$receivedData</a></li><li><a href="global.html#$recipePlates">$recipePlates</a></li><li><a href="global.html#$satured">$satured</a></li><li><a href="global.html#$score">$score</a></li><li><a href="global.html#$screenSize">$screenSize</a></li><li><a href="global.html#$searchFilters">$searchFilters</a></li><li><a href="global.html#$searchId">$searchId</a></li><li><a href="global.html#$searchLatestRecipes">$searchLatestRecipes</a></li><li><a href="global.html#$sodium">$sodium</a></li><li><a href="global.html#$sugars">$sugars</a></li><li><a href="global.html#$totalDinner">$totalDinner</a></li><li><a href="global.html#$totalRecipes">$totalRecipes</a></li><li><a href="global.html#$typePlate">$typePlate</a></li><li><a href="global.html#$url">$url</a></li><li><a href="global.html#$urlAddAssessment">$urlAddAssessment</a></li><li><a href="global.html#$urlAddComment">$urlAddComment</a></li><li><a href="global.html#$urlAllUsers">$urlAllUsers</a></li><li><a href="global.html#$urlComments">$urlComments</a></li><li><a href="global.html#$urlIngredients">$urlIngredients</a></li><li><a href="global.html#$urlLatestRecipes">$urlLatestRecipes</a></li><li><a href="global.html#$urlLogin">$urlLogin</a></li><li><a href="global.html#$urlOrderByAssessment">$urlOrderByAssessment</a></li><li><a href="global.html#$urlRecipe">$urlRecipe</a></li><li><a href="global.html#$urlRecipes">$urlRecipes</a></li><li><a href="global.html#$urlSearch">$urlSearch</a></li><li><a href="global.html#$urlSearchPlate">$urlSearchPlate</a></li><li><a href="global.html#$urlType">$urlType</a></li><li><a href="global.html#$urlTypePlate">$urlTypePlate</a></li><li><a href="global.html#$user">$user</a></li><li><a href="global.html#$userAlias">$userAlias</a></li><li><a href="global.html#$valueEnergMax">$valueEnergMax</a></li><li><a href="global.html#$valueEnergMin">$valueEnergMin</a></li><li><a href="global.html#addRequired">addRequired</a></li><li><a href="global.html#blur">blur</a></li><li><a href="global.html#checkCif">checkCif</a></li><li><a href="global.html#checkDocument">checkDocument</a></li><li><a href="global.html#checkLetter">checkLetter</a></li><li><a href="global.html#checkNie">checkNie</a></li><li><a href="global.html#checkNif">checkNif</a></li><li><a href="global.html#checkTypePlate">checkTypePlate</a></li><li><a href="global.html#getDificult">getDificult</a></li><li><a href="global.html#getForks">getForks</a></li><li><a href="global.html#insertIngredients">insertIngredients</a></li><li><a href="global.html#insertPlates">insertPlates</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#loading">loading</a></li><li><a href="global.html#on">on</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#urlTypePlate">urlTypePlate</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#$alias">$alias</a></li><li><a href="global.html#$allPlatesCakes">$allPlatesCakes</a></li><li><a href="global.html#$allPlatesDesserts">$allPlatesDesserts</a></li><li><a href="global.html#$allPlatesFirsts">$allPlatesFirsts</a></li><li><a href="global.html#$allPlatesSeconds">$allPlatesSeconds</a></li><li><a href="global.html#$allPlatesStarters">$allPlatesStarters</a></li><li><a href="global.html#$allRecipes">$allRecipes</a></li><li><a href="global.html#$allTypePlate">$allTypePlate</a></li><li><a href="global.html#$allUsers">$allUsers</a></li><li><a href="global.html#$arrayDate">$arrayDate</a></li><li><a href="global.html#$arrayHours">$arrayHours</a></li><li><a href="global.html#$arrayRecipe">$arrayRecipe</a></li><li><a href="global.html#$arrayValidityToken">$arrayValidityToken</a></li><li><a href="global.html#$boolean">$boolean</a></li><li><a href="global.html#$booleanAlias">$booleanAlias</a></li><li><a href="global.html#$booleanAssessment">$booleanAssessment</a></li><li><a href="global.html#$booleanBusinessPhone">$booleanBusinessPhone</a></li><li><a href="global.html#$booleanCity">$booleanCity</a></li><li><a href="global.html#$booleanComment">$booleanComment</a></li><li><a href="global.html#$booleanCompany">$booleanCompany</a></li><li><a href="global.html#$booleanDirection">$booleanDirection</a></li><li><a href="global.html#$booleanEmail">$booleanEmail</a></li><li><a href="global.html#$booleanName">$booleanName</a></li><li><a href="global.html#$booleanNif">$booleanNif</a></li><li><a href="global.html#$booleanPassword">$booleanPassword</a></li><li><a href="global.html#$booleanPassword_1">$booleanPassword_1</a></li><li><a href="global.html#$booleanPassword_2">$booleanPassword_2</a></li><li><a href="global.html#$booleanPassword_3">$booleanPassword_3</a></li><li><a href="global.html#$booleanPc">$booleanPc</a></li><li><a href="global.html#$booleanPhone">$booleanPhone</a></li><li><a href="global.html#$booleanSurname">$booleanSurname</a></li><li><a href="global.html#$businessPhone">$businessPhone</a></li><li><a href="global.html#$carbohidrates">$carbohidrates</a></li><li><a href="global.html#$city">$city</a></li><li><a href="global.html#$collapse">$collapse</a></li><li><a href="global.html#$comment">$comment</a></li><li><a href="global.html#$company">$company</a></li><li><a href="global.html#$concat">$concat</a></li><li><a href="global.html#$concatNutricionst">$concatNutricionst</a></li><li><a href="global.html#$count">$count</a></li><li><a href="global.html#$countCakes">$countCakes</a></li><li><a href="global.html#$countDesserts">$countDesserts</a></li><li><a href="global.html#$countFirsts">$countFirsts</a></li><li><a href="global.html#$countRecipe">$countRecipe</a></li><li><a href="global.html#$countSeconds">$countSeconds</a></li><li><a href="global.html#$countStarters">$countStarters</a></li><li><a href="global.html#$date">$date</a></li><li><a href="global.html#$difficult">$difficult</a></li><li><a href="global.html#$dinner">$dinner</a></li><li><a href="global.html#$dinners">$dinners</a></li><li><a href="global.html#$direction">$direction</a></li><li><a href="global.html#$document">$document</a></li><li><a href="global.html#$email">$email</a></li><li><a href="global.html#$fat">$fat</a></li><li><a href="global.html#$fiber">$fiber</a></li><li><a href="global.html#$forks">$forks</a></li><li><a href="global.html#$heading">$heading</a></li><li><a href="global.html#$idRecipe">$idRecipe</a></li><li><a href="global.html#$IDuser">$IDuser</a></li><li><a href="global.html#$ingredient">$ingredient</a></li><li><a href="global.html#$ingredientId">$ingredientId</a></li><li><a href="global.html#$ingredients">$ingredients</a></li><li><a href="global.html#$latestRecipes">$latestRecipes</a></li><li><a href="global.html#$localToken">$localToken</a></li><li><a href="global.html#$login">$login</a></li><li><a href="global.html#$monoinsaturated">$monoinsaturated</a></li><li><a href="global.html#$name">$name</a></li><li><a href="global.html#$nif">$nif</a></li><li><a href="global.html#$numberPersons">$numberPersons</a></li><li><a href="global.html#$pass">$pass</a></li><li><a href="global.html#$pc">$pc</a></li><li><a href="global.html#$phone">$phone</a></li><li><a href="global.html#$polyinsaturated">$polyinsaturated</a></li><li><a href="global.html#$proteins">$proteins</a></li><li><a href="global.html#$pswrd">$pswrd</a></li><li><a href="global.html#$pswrd_1">$pswrd_1</a></li><li><a href="global.html#$pswrd_2">$pswrd_2</a></li><li><a href="global.html#$pswrd_3">$pswrd_3</a></li><li><a href="global.html#$receivedData">$receivedData</a></li><li><a href="global.html#$recipePlates">$recipePlates</a></li><li><a href="global.html#$satured">$satured</a></li><li><a href="global.html#$score">$score</a></li><li><a href="global.html#$screenSize">$screenSize</a></li><li><a href="global.html#$searchFilters">$searchFilters</a></li><li><a href="global.html#$searchId">$searchId</a></li><li><a href="global.html#$searchLatestRecipes">$searchLatestRecipes</a></li><li><a href="global.html#$sodium">$sodium</a></li><li><a href="global.html#$sugars">$sugars</a></li><li><a href="global.html#$surnames">$surnames</a></li><li><a href="global.html#$token">$token</a></li><li><a href="global.html#$totalDinner">$totalDinner</a></li><li><a href="global.html#$totalRecipes">$totalRecipes</a></li><li><a href="global.html#$typePlate">$typePlate</a></li><li><a href="global.html#$url">$url</a></li><li><a href="global.html#$urlAddAssessment">$urlAddAssessment</a></li><li><a href="global.html#$urlAddComment">$urlAddComment</a></li><li><a href="global.html#$urlAllUsers">$urlAllUsers</a></li><li><a href="global.html#$urlComments">$urlComments</a></li><li><a href="global.html#$urlIngredients">$urlIngredients</a></li><li><a href="global.html#$urlLatestRecipes">$urlLatestRecipes</a></li><li><a href="global.html#$urlLogin">$urlLogin</a></li><li><a href="global.html#$urlModifyDataNutricionist">$urlModifyDataNutricionist</a></li><li><a href="global.html#$urlModifyDataUser">$urlModifyDataUser</a></li><li><a href="global.html#$urlOrderByAssessment">$urlOrderByAssessment</a></li><li><a href="global.html#$urlRecipe">$urlRecipe</a></li><li><a href="global.html#$urlRecipes">$urlRecipes</a></li><li><a href="global.html#$urlSearch">$urlSearch</a></li><li><a href="global.html#$urlSearchPlate">$urlSearchPlate</a></li><li><a href="global.html#$urlType">$urlType</a></li><li><a href="global.html#$urlTypePlate">$urlTypePlate</a></li><li><a href="global.html#$user">$user</a></li><li><a href="global.html#$userAlias">$userAlias</a></li><li><a href="global.html#$valueEnergMax">$valueEnergMax</a></li><li><a href="global.html#$valueEnergMin">$valueEnergMin</a></li><li><a href="global.html#addRequired">addRequired</a></li><li><a href="global.html#assingCollapseHeading">assingCollapseHeading</a></li><li><a href="global.html#blur">blur</a></li><li><a href="global.html#changeIconsCheck">changeIconsCheck</a></li><li><a href="global.html#changeIconsError">changeIconsError</a></li><li><a href="global.html#changeIconsInfo">changeIconsInfo</a></li><li><a href="global.html#checkCif">checkCif</a></li><li><a href="global.html#checkDocument">checkDocument</a></li><li><a href="global.html#checkLetter">checkLetter</a></li><li><a href="global.html#checkNie">checkNie</a></li><li><a href="global.html#checkNif">checkNif</a></li><li><a href="global.html#checkTypePlate">checkTypePlate</a></li><li><a href="global.html#each">each</a></li><li><a href="global.html#getDificult">getDificult</a></li><li><a href="global.html#getForks">getForks</a></li><li><a href="global.html#insertForks">insertForks</a></li><li><a href="global.html#insertIngredients">insertIngredients</a></li><li><a href="global.html#insertPlates">insertPlates</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#insertSteps">insertSteps</a></li><li><a href="global.html#loading">loading</a></li><li><a href="global.html#on">on</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#urlTypePlate">urlTypePlate</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue May 11 2021 19:57:18 GMT+0200 (hora de verano de Europa central)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sat May 22 2021 21:14:20 GMT+0200 (hora de verano de Europa central)
 </footer>
 
 <script> prettyPrint(); </script>

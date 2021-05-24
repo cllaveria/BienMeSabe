@@ -6,7 +6,11 @@
 package com.bienmesabe.rest.controller;
 
 import com.bienmesabe.rest.domain.Recipe;
+import com.bienmesabe.rest.domain.RecipeIngredients;
+import com.bienmesabe.rest.domain.RecipeStep;
+import com.bienmesabe.rest.service.RecipeIngredientService;
 import com.bienmesabe.rest.service.RecipeService;
+import com.bienmesabe.rest.service.RecipeStepService;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +41,18 @@ public class RecipeController {
      */
     @Autowired
     private RecipeService recipeService;
+    
+    /**
+     * Bean of the recipe step service (Interface)
+     */
+    @Autowired
+    private RecipeStepService recipeStepService;
+    
+    /**
+     * Bean of the recipe ingredient service (Interface)
+     */
+    @Autowired
+    private RecipeIngredientService recipeIngredientService;
     
     /**
      * Method to recover the recipes  // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipes
@@ -88,7 +104,7 @@ public class RecipeController {
     }
     
     /**
-     * Method to recover the recipes by type // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipesByType/{RecipeType}
+     * Method to recover the recipes by dinners // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipesByDinners/{dinners}
      * @param dinners integer that represents the dinners of the recipe to search
      * @return a list with the recipes in the DB filtered by dinners 
      */
@@ -98,7 +114,7 @@ public class RecipeController {
     }
     
     /**
-     * Method to recover the recipe by id // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipesById/{RecipeId}
+     * Method to recover the recipe by id // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipesById/{id}
      * @param id string that represents the id of the recipe to search
      * @return the recipe in the DB filtered by id
      */
@@ -108,7 +124,7 @@ public class RecipeController {
     }
     
     /**
-     * Method to recover the recipe by received filters // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipesByFilters/{RecipeFilters}
+     * Method to recover the recipe by received filters // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipesByFilters/{data}
      * format of filter [typeOfFilter-filterValues]_[typeOfFilter-filterValues] ex: ingredients-10,11_kcal-200,250_type-21_dinners-1
      * @param data string that contains all the filters to apply
      * @return a list of recipes that complies with the filters recived by parameter
@@ -138,6 +154,10 @@ public class RecipeController {
         return recipeService.getRecipesOfOtherUsers(Long.parseLong(userId));
     }
     
+    /**
+     * Method to recover the recipes that are not active // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipesNotActive
+     * @return a list of recipes that are not activated
+     */
     @GetMapping("/getRecipesNotActive")
     public List<Recipe> getRecipesNotActive(){
         return recipeService.getRecipesNotActive();
@@ -161,6 +181,29 @@ public class RecipeController {
     }
     
     /**
+     * Method to create the recipe ingredient // HTTP verb: POST url: http://localhost:8080/api/recipe/addIngredient/{ingredient}
+     * @param ingredient string that represents the recipe ingredient to persist
+     * @return a boolean that indicates if the recipe ingredient has been successfully inserted into the DB or not
+     */
+    @PostMapping("/addIngredient/{ingredient}")
+    public Boolean addRecipeIngredient(@PathVariable String ingredient){
+        return recipeIngredientService.insertRecipeIngredient(ingredient);
+    }
+    
+    /**
+     * Method to create the recipe step // HTTP verb: POST url: http://localhost:8080/api/recipe/addRecipeStep
+     * @param step object that represents the recipe step to persist
+     * @return a boolean that indicates if the recipe step has been successfully inserted into DB or not
+     */
+    @PostMapping("/addRecipeStep")
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    public Boolean addRecipeStep(@RequestBody RecipeStep step){
+        return recipeStepService.insertRecipeStep(step);
+    }
+
+    
+    
+    /**
      * Method to modify the recipe // HTTP verb: PUT url: http://localhost:8080/api/recipe/modifyRecipe
      * @param recipe object that represents the recipe to modify
      * @return the modified recipe
@@ -176,10 +219,38 @@ public class RecipeController {
         }
     }
     
+    /**
+     * Method to modify the recipe ingredient // HTTP verb: PUT url: http://localhost:8080/api/recipe/modifyRecipeIngredient
+     * @param ingredient object that represents the recipe ingredient to modify
+     * @return a boolean that indicates if the recipe ingredient has been successfully updated in the DB or not
+     */
+    @PutMapping("/modifyRecipeIngredient")
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    public boolean updateRecipeIngredient(@RequestBody RecipeIngredients ingredient){
+        return recipeIngredientService.updateRecipeIngredient(ingredient);
+    }
+    
+    /**
+     * Method to modify the recipe step // HTTP verb: PUT url: http://localhost:8080/api/recipe/modifyRecipeStep
+     * @param step object that represents the recipe step to modify
+     * @return a boolean that indicates if the recipe step has been successfully updated in the DB or not
+     */
+    @PutMapping("/modifyRecipeStep")
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    public boolean updateRecipeStep(@RequestBody RecipeStep step){
+        return recipeStepService.updateRecipeStep(step);
+    }
+
+    /**
+     * Method to set the indicated recipe as active // HTTP verb: PUT url: http://localhost:8080/api/recipe/setRecipeAsActive/{id}
+     * @param id string that represents the id of the recipe to activate
+     * @return a boolean that represents if the recipe has been successfully activated or not
+     */
     @PutMapping("/setRecipeAsActive/{id}")
     public Boolean setRecipeAsActive(@PathVariable String id){
         return recipeService.setRecipeAsActive(Long.parseLong(id));
     }
+    
     /**
      * Method to delete the recipe by id // HTTP verb: DELETE url: http://localhost:8080/api/recipe/deleteRecipeById/{RecipeId}
      * @param id string with the id of the recipe to delete

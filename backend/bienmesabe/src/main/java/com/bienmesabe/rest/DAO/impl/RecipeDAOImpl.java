@@ -8,9 +8,9 @@ package com.bienmesabe.rest.DAO.impl;
 import com.bienmesabe.rest.DAO.RecipeDAO;
 import com.bienmesabe.rest.domain.Recipe;
 import com.bienmesabe.rest.domain.RecipeIngredients;
+import com.bienmesabe.rest.domain.RecipeStep;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.query.Query;
@@ -41,27 +41,21 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Transactional
     public List<Recipe> getAllRecipes() {
         Session currentSession = entityManager.unwrap(Session.class);
-        
-        Query<Recipe> query = currentSession.createQuery("from Recipe order by createdAt desc", Recipe.class);
-        
+        Query<Recipe> query = currentSession.createQuery("from Recipe r where r.active=1 order by createdAt desc", Recipe.class);       
         List<Recipe> recipes = query.getResultList();
-        
         return recipes;
     }
     
     /**
-     * Method to recover the recipes present in the DB ordered by assessment
+     * Implementation of interface method to recover the recipes present in the DB ordered by assessment
      * @return a list with the recipes in the DB ordered by assessment
      */
     @Override
     @Transactional
     public List<Recipe> getAllRecipesByAssessment(){
         Session currentSession = entityManager.unwrap(Session.class);
-        
         Query<Recipe> query = currentSession.createQuery("from Recipe order by recipeAssessment desc", Recipe.class);
-        
         List<Recipe> recipes = query.getResultList();
-        
         return recipes;
     }
     
@@ -190,7 +184,10 @@ public class RecipeDAOImpl implements RecipeDAO {
         return recipes;
     }
     
-    
+    /**
+     * Implementation of interface method to recover the recipes that are not active
+     * @return a list with the recipes that not are active in the DB
+     */
     @Override
     @Transactional
     public List<Recipe> getRecipesNotActive(){
@@ -199,8 +196,7 @@ public class RecipeDAOImpl implements RecipeDAO {
         List<Recipe> recipes = query.getResultList();
         return recipes;
     }
-    
-    
+
     /**
      * Implementation of interface method to create a recipe in the table recipes of the DB
      * @param recipe object that represents the recipe to persist
@@ -246,8 +242,7 @@ public class RecipeDAOImpl implements RecipeDAO {
         }
         
     }
-    
-    
+
     /**
      * Implementation of interface method to delete an recipe in the table recipes of the DB by id
      * @param id long with the id of the recipe to delete
@@ -256,9 +251,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Transactional
     public void deleteRecipeById(long id) {
         Session currentSession = entityManager.unwrap(Session.class);
-
         Query<Recipe> query = currentSession.createQuery("delete from Recipe where id=:recipeId");
-
         query.setParameter("recipeId", id);
         query.executeUpdate();
     }

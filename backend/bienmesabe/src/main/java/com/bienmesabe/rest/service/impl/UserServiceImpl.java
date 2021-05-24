@@ -29,9 +29,15 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserDAO userDAO;
     
+    /**
+     * Bean of the recipe repository (Interface)
+     */
     @Autowired
     private RecipeDAO recipeDAO;
     
+    /**
+     * Bean of the token service (Interface)
+     */
     @Autowired 
     private TokenService tokenService;
     
@@ -84,6 +90,11 @@ public class UserServiceImpl implements UserService{
         return userDAO.findUserByEmail(email);
     }
 
+    /**
+     * Implementation of interface method to recover the user valoration
+     * @param id  long that represents the id of the users to search
+     * @return an integer that represents the valoration of the user
+     */
     @Override
     public int getUserValoration(long id){
         float value = 0;
@@ -115,6 +126,11 @@ public class UserServiceImpl implements UserService{
        return userDAO.findUserByAlias(alias);
     }
         
+    /**
+     * Implementation of interface method to authenticate an user
+     * @param data string that contains the information of the user to do the authentication
+     * @return an object that represents the user
+     */
     @Override
     public User authenticateUser(String data){
         User result = new User();

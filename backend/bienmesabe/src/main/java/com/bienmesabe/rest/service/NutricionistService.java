@@ -24,16 +24,16 @@ public interface NutricionistService {
     /**
      * Method to recover the nutricionists present in the DB by id
      * @param id long that represents the id of the nutricionist to search
-     * @return the ingredient in the DB filtered by id
+     * @return the nutricionist in the DB filtered by id
      */
     public Nutricionist findNutricionistById(Long id);
     
     /**
      * Method to recover the nutricionists present in the DB by id
      * @param cp string that represents the postal code of the nutricionists to search
-     * @return the ingredient in the DB filtered by postal code
+     * @return the list of the nutricionists in the DB filtered by postal code
      */
-    public Nutricionist findNutricionistByCP(String cp);
+    public List<Nutricionist> findNutricionistByCP(String cp);
     
     /**
      * Method to recover the nutricionist present in the DB by postal code range
@@ -42,6 +42,13 @@ public interface NutricionistService {
      * @return a list with the nutricionists
      */
     public List<Nutricionist> findNutricionistByCPRange(String cpMin, String cpMax);
+    
+    /**
+     * Method to recover the assessment of the nutricionist filtered by id
+     * @param id long that represents the id of the nutricionist
+     * @return an integer that represents the assessement of the nutricionist
+     */
+    public int getNutricionistAssessment(String id);
     
     /**
      * Method to create an nutricionist in the table nutricionists of the DB

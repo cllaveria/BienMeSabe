@@ -169,7 +169,7 @@ input {
     gap: 10px;
   }
 
-  .postCod > label,
+  .postCod>label,
   input,
   .btn_add {
     margin: auto;
@@ -309,4 +309,20 @@ textarea {
 .btn_see,
 .btn_see:focus {
   width: fit-content;
+}
+
+.messageError {
+  display: none;
+  font-size: 16px;
+  color: white;
+  border: solid 1px red;
+  background-color: #d41717;
+  margin-bottom: 25px;
+  padding: 10px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+a:link, a:visited, a:active{
+  text-decoration: none;
 }
