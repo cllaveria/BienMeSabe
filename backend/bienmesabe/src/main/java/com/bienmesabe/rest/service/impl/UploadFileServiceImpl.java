@@ -9,6 +9,7 @@ import com.bienmesabe.rest.service.UploadFileService;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author RAUL
  * @version: 24/05/2021
  */
+@Service
 public class UploadFileServiceImpl implements UploadFileService{
 
     private String upload_folder = ".//src//main//resources//files//";

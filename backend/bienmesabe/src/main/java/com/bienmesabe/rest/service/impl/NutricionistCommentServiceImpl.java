@@ -10,12 +10,14 @@ import com.bienmesabe.rest.domain.NutricionistComment;
 import com.bienmesabe.rest.service.NutricionistCommentService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Class for implementation of Inteface NutricionistCommentService (service)
  * @author RAUL
  * @version 24/05/2021
  */
+@Service
 public class NutricionistCommentServiceImpl implements NutricionistCommentService{
     
     /**

@@ -9,12 +9,16 @@ package com.bienmesabe.rest.controller;
 import com.bienmesabe.rest.domain.AdminContact;
 import com.bienmesabe.rest.domain.NutricionistAssessment;
 import com.bienmesabe.rest.domain.NutricionistComment;
+import com.bienmesabe.rest.domain.NutricionistUsers;
 import com.bienmesabe.rest.domain.User;
 import com.bienmesabe.rest.service.AdminContactService;
 import com.bienmesabe.rest.service.AssessmentService;
 import com.bienmesabe.rest.service.NutricionistAssessmentService;
 import com.bienmesabe.rest.service.NutricionistCommentService;
+import com.bienmesabe.rest.service.NutricionistUsersService;
 import com.bienmesabe.rest.service.UserService;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +74,12 @@ public class UserController{
      */
     @Autowired
     private AssessmentService assessmentService;
+    
+    /**
+     * Bean of the Nutricionist Users service (Interface)
+     */
+    @Autowired
+    private NutricionistUsersService nutricionistUsersService;
     
     /**
      * Method to recover the users  // HTTP verb: GET url: http://localhost:8080/api/user/getUsers
@@ -154,6 +164,40 @@ public class UserController{
         return adminContactService.findAllAdminContacts();
     }
     
+    /**
+     * Method to recover the asigned nutricionist of the user // HTTP verb: GET url: http://localhost:8080/api/user/getUserNutricionist/{userId}
+     * @param userId string that represents the id of the user
+     * @return alist with all the admin contacts
+     */
+    @GetMapping("/getUserNutricionist/{userId}")
+    public long getUserNutricionist(@PathVariable String userId){
+        NutricionistUsers nutricionist = nutricionistUsersService.findUserAssignment(Long.parseLong(userId));
+        if(nutricionist != null){
+            return nutricionist.getNutricionistId();
+        }else{
+            return 0L;
+        }
+    }
+    
+    /**
+     * Method to recover the asigned nutricionist of the user // HTTP verb: GET url: http://localhost:8080/api/user/getNutricionistUsers/{nutricionistId}
+     * @param nutricionistId string that represents the id of the nutricionist
+     * @return alist with all the admin contacts
+     */
+    @GetMapping("/getNutricionistUsers/{nutricionistId}")
+    public List<Long> getNutricionistUsers(@PathVariable String nutricionistId){
+        List<NutricionistUsers> users = nutricionistUsersService.findNutricionistAssignments(Long.parseLong(nutricionistId));
+        if(users != null){
+            List<Long> assignedUsers = new ArrayList<Long>();
+            for(NutricionistUsers user : users){
+                assignedUsers.add(user.getUserId());
+            }
+            return assignedUsers;
+        }else{
+            return Collections.emptyList();
+        }
+    }
+    
     
     /**
      * Method to get contact with the administrators // HTTP verb: POST url: http://localhost:8080/api/user/adminContact/{contact}
@@ -202,6 +246,20 @@ public class UserController{
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     public Boolean createNutricionistComment(@RequestBody NutricionistComment comment){
         return nutricionistCommentService.createComment(comment);
+    }
+    
+    /**
+     * Method to create an user association with nutricionist // HTTP verb: POST url: http://localhost:8080/api/user/createUserAssignmentToNutricionist/{data}
+     * @param data object that represents the user assignment to nutricionist 
+     * @return a boolean that indicates if the assignment has been successfully inserted or not
+     */
+    @PostMapping("/createUserAssignmentToNutricionist/{data}")
+    public Boolean createUserAssignmentToNutricionist(@PathVariable String data){
+        NutricionistUsers user = new NutricionistUsers();
+        user.setNutricionistId(Long.parseLong(data.split("___")[0]));
+        user.setUserId(Long.parseLong(data.split("___")[1]));
+        
+        return nutricionistUsersService.createUserAssignmentToNutricionist(user);
     }
     
     /**
@@ -329,6 +387,17 @@ public class UserController{
         return null;
     }
 
-   
+    /**
+     * Method to delete an user association with nutricionist // HTTP verb: DELETE url: http://localhost:8080/api/user/removeUserAssignmentToNutricionist/{data}
+     * @param data object that represents the user assignment to nutricionist 
+     * @return a boolean that indicates if the assignment has been successfully deleted or not
+     */
+    @DeleteMapping("removeUserAssignmentToNutricionist/{data}")
+    public boolean removeUserAssignmentToNutricionist(@PathVariable String data){
+       NutricionistUsers user = new NutricionistUsers();
+       user.setNutricionistId(Long.parseLong(data.split("___")[0]));
+       user.setUserId(Long.parseLong(data.split("___")[1]));
+       return nutricionistUsersService.removeUserAssignmentToNutricionist(user);
+    }
 
 }

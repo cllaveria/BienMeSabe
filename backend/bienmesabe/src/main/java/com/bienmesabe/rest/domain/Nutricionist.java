@@ -43,7 +43,6 @@ public class Nutricionist extends User{
     @JoinColumn(name = "NUTRICIONIST_ID")
     private List<NutricionistAssessment> assessments;
     
-    
     /**
      * Empty Constructor
      */
@@ -187,7 +186,7 @@ public class Nutricionist extends User{
     }
 
     /**
-     *Method to asign the nutricionist assessment
+     * Method to asign the nutricionist assessment
      * @param nutricionistAssessment integer that represents the assessment of the nutricionist to set
      */
     public void setNutricionistAssessment(int nutricionistAssessment) {

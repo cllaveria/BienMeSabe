@@ -14,8 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- *
+ * This class defines the administrators contacts
  * @author RAUL
+ * @version 23/05/2021
  */
 @Entity
 @Table(name="adminContact")
