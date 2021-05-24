@@ -430,6 +430,10 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function () {}
             });
+
+            /* $.ajax({
+                url:
+            }) */
         } else {
             $JSONmodifyRecipe = {
                 'name': $nameRecipe,
@@ -456,22 +460,12 @@ $(document).ready(function () {
                 },
                 contentType: "application/json",
                 dataType: "json",
-                success: function () {}
-            });
-            $.ajax({
-                url: $urlLatestRecipes,
-                async: false,
-                type: 'GET',
-                headers: {
-                    'Authorization': $token
-                },
-                success: function ($latestRecipe) {
+                success: function ($inserRecipe) {
                     $.each($arrayIngredientsAdd, function ($i, $ingredientsAdd) {
-                        console.log($ingredientsAdd)
                         $.each($arrayIngredients, function ($x, $IngredientsName) {
                             if ($ingredientsAdd[2] == $IngredientsName.name) {
                                 $.ajax({
-                                    url: $urlAddIngredients + 'recipe---' + $latestRecipe[0].id + '___id---' + $IngredientsName.id + '___qty---' + $ingredientsAdd[1] + '___unity---' + $ingredientsAdd[0],
+                                    url: $urlAddIngredients + 'recipe---' + $inserRecipe + '___id---' + $IngredientsName.id + '___qty---' + $ingredientsAdd[1] + '___unity---' + $ingredientsAdd[0],
                                     type: 'POST',
                                     async: false,
                                     headers: {
@@ -483,18 +477,20 @@ $(document).ready(function () {
                     });
 
                     $.each($arrayStepsAdd, function ($i, $stepsAdd) {
-                        $JSONmodifySteps = {
-                            'stepDescription': $stepsAdd[0],
-                            'recipeId': eval($latestRecipe[0].id),
-                            'image': null
+                        if($stepsAdd[0].length > 1){
+                            $JSONmodifySteps = {
+                                'stepDescription': $stepsAdd[0],
+                                'recipeId': eval($inserRecipe),
+                                'image': null
+                            }
                         }
-
                         $JSONmodifySteps = JSON.stringify($JSONmodifySteps)
+                        
                         $.ajax({
                             url: $urlAddSteps,
                             type: 'POST',
                             async: false,
-                            body: $JSONmodifySteps,
+                            data: $JSONmodifySteps,
                             headers: {
                                 'Authorization': $token
                             },
@@ -505,11 +501,10 @@ $(document).ready(function () {
                     });
                 }
             });
-
         }
     });
 
     $('.btn_checkIn').on('click', () => {
-        //window.location.href='/misRecetas';
+        window.location.href='/misRecetas';
     })
 });
