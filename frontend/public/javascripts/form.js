@@ -16,134 +16,163 @@
  */
 
 $(document).ready(function () {
-    
-    /** 
-     * @var $name 
-     * @description Variable per emmagatzemar el nom de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $surnames 
-     * @description Variable per emmagatzemar el cognom de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $phone  
-     * @description Variable per emmagatzemar el número de telèfon de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $alias 
-     * @description Variable per emmagatzemar l'Àlies de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $email 
-     * @description Variable per emmagatzemar l'email de l'usuari/nutricionista.
-     */
-    /** 
-     * @var $pass  
-     * @description Variable per emmagatzemar la contrasenya de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $nif 
-     * @description Variable per emmagatzemar el NIF/DNI, NIE o CIF del nutricionista. 
-     */
-    /** 
-     * @var $pc 
-     * @description Variable per emmagatzemar el codi postal de la ciutat del nutricionista. 
-     */
-    /** 
-     * @var $city 
-     * @description Variable per emmagatzemar la ciutat del nutricionista. 
-     */
-    /** 
-     * @var $company 
-     * @description Variable per emmagatzemar el nom d'empresa del nutricionista. 
-     */
-    /** 
-     * @var $direction 
-     * @description Variable per emmagatzemar la direcció d'empresa del nutricionista. 
-     */
-    /** 
-     * @var $businessPhone 
-     * @description Variable per emmagatzemar el número de telèfon d'empresa del nutricionista. 
-     */
-    /** 
-     * @var $booleanNif 
-     * @description Variable de tipus boolean per saber si el NIF/DNI, NIE o CIF estan introduïts correctament.
-     */
-    /** 
-     * @var $booleanName 
-     * @description Variable de tipus boolean per saber si el nom està introduït correctament.
-     */
-    /** 
-     * @var $booleanSurname
-     * @description Variable de tipus boolean per saber si el cognom està introduït correctament.
-     */
-    /** 
-     * @var $booleanPc
-     * @description Variable de tipus boolean per saber si el codi postal està introduït correctament.
-     */
-    /** 
-     * @var $booleanEmail 
-     * @description Variable de tipus boolean per saber si l'email està introduït correctament.
-     */
-    /** 
-     * @var $booleanAlias 
-     * @description Variable de tipus boolean per saber si l'Àlies està introduït correctament.
-     */
-    /** 
-     * @var $booleanPassword 
-     * @description Variable de tipus boolean per saber si el password està introduït correctament.
-     */
-    /** 
-     * @var $booleanCity
-     * @description Variable de tipus boolean per saber si la població està introduït correctament.
-     */
-    /** 
-     * @var $booleanDirection
-     * @description Variable de tipus boolean per saber si la direció està introduït correctament.
-     */
-    /** 
-     * @var $booleanCompany
-     * @description Variable de tipus boolean per saber si el nom de la companyia està introduït correctament.
-     */
-    /** 
-     * @var $booleanBusinessPhone
-     * @description Variable de tipus boolean per saber si el telèfon d'empresa està introduït correctament.
-     */
-    /** 
-     * @var $document 
-     * @description Variable per emmagatzemar el tipus de documentació que ha seleccionat l'usuari, si NIF/DNI, NIE o CIF.
-     */
+
     /**
-     * @constant $url
+     * @constant $url {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor.
      */
-    let $name,
-        $phone,
-        $alias,
-        $email,
-        $pass,
-        $nif,
-        $surnames,
-        $pc,
-        $city,
-        $company,
-        $direction,
-        $businessPhone,
-        $booleanName,
-        $booleanSurname,
-        $booleanPhone,
-        $booleanAlias,
-        $booleanEmail,
-        $booleanPassword,
-        $booleanNif,
-        $booleanPc,
-        $booleanCity,
-        $booleanDirection,
-        $booleanCompany,
-        $booleanBusinessPhone,
-        $document = 'nif';
-
     const $url = 'http://localhost:8080/api/';
+
+    /** 
+     * @var $name 
+     * @type {String} 
+     * @description Variable per emmagatzemar el nom de l'usuari/nutricionista. 
+     */
+    let $name;
+    /** 
+     * @var $phone 
+     * @type {number} 
+     * @description Variable per emmagatzemar el número de telèfon de l'usuari/nutricionista. 
+     */
+    let $phone;
+    /** 
+     * @var $alias 
+     * @type {String}
+     * @description Variable per emmagatzemar l'Àlies de l'usuari/nutricionista. 
+     */
+    let $alias;
+    /** 
+     * @var $email 
+     * @type {String}
+     * @description Variable per emmagatzemar l'email de l'usuari/nutricionista.
+     */
+    let $email;
+    /** 
+     * @var $pass 
+     * @type {String}
+     * @description Variable per emmagatzemar la contrasenya de l'usuari/nutricionista. 
+     */
+    let $pass;
+    /** 
+     * @var $nif 
+     * @type {String}
+     * @description Variable per emmagatzemar el NIF/DNI, NIE o CIF del nutricionista. 
+     */
+    let $nif;
+    /** 
+     * @var $surnames 
+     * @type {String}
+     * @description Variable per emmagatzemar el cognom de l'usuari/nutricionista. 
+     */
+    let $surnames;
+    /** 
+     * @var $pc 
+     * @type {number}
+     * @description Variable per emmagatzemar el codi postal de la ciutat del nutricionista. 
+     */
+    let $pc;
+    /** 
+     * @var $city 
+     * @type {String}
+     * @description Variable per emmagatzemar la ciutat del nutricionista. 
+     */
+    let $city;
+    /** 
+     * @var $company 
+     * @type {String}
+     * @description Variable per emmagatzemar el nom d'empresa del nutricionista. 
+     */
+    let $company;
+    /** 
+     * @var $direction 
+     * @type {String}
+     * @description Variable per emmagatzemar la direcció d'empresa del nutricionista. 
+     */
+    let $direction;
+    /** 
+     * @var $businessPhone 
+     * @type {boolean}
+     * @description Variable per emmagatzemar el número de telèfon d'empresa del nutricionista. 
+     */
+    let $businessPhone;
+    /** 
+     * @var $booleanName 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el nom està introduït correctament.
+     */
+    let $booleanName;
+    /** 
+     * @var $booleanSurname 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el cognom està introduït correctament.
+     */
+    let $booleanSurname;
+    /** 
+     * @var $booleanPhone 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el teléfon està introduït correctament.
+     */
+    let $booleanPhone;
+    /** 
+     * @var $booleanAlias 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si l'Àlies està introduït correctament.
+     */
+    let $booleanAlias;
+    /** 
+     * @var $booleanEmail 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si l'email està introduït correctament.
+     */
+    let $booleanEmail;
+    /** 
+     * @var $booleanPassword 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el password està introduït correctament.
+     */
+    let $booleanPassword;
+    /** 
+     * @var $booleanNif 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el NIF/DNI, NIE o CIF estan introduïts correctament.
+     */
+    let $booleanNif;
+    /** 
+     * @var $booleanPc 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el codi postal està introduït correctament.
+     */
+    let $booleanPc;
+    /** 
+     * @var $booleanCity 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si la població està introduït correctament.
+     */
+    let $booleanCity;
+    /** 
+     * @var $booleanDirection 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si la direció està introduït correctament.
+     */
+    let $booleanDirection;
+    /** 
+     * @var $booleanCompany 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el nom de la companyia està introduït correctament.
+     */
+    let $booleanCompany;
+    /** 
+     * @var $booleanBusinessPhone 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el telèfon d'empresa està introduït correctament.
+     */
+    let $booleanBusinessPhone;
+    /** 
+     * @var $document 
+     * @type {String}
+     * @description Variable inicialitzada en una String 'nif' per emmagatzemar el tipus de documentació i es modifica segons el que ha seleccionat l'usuari, si NIF/DNI, NIE o CIF.
+     */
+    let $document = 'nif';
 
     /**
      * @type {jQuery}
@@ -225,17 +254,12 @@ $(document).ready(function () {
                 success: function (data) {
                     if (data.alias == $alias) {
                         changeIconsError($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
-                        $('#iconExcAlias').children().html('El Alias introducido ya está registrado.')
+                        $('#iconExcAlias').children().html('El Alias introducido ya está registrado.');
                     } else {
                         changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
                         $booleanAlias = true;
                     }
                 }
-                /* ,
-                                error: function () {
-                                    changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
-                                    $booleanAlias = true;
-                                } */
             });
         }
     });
@@ -268,11 +292,6 @@ $(document).ready(function () {
                         $booleanEmail = true;
                     }
                 }
-                /* ,
-                                error: function () {
-                                    changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
-                                    $booleanEmail = true;
-                                } */
             });
         }
     });
@@ -577,6 +596,7 @@ $(document).ready(function () {
      * @function loading
      * @description Mostrem gif de càrrega.
      */
+
     function loading() {
         $('#submit').html('<div id="loading"><img style="width:85%;margin-top:-20px;" src="../images/loading.gif" alt="loading" /></div>')
     }
@@ -595,60 +615,12 @@ $(document).ready(function () {
 
     /**
      * @function addRequired
+     * @param {boolean} $boolean 
      * @description Modifiquem el required de les ID nif, pc i city.
      */
     function addRequired($boolean) {
         $('#nif').attr('required', $boolean);
         $('#pc').attr('required', $boolean);
         $('#city').attr('required', $boolean);
-    }  
-
-    //TODO: Comprobar si esto se puede borrar sin problemas, ya que está en checkDocument y posiblemente no me haga falta aquí.
-
-    /**
-     * @param {*} input Fa referèncía a l'input que s'està validant.
-     * @param {*} iconInfo Icona d'informació del input.
-     * @param {*} iconExcl Icona d'exclamació del input.
-     * @param {*} iconCheck Icono de check del input.
-     * @description Si la dada de l'input és buida modifica els displays de les icones per passar 
-     * a mostrar la informació i treu la classe error i/o success.
-     */
-    function changeIconsInfo(input, iconInfo, iconExcl, iconCheck) {
-        iconInfo.css("display", "block");
-        iconCheck.css("display", "none");
-        iconExcl.css("display", "none");
-        input.removeClass("error");
-        input.removeClass("success");
-    }
-
-    /**
-     * @param {*} input Fa referèncía a l'input que s'està validant.
-     * @param {*} iconInfo Icona d'informació del input.
-     * @param {*} iconExcl Icona d'exclamació del input.
-     * @param {*} iconCheck Icono de check del input.
-     * @description Si la dada de l'input no és correcta modifica els displays de les icones per passar 
-     * a mostrar l'exclamació i afegeix la classe error a l'input per  mostrar el focus i borders en vermell.
-     */
-    function changeIconsError(input, iconInfo, iconExcl, iconCheck) {
-        iconExcl.css("display", "block");
-        iconInfo.css("display", "none");
-        iconCheck.css("display", "none");
-        input.addClass("error");
-    }
-
-    /**
-     * @param {*} input Fa referèncía a l'input que s'està validant.
-     * @param {*} iconInfo Icona d'informació del input.
-     * @param {*} iconExcl Icona d'exclamació del input.
-     * @param {*} iconCheck Icono de check del input.
-     * @description Si la dada de l'input és correcta modifica els displays de les icones per passar 
-     * a mostrar el check. Treu la classe error de l'input i li afegeix la classe success per mostrar el focus en verd.
-     */
-    function changeIconsCheck(input, iconInfo, iconExcl, iconCheck) {
-        iconCheck.css("display", "block");
-        iconInfo.css("display", "none");
-        iconExcl.css("display", "none");
-        input.removeClass("error");
-        input.addClass("success");
     }
 });

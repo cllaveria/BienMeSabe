@@ -7,8 +7,6 @@ package com.bienmesabe.rest.DAO.impl;
 
 import com.bienmesabe.rest.DAO.IngredientDAO;
 import com.bienmesabe.rest.domain.Ingredient;
-import com.bienmesabe.rest.domain.IngredientMineral;
-import com.bienmesabe.rest.domain.IngredientVitamin;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.query.Query;

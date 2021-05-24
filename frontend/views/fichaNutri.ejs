@@ -12,110 +12,112 @@
     <link rel='stylesheet' href='/stylesheets/fichaNutri.css' />
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-        </script>
+    </script>
+    <script src="../javascripts/token.js"></script>
+    <script src="../javascripts/fileNutricionist.js"></script>
 </head>
 
 <body>
     <!-- Header -->
     <%- include('./header'); %>
 
-        <!-- Recipes -->
-        <div class="nutri_container">            
-            <!-- Score -->
-            <div class="score_rec">
-                <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-                <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-                <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-                <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">
-                <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">                
-            </div> 
-            <h1 id="nameNutri">Nombre del nutricionista</h1>
-            <h5 id="direccion">Dirección del nutricionista</h5>
-            <h5 id="titulacion">Titulación</h5>
-                       
-            
+    <!-- Recipes -->
+    <div class="nutri_container">
+        <!-- Score -->
+        <div class="score_rec">
+            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+            <img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">
+        </div>
+        <h1 id="nameNutri"></h1>
+        <h5 id="direccion"></h5>
+        <h5 id="titulacion">Titulación</h5>
 
-            <!-- Description -->
-            <div class="descNutri">
-                <p>Descripción del nutricionista<br></br>
-                    Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper ligula lacus
-                    fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus natoque
-                    cursus vivamus in. Sem cras blandit vulputate inceptos dapibus nulla arcu, ante cursus euismod
-                    sociosqu litora duis massa, tempor dictum nibh dui integer fringilla.
-                    <br />
-                    <br />
-                    Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper ligula lacus
-                    fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus natoque
-                    cursus vivamus in. Sem cras blandit vulputate inceptos dapibus nulla arcu, ante cursus euismod
-                    sociosqu litora duis massa, tempor dictum nibh dui integer fringilla.
-                    <br />
-                    <br />
-                    Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper ligula lacus
-                    fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus natoque
-                    cursus vivamus in. Sem cras blandit vulputate inceptos dapibus nulla arcu, ante cursus euismod
-                    sociosqu litora duis massa, tempor dictum nibh dui integer fringilla.
-                    <br />
-                    <br />
-                    Sem cras blandit vulputate inceptos dapibus nulla arcu, ante cursus euismod sociosqu litora duis
-                    massa, tempor dictum nibh dui integer fringilla.
-                </p>
-            </div>
 
-            <!-- Comments user -->
-            <div class="comment_cont">
-                <div class="score_user">
-                    <img class="forkValue" id="fork1" value="5" src="/images/tenedor-black.svg" alt="tenerdor"
-                        style="width: 20px; height: 40px;">
-                    <img class="forkValue" id="fork2" value="4" src="/images/tenedor-black.svg" alt="tenerdor"
-                        style="width: 20px; height: 40px;">
-                    <img class="forkValue" id="fork3" value="3" src="/images/tenedor-black.svg" alt="tenerdor"
-                        style="width: 20px; height: 40px;">
-                    <img class="forkValue" id="fork4" value="2" src="/images/tenedor-black.svg" alt="tenerdor"
-                        style="width: 20px; height: 40px;">
-                    <img class="forkValue" id="fork5" value="1" src="/images/tenedor-black.svg" alt="tenerdor"
-                        style="width: 20px; height: 40px;">
-                </div>
-                <div class="input_comment">
-                    <textarea id="textComment" placeholder="Escribe tu comentario"></textarea>
-                    <button class="button btn_send" type="button" id='submit'>ENVIAR</button>
-                </div>
-            </div>
-            <div class="comments_users">
-                <div class="comment_user">
-                    <p id="alias">Alias usuario</p>
-                    <p id="comment">Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper
-                        ligula lacus
-                        fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus
-                        natoque cursus vivamus in. </p>
-                </div>
-                <div class="comment_user">
-                    <p id="alias">Alias usuario</p>
-                    <p id="comment">Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper
-                        ligula lacus
-                        fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus
-                        natoque cursus vivamus in. </p>
-                </div>
-                <div class="comment_user">
-                    <p id="alias">Alias usuario</p>
-                    <p id="comment">Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper
-                        ligula lacus
-                        fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus
-                        natoque cursus vivamus in. </p>
-                </div>
-                <div class="comment_user">
-                    <p id="alias">Alias usuario</p>
-                    <p id="comment">Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper
-                        ligula lacus
-                        fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus
-                        natoque cursus vivamus in. </p>
-                </div>
-            </div>
 
+        <!-- Description -->
+        <div class="descNutri">
+            <p>Descripción del nutricionista<br></br>
+                Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper ligula lacus
+                fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus natoque
+                cursus vivamus in. Sem cras blandit vulputate inceptos dapibus nulla arcu, ante cursus euismod
+                sociosqu litora duis massa, tempor dictum nibh dui integer fringilla.
+                <br />
+                <br />
+                Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper ligula lacus
+                fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus natoque
+                cursus vivamus in. Sem cras blandit vulputate inceptos dapibus nulla arcu, ante cursus euismod
+                sociosqu litora duis massa, tempor dictum nibh dui integer fringilla.
+                <br />
+                <br />
+                Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper ligula lacus
+                fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus natoque
+                cursus vivamus in. Sem cras blandit vulputate inceptos dapibus nulla arcu, ante cursus euismod
+                sociosqu litora duis massa, tempor dictum nibh dui integer fringilla.
+                <br />
+                <br />
+                Sem cras blandit vulputate inceptos dapibus nulla arcu, ante cursus euismod sociosqu litora duis
+                massa, tempor dictum nibh dui integer fringilla.
+            </p>
         </div>
 
+        <!-- Comments user -->
+        <div class="comment_cont">
+            <div class="score_user">
+                <img class="forkValue" id="fork1" value="5" src="/images/tenedor-black.svg" alt="tenerdor"
+                    style="width: 20px; height: 40px;">
+                <img class="forkValue" id="fork2" value="4" src="/images/tenedor-black.svg" alt="tenerdor"
+                    style="width: 20px; height: 40px;">
+                <img class="forkValue" id="fork3" value="3" src="/images/tenedor-black.svg" alt="tenerdor"
+                    style="width: 20px; height: 40px;">
+                <img class="forkValue" id="fork4" value="2" src="/images/tenedor-black.svg" alt="tenerdor"
+                    style="width: 20px; height: 40px;">
+                <img class="forkValue" id="fork5" value="1" src="/images/tenedor-black.svg" alt="tenerdor"
+                    style="width: 20px; height: 40px;">
+            </div>
+            <div class="input_comment">
+                <textarea id="textComment" placeholder="Escribe tu comentario"></textarea>
+                <button class="button btn_send" type="button" id='submit'>ENVIAR</button>
+            </div>
+        </div>
+        <div class="comments_users">
+            <!-- <div class="comment_user">
+                <p id="alias">Alias usuario</p>
+                <p id="comment">Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper
+                    ligula lacus
+                    fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus
+                    natoque cursus vivamus in. </p>
+            </div>
+            <div class="comment_user">
+                <p id="alias">Alias usuario</p>
+                <p id="comment">Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper
+                    ligula lacus
+                    fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus
+                    natoque cursus vivamus in. </p>
+            </div>
+            <div class="comment_user">
+                <p id="alias">Alias usuario</p>
+                <p id="comment">Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper
+                    ligula lacus
+                    fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus
+                    natoque cursus vivamus in. </p>
+            </div>
+            <div class="comment_user">
+                <p id="alias">Alias usuario</p>
+                <p id="comment">Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper
+                    ligula lacus
+                    fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus
+                    natoque cursus vivamus in. </p>
+            </div> -->
+        </div>
 
-        <!-- Footer -->
-        <%- include('./footer'); %>
+    </div>
+
+
+    <!-- Footer -->
+    <%- include('./footer'); %>
 </body>
 
 </html>

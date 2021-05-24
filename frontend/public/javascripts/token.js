@@ -12,41 +12,55 @@
 
 /** 
  * @var $localToken 
+ * @type {String}
  * @description Variable per emmagatzemar el token emmagatzemat en localStorage amb el nom 'token'.
  */
+let $localToken = localStorage.getItem('token');
 /** 
  * @var $date 
+ * @type {Date}
  * @description Variable per emmagatzemar la data actual del nostre sistema.
  */
+let $date = new Date();
+/** 
+ * @var $dateModify 
+ * @type {Date}
+ * @description Variable per emmagatzemar la data actual del nostre sistema per a després modificar-la amb la data de caducitat del token.
+ */
+let $dateModify = new Date();
 /** 
  * @var $arrayValidityToken 
+ * @type {Array}
  * @description Variable array per emmagatzemar la data rebuda de la crida AJAX per separat, en dies i hores.
  */
+let $arrayValidityToken;
 /** 
  * @var $arrayDate 
+ * @type {Array}
  * @description Variable array per emmagatzemar la data rebuda de la crida AJAX per separat, en format día, mes i any.
  */
+
+let $arrayDate;
 /** 
  * @var $arrayHours 
+ * @type {Array}
  * @description Variable array per emmagatzemar la hora rebuda de la crida AJAX per separat, en format hora, minuts i segons.
  */
+let $arrayHours;
 /** 
  * @var $boolean 
+ * @type {boolean}
  * @description Variable booleana per verificar si la sessió de l'usuari a caducat o no.
  */
-
-
-let $localToken = localStorage.getItem('token'),
-    $date = new Date(),
-    $arrayValidityToken,
-    $arrayDate,
-    $arrayHours,
-    $boolean;
+let $boolean;
 
 token();
 
+/**
+ * @function token
+ * @description Validarem el token rebrem del servidor la data i hora de caducitat.
+ */
 function token() {
-
     if ($localToken != null) {
         let $token = $localToken.substr(7, );
         $.ajax({
@@ -57,20 +71,17 @@ function token() {
                 token: $token
             },
             success: function ($dateToken) {
-
                 $arrayValidityToken = $dateToken.split(' ');
                 $arrayDate = $arrayValidityToken[0].split('-');
                 $arrayHours = $arrayValidityToken[1].split(':');
 
-                if ($date.getHours() > $arrayHours[0]) {
-                    if ($date.getMinutes() > $arrayHours[1]) {
-                        $boolean = false;
-                    }
+                $dateModify.setHours($arrayHours[0]);
+                $dateModify.setMinutes($arrayHours[1]);
+                $dateModify.setDate($arrayDate[0]);
+                if ($date < $dateModify) {
                     $boolean = true;
-                } else if ($date.getDate() > $arrayDate[0]) {
-                    $boolean = false;
                 } else {
-                    $boolean = true;
+                    $boolean = false;
                 }
             }
         });
@@ -93,18 +104,58 @@ function token() {
 }
 
 $(document).ready(function () {
-    
-    let $localToken = localStorage.getItem('token'),
-        $date = new Date(),
-        $arrayValidityToken,
-        $arrayDate,
-        $arrayHours,
-        $boolean;
+
+    /** 
+     * @var $localToken 
+     * @type {String}
+     * @description Variable per emmagatzemar el token emmagatzemat en localStorage amb el nom 'token'.
+     */
+    let $localToken = localStorage.getItem('token');
+    /** 
+     * @var $date 
+     * @type {Date}
+     * @description Variable per emmagatzemar la data actual del nostre sistema.
+     */
+    let $date = new Date();
+    /** 
+     * @var $dateModify 
+     * @type {Date}
+     * @description Variable per emmagatzemar la data actual del nostre sistema per a després modificar-la amb la data de caducitat del token.
+     */
+    let $dateModify = new Date();
+    /** 
+     * @var $arrayValidityToken 
+     * @type {Array}
+     * @description Variable array per emmagatzemar la data rebuda de la crida AJAX per separat, en dies i hores.
+     */
+    let $arrayValidityToken;
+    /** 
+     * @var $arrayDate 
+     * @type {Array}
+     * @description Variable array per emmagatzemar la data rebuda de la crida AJAX per separat, en format día, mes i any.
+     */
+
+    let $arrayDate;
+    /** 
+     * @var $arrayHours 
+     * @type {Array}
+     * @description Variable array per emmagatzemar la hora rebuda de la crida AJAX per separat, en format hora, minuts i segons.
+     */
+    let $arrayHours;
+    /** 
+     * @var $boolean 
+     * @type {boolean}
+     * @description Variable booleana per verificar si la sessió de l'usuari a caducat o no.
+     */
+    let $boolean;
 
     token();
 
+    /**
+     * @function token
+     * @description Validarem el token rebrem del servidor la data i hora de caducitat.
+     */
     function token() {
-
         if ($localToken != null) {
             let $token = $localToken.substr(7, );
             $.ajax({
@@ -116,23 +167,20 @@ $(document).ready(function () {
                 },
                 success: function ($dateToken) {
                     $arrayValidityToken = $dateToken.split(' ');
+
                     $arrayDate = $arrayValidityToken[0].split('-');
                     $arrayHours = $arrayValidityToken[1].split(':');
 
-                    if ($date.getHours() >= $arrayHours[0]) {
+                    $dateModify.setHours($arrayHours[0]);
+                    $dateModify.setMinutes($arrayHours[1]);
+                    $dateModify.setDate($arrayDate[0]);
+                    if ($date < $dateModify) {
                         $boolean = true;
-                        if ($date.getMinutes() >= $arrayHours[1]) {
-                            $boolean = false;
-                        }
-                        
-                    } else if ($date.getDate() > $arrayDate[0]) {
-                        $boolean = false;
                     } else {
-                        $boolean = true;
+                        $boolean = false;
                     }
                 }
             });
-        
             if ($boolean == true) {
                 $('#login').css('display', 'none');
                 $('#register').css('display', 'none');
@@ -146,7 +194,13 @@ $(document).ready(function () {
                 localStorage.removeItem('id');
             }
         }
-
         return $boolean;
     }
+
+    $('.btn_checkOut').on('click', () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('id');
+        window.location = '/';
+    });
+
 });

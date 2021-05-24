@@ -17,189 +17,240 @@
 
 $(document).ready(function () {
     /**
-     * @constant $urlModifyDataUser
+     * @constant $urlModifyDataUser 
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor per emmagatzemar les modificaciones de les dades de l'usuari.
      */
+    const $urlModifyDataUser = 'http://localhost:8080/api/user/';
     /**
-     * @constant $url
+     * @constant $urlModifyDataNutricionist 
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor per emmagatzemar les modificaciones de les dades del nutricionista.
+     */
+    const $urlModifyDataNutricionist = 'http://localhost:8080/api/nutricionist/';
+     /**
+     * @constant $url 
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor.
      */
-    /** 
-     * @var $name 
-     * @description Variable per emmagatzemar el nom de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $surnames 
-     * @description Variable per emmagatzemar el cognom de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $phone  
-     * @description Variable per emmagatzemar el número de telèfon de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $alias 
-     * @description Variable per emmagatzemar l'Àlies de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $email 
-     * @description Variable per emmagatzemar l'email de l'usuari/nutricionista.
-     */
-    /** 
-     * @var $pass  
-     * @description Variable per emmagatzemar la nova contrasenya de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $pswrd_1  
-     * @description Variable per emmagatzemar la antiga contrasenya de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $pswrd_2  
-     * @description Variable per emmagatzemar la nova contrasenya de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $pswrd_3  
-     * @description Variable per emmagatzemar la nova contrasenya de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $nif 
-     * @description Variable per emmagatzemar el NIF/DNI, NIE o CIF del nutricionista. 
-     */
-    /** 
-     * @var $pc 
-     * @description Variable per emmagatzemar el codi postal de la ciutat del nutricionista. 
-     */
-    /** 
-     * @var $city 
-     * @description Variable per emmagatzemar la ciutat del nutricionista. 
-     */
-    /** 
-     * @var $company 
-     * @description Variable per emmagatzemar el nom d'empresa del nutricionista. 
-     */
-    /** 
-     * @var $direction 
-     * @description Variable per emmagatzemar la direcció d'empresa del nutricionista. 
-     */
-    /** 
-     * @var $businessPhone 
-     * @description Variable per emmagatzemar el número de telèfon d'empresa del nutricionista. 
-     */
-    /** 
-     * @var $document 
-     * @description Variable per emmagatzemar el tipus de documentació que ha seleccionat l'usuari, si NIF/DNI, NIE o CIF.
-     */
-    /** 
-     * @var $booleanNif 
-     * @description Variable de tipus boolean per saber si el NIF/DNI, NIE o CIF estan introduïts correctament.
-     */
-    /** 
-     * @var $booleanName 
-     * @description Variable de tipus boolean per saber si el nom està introduït correctament.
-     */
-    /** 
-     * @var $booleanSurname
-     * @description Variable de tipus boolean per saber si el cognom està introduït correctament.
-     */
-    /** 
-     * @var $booleanPc
-     * @description Variable de tipus boolean per saber si el codi postal està introduït correctament.
-     */
-    /** 
-     * @var $booleanEmail 
-     * @description Variable de tipus boolean per saber si l'email està introduït correctament.
-     */
-    /** 
-     * @var $booleanAlias 
-     * @description Variable de tipus boolean per saber si l'Àlies està introduït correctament.
-     */
-    /** 
-     * @var $booleanPassword_1 
-     * @description Variable de tipus boolean per saber si el password antic està introduït correctament.
-     */
-    /** 
-     * @var $booleanPassword_2
-     * @description Variable de tipus boolean per saber si el nou password està introduït correctament.
-     */
-    /** 
-     * @var $booleanPassword_3
-     * @description Variable de tipus boolean per saber si la password es igual a na nova password.
-     */
-    /** 
-     * @var $booleanCity
-     * @description Variable de tipus boolean per saber si la població està introduït correctament.
-     */
-    /** 
-     * @var $booleanDirection
-     * @description Variable de tipus boolean per saber si la direció està introduït correctament.
-     */
-    /** 
-     * @var $booleanCompany
-     * @description Variable de tipus boolean per saber si el nom de la companyia està introduït correctament.
-     */
-    /** 
-     * @var $booleanBusinessPhone
-     * @description Variable de tipus boolean per saber si el telèfon d'empresa està introduït correctament.
-     */
-    /** 
-     * @var $businessPhone 
-     * @description Variable per emmagatzemar el número de telèfon d'empresa del nutricionista. 
-     */
+    const $url = 'http://localhost:8080/api/';
     /** 
      * @var $user 
+     * @type {String}
      * @description Variable per emmagatzemar les dades de l'usuari/nutricionista que rebem per AJAX.
      */
+    let $user;
+    /** 
+     * @var $alias 
+     * @type {String}
+     * @description Variable per emmagatzemar l'Àlies de l'usuari/nutricionista. 
+     */
+    let $alias = '';
+    /** 
+     * @var $email 
+     * @type {String}
+     * @description Variable per emmagatzemar l'email de l'usuari/nutricionista.
+     */
+    let $email = '';
+    /** 
+     * @var $pass 
+     * @type {String}
+     * @description Variable per emmagatzemar la nova contrasenya de l'usuari/nutricionista. 
+     */
+    let $pass = '';
+    /** 
+     * @var $pswrd_1 
+     * @type {String} 
+     * @description Variable per emmagatzemar la antiga contrasenya de l'usuari/nutricionista. 
+     */
+    let $pswrd_1;
+    /** 
+     * @var $pswrd_2 
+     * @type {String}
+     * @description Variable per emmagatzemar la nova contrasenya de l'usuari/nutricionista. 
+     */
+    let $pswrd_2;
+     /** 
+     * @var $pswrd_3 
+     * @type {String}
+     * @description Variable per emmagatzemar la nova contrasenya de l'usuari/nutricionista. 
+     */
+    let $pswrd_3;
+    /** 
+     * @var $name 
+     * @type {String}
+     * @description Variable per emmagatzemar el nom de l'usuari/nutricionista. 
+     */
+    let $name = '';
+    /** 
+     * @var $surnames 
+     * @type {String}
+     * @description Variable per emmagatzemar el cognom de l'usuari/nutricionista. 
+     */
+    let $surnames = '';
+    /** 
+     * @var $phone 
+     * @type {number}
+     * @description Variable per emmagatzemar el número de telèfon de l'usuari/nutricionista. 
+     */
+    let $phone = '';
+    /** 
+     * @var $nif 
+     * @type {String}
+     * @description Variable per emmagatzemar el NIF/DNI, NIE o CIF del nutricionista. 
+     */
+    let $nif = '';
+    /** 
+     * @var $document 
+     * @type {String}
+     * @description Variable inicialitzada en una String 'nif' per emmagatzemar el tipus de documentació i es modifica segons el que ha seleccionat l'usuari, si NIF/DNI, NIE o CIF.
+     */
+    let $document = 'nif';
+    /** 
+     * @var $pc 
+     * @type {number}
+     * @description Variable per emmagatzemar el codi postal de la ciutat del nutricionista. 
+     */
+    let $pc = '';
+    /** 
+     * @var $city 
+     * @type {String}
+     * @description Variable per emmagatzemar la ciutat del nutricionista. 
+     */
+    let $city = '';
+    /** 
+     * @var $company 
+     * @type {String}
+     * @description Variable per emmagatzemar el nom d'empresa del nutricionista. 
+     */
+    let $company = '';
+    /** 
+     * @var $direction 
+     * @type {String}
+     * @description Variable per emmagatzemar la direcció d'empresa del nutricionista. 
+     */
+    
+    let $direction = '';
+    /** 
+     * @var $businessPhone 
+     * @type {number}
+     * @description Variable per emmagatzemar el número de telèfon d'empresa del nutricionista. 
+     */
+    let $businessPhone = '';
     /** 
      * @var $concat 
+     * @type {String}
      * @description Variable inicialitzada buida per concatenar la crida AJAX per la inserció de les modificacions de l'usuari.
-    /* 
-        $responseAlias,
-        $responseEmail,
      */
-
-
-    const $urlModifyDataUser = 'http://localhost:8080/api/user/',
-        $url = 'http://localhost:8080/api/';
-
-    let $user,
-        $alias = '',
-        $email = '',
-        $pass = '',
-        $pswrd_1,
-        $pswrd_2,
-        $pswrd_3,
-        $name = '',
-        $surnames = '',
-        $phone = '',
-        $nif = '',
-        $document = 'nif',
-        $pc = '',
-        $city = '',
-        $company = '',
-        $direction = '',
-        $businessPhone = '',
-        $concat = '',
-        $booleanName = true,
-        $booleanSurname = true,
-        $booleanPhone = true,
-        $booleanAlias = true,
-        $booleanEmail = true,
-        $booleanPassword_1 = true,
-        $booleanPassword_2 = true,
-        $booleanPassword_3 = true,
-        $booleanPc = true,
-        $booleanNif = true,
-        $booleanCompany = true,
-        $booleanCity = true,
-        $booleanBusinessPhone = true,
-        $booleanDirection = true;
-        
-    let $token, $IDuser;
+    let $concat = '';
+    /** 
+     * @var $concatNutricionst 
+     * @type {String}
+     * @description Variable inicialitzada buida per concatenar la crida AJAX per la inserció de les modificacions del nutricionista.
+     */
+    let $concatNutricionst = '';
+    /** 
+     * @var $booleanName 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el nom està introduït correctament.
+     */
+    let $booleanName = true;
+     /** 
+     * @var $booleanSurname 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el cognom està introduït correctament.
+     */
+    let $booleanSurname = true;
+    /** 
+     * @var $booleanPhone 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el teléfon està introduït correctament.
+     */
+    let $booleanPhone = true;
+    /** 
+     * @var $booleanAlias 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si l'Àlies està introduït correctament.
+     */
+    let $booleanAlias = true;
+    /** 
+     * @var $booleanEmail 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si l'email està introduït correctament.
+     */
+    let $booleanEmail = true;
+    /** 
+     * @var $booleanPassword_1 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el password antic està introduït correctament.
+     */
+    let $booleanPassword_1 = true;
+    /** 
+     * @var $booleanPassword_2 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el nou password està introduït correctament.
+     */
+    let $booleanPassword_2 = true;
+    /** 
+     * @var $booleanPassword_3 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si la password es igual a na nova password.
+     */
+    let $booleanPassword_3 = true;
+    /** 
+     * @var $booleanPc 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el codi postal està introduït correctament.
+     */
+    let $booleanPc = true;
+     /** 
+     * @var $booleanNif 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el NIF/DNI, NIE o CIF estan introduïts correctament.
+     */
+    let $booleanNif = true;
+    /** 
+     * @var $booleanCompany 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el nom de la companyia està introduït correctament.
+     */
+    let $booleanCompany = true;
+    /** 
+     * @var $booleanCity 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si la població està introduït correctament.
+     */
+    let $booleanCity = true;
+    /** 
+     * @var $booleanBusinessPhone 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el telèfon d'empresa està introduït correctament.
+     */
+    let $booleanBusinessPhone = true;
+    /** 
+     * @var $booleanDirection 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si la direció està introduït correctament.
+     */
+    let $booleanDirection = true;
+    /** 
+     * @var $token 
+     * @type {String}
+     * @description Variable de tipus String per emmagatzemar el token desat en localStorage.
+     */
+    let $token;
+    /** 
+     * @var $IDuser 
+     * @type {String}
+     * @description Variable de tipus String per emmagatzemar l'ID de l'usuari desat en localStorage.
+     */
+    let $IDuser;
 
     if (token() == true) {
         $token = localStorage.getItem('token');
         $IDuser = localStorage.getItem('id');
     }
-
+    
     $.ajax({
         url: 'http://localhost:8080/api/user/getUserByIdWithAllProperties/' + $IDuser,
         type: 'GET',
@@ -669,7 +720,7 @@ $(document).ready(function () {
      * @description Botó per fer les verificacions i funcions necessàries per emmagatzemar les dades de l'usuari i del nutricionista.
      */
     $('.btn_save').on('click', () => {
-        let $1, $2, $3, $4;
+        let $1, $2, $3, $4, $5, $6, $7, $8, $9, $10;
 
         if ($name != '' || $surnames != '' || $phone != '') {
 
@@ -683,6 +734,10 @@ $(document).ready(function () {
 
             if ($phone != '') {
                 $concat = $concat.concat('___phone---' + $phone);
+            }
+
+            if ($nif != '') {
+                $concat = $concat.concat('___nif---' + $phone);
             }
 
             if ($booleanName && $booleanSurname && $booleanPhone) {
@@ -738,10 +793,61 @@ $(document).ready(function () {
                 }
             }
         }
+        if ($user.type == 2) {
+            if ($pc != '') {
+                $concatNutricionst = $concatNutricionst.concat('___postalCode---' + $pc);
+                $5 = false;
+            }
 
-        if ($1 == false || $2 == false || $3 == false || $4 == false) {
-            $('#updateDataTrue').modal('show');
+            if ($city) {
+                $concatNutricionst = $concatNutricionst.concat('___city---' + $city);
+                $6 = false;
+            }
+
+            if ($direction) {
+                $concatNutricionst = $concatNutricionst.concat('___direction---' + $direction);
+                $7 = false;
+            }
+
+            if ($company) {
+                $concatNutricionst = $concatNutricionst.concat('___name---' + $company);
+                $8 = false;
+            }
+
+            if ($businessPhone) {
+                $concatNutricionst = $concatNutricionst.concat('___phone---' + $businessPhone);
+                $9 = false;
+            }
+
+            if ($5 == false || $6 == false || $7 == false || $8 == false || $9 == false) {
+                $.ajax({
+                    url: $urlModifyDataNutricionist + 'modifyNutricionist/id---' + $user.id + $concatNutricionst,
+                    type: 'PUT',
+                    headers: {
+                        'Authorization': $token
+                    },
+                    success: function () {}
+                });
+
+                $10 = false;
+            }
+
+
+            if ($10 == false) {
+                $('#updateDataTrue').modal('show');
+            }
+
+            $concatNutricionst = '';
         }
+
+        if ($user.type == 1) {
+            if ($1 == false || $2 == false || $3 == false || $4 == false) {
+                $('#updateDataTrue').modal('show');
+            }
+        }
+
+
+
     });
 
     /**
@@ -775,12 +881,5 @@ $(document).ready(function () {
                 window.location = '/';
             }
         });
-    });
-
-    // TODO: Esperar a Cris pasa saber donde tengo que poner la parte para salir de la cuenta.
-    $('.btn_checkOut').on('click', () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('id');
-        window.location = '/';
     });
 });

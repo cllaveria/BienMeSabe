@@ -2,6 +2,8 @@ package com.bienmesabe.rest.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -57,18 +61,35 @@ public class User implements Serializable{
     
     private String tokenEndValidityDate;
     
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    private List<AdminContact> adminContacts;
+    
     /**
      * Empty Constructor
      */
     public User() {
     }
 
+    /**
+     * User Constructor with the required parameters
+     * @param name string that represents the name of the user
+     * @param password string that represents the password of the user
+     * @param email string that represents the email of the user
+     */
     public User(String name, String password, String email) {
         this.name = name;
         this.password = password;
         this.email = email;
     }
 
+    /**
+     * User Constructor with the required parameters
+     * @param name string that represents the name of the user
+     * @param password string that represents the password of the user
+     * @param email string that represents the email of the user
+     * @param alias string that represents the alias of the user
+     */
     public User(String name, String password, String email,String alias) {
         this.name = name;
         this.password = password;
@@ -76,7 +97,16 @@ public class User implements Serializable{
         this.email = email;
     }
 
-    
+    /**
+     * User Constructor with the required parameters
+     * @param id long that represents the id of the user
+     * @param image string that represents the image path of the user 
+     * @param name string that represents the name of the user
+     * @param surname string that represents the surname of the user
+     * @param alias string that represents the alias of the user
+     * @param email string that represents the email of the user
+     * @param type int that represents the type of the user
+     */
     public User(Long id, String image, String name, String surname, String alias, String email, int type) {
         this.id = id;
         this.image = image;
@@ -87,6 +117,14 @@ public class User implements Serializable{
         this.type = type;
     }
 
+    /**
+     * User Constructor with the required parameters
+     * @param id long that represents the id of the user
+     * @param name string that represents the name of the user
+     * @param password string that represents the password of the user
+     * @param email string that represents the email of the user
+     * @param alias string that represents the alias of the user
+     */
     public User(Long id, String name, String password, String email, String alias) {
         this.id = id;
         this.name = name;
@@ -95,8 +133,17 @@ public class User implements Serializable{
         this.email = email;
     }
     
-    
-
+    /**
+     * User Constructor with the required parameters
+     * @param id long that represents the id of the user
+     * @param image string that represents the image path of the user 
+     * @param name string that represents the name of the user
+     * @param surname string that represents the surname of the user
+     * @param alias string that represents the alias of the user
+     * @param email string that represents the email of the user
+     * @param phone string that represents the phone of the user
+     * @param type int that represents the type of the user
+     */
     public User(Long id, String image, String name, String surname, String alias, String email, String phone, int type) {
         this.id = id;
         this.image = image;
@@ -330,20 +377,52 @@ public class User implements Serializable{
         this.updatedAt = updatedAt;
     }
 
+    /**
+     * Méthod to recover the token of the user
+     * @return a string that represents the user token
+     */
     public String getToken() {
         return token;
     }
 
+    /**
+     * Méthod to asign the token of the user
+     * @param token string that represents the user token
+     */
     public void setToken(String token) {
         this.token = token;
     }
 
+    /**
+     * Méthod to recover the validity of the token
+     * @return a string that represents the end date validity of the token
+     */
     public String getTokenEndValidityDate() {
         return tokenEndValidityDate;
     }
 
+    /**
+     * Méthod to asign the validity of the token
+     * @param tokenEndValidityDate string that represents the end date validity of the token
+     */
     public void setTokenEndValidityDate(String tokenEndValidityDate) {
         this.tokenEndValidityDate = tokenEndValidityDate;
+    }
+
+    /**
+     * Méthod to recover the admin contacts
+     * @return a list with all the admin contacts
+     */
+    public List<AdminContact> getAdminContacts() {
+        return adminContacts;
+    }
+
+    /**
+     * Méthod to asign the admin contacts
+     * @param adminContacts list with all the admin contacts
+     */
+    public void setAdminContacts(List<AdminContact> adminContacts) {
+        this.adminContacts = adminContacts;
     }
 
     

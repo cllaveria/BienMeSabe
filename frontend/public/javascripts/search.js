@@ -22,123 +22,128 @@
 $(document).ready(function () {
     /**
      * @constant $urlIngredients
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els ingredients.
      */
+    const $urlIngredients = 'http://localhost:8080/api/ingredient/getIngredients';
     /**
      * @constant $urlTypePlate
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els tipus de plats.
      */
+    const $urlTypePlate = 'http://localhost:8080/api/recipeTypes/getRecipeTypes';
     /**
      * @constant $urlLatestRecipes
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar totes les receptes en ordre de les últimes afegides.
      */
+    const $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes';
     /**
      * @constant $urlAllUsers
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els usuaris.
      */
+    
+    const $urlAllUsers = 'http://localhost:8080/api/user/getUsers';
     /**
      * @constant $urlOrderByAssessment
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar totes les receptes en ordre de millor valorades.
      */
+    const $urlOrderByAssessment = 'http://localhost:8080/api/recipe/getRecipesByAssessment';
     /**
      * @constant $urlRecipe
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor veure la fitxa de les receptes.
      */
+    const $urlRecipe = 'http://localhost:3000/recetas/ficha?id=';
     /**
      * @constant $screenSize
+     * @type {number}
      * @description Constant per emmagatzemar les dimensions de la finestra del navegador.
      */
+    const $screenSize = window.screen.width;
     /** 
      * @var $ingredient 
+     * @type {String} 
      * @description Variable per emmagatzemar l'ingredient que introdueix l'usuari. 
      */
+    let $ingredient;
     /** 
-     * @var $numberPersons 
+     * @var $numberPersons
+     * @type {number} 
      * @description Variable per emmagatzemar el nombre de persones per cercar la recepta. 
      */
+    let $numberPersons;
     /** 
      * @var $valueEnergMin 
+     * @type {number}
      * @description Variable per emmagatzemar el valor energètic mínim que selecciona l'usuari. 
      */
+    let $valueEnergMin;
     /** 
      * @var $valueEnergMax 
+     * @type {number}
      * @description Variable per emmagatzemar el valor energètic màxim que selecciona l'usuari. 
      */
+    let $valueEnergMax;
     /** 
      * @var $typePlate 
+     * @type {String}
      * @description Variable per emmagatzemar el tipus de plat que vol cercar l'usuari.
      */
-    /** 
-     * @var $ingredients 
-     * @description Array per emmagatzemar els ingredients que es troben a la BBDD registrats i es mostren a l'usuari.
-     */
+    
+    let $typePlate;
     /** 
      * @var $ingredientId 
+     * @type {number}
      * @description Variable per emmagatzemar l'ID dels ingredients en el desplegable.
      */
+    let $ingredientId;
     /** 
      * @var $userAlias 
+     * @type {String}
      * @description Variable per emmagatzemar l'alies de l'usuari que ha creat la recepta i mostrar-lo per pantalla.
      */
+    let $userAlias;
     /** 
-     * @var $forks 
+     * @var $forks
+     * @type {number} 
      * @description Variable per emmagatzemar la cadena per inserir en el DOM per veure la puntuació mitjana de les receptes.
      */
+    let $forks;
     /** 
-     * @var $difficult 
-     * @description Variable per emmagatzemar la dificultat de la recepta i mostar-lo per pantalla.
+     * @var $ingredients
+     * @type {Array} 
+     * @description Array per emmagatzemar els ingredients que es troben a la BBDD registrats i es mostren a l'usuari.
      */
+    let $ingredients = [];
     /** 
      * @var $recipePlates 
+     * @type {Array}
      * @description Array per emmagatzemar les receptes de la BBDD.
      */
+    let $recipePlates = [];
     /** 
      * @var $latestRecipes 
+     * @type {Array}
      * @description Array per emmagatzemar les receptes de la BBDD ordenades per les últimes inserides.
      */
+    
+    let $latestRecipes = [];
     /** 
      * @var $allUsers 
+     * @type {Array}
      * @description Array per emmagatzemar tots els usuaris de la BBDD.
      */
+    
+    let $allUsers = [];
     /** 
      * @var $count 
+     * @type {number}
      * @description Variable inicialitzada a 0 per contar les vegades que prenem el botó "VER MÁS" de les últimes receptes.
      */
-
-    const $urlIngredients = 'http://localhost:8080/api/ingredient/getIngredients',
-        $urlTypePlate = 'http://localhost:8080/api/recipeTypes/getRecipeTypes',
-        $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes',
-        $urlAllUsers = 'http://localhost:8080/api/user/getUsers',
-        $urlOrderByAssessment = 'http://localhost:8080/api/recipe/getRecipesByAssessment',
-        $urlRecipe = 'http://localhost:3000/recetas/ficha?id=',
-        $screenSize = window.screen.width;
-
-    let $ingredient,
-        $numberPersons,
-        $valueEnergMin,
-        $valueEnergMax,
-        $typePlate,
-        $ingredientId,
-        $userAlias,
-        $forks,
-        $difficult,
-        $ingredients = [],
-        $recipePlates = [],
-        $latestRecipes = [],
-        $allUsers = [],
-        $count = 0;
-
-    /** 
-     * @var $insert 
-     * @description Variable inicialitzada en blanc per emmagatzemar la cadena de les receptes a inserir.
-     */
-
-    let $token, $IDuser;
-
-    if (token() == true) {
-        $token = localStorage.getItem('token');
-        $IDuser = localStorage.getItem('id');
-    }
+    let $count = 0;
 
     $.ajax({
         url: $urlIngredients,

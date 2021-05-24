@@ -13,112 +13,140 @@
  * 
  */
 
-$(document).ready(function () {
-
+$(document).ready(function () {    
     /**
      * @constant $urlSearch
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor per ver les cerces de les receptes.
      */
+    const $urlSearch = 'http://localhost:8080/api/recipe/getRecipesByFilters/';
     /**
      * @constant $urlSearchPlate
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor per veure les receptes per tipus de plat.
      */
+    const $urlSearchPlate = 'http://localhost:8080/api/recipe/getRecipesByType/';
     /**
      * @constant $urlAllUsers
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els usuaris.
      */
+    const $urlAllUsers = 'http://localhost:8080/api/user/getUsers';
     /**
      * @constant $urlTypePlate
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els tipus de plats.
      */
+    const $urlTypePlate = 'http://localhost:8080/api/recipeTypes/getRecipeTypes';
     /**
      * @constant $urlLatestRecipes
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar totes les receptes en ordre de les últimes afegides.
      */
+    const $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes';
     /**
      * @constant $urlRecipe
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor veure la fitxa de les receptes.
      */
+    const $urlRecipe = 'http://localhost:3000/recetas/ficha?id=';
     /** 
      * @var $searchFilters 
+     * @type {String}
      * @description Variable per emmagatzemar la ruta rebuda per url.
      */
+    let $searchFilters = (window.location.search).substr(1, );
     /** 
      * @var $searchId 
+     * @type {String}
      * @description Variable per emmagatzemar la ruta rebuda per url que correspon a "id=".
      */
+    let $searchId = (window.location.search).substr(1, 3);
     /** 
      * @var $searchLatestRecipes 
+     * @type {String}
      * @description Variable per emmagatzemar la ruta rebuda per url que correspon a "latestRecipes".
      */
+    let $searchLatestRecipes = (window.location.search).substr(1, 13);
     /** 
      * @var $allUsers 
+     * @type {Array}
      * @description Array per emmagatzemar tots els usuaris de la BBDD.
      */
+    let $allUsers = [];
     /** 
      * @var $allTypePlate 
+     * @type {Array}
      * @description Array per emmagatzemar tots els tipus de plats.
      */
+    let $allTypePlate = [];
     /** 
      * @var $allRecipes 
+     * @type {Array}
      * @description Array per emmagatzemar totes les receptes.
      */
+    let $allRecipes = [];
     /** 
      * @var $dinners 
+     * @type {Array}
      * @description Array per emmagatzemar els comensals.
      */
-    /** 
-     * @var $userAlias 
-     * @description Variable per emmagatzemar l'alies de l'usuari que ha creat la recepta i mostrar-lo per pantalla.
-     */
+    let $dinners = [];
     /** 
      * @var $typePlate 
+     * @type {String}
      * @description Variable per emmagatzemar el tipus de plat que vol cercar l'usuari.
      */
+    let $typePlate;
+    /** 
+     * @var $userAlias 
+     * @type {String}
+     * @description Variable per emmagatzemar l'alies de l'usuari que ha creat la recepta i mostrar-lo per pantalla.
+     */
+    let $userAlias;
     /** 
      * @var $dinner 
+     * @type @{number}
      * @description Variable per emmagatzemar els comensals de l'array.
      */
+    let $dinner;
     /** 
      * @var $forks 
+     * @type {String}
      * @description Variable per emmagatzemar la cadena per inserir en el DOM per veure la puntuació mitjana de les receptes.
      */
+    let $forks;
     /** 
-     * @var $difficult 
+     * @var $difficult
+     * @type {String}
      * @description Variable per emmagatzemar la dificultat de la recepta i mostar-lo per pantalla.
      */
+    let $difficult;
     /** 
      * @var $totalRecipes 
+     * @type {Array}
      * @description Array per emmagatzemar totes les receptes.
      */
+    
+    let $totalRecipes = [];
     /** 
      * @var $countRecipe 
+     * @type {number}
      * @description Variable inicialitzada a 0 per mostrar per pantalla el total de receptes.
      */
+    let $countRecipe = 0;
 
-    const $urlSearch = 'http://localhost:8080/api/recipe/getRecipesByFilters/',
-        $urlSearchPlate = 'http://localhost:8080/api/recipe/getRecipesByType/',
-        $urlAllUsers = 'http://localhost:8080/api/user/getUsers',
-        $urlTypePlate = 'http://localhost:8080/api/recipeTypes/getRecipeTypes',
-        $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes',
-        $urlRecipe = 'http://localhost:3000/recetas/ficha?id=';
-
-    let $searchFilters = (window.location.search).substr(1, ),
-        $searchId = (window.location.search).substr(1, 3),
-        $searchLatestRecipes = (window.location.search).substr(1, 13),
-        $allUsers = [],
-        $allTypePlate = [],
-        $allRecipes = [],
-        $dinners = [],
-        $typePlate,
-        $userAlias,
-        $dinner,
-        $forks,
-        $difficult,
-        $totalRecipes = [],
-        $countRecipe = 0;
-
-    let $token, $IDuser;
+    /** 
+     * @var $token
+     * @type {String}
+     * @description Variable de tipus String per emmagatzemar el token desat en localStorage.
+     */
+    let $token;
+    /** 
+     * @var $IDuser
+     * @type {number}
+     * @description Variable de tipus number per emmagatzemar l'ID de l'usuari desat en localStorage.
+     */
+    let $IDuser;
 
     if (token() == true) {
         $token = localStorage.getItem('token');
@@ -207,7 +235,7 @@ $(document).ready(function () {
                 break;
             } else {
                 for (let j = 0; j < $allUsers.length; j++) {
- 
+
                     if ($allUsers[j][0] == $recipes[i].userId) {
                         $userAlias = $allUsers[j][4];
                     }

@@ -211,8 +211,13 @@ public class RecipeServiceImpl implements RecipeService{
         recipeDAO.modifyRecipe(recipe);
     }
 
+    /**
+     * Implementation of interface method to asign a recipe as active
+     * @param id long that represents the id of the recipe
+     * @return a boolean that indicates if the recipe has been successfully set as active or not
+     */
     @Override
-    public Boolean setRecipeAsActive(Long id){
+    public boolean setRecipeAsActive(Long id){
         return recipeDAO.setRecipeAsActive(id);
     }
     
@@ -224,6 +229,7 @@ public class RecipeServiceImpl implements RecipeService{
     public void deleteRecipeById(long id) {
         recipeDAO.deleteRecipeById(id);
     }
+    
     /**
      * Implementation of interface method to retian the coincident recipes of both lists
      * @param masterList list of recipes where retain all coincident recipes of the secondary list

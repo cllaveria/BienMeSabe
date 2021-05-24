@@ -40,10 +40,53 @@
                     <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
                         <div class="fallback">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
+                                <input type="file" class="custom-file-input" name="imageVideoRecipe" id="dropzoneBasicUpload">
                                 <label class="custom-file-label" id="imageVideoRecipe" for="dropzoneBasicUpload">Elije archivo</label>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="inputs">
+                    <label>Elije la dificultad de la receta</label>
+                    <div class="cantidad">
+                        <select class="difficult">
+                            <option value="0">Muy baja</option>
+                            <option value="1">Baja</option>
+                            <option value="2">Media</option>
+                            <option value="3">Dificil</option>
+                            <option value="4">Muy dificil</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inputs">
+                    <label>Elije el tiempo estimado para realizar la receta (en minutos)</label>
+                    <div class="cantidad">
+                        <select class="time">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                            <option value="35">35</option>
+                            <option value="40">40</option>
+                            <option value="45">45</option>
+                            <option value="50">50</option>
+                            <option value="55">55</option>
+                            <option value="60">60</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inputs">
+                    <label>Selecciona el tipo de plato</label>
+                    <div class="cantidad">
+                        <select class="type">
+                            <option value="1">Entrantes</option>
+                            <option value="2">Primeros</option>
+                            <option value="3">Segundos</option>
+                            <option value="4">Postres</option>
+                            <option value="5">Repostería</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -51,15 +94,15 @@
                 <label>Descripción de la receta</label>
                 <textarea id="inp_description" type="text" placeholder="Introduce la descripción de la receta"></textarea>
             </div>
-            <label>Introduce los ingredientes y su cantidad</label>
+            <label>Introduce los ingredientes y su cantidad (cantidades para una persona)</label>
             <div id="ingredients">
                 <div class="ingr_cont">
                     <div class="ingredients">
                         <div class="cantidad">
-                            <select>
-                                <option>u.</option>
-                                <option>gr</option>
-                                <option>chr.</option>
+                            <select class="ingredient">
+                                <option value="U">u.</option>
+                                <option value="G">gr</option>
+                                <option value="S">chr.</option>
                             </select>
                             <input class="quan" type="text" placeholder="Cantidad">
                         </div>
@@ -71,10 +114,10 @@
                 <div class="ingr_cont">
                     <div class="ingredients">
                         <div class="cantidad">
-                            <select>
-                                <option>u.</option>
-                                <option>gr</option>
-                                <option>chr.</option>
+                            <select class="ingredient">
+                                <option value="U">u.</option>
+                                <option value="G">gr</option>
+                                <option value="S">chr.</option>
                             </select>
                             <input class="quan" type="text" placeholder="Cantidad">
                         </div>
@@ -86,10 +129,10 @@
                 <div class="ingr_cont">
                     <div class="ingredients">
                         <div class="cantidad">
-                            <select>
-                                <option>u.</option>
-                                <option>gr</option>
-                                <option>chr.</option>
+                            <select class="ingredient">
+                                <option value="U">u.</option>
+                                <option value="G">gr</option>
+                                <option value="S">chr.</option>
                             </select>
                             <input class="quan" type="text" placeholder="Cantidad">
                         </div>
@@ -101,10 +144,10 @@
                 <div class="ingr_cont">
                     <div class="ingredients">
                         <div class="cantidad">
-                            <select>
-                                <option>u.</option>
-                                <option>gr</option>
-                                <option>chr.</option>
+                            <select class="ingredient">
+                                <option value="U">u.</option>
+                                <option value="G">gr</option>
+                                <option value="S">chr.</option>
                             </select>
                             <input class="quan" type="text" placeholder="Cantidad">
                         </div>
@@ -116,10 +159,10 @@
                 <div class="ingr_cont">
                     <div class="ingredients">
                         <div class="cantidad">
-                            <select>
-                                <option>u.</option>
-                                <option>gr</option>
-                                <option>chr.</option>
+                            <select class="ingredient">
+                                <option value="U">u.</option>
+                                <option value="G">gr</option>
+                                <option value="S">chr.</option>
                             </select>
                             <input class="quan" type="text" placeholder="Cantidad">
                         </div>
@@ -131,10 +174,10 @@
                 <div class="ingr_cont">
                     <div class="ingredients">
                         <div class="cantidad">
-                            <select>
-                                <option>u.</option>
-                                <option>gr</option>
-                                <option>chr.</option>
+                            <select class="ingredient">
+                                <option value="U">u.</option>
+                                <option value="G">gr</option>
+                                <option value="S">chr.</option>
                             </select>
                             <input class="quan" type="text" placeholder="Cantidad">
                         </div>
@@ -161,7 +204,7 @@
                                 <div class="fallback">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
-                                        <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
+                                        <label class="custom-file-label" id="imageStep" for="dropzoneBasicUpload">Elije archivo</label>
                                     </div>
                                 </div>
                             </div>
@@ -264,7 +307,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalCenterTitle">Receta creada</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close btn_checkIn" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -274,7 +317,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="button btn_checkIn"
-                                onclick="location.href='/misRecetas';">Aceptar</button>
+                                >Aceptar</button>
                         </div>
                     </div>
                 </div>

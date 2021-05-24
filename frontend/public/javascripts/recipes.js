@@ -11,117 +11,127 @@
  */
 
 $(document).ready(function () {
-
     /**
      * @constant $urlAllUsers
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els usuaris.
-     */
+     */       
+    const $urlAllUsers = 'http://localhost:8080/api/user/getUsers';
     /**
      * @constant $urlRecipes
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar totes les receptes.
      */
+    const $urlRecipes = 'http://localhost:8080/api/recipe/getRecipesByType/';
     /**
      * @constant $urlType
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els tipus de plats.
      */
+    const $urlType = 'http://localhost:8080/api/recipeTypes/getRecipeTypes';
     /**
      * @constant $urlRecipe
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor veure la fitxa de les receptes.
      */
+    const $urlRecipe = 'http://localhost:3000/recetas/ficha?id=';
     /**
      * @constant $screenSize
+     * @type {String}
      * @description Constant per emmagatzemar les dimensions de la finestra del navegador.
      */
+    const $screenSize = window.screen.width;
     /** 
      * @var $countStarters 
+     * @type {number}
      * @description Variable inicialitzada a 0 per contar les vegades que prenem el botó "VER MÁS" de les receptes de Entrantes.
      */
+    
+    let $countStarters = 0;
     /** 
      * @var $countFirsts 
+     * @type {number}
      * @description Variable inicialitzada a 0 per contar les vegades que prenem el botó "VER MÁS" de les receptes de Primeros.
      */
+    let $countFirsts = 0;
     /** 
      * @var $countSeconds 
+     * @type {number}
      * @description Variable inicialitzada a 0 per contar les vegades que prenem el botó "VER MÁS" de les receptes de Segundos.
      */
+    let $countSeconds = 0;
     /** 
      * @var $countDesserts 
+     * @type {number}
      * @description Variable inicialitzada a 0 per contar les vegades que prenem el botó "VER MÁS" de les receptes de Postres.
      */
+    let $countDesserts = 0;
     /** 
      * @var $countCakes 
+     * @type {number}
      * @description Variable inicialitzada a 0 per contar les vegades que prenem el botó "VER MÁS" de les receptes de Repostería.
      */
+    let $countCakes = 0;
     /** 
      * @var $forks 
+     * @type {String}
      * @description Variable per emmagatzemar la cadena per inserir en el DOM per veure la puntuació mitjana de les receptes.
      */
+    let $forks;
     /** 
      * @var $difficult 
+     * @type {String}
      * @description Variable per emmagatzemar la dificultat de la recepta i mostar-lo per pantalla.
      */
+    let $difficult;
     /** 
      * @var $userAlias 
+     * @type {String}
      * @description Variable per emmagatzemar l'alies de l'usuari que ha creat la recepta i mostrar-lo per pantalla.
      */
+    let $userAlias;
     /** 
      * @var $allUsers 
+     * @type {Array}
      * @description Array per emmagatzemar tots els usuaris de la BBDD.
      */
+    let $allUsers = [];
     /** 
-     * @var $allPlatesStarters 
+     * @var $allPlatesStarters
+     * @type {Array} 
      * @description Array per emmagatzemar totes les receptes del tipus de plat Entrantes.
      */
+    let $allPlatesStarters = [];
     /** 
      * @var $allPlatesFirsts 
+     * @type {Array}
      * @description Array per emmagatzemar totes les receptes del tipus de plat Primeros.
      */
+    let $allPlatesFirsts = [];
     /** 
      * @var $allPlatesSeconds 
+     * @type {Array}
      * @description Array per emmagatzemar totes les receptes del tipus de plat Segundos
      */
+    let $allPlatesSeconds = [];
     /** 
      * @var $allPlatesDesserts 
+     * @type {Array}
      * @description Array per emmagatzemar totes les receptes del tipus de plat Postres.
      */
+    let $allPlatesDesserts = [];
     /** 
      * @var $allPlatesCakes 
+     * @type {Array}
      * @description Array per emmagatzemar totes les receptes del tipus de plat Repostería.
      */
+    let $allPlatesCakes = [];
     /** 
      * @var $allTypePlate 
+     * @type {Array}
      * @description Array per emmagatzemar tots els tipus de plats.
      */
-
-    const $urlAllUsers = 'http://localhost:8080/api/user/getUsers',
-        $urlRecipes = 'http://localhost:8080/api/recipe/getRecipesByType/',
-        $urlType = 'http://localhost:8080/api/recipeTypes/getRecipeTypes',
-        $urlRecipe = 'http://localhost:3000/recetas/ficha?id=',
-        $screenSize = window.screen.width;
-
-    let $countStarters = 0,
-        $countFirsts = 0,
-        $countSeconds = 0,
-        $countDesserts = 0,
-        $countCakes = 0,
-        $forks,
-        $difficult,
-        $userAlias,
-        $allUsers = [],
-        $allPlatesStarters = [],
-        $allPlatesFirsts = [],
-        $allPlatesSeconds = [],
-        $allPlatesDesserts = [],
-        $allPlatesCakes = [],
-        $allTypePlate = [];
-
-    let $token, $IDuser;
-    let $result = token()
-    console.log($result)
-    if (token() == true) {
-        $token = localStorage.getItem('token');
-        $IDuser = localStorage.getItem('id');
-    }
+    let $allTypePlate = [];
 
     $.ajax({
         url: $urlAllUsers,

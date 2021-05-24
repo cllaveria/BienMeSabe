@@ -16,19 +16,22 @@
 $(document).ready(function () {
     /**
      * @constant $urlLogin
+     * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor per validar el registre.
-     */
+     */    
+    const $urlLogin = 'http://localhost:8080/api/user/loginUser?data=password---';
     /** 
      * @var $pswrd
+     * @type {String}
      * @description Variable de tipus String per emmagatzemar la contrasenya de l'usuari.
      */
+    let $pswrd;
     /** 
      * @var $login
+     * @type {String}
      * @description Variable de tipus String per emmagatzemar l'alies o l'email de l'usuari, segons el que introdueixi en el camp requerit.
      */
-    const $urlLogin = 'http://localhost:8080/api/user/loginUser?data=password---'
-    let $pswrd,
-        $login;
+    let $login;
 
     /**
      * @type {jQuery}
@@ -53,7 +56,7 @@ $(document).ready(function () {
     $('#viewPass').on('mouseleave', () => {
         $('#pswrd').attr('type', 'password');
     });
-    
+
     /**
      * @type {jQuery}
      * @type submit
