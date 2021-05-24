@@ -47,6 +47,16 @@
   }
 }
 
+.selects > .inputs {
+  margin-bottom: 25px;
+  
+}
+
+select,
+option {
+  cursor: pointer;
+}
+
 .inputs {
   display: grid;
 }
