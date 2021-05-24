@@ -13,6 +13,14 @@ import com.bienmesabe.rest.domain.NutricionistAssessment;
  * @version 23/05/2021
  */
 public interface NutricionistAssessmentDAO {
+    
+    /**
+     * Method to create an nutricionist assessment in the table nutricionist assessments of the DB
+     * @param assessment object that represents the nutricionist assessment to persist
+     * @return a boolean that indicates if the nutricionist assessment is successfully inserted or not
+     */
+    public boolean createNutricionistAssessment(NutricionistAssessment assessment);
+    
     /**
      * Method to update a nutricionist assessment in the table nutricionist assessments of the DB
      * @param assessment object that represents the nutricionist assessment to modify

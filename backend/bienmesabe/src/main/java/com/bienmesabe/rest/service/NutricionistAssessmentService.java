@@ -15,6 +15,13 @@ import com.bienmesabe.rest.domain.NutricionistAssessment;
 public interface NutricionistAssessmentService {
     
     /**
+     * Method to create an nutricionist assessment in the table nutricionist assessments of the DB
+     * @param assessment object that represents the nutricionist assessment to persist
+     * @return a boolean that indicates if the nutricionist assessment is successfully inserted or not
+     */
+    public boolean createNutricionistAssessment(NutricionistAssessment assessment);
+    
+    /**
      * Method to update a nutricionist assessment in the table nutricionist assessments of the DB
      * @param assessment object that represents the nutricionist assessment to modify
      * @return a boolean that indicates if the nutricionist assessment is successfully updated or not

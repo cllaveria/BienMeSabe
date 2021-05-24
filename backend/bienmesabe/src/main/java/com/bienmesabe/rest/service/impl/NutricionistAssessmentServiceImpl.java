@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class NutricionistAssessmentServiceImpl implements NutricionistAssessmentService{
 
     /**
-     * Bean of the recipe ingredient repository (Interface)
+     * Bean of the rnutricionist assessment repository (Interface)
      */
     @Autowired
     private NutricionistAssessmentDAO nutricionistAssessmentDAO;
@@ -33,6 +33,16 @@ public class NutricionistAssessmentServiceImpl implements NutricionistAssessment
     @Override
     public boolean modifyAssessment(NutricionistAssessment assessment) {
         return nutricionistAssessmentDAO.modifyAssessment(assessment);
+    }
+    
+    /**
+     * Implementation of interface method to create an nutricionist assessment
+     * @param assessment object that represents the nutricionist assessment to persist
+     * @return a boolean that indicates if the nutricionist assessment is successfully inserted or not
+     */
+    @Override
+    public boolean createNutricionistAssessment(NutricionistAssessment assessment) {
+        return nutricionistAssessmentDAO.createNutricionistAssessment(assessment);
     }
     
 }

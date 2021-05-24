@@ -109,7 +109,7 @@ public class AssessmentDAOImpl implements AssessmentDAO{
     }
     
     /**
-     * Method to modify an assessment in the table assessments of the DB
+     * Method to modify an assessment value in the table assessments of the DB
      * @param recipeId long that represents the id of the recipe to update
      * @param assessmentValue integer that represents the value of the assessment to update
      */

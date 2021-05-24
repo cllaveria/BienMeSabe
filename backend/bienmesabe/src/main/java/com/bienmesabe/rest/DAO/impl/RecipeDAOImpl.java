@@ -213,14 +213,53 @@ public class RecipeDAOImpl implements RecipeDAO {
     /**
      * Implementation of interface method to modify an recipe in the table recipes of the DB
      * @param recipe object that represents the recipe to modify
+     * @return boolean that represents if the recipe is correctly modified or not
      */
     @Override
     @Transactional
-    public void modifyRecipe(Recipe recipe) {
+    public boolean modifyRecipe(Recipe recipe) {
         Session currentSession = entityManager.unwrap(Session.class);
-        currentSession.saveOrUpdate(recipe); 
+
+        Query<Recipe> query = currentSession.createQuery("update Recipe set image=:newImage, name=:newName, preparationVideo=:video, type=:recipeType, recipeDinners=:dinners, recipeTime=:time, recipeDifficult=:difficult,recipeInitDescription=:initDescription, recipeEndingDescription=:endingDescription  where id=:recipeId");
+        query.setParameter("newImage", recipe.getImage());
+        query.setParameter("newName", recipe.getName());
+        query.setParameter("video", recipe.getPreparationVideo());
+        query.setParameter("recipeType", recipe.getType());
+        query.setParameter("dinners", recipe.getRecipeDinners());
+        query.setParameter("time", recipe.getRecipeTime());
+        query.setParameter("difficult", recipe.getRecipeDifficult());
+        query.setParameter("initDescription", recipe.getRecipeInitDescription());
+        query.setParameter("endingDescription", recipe.getRecipeEndingDescription());
+        query.setParameter("recipeId", recipe.getId());
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception ee){
+            return false;
+        }
     }
 
+    /**
+     * Implementation of interface method to update the image path of a recipe in the table recipes of the DB
+     * @param path string with the path of the recipe image
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that represents if the path of the recipe image has been successfully updated or not
+     */
+    @Override
+    public boolean updateImageRecipePath(String path, long recipeId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        Query<Recipe> query = currentSession.createQuery("update Recipe set image=:newImage where id=:recipeId");
+        query.setParameter("newImage", path);
+        query.setParameter("recipeId", recipeId);
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception ee){
+            return false;
+        }
+    }
+    
     /**
      * Implementation of interface method to set active a recipe in the table recipes by id
      * @param id long with the id of the recipe to activate
@@ -255,6 +294,7 @@ public class RecipeDAOImpl implements RecipeDAO {
         query.setParameter("recipeId", id);
         query.executeUpdate();
     }
+
 
     
 

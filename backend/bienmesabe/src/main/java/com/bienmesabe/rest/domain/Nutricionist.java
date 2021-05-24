@@ -33,6 +33,8 @@ public class Nutricionist extends User{
     private String companyCity;
     @Column(name="COMPANY_TELEPHONE")
     private String companyPhone;
+    @Column(name="NUTRICIONIST_ASSESSMENT")
+    private int nutricionistAssessment;
     
     @OneToMany(mappedBy = "nutricionist", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NutricionistDegree> nutricionistDegree;
@@ -40,6 +42,8 @@ public class Nutricionist extends User{
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "NUTRICIONIST_ID")
     private List<NutricionistAssessment> assessments;
+    
+    
     /**
      * Empty Constructor
      */
@@ -172,6 +176,22 @@ public class Nutricionist extends User{
      */
     public void setAssessments(List<NutricionistAssessment> assessments) {
         this.assessments = assessments;
+    }
+    
+    /**
+     * Method to recover the nutricionist assessment
+     * @return an integer that represents the assessment of the nutricionist  
+     */
+    public int getNutricionistAssessment() {
+        return nutricionistAssessment;
+    }
+
+    /**
+     *Method to asign the nutricionist assessment
+     * @param nutricionistAssessment integer that represents the assessment of the nutricionist to set
+     */
+    public void setNutricionistAssessment(int nutricionistAssessment) {
+        this.nutricionistAssessment = nutricionistAssessment;
     }
 
     

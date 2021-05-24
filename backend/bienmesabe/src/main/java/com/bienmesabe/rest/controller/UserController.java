@@ -8,10 +8,12 @@ package com.bienmesabe.rest.controller;
 
 import com.bienmesabe.rest.domain.AdminContact;
 import com.bienmesabe.rest.domain.NutricionistAssessment;
+import com.bienmesabe.rest.domain.NutricionistComment;
 import com.bienmesabe.rest.domain.User;
 import com.bienmesabe.rest.service.AdminContactService;
 import com.bienmesabe.rest.service.AssessmentService;
 import com.bienmesabe.rest.service.NutricionistAssessmentService;
+import com.bienmesabe.rest.service.NutricionistCommentService;
 import com.bienmesabe.rest.service.UserService;
 import java.util.List;
 import javax.ws.rs.Consumes;
@@ -56,6 +58,12 @@ public class UserController{
      */
     @Autowired
     private NutricionistAssessmentService nutricionistAssessmentService;
+    
+    /**
+     * Bean of the nutricionist Comment service (Interface)
+     */
+    @Autowired
+    private NutricionistCommentService nutricionistCommentService;
     
     /**
      * Bean of the assessment service (Interface)
@@ -172,6 +180,28 @@ public class UserController{
             return user;
         }
         return new User();
+    }
+    
+    /**
+     * Method to create the nutricionist assessment // HTTP verb: POST url: http://localhost:8080/api/user/createNutricionistAssessment
+     * @param assessment object that represents the nutricionist assessment to persist
+     * @return a boolean that indicates if the nutricionist assessment has been successfully inserted or not
+     */
+    @PostMapping("/createNutricionistAssessment")
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    public Boolean createNutricionistAssessment(@RequestBody NutricionistAssessment assessment){
+        return nutricionistAssessmentService.createNutricionistAssessment(assessment);
+    }
+    
+    /**
+     * Method to create the nutricionist comment // HTTP verb: POST url: http://localhost:8080/api/user/createNutricionistComment
+     * @param comment object that represents the nutricionist comment to persist
+     * @return a boolean that indicates if the nutricionist v has been successfully inserted or not
+     */
+    @PostMapping("/createNutricionistComment")
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    public Boolean createNutricionistComment(@RequestBody NutricionistComment comment){
+        return nutricionistCommentService.createComment(comment);
     }
     
     /**

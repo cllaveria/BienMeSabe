@@ -93,8 +93,17 @@ public interface RecipeDAO {
     /**
      * Method to modify an recipe in the table recipes of the DB
      * @param recipe object that represents the recipe to modify
+     * @return boolean that represents if the recipe has been successfully modified or not
      */
-    public void modifyRecipe(Recipe recipe);
+    public boolean modifyRecipe(Recipe recipe);
+    
+    /**
+     * Method to update the image path of a recipe in the table recipes of the DB
+     * @param path string with the path of the recipe image
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that represents if the path of the recipe image has been successfully updated or not
+     */
+    public boolean updateImageRecipePath(String path, long recipeId);
     
     /**
      * Method to asign a recipe as active
