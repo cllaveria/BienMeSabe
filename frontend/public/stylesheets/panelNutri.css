@@ -49,7 +49,7 @@ i {
 }
 
 #nameNutri:hover,
-i:hover {
+.nutrist > i:hover {
   color: #fca035;
 }
 
