@@ -43,6 +43,10 @@ public class Nutricionist extends User{
     @JoinColumn(name = "NUTRICIONIST_ID")
     private List<NutricionistAssessment> assessments;
     
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "NUTRICIONIST_ID")
+    private List<NutricionistComment> comment;
+    
     /**
      * Empty Constructor
      */
@@ -191,6 +195,22 @@ public class Nutricionist extends User{
      */
     public void setNutricionistAssessment(int nutricionistAssessment) {
         this.nutricionistAssessment = nutricionistAssessment;
+    }
+
+    /**
+     * Method to recover the nutricionist comments
+     * @return an integer that represents the comments of the nutricionist  
+     */
+    public List<NutricionistComment> getComment() {
+        return comment;
+    }
+
+    /**
+     * Method to asign the nutricionist comments
+     * @param comment integer that represents the comments of the nutricionist to set
+     */
+    public void setComment(List<NutricionistComment> comment) {
+        this.comment = comment;
     }
 
     
