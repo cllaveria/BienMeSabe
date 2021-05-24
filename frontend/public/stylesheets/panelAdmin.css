@@ -30,7 +30,7 @@
   gap: 50px;
 }
 
-.nutrist {
+.email {
   border: solid 1px #a6aa9c;
   display: inline-flex;
   gap: 20px;
@@ -49,13 +49,8 @@ i {
 }
 
 #nameNutri:hover,
-i:hover {
+.nutrist > i:hover {
   color: #fca035;
-}
-
-.far,
-.fas {
-  font-size: 18px;
 }
 
 .diet {
@@ -74,7 +69,7 @@ i:hover {
     gap: 20px;
   }
 
-  .nutrist {
+  .email {
     margin-left: 0px;
   }
 
@@ -95,7 +90,7 @@ i:hover {
     gap: 20px;
   }
 
-  .nutrist {
+  .email {
     margin-left: 0px;
     justify-content: space-between;
   }
@@ -209,7 +204,7 @@ input {
   padding-bottom: 20px;
 }
 
-.nutrist_container {
+.message_container {
   display: block;
 }
 
@@ -218,26 +213,26 @@ input {
 }
 
 /*---Nutritionist page---*/
-.user_cont {
+.message {
   display: inline-flex;
   gap: 50px;
   margin-top: 20px;
 }
 
 @media (max-width: 1240px) and (min-width: 1020px) {
-  .user_cont {
+  .message {
     gap: 20px;
   }
 }
 
 @media (max-width: 1020px) and (min-width: 770px) {
-  .user_cont {
+  .message {
     width: 400px;
   }
 }
 
 @media (max-width: 1020px) {
-  .user_cont {
+  .message {
     display: grid;
     gap: 0;
   }

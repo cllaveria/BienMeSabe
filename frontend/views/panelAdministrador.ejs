@@ -17,14 +17,13 @@
     <script src="../javascripts/collapseSidebar.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel='stylesheet' href='/stylesheets/misRecetas.css' />
+    <link rel='stylesheet' href='/stylesheets/panelAdmin.css' />
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
         </script>
     <script src="../javascripts/token.js"></script>
     <script src="../javascripts/panellAdminValidate.js"></script>
-    <script src="../javascripts/insertRecipe.js"></script>
-    <script src="../javascripts/myRecipes.js"></script>
+    <script src="../javascripts/panellAdmin.js"></script>
     <!-- Encriptador MD5 -->
     <script src="http://pajhome.org.uk/crypt/md5/2.2/md5-min.js"></script>
 
@@ -42,17 +41,30 @@
                     <!-- Page Content-->
                     <div id="page-content-wrapper">
                         <div class="container-fluid">
-                            <h1 class="mt-4">Mis recetas</h1>
-                            <button class="button btn_add" id='submit' onclick="location.href='/crearReceta';">Añadir
-                                receta</button>
-                            <div class="tableRec">
-                                <table id='recipes'>
-                                </table>
-                            </div>
-                            <div class="val">
+                            <!-- Nutritionist page -->
+                            <div class="message_container">
+                                <h1 class="mt-4">Mensajes</h1>
                             </div>
                         </div>
                     </div>
+            </div>
+        </div>
+        <div class="modal fade" id="viewMessage" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="button" data-dismiss="modal">Aceptar</button>
+
+                    </div>
+                </div>
             </div>
         </div>
 
