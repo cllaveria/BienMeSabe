@@ -88,7 +88,15 @@ public class RecipeIngredientServiceImpl implements RecipeIngredientService{
     public boolean updateRecipeIngredient(RecipeIngredients recipeIngredient) {
         return recipeIngredientDAO.updateRecipeIngredient(recipeIngredient);
     }
-    
+    /**
+     * Implementation of interface method to update the recipe Kcal in the table recipes of the DB
+     * @param recipeId  long that represents the id of the recipe to update
+     * @return boolean that represents if the recipe KCal has been successfully updated or not
+     */
+    @Override
+    public boolean updateKCALOfRecipe(long recipeId){
+        return recipeIngredientDAO.updateKCALOfRecipe(recipeId);
+    }
     
     
 }

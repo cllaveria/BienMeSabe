@@ -5,8 +5,9 @@
  */
 package com.bienmesabe.rest.DAO.impl;
 
+import com.bienmesabe.rest.DAO.IngredientDAO;
 import com.bienmesabe.rest.DAO.RecipeIngredientDAO;
-import com.bienmesabe.rest.domain.Recipe;
+import com.bienmesabe.rest.domain.Ingredient;
 import com.bienmesabe.rest.domain.RecipeIngredients;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -30,6 +31,9 @@ public class RecipeIngredientDAOImpl implements RecipeIngredientDAO{
     @Autowired
     private EntityManager entityManager;
 
+    @Autowired
+    private IngredientDAO ingredientDAO;
+    
     /**
      * Implementation of interface method to create a recipe ingredient in the table recipeingredients of the DB
      * @param ingredient object that represents the ingredient of the recipe to persist
@@ -52,9 +56,7 @@ public class RecipeIngredientDAOImpl implements RecipeIngredientDAO{
         }
         if(recipeIngredientInDB==null){
             currentSession.save(ingredient); 
-            List<RecipeIngredients> ingredients = getRecipeIngredientsById(ingredient.getRecipeId());
-            float kcal = getKCalByIngredients(ingredients);
-            return updateRecipeKcal(kcal,ingredient.getRecipeId());
+            return updateKCALOfRecipe(ingredient.getRecipeId());
         }
         return false;
     }
@@ -123,11 +125,31 @@ public class RecipeIngredientDAOImpl implements RecipeIngredientDAO{
     public boolean updateRecipeIngredient(RecipeIngredients recipeIngredient){
         Session currentSession = entityManager.unwrap(Session.class);
         try{
-            currentSession.saveOrUpdate(recipeIngredient);
+            Ingredient ingredientR = ingredientDAO.findIngredientById(recipeIngredient.getIngredientId());
+            recipeIngredient.setIngredientKCAL(ingredientR.getKcal()*recipeIngredient.getIngredientQTY() /100);
+            Query<RecipeIngredients> query = currentSession.createQuery("Update RecipeIngredients set ingredientQTY=:qty,ingredientUnity=:unity, ingredientKCAL=:kcal WHERE ingredientId=:ingredientId");
+            query.setParameter("qty", recipeIngredient.getIngredientQTY());
+            query.setParameter("unity", recipeIngredient.getIngredientUnity());
+            query.setParameter("kcal", recipeIngredient.getIngredientKCAL());
+            query.setParameter("ingredientId", recipeIngredient.getIngredientId());
+            query.executeUpdate();
             return true;
         }catch(Exception ee){
             return false;
         }
         
+    }
+    
+    /**
+     * Implementation of interface method to update the recipe Kcal in the table recipes of the DB
+     * @param recipeId  long that represents the id of the recipe to update
+     * @return boolean that represents if the recipe KCal has been successfully updated or not
+     */
+    @Override
+    @Transactional
+    public boolean updateKCALOfRecipe(long recipeId){
+        List<RecipeIngredients> ingredients = getRecipeIngredientsById(recipeId);
+        float kcal = getKCalByIngredients(ingredients);
+        return updateRecipeKcal(kcal,recipeId);
     }
 }

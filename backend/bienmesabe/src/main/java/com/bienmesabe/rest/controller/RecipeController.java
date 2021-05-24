@@ -226,7 +226,11 @@ public class RecipeController {
     @PutMapping("/modifyRecipeIngredient")
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     public boolean updateRecipeIngredient(@RequestBody RecipeIngredients ingredient){
-        return recipeIngredientService.updateRecipeIngredient(ingredient);
+        boolean res =  recipeIngredientService.updateRecipeIngredient(ingredient);
+        if(res){
+            return recipeIngredientService.updateKCALOfRecipe(ingredient.getRecipeId());
+        }
+        return res;
     }
     
     /**

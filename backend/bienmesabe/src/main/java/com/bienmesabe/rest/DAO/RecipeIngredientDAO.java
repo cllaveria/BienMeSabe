@@ -36,4 +36,11 @@ public interface RecipeIngredientDAO {
      */
     public boolean updateRecipeIngredient(RecipeIngredients recipeIngredient);
     
+    
+    /**
+     * Method to update the recipe Kcal in the table recipes of the DB
+     * @param recipeId  long that represents the id of the recipe to update
+     * @return boolean that represents if the recipe KCal has been successfully updated or not
+     */
+    public boolean updateKCALOfRecipe(long recipeId);
 }
