@@ -5,6 +5,7 @@
  */
 package com.bienmesabe.rest.domain;
 
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,18 +35,18 @@ public class Nutricionist extends User{
     @Column(name="COMPANY_TELEPHONE")
     private String companyPhone;
     @Column(name="NUTRICIONIST_ASSESSMENT")
-    private int nutricionistAssessment;
+    private int nutricionistAssessment = 0;
     
     @OneToMany(mappedBy = "nutricionist", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<NutricionistDegree> nutricionistDegree;
+    private List<NutricionistDegree> nutricionistDegree = Collections.EMPTY_LIST;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "NUTRICIONIST_ID")
-    private List<NutricionistAssessment> assessments;
+    private List<NutricionistAssessment> assessments = Collections.EMPTY_LIST;
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "NUTRICIONIST_ID")
-    private List<NutricionistComment> comment;
+    private List<NutricionistComment> comment = Collections.EMPTY_LIST;
     
     /**
      * Empty Constructor

@@ -115,7 +115,6 @@ public class NutricionistDAOImpl implements NutricionistDAO{
      * @return a long with the id of the persisted nutricionist
      */
     @Override
-    @Transactional
     public Long createNutricionist(Nutricionist nutricionist) {
         Session currentSession = entityManager.unwrap(Session.class);
         
@@ -130,8 +129,13 @@ public class NutricionistDAOImpl implements NutricionistDAO{
             nutricionistInDB = null;
         }
         if(nutricionistInDB==null){
-            Long idGenerado = (Long) currentSession.save(nutricionist); 
-            return idGenerado;
+            try{
+                currentSession.save(nutricionist); 
+                return 1L;
+            }catch(Exception e){
+                return 0L;
+            }
+            
         }
         return 0L;
     }

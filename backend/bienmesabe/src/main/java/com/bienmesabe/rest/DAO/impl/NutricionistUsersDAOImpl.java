@@ -40,10 +40,10 @@ public class NutricionistUsersDAOImpl implements NutricionistUsersDAO{
         Session currentSession = entityManager.unwrap(Session.class);
         Query<NutricionistUsers> query = currentSession.createQuery("FROM NutricionistUsers where userId=:user", NutricionistUsers.class);
         query.setParameter("user", userAssignment.getUserId());
-        NutricionistUsers user = query.getSingleResult();
-        if(user == null){
-            currentSession.save(userAssignment);
-            return true;
+        List<NutricionistUsers> user = query.getResultList();
+        if(user.isEmpty()){
+           currentSession.save(userAssignment);
+            return true; 
         }else{
             return false;
         }
