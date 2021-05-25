@@ -29,6 +29,10 @@ $(document).ready(function () {
                 $('.dropdownMenu').prepend('<a class="list-group-item list-group-item-action menudp" href="/panelAdministrador">\
                                              <p>Administración</p>\
                                          </a>')
+
+                $('.dropdownMenuResp').prepend('<div class="item_block">\
+                                                    <span class="login" onclick="location.href=\'/panelAdministrador\';">Administración</span>\
+                                                </div>');
             }
         }
     });

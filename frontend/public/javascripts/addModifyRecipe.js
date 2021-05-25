@@ -266,7 +266,7 @@ $(document).ready(function () {
                                                 <div class="pasos">\
                                                     <div class="inputs">\
                                                         <label>Descripción paso ' + ($index + 1) + '</label>\
-                                                        <textarea class="desc_pas" value="' + $recipeSteps.id + '" id="desc_pas_' + $index + '" type="text"\
+                                                        <textarea class="desc_pas" value="' + $recipeSteps.id + '" id="desc_pas_' + $index + '"\
                                                          placeholder="Introduce la descripción del paso ' + ($index + 1) + '">' + $recipeSteps.stepDescription + '</textarea>\
                                                     </div>\
                                                     <div class="inputs dropzone">\

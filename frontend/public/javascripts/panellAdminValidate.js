@@ -29,7 +29,7 @@ $(document).ready(function () {
                 $('.list-group-flush').prepend('<a class="list-group-item list-group-item-action bg-light" id="administrator" href="/panelAdministrador">\
                                                     <p class="noToggle">Administración</p>\
                                                     <i class="fas fa-user siToggle noShow"></i>\
-                                                </a>');
+                                                </a>');               
             }
         }
     });

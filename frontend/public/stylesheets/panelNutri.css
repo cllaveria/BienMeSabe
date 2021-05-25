@@ -131,6 +131,13 @@ input {
   border: 1px solid #ced4da;
   padding: 15px;
   width: 200px;
+  border-radius: 3px;
+}
+
+input:focus {
+  border: 2px solid #fca035;
+  outline: 0;
+  border-radius: 3px;
 }
 
 .nutritionists {
