@@ -208,18 +208,18 @@ public class RecipeController {
      * @param recipeId string that represents the id of the recipe
      * @return a boolean that indicates if the image has been successfully uploaded or not
      */
-    
     @PostMapping("/uploadImageFile")
-    public boolean uploadImageFile(@RequestParam("file") MultipartFile file, @RequestParam("recipeId") String recipeId){
+    @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String uploadImageFile(@RequestParam("file") MultipartFile file, @RequestParam("recipeId") String recipeId){
         try{
             String path = uploadFileService.saveImageFile(file);
             if(path != ""){
-                return recipeService.updateImageRecipePath(path, Long.parseLong(recipeId));
+                return path;
             }else{
-                return false;
+                return "";
             }
         }catch(NumberFormatException ee){
-            return false;
+            return "";
         }
     }
     
@@ -244,8 +244,6 @@ public class RecipeController {
         return recipeStepService.insertRecipeStep(step);
     }
 
-    
-    
     /**
      * Method to modify the recipe // HTTP verb: PUT url: http://localhost:8080/api/recipe/modifyRecipe
      * @param recipe object that represents the recipe to modify
