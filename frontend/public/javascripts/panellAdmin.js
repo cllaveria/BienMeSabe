@@ -29,7 +29,7 @@ $(document).ready(function () {
             $.each($messages, function ($i, $message) {
                 $('.message_container').append('<div class="message">\
                                             <div class="email">\
-                                            <h5 class="emailUser" value="' + $message.message + '">' + $message.messageSubject + '</h5>\
+                                            <h5 class="emailUser" title="' + $message.message + '">' + $message.messageSubject + '</h5>\
                                                 <i class="far fa-envelope"></i>\
                                                 <i class="fas fa-trash-alt"></i>\
                                         </div></div>');
@@ -39,7 +39,7 @@ $(document).ready(function () {
 
     $('.emailUser').on('click', function () {
         $('.modal-header').html($(this).text())
-        $('.modal-body').html($(this).attr('value'))
+        $('.modal-body').html($(this).attr('title'))
         $('#viewMessage').modal('show');
     });
 

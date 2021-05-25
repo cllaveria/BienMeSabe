@@ -64,7 +64,7 @@ $(document).ready(function () {
                 if ($recipe.userId == $IDuser) {
                     console.log($recipe)
                     $forks = getForks($recipe.recipeAssessment);
-                    $('#recipes').append('<tr value="' + $recipe.id + '">\
+                    $('#recipes').append('<tr title="' + $recipe.id + '">\
                                             <td class="nameRec" ><a href="http://localhost:3000/recetas/ficha?id=' + $recipe.id + '">' + $recipe.name + '</a></td>\
                                             <td><i class="fas fa-pen icon btn_modifyRecipe"></i></td>\
                                             <td><i class="fas fa-trash-alt icon btn_deleteRecipe"></i></td>\
@@ -84,7 +84,7 @@ $(document).ready(function () {
     $('.btn_deleteRecipe').on('click', function () {
 
         $.ajax({
-            url: 'http://localhost:8080/api/recipe/deleteRecipeById/' + $(this).parent().parent().attr('value'),
+            url: 'http://localhost:8080/api/recipe/deleteRecipeById/' + $(this).parent().parent().attr('title'),
             type: 'DELETE',
             headers: {
                 'Authorization': $token
@@ -115,6 +115,6 @@ $(document).ready(function () {
      * @descriptionQuan Quan l'usuari polsa sobre el botó "Añadir receta" és redirigeix a la pàgina per crear la nova recepta.
      */
     $('.btn_modifyRecipe').on('click', function () {
-        window.location = '/crearReceta?id=' + $(this).parent().parent().attr('value');
+        window.location = '/crearReceta?id=' + $(this).parent().parent().attr('title');
     });
 });
