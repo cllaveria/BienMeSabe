@@ -17,12 +17,6 @@
  */
 $(document).ready(function () {
     /**
-     * @constant $urlLatestRecipes
-     * @type {String}
-     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar totes les receptes en ordre de les últimes afegides.
-     */
-    const $urlLatestRecipes = 'http://localhost:8080/api/recipe/getRecipes';
-    /**
      * @constant $urlRecipe
      * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor per veure la fitxa de les receptes.
@@ -167,6 +161,8 @@ $(document).ready(function () {
      * @description Variable per emmagatzemar la recepta modificada en format JSON.
      */
     let $JSONmodifyRecipe;
+    let $JSONmodifyingredients;
+
     /** 
      * @var $JSONmodifySteps 
      * @type {JSON}
@@ -216,7 +212,6 @@ $(document).ready(function () {
                 'Authorization': $token
             },
             success: function ($recipe) {
-                console.log($recipe)
                 $JSONrecipe = $recipe
                 $('#inp_name').val($recipe.name)
                 $('#imageVideoRecipe').text(trimImage($recipe.image))
@@ -271,7 +266,7 @@ $(document).ready(function () {
                                                 <div class="pasos">\
                                                     <div class="inputs">\
                                                         <label>Descripción paso ' + ($index + 1) + '</label>\
-                                                        <textarea class="desc_pas" id="desc_pas_' + $index + '" type="text"\
+                                                        <textarea class="desc_pas" value="' + $recipeSteps.id + '" id="desc_pas_' + $index + '" type="text"\
                                                          placeholder="Introduce la descripción del paso ' + ($index + 1) + '">' + $recipeSteps.stepDescription + '</textarea>\
                                                     </div>\
                                                     <div class="inputs dropzone">\
@@ -385,7 +380,6 @@ $(document).ready(function () {
 
     $('.btn_save').on('click', () => {
         $nameRecipe = $('#inp_name').val();
-        console.log($('input[name="imageVideoRecipe"')[0].files[0])
 
         $image.append('image', $('input[name="imageVideoRecipe"')[0].files[0]);
         $descriptionInitRecipe = $('#inp_description').val();
@@ -398,24 +392,23 @@ $(document).ready(function () {
         });
 
         $('.pasos_cont').each(function () {
-            $arrayStepsAdd.push([$(this).find('.desc_pas').val(), $(this).find('#imageStep').prev().val()])
+            $arrayStepsAdd.push([$(this).find('.desc_pas').val(), $(this).find('.desc_pas').attr('value'), $(this).find('#imageStep').prev().val()])
         })
 
         $endescriptionFinalRecipe = $('#inp_descriptionEnding').val();
 
         if ($idRecipe != '') {
             $JSONmodifyRecipe = {
-                'id': $JSONrecipe.id,
+                'id': eval($JSONrecipe.id),
+                'image': null,
                 'name': $nameRecipe,
-                'recipeEndingDescription': $endescriptionFinalRecipe,
-                'recipeInitDescription': $descriptionInitRecipe,
-                'userId': eval($IDuser),
-                'active': $JSONrecipe.active,
-                'recipeAssessment': $JSONrecipe.recipeAssessment,
-                'recipeDifficult': eval($difficult),
-                'recipeDinners': $JSONrecipe.recipeDinners,
-                'recipeTime': eval($time),
+                'preparationVideo': null,
                 'type': eval($type),
+                'recipeDinners': eval($JSONrecipe.recipeDinners),
+                'recipeTime': eval($time),
+                'recipeDifficult': eval($difficult),
+                'recipeEndingDescription': $endescriptionFinalRecipe,
+                'recipeInitDescription': $descriptionInitRecipe
             };
 
             $JSONmodifyRecipe = JSON.stringify($JSONmodifyRecipe)
@@ -430,17 +423,104 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function () {}
             });
+            $.each($arrayIngredientsAdd, function ($i, $newIngredients) {
+                $.each($arrayIngredients, function ($x, $ingredientsArray) {
+                    if ($ingredientsArray.name == $newIngredients[2]) {
+                        $.each($JSONrecipe.recipeIngredients, function ($j, $ingredientsRecipe) {
+                            if ($ingredientsRecipe.id == $ingredientsArray.id) {
+                                if ($ingredientsRecipe.ingredientQTY != $newIngredients[1] || $ingredientsRecipe.ingredientUnity != $newIngredients[0]) {
 
-            /* $.ajax({
-                url:
-            }) */
+                                    $JSONmodifyingredients = {
+                                        'id': eval($ingredientsRecipe.id),
+                                        'ingredientId': eval($ingredientsArray.id),
+                                        'ingredientQTY': eval($newIngredients[1]),
+                                        'ingredientUnity': $newIngredients[0],
+                                        'recipeId': eval($JSONrecipe.id)
+                                    }
+
+                                    $JSONmodifyingredients = JSON.stringify($JSONmodifyingredients)
+                                    $.ajax({
+                                        url: 'http://localhost:8080/api/recipe/modifyRecipeIngredient',
+                                        type: 'PUT',
+                                        data: $JSONmodifyingredients,
+                                        headers: {
+                                            'Authorization': $token
+                                        },
+                                        contentType: "application/json",
+                                        dataType: "json",
+                                        success: function () {}
+                                    })
+                                }
+                            }
+                        });
+
+                        $.ajax({
+                            url: $urlAddIngredients + 'recipe---' + $JSONrecipe.id + '___id---' + $ingredientsArray.id + '___qty---' + $newIngredients[1] + '___unity---' + $newIngredients[0],
+                            type: 'POST',
+                            async: false,
+                            headers: {
+                                'Authorization': $token
+                            }
+                        });
+                    }
+                });
+            });
+
+            $.each($JSONrecipe.recipeSteps, function ($x, $stepsRecipe) {
+
+                $JSONmodifySteps = {
+                    'id': eval($stepsRecipe.id),
+                    'image': null,
+                    'recipeId': eval($stepsRecipe.recipeId),
+                    'stepDescription': $arrayStepsAdd[$x][0]
+
+                }
+
+                $JSONmodifySteps = JSON.stringify($JSONmodifySteps)
+                $.ajax({
+                    url: 'http://localhost:8080/api/recipe/modifyRecipeStep',
+                    type: 'PUT',
+                    data: $JSONmodifySteps,
+                    headers: {
+                        'Authorization': $token
+                    },
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function () {}
+                });
+            });
+
+            if ($arrayStepsAdd.length != $JSONrecipe.recipeSteps.length){
+                for (let i = $JSONrecipe.recipeSteps.length; i < $arrayStepsAdd.length; i++) {
+                    $JSONmodifySteps = {
+                        'stepDescription': $arrayStepsAdd[i][0],
+                        'recipeId': eval($JSONrecipe.id),
+                        'image': null
+                    }
+                
+                    $JSONmodifySteps = JSON.stringify($JSONmodifySteps)
+
+                    $.ajax({
+                        url: $urlAddSteps,
+                        type: 'POST',
+                        async: false,
+                        data: $JSONmodifySteps,
+                        headers: {
+                            'Authorization': $token
+                        },
+                        contentType: "application/json",
+                        dataType: "json",
+                        success: function () {}
+                    });
+                    
+                }
+            }
         } else {
             $JSONmodifyRecipe = {
                 'name': $nameRecipe,
                 'recipeEndingDescription': $endescriptionFinalRecipe,
                 'recipeInitDescription': $descriptionInitRecipe,
                 'userId': eval($IDuser),
-                //TODO: Modificar si da tiempo.
                 'active': eval(1),
                 'recipeAssessment': eval(0),
                 'recipeDifficult': eval($difficult),
@@ -477,7 +557,7 @@ $(document).ready(function () {
                     });
 
                     $.each($arrayStepsAdd, function ($i, $stepsAdd) {
-                        if($stepsAdd[0].length > 1){
+                        if ($stepsAdd[0].length > 1) {
                             $JSONmodifySteps = {
                                 'stepDescription': $stepsAdd[0],
                                 'recipeId': eval($inserRecipe),
@@ -485,7 +565,7 @@ $(document).ready(function () {
                             }
                         }
                         $JSONmodifySteps = JSON.stringify($JSONmodifySteps)
-                        
+
                         $.ajax({
                             url: $urlAddSteps,
                             type: 'POST',
@@ -505,6 +585,6 @@ $(document).ready(function () {
     });
 
     $('.btn_checkIn').on('click', () => {
-        window.location.href='/misRecetas';
+        window.location.href = '/misRecetas';
     })
 });

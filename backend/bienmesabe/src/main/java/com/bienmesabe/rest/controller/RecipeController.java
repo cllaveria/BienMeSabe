@@ -166,18 +166,17 @@ public class RecipeController {
     /**
      * Method to create the recipe // HTTP verb: POST url: http://localhost:8080/api/recipe/addRecipe
      * @param recipe object that represents the recipe to persist
-     * @return the recipe object persisted or null if not
+     * @return long that represents the id of the inserted recipe
      */
     
     @PostMapping("/addRecipe")
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    public Boolean addRecipe(@RequestBody Recipe recipe){
+    public Long addRecipe(@RequestBody Recipe recipe){
         Long createdRecipe = recipeService.createRecipe(recipe);
         if(createdRecipe > 0){
-            recipe.setId(createdRecipe);
-            return true;
+            return createdRecipe;
         }
-        return false;
+        return 0L;
     }
     
     /**
@@ -227,7 +226,11 @@ public class RecipeController {
     @PutMapping("/modifyRecipeIngredient")
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     public boolean updateRecipeIngredient(@RequestBody RecipeIngredients ingredient){
-        return recipeIngredientService.updateRecipeIngredient(ingredient);
+        boolean res =  recipeIngredientService.updateRecipeIngredient(ingredient);
+        if(res){
+            return recipeIngredientService.updateKCALOfRecipe(ingredient.getRecipeId());
+        }
+        return res;
     }
     
     /**
