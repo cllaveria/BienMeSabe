@@ -148,11 +148,12 @@ public class NutricionistDAOImpl implements NutricionistDAO{
      * @param companyPostalCode string that represents the company postal code of the nutricionist to asign
      * @param companyCity string that represents the company city of the nutricionist to asign
      * @param companyPhone string that represents the company phone of the nutricionist to asign
+     * @param description string that represents the description of the nutricionist to asign
      * @return a boolean that represents if the nutricionist information has been successfully updated or not
      */
     @Override
     @Transactional
-    public Boolean modifyNutricionist(Long nutricionistId, String companyName, String companyDirection, String companyPostalCode, String companyCity, String companyPhone) {
+    public Boolean modifyNutricionist(Long nutricionistId, String companyName, String companyDirection, String companyPostalCode, String companyCity, String companyPhone, String description) {
         Session currentSession = entityManager.unwrap(Session.class);
         try{
             String updates = "update Nutricionist set ";
@@ -162,6 +163,7 @@ public class NutricionistDAOImpl implements NutricionistDAO{
             if(companyPostalCode != null && !companyPostalCode.isEmpty()) updates +=  "companyPostalCode=:newCompanyPostalCode, ";
             if(companyCity != null && !companyCity.isEmpty()) updates +=  "companyCity=:newCompanyCity, ";
             if(companyPhone != null && !companyPhone.isEmpty()) updates +=  "companyPhone=:newCompanyPhone, ";
+            if(description != null && !description.isEmpty()) updates +=  "nutricionistDescription=:description, ";
             
             updates = updates.substring(0, updates.length() -2);
             updates += " WHERE id=:nutricionistId";
@@ -173,6 +175,7 @@ public class NutricionistDAOImpl implements NutricionistDAO{
             if(companyPostalCode != null && !companyPostalCode.isEmpty()) query.setParameter("newCompanyPostalCode", companyPostalCode);
             if(companyCity != null && !companyCity.isEmpty()) query.setParameter("newCompanyCity", companyCity);
             if(companyPhone != null && !companyPhone.isEmpty()) query.setParameter("newCompanyPhone", companyPhone);
+            if(description != null && !description.isEmpty()) query.setParameter("description", description);
             
             query.executeUpdate();
             return true;

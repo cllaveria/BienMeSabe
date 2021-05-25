@@ -34,6 +34,9 @@ public class Nutricionist extends User{
     private String companyCity;
     @Column(name="COMPANY_TELEPHONE")
     private String companyPhone;
+    @Column(name="NUTRICIONIST_DESCRIPTION")
+    private String nutricionistDescription = "";
+    
     @Column(name="NUTRICIONIST_ASSESSMENT")
     private int nutricionistAssessment = 0;
     
@@ -213,6 +216,23 @@ public class Nutricionist extends User{
     public void setComment(List<NutricionistComment> comment) {
         this.comment = comment;
     }
+    
+    /**
+     * Method to recover the nutricionist description
+     * @return an string that represents the description of the nutricionist  
+     */
+    public String getNutricionistDescription() {
+        return nutricionistDescription;
+    }
 
+    /**
+     * Method to asign the nutricionist description
+     * @param nutricionistDescription string that represents the description of the nutricionist  
+     */
+    public void setNutricionistDescription(String nutricionistDescription) {
+        this.nutricionistDescription = nutricionistDescription;
+    }
+
+    
     
 }
