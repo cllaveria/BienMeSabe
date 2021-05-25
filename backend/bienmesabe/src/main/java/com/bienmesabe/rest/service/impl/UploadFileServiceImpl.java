@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class UploadFileServiceImpl implements UploadFileService{
 
-    private String upload_folder = "E:\\\\Google Drive\\\\CURSO CFGS DAW\\\\Practicas\\\\6 - Semestre 6\\\\0 - Proyecto\\\\00_proyecto\\\\Sergio\\\\BienMeSabe\\\\frontend\\\\public\\\\media\\\\";
+    private String upload_folder = "E:\\Google Drive\\CURSO CFGS DAW\\Practicas\\6 - Semestre 6\\0 - Proyecto\\00_proyecto\\Sergio\\BienMeSabe\\frontend\\public\\media\\";
     
     /**
      * Implementation of interface method to upload the recipe image

@@ -205,16 +205,15 @@ public class RecipeController {
     /**
      * Method to create the recipe // HTTP verb: POST url: http://localhost:8080/api/recipe/uploadImageFile
      * @param file object that represents the image of the recipe to upload
-     * @param recipeId string that represents the id of the recipe
      * @return a boolean that indicates if the image has been successfully uploaded or not
      */
     @PostMapping("/uploadImageFile")
     @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String uploadImageFile(@RequestParam("file") MultipartFile file, @RequestParam("recipeId") String recipeId){
+    public String uploadImageFile(@RequestParam("file") MultipartFile file){
         try{
             String path = uploadFileService.saveImageFile(file);
             if(path != ""){
-                return path;
+                return path.replace("E:\\Google Drive\\CURSO CFGS DAW\\Practicas\\6 - Semestre 6\\0 - Proyecto\\00_proyecto\\Sergio\\BienMeSabe\\frontend\\public\\","");
             }else{
                 return "";
             }
