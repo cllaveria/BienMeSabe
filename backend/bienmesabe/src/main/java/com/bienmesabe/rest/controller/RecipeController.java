@@ -310,4 +310,25 @@ public class RecipeController {
         
         return null;
     }
+    
+    /**
+     * Method to delete the recipe ingredients // HTTP verb: DELETE url: http://localhost:8080/api/recipe/deleteRecipeIngredients/{id}
+     * @param id string with the id of the recipe to delete
+     * @return an string that informs the id of the deleted recipe
+     */
+    @DeleteMapping("deleteRecipeIngredients/{id}")
+    public boolean deleteRecipeIngredients(@PathVariable String id){
+        return recipeIngredientService.deleteRecipeIngredients(Long.parseLong(id));
+    }
+    
+    /**
+     * Method to delete the recipe steps // HTTP verb: DELETE url: http://localhost:8080/api/recipe/deleteRecipeSteps/{id}
+     * @param id string with the id of the recipe to delete
+     * @return an string that informs the id of the deleted recipe
+     */
+    @DeleteMapping("deleteRecipeSteps/{id}")
+    public boolean deleteRecipeSteps(@PathVariable String id){
+        return recipeStepService.deleteRecipeSteps(Long.parseLong(id));
+    }
+    
 }

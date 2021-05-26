@@ -12,6 +12,7 @@ import com.bienmesabe.rest.service.CommentService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -71,5 +72,15 @@ public class CommentController {
            return null;
        comment.setId(id);
        return comment;
+    }
+    
+    /**
+     * Method to delete the comments of a recipe // HTTP verb: DELETE url: http://localhost:8080/api/assessment//deleteComments/{recipeId}
+     * @param recipeId string that represents the id of the recipe
+     * @return a boolean that indicates if the comments has been deleted or not 
+     */
+    @DeleteMapping("/deleteComments/{recipeId}")
+    public boolean deleteComments(@PathVariable String recipeId){
+        return commentService.deleteComments(Long.parseLong(recipeId));
     }
 }

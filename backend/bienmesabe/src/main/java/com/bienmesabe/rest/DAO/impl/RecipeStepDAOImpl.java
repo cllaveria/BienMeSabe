@@ -70,4 +70,23 @@ public class RecipeStepDAOImpl implements RecipeStepDAO{
             return false;
         }
     }
+    
+    /**
+     * Implementation of interface method to delete the recipe steps of the recipe in the table recipe steps of the DB
+     * @param recipeId  long that represents the id of the recipe to update
+     * @return boolean that represents if the recipe steps has been successfully deleted or not
+     */
+    @Override
+    @Transactional
+    public boolean deleteRecipeSteps(long recipeId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        try{
+            Query<RecipeStep> query = currentSession.createQuery("delete RecipeStep where recipeId=:recipe");
+            query.setParameter("recipe", recipeId);
+            query.executeUpdate();
+            return true;
+        }catch(Exception ee){
+            return false;
+        }
+    }
 }

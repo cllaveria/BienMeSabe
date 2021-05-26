@@ -80,4 +80,16 @@ public class AssessmentServiceImpl implements AssessmentService{
         return assessmentDAO.modifyAssessment(newAssessment);
         
     }
+
+    /**
+     * Implementation of interface method to delete the assessments of a recipe
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that indicates if the assessments are successfully deleted or not
+     */
+    @Override
+    public boolean deleteAssessments(long recipeId) {
+        return assessmentDAO.deleteAssessments(recipeId);
+    }
+    
+    
 }

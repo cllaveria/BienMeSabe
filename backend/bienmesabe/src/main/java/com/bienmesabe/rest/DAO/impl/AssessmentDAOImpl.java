@@ -145,4 +145,23 @@ public class AssessmentDAOImpl implements AssessmentDAO{
             return false;
         }
     }
+
+    /**
+     * Implementation of interface method to delete the assessments of a recipe in the table assessments of the DB
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that indicates if the assessments are successfully deleted or not
+     */
+    @Override
+    @Transactional
+    public boolean deleteAssessments(long recipeId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Assessment> query = currentSession.createQuery("DELETE FROM Assessment WHERE recipeId=:recipe");
+        query.setParameter("recipe", recipeId);
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception ee){
+            return false;
+        }
+    }
 }
