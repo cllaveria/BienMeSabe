@@ -41,7 +41,7 @@
                         <div class="fallback">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" name="imageVideoRecipe"
-                                    id="dropzoneBasicUpload">
+                                    id="dropzoneBasicUpload" multiple="multiple">
                                 <label class="custom-file-label" id="imageVideoRecipe" for="dropzoneBasicUpload">Elije
                                     archivo</label>
                             </div>
@@ -207,8 +207,8 @@
                             <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
                                 <div class="fallback">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
-                                        <label class="custom-file-label" id="imageStep" for="dropzoneBasicUpload">Elije
+                                        <input type="file" name="image_pas_0" class="custom-file-input" id="dropzoneBasicUpload" multiple="multiple">
+                                        <label class="custom-file-label" id="image_pas_0" id="imagenpasos" for="dropzoneBasicUpload">Elije
                                             archivo</label>
                                     </div>
                                 </div>
@@ -228,8 +228,8 @@
                             <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
                                 <div class="fallback">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
-                                        <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
+                                        <input type="file" name="image_pas_1" class="custom-file-input" id="dropzoneBasicUpload" multiple="multiple">
+                                        <label class="custom-file-label" id="image_pas_1" for="dropzoneBasicUpload">Elije archivo</label>
                                     </div>
                                 </div>
                             </div>
@@ -248,8 +248,8 @@
                             <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
                                 <div class="fallback">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
-                                        <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
+                                        <input type="file" name="image_pas_2" class="custom-file-input" id="dropzoneBasicUpload" multiple="multiple">
+                                        <label class="custom-file-label" id="image_pas_2"  for="dropzoneBasicUpload">Elije archivo</label>
                                     </div>
                                 </div>
                             </div>
@@ -268,8 +268,8 @@
                             <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
                                 <div class="fallback">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
-                                        <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
+                                        <input type="file" name="image_pas_3" class="custom-file-input" id="dropzoneBasicUpload" multiple="multiple">
+                                        <label class="custom-file-label" id="image_pas_3"  for="dropzoneBasicUpload">Elije archivo</label>
                                     </div>
                                 </div>
                             </div>
@@ -288,8 +288,8 @@
                             <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
                                 <div class="fallback">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="dropzoneBasicUpload">
-                                        <label class="custom-file-label" for="dropzoneBasicUpload">Elije archivo</label>
+                                        <input type="file"  id="image_pas_4" class="custom-file-input" id="dropzoneBasicUpload" multiple="multiple">
+                                        <label class="custom-file-label" name="image_pas_4" for="dropzoneBasicUpload">Elije archivo</label>
                                     </div>
                                 </div>
                             </div>
@@ -303,11 +303,10 @@
                 <textarea id="inp_descriptionEnding"
                     placeholder="Introduce la descripción final de la receta"></textarea>
             </div>
-            <button class="button btn_save" type="button" data-toggle="modal"
-                data-target="#exampleModalCenter">GUARDAR</button>
+            <button class="button btn_save" type="button" data-toggle="modal">GUARDAR</button>
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            <div class="modal fade" id="addRecipe" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -324,6 +323,26 @@
                         <div class="modal-footer">
                             <button type="button" class="button btn_checkIn">Aceptar</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal add recipe -->
+        <div class="modal fade" id="modalAddComment" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Tienes que introducir mínimo el nombre de la receta y una imagen para poder guardarla.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="modalAddComment button" data-dismiss="modal">Aceptar</button>
+
                     </div>
                 </div>
             </div>

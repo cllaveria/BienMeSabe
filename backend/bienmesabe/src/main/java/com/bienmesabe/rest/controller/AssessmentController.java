@@ -12,6 +12,7 @@ import com.bienmesabe.rest.service.AssessmentService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -82,5 +83,15 @@ public class AssessmentController {
     @PutMapping("/modifyAssessment/{info}")
     public boolean modifyAssessment(@PathVariable String info){
         return assessmentService.modifyAssessment(info);
+    }
+    
+    /**
+     * Method to delete the assessments of a recipe // HTTP verb: DELETE url: http://localhost:8080/api/assessment/deleteAssessments/{recipeId}
+     * @param recipeId string that represents the id of the recipe
+     * @return a boolean that indicates if the assessments has been deleted or not 
+     */
+    @DeleteMapping("/deleteAssessments/{recipeId}")
+    public boolean deleteAssessments(@PathVariable String recipeId){
+        return assessmentService.deleteAssessments(Long.parseLong(recipeId));
     }
 }

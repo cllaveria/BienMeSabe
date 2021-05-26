@@ -41,4 +41,11 @@ public interface AssessmentService {
      * @return a boolean that represents if the assessment has been successfully updated or not
      */
     public Boolean modifyAssessment(String data);
+    
+    /**
+     * Method to delete the assessments of a recipe
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that indicates if the assessments are successfully deleted or not
+     */
+    public boolean deleteAssessments(long recipeId);
 }

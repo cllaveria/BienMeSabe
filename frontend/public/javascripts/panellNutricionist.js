@@ -18,11 +18,29 @@ $(document).ready(function () {
      */
     const $urlUser = 'http://localhost:8080/api/user/getUserById/';
     /**
+     * @const $urlUser
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor per recuperar al nutricionista contractat.
+     */
+    const $urlNutricionistHired = 'http://localhost:8080/api/user/getUserNutricionist/'
+    /**
+     * @const $urlSerachNutricionistCP
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor per recuperar les dades del nutricionista segons la cerca del codi postal.
+     */
+    const $urlSearchNutricionistCP = 'http://localhost:8080/api/nutricionist/findNutricionistByCP/';
+    /**
      * @const $urlSerachNutricionist
      * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor per recuperar les dades del nutricionista segons la cerca del codi postal.
      */
-    const $urlSerachNutricionist = 'http://localhost:8080/api/nutricionist/findNutricionistByCP/';
+    const $urlSearchNutricionist = 'http://localhost:8080/api/nutricionist/getNutricionistById/';
+    /**
+     * @const $urlSearchUsersNutricionist
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor per recuperar les dades dels usuaris que tenen el servei del nutricionista.
+     */
+    const $urlSearchUsersNutricionist = 'http://localhost:8080/api/user/getNutricionistUsers/';
     /** 
      * @var $token
      * @description Variable de tipus String per emmagatzemar el token desat en localStorage.
@@ -53,15 +71,45 @@ $(document).ready(function () {
 
 
     if ($typeUser != 2) {
+        //TODO: RAUL | Pendiente de que pueda hacer la conexión entre usuarios y nutricionistas.
         $('.nutrist_container').css('display', 'none');
 
-        //TODO: RAUL | Pendiente de que pueda hacer la conexión entre usuarios y nutricionistas.
+        $.ajax({
+            url: $urlNutricionistHired + $IDuser,
+            type: 'GET',
+            headers: {
+                'Authorization': $token
+            },
+            success: function ($nutricionist) {
+                $('.messageErrorNutrist').css('display', 'none');
+                $.ajax({
+                    url: $urlSearchNutricionist + $nutricionist,
+                    type: 'GET',
+                    headers: {
+                        'Authorization': $token
+                    },
+                    success: function ($nutricionistData) {
+                        $('.nutrist_cont').append('<div class="nutrist">\
+                                        <h5 id="nameNutri">' + $nutricionistData.name + '</h5>\
+                                        <i class="far fa-envelope"></i>\
+                                        <i class="fas fa-trash-alt"></i>\
+                                    </div>\
+                                    <div class="diet">\
+                                        <p id="fichero">Archivo dieta personal</p>\
+                                    </div>')
+                    }
+                });
+            },
+            error: function () {
+                $('.messageErrorNutrist').css('display', 'block');
+            }
+        });
 
         $('.btn_add').on('click', function () {
             $pcNutricionist = $(this).prev().val();
 
             $.ajax({
-                url: $urlSerachNutricionist + $pcNutricionist,
+                url: $urlSearchNutricionistCP + $pcNutricionist,
                 type: 'GET',
                 headers: {
                     'Authorization': $token
@@ -70,9 +118,11 @@ $(document).ready(function () {
                     //TODO: Pendiente de hacer lo de la valoración.
                     $('.nutritionists').empty();
                     $('.messageError').css('display', 'none');
-                    $('.nutritionists').append('<div class="infoNutri"><a href="http://localhost:3000/fichaNutri?id=' + $nutricionists[0].id + '"\
-                                                <p id="name">' + $nutricionists[0].name + '</p>\
-                                                <p id="dire">' + $nutricionists[0].companyDirection + '</p>\
+                    if ($nutricionists != '') {
+                        $.each($nutricionists, function ($i, $nutricionist) {
+                            $('.nutritionists').append('<div class="infoNutri"><a href="http://localhost:3000/fichaNutri?id=' + $nutricionist.id + '"\
+                                                <p id="name">' + $nutricionist.name + '</p>\
+                                                <p id="dire">' + $nutricionist.companyDirection + '</p>\
                                                 <p id="titul"></p>\
                                                 <div class="score_user">\
                                                     <img class="forkValue" id="fork1" value="5" src="/images/tenedor-gold.svg"\
@@ -86,10 +136,11 @@ $(document).ready(function () {
                                                     <img class="forkValue" id="fork5" value="1" src="/images/tenedor-black.svg"\
                                                         alt="tenedor" style="width: 15px; height: 30px;"></a>\
                                                 </div>')
-                },
-                error: function () {
-                    $('.nutritionists').empty();
-                    $('.messageError').css('display', 'block');
+                        });
+                    } else {
+                        $('.nutritionists').empty();
+                        $('.messageError').css('display', 'block');
+                    }
                 }
             });
         });
@@ -97,7 +148,41 @@ $(document).ready(function () {
     } else {
         //Parte nutricionista
         $('.user_container').css('display', 'none');
-
         $('.mt-4').html('Mis usuarios');
+
+        $.ajax({
+            url: $urlSearchUsersNutricionist + $IDuser,
+            type: 'GET',
+            headers: {
+                'Authorization': $token
+            },
+            success: function ($users) {
+                console.log($users)
+                $.each($users, function ($i, $user) {
+                    $.ajax({
+                        url: $urlUser + $user,
+                        type: 'GET',
+                        headers: {
+                            'Authorization': $token
+                        },
+                        success: function ($user) {
+                            $('.mt-4').after('<div class="user_cont">\
+                                                    <div class="nutrist">\
+                                                        <h5 id="nameNutri">' + $user.name + '</h5>\
+                                                        <i class="far fa-envelope"></i>\
+                                                        <i class="fas fa-trash-alt"></i>\
+                                                    </div>\
+                                                    <div class="diet">\
+                                                        <p id="fichero">Archivo dieta personal</p>\
+                                                    </div></div>')
+                        }
+                    });
+                });
+            }
+        });
+
+        $('.btn_see').on('click', () => {
+            window.location.href = '/fichaNutri?id=' + $IDuser;
+        });
     }
 });

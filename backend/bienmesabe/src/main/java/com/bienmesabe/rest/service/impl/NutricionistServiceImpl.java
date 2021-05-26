@@ -98,7 +98,7 @@ public class NutricionistServiceImpl implements NutricionistService {
     @Override
     public void modifyNutricionist(String nutricionist) {
         Long nutricionistId = 0L;
-        String companyName = "", companyDirection ="", companyPostalCode ="" , companyCity = "", companyPhone = "";
+        String companyName = "", companyDirection ="", companyPostalCode ="" , companyCity = "", companyPhone = "", description = "";
         String[] splittedNutricionist = nutricionist.split("___");
         String[] splittedNutricionistIds = splittedNutricionist[0].split("---");
         nutricionistId = Long.parseLong(splittedNutricionistIds[1]);
@@ -122,8 +122,11 @@ public class NutricionistServiceImpl implements NutricionistService {
             if(key.equals("phone")){
                 companyPhone = values;
             }
+            if(key.equals("description")){
+                description = values;
+            }
         }
-        nutricionistDAO.modifyNutricionist(nutricionistId, companyName, companyDirection, companyPostalCode, companyCity, companyPhone);
+        nutricionistDAO.modifyNutricionist(nutricionistId, companyName, companyDirection, companyPostalCode, companyCity, companyPhone, description);
     }
 
     /**

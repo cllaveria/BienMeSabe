@@ -28,46 +28,19 @@
     <div class="nutri_container">
         <!-- Score -->
         <div class="score_rec">
-            <img src="/images/tenedor-gold.svg" alt="tenedor" style="width: 20px; height: 40px;">
-            <img src="/images/tenedor-gold.svg" alt="tenedor" style="width: 20px; height: 40px;">
-            <img src="/images/tenedor-gold.svg" alt="tenedor" style="width: 20px; height: 40px;">
-            <img src="/images/tenedor-black.svg" alt="tenedor" style="width: 20px; height: 40px;">
-            <img src="/images/tenedor-black.svg" alt="tenedor" style="width: 20px; height: 40px;">
         </div>
         <h1 id="nameNutri"></h1>
         <h5 id="direccion"></h5>
-        <h5 id="titulacion">Titulación</h5>
+        <h5 id="titulacion"></h5>
 
 
 
         <!-- Description -->
         <div class="descNutri">
-            <p>Descripción del nutricionista
-                <br />
-                <br />
-                Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper ligula lacus
-                fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus natoque
-                cursus vivamus in. Sem cras blandit vulputate inceptos dapibus nulla arcu, ante cursus euismod
-                sociosqu litora duis massa, tempor dictum nibh dui integer fringilla.
-                <br />
-                <br />
-                Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper ligula lacus
-                fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus natoque
-                cursus vivamus in. Sem cras blandit vulputate inceptos dapibus nulla arcu, ante cursus euismod
-                sociosqu litora duis massa, tempor dictum nibh dui integer fringilla.
-                <br />
-                <br />
-                Lorem ipsum dolor sit amet consectetur adipiscing elit pulvinar interdum ullamcorper ligula lacus
-                fringilla dapibus, tempus dictum mattis euismod parturient venenatis consequat vel faucibus natoque
-                cursus vivamus in. Sem cras blandit vulputate inceptos dapibus nulla arcu, ante cursus euismod
-                sociosqu litora duis massa, tempor dictum nibh dui integer fringilla.
-                <br />
-                <br />
-                Sem cras blandit vulputate inceptos dapibus nulla arcu, ante cursus euismod sociosqu litora duis
-                massa, tempor dictum nibh dui integer fringilla.
-            </p>
+            <p>Descripción del nutricionista</p>
         </div>
-
+        <button class="button btn_fire" type="button">PRESCINDIR DE SUS SERVICIOS</button>
+        <button class="button btn_hire" type="button">CONTRATAR</button>
         <!-- Comments user -->
         <div class="comment_cont">
             <div class="score_user">
@@ -91,7 +64,46 @@
         </div>
 
     </div>
+    <!-- Modal hire nutricionist -->
+    <div class="modal fade" id="hireNutricionist" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Seguro que quieres contratar los servicios del nutricionista?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="button btn_acceptHireNutricionist">Aceptar</button>
+                    <button type="button" class="button" data-dismiss="modal">Cancelar</button>
 
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal fire assessment -->
+    <div class="modal fade" id="fireNutricionist" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Seguro que quieres dejar de recibir los servicios del nutricionista?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="button btn_acceptFireNutricionist">Aceptar</button>
+                    <button type="button" class="button" data-dismiss="modal">Cancelar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <%- include('./footer'); %>

@@ -7,7 +7,6 @@ package com.bienmesabe.rest.DAO.impl;
 
 import com.bienmesabe.rest.DAO.CommentDAO;
 import com.bienmesabe.rest.domain.Comment;
-import com.bienmesabe.rest.domain.Ingredient;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.Session;
@@ -81,6 +80,24 @@ public class CommentDAOImpl implements CommentDAO{
         return idGenerado;
         }
         return 0L;
+    }
+
+    /**
+     * Implementation of interface method to delete the comments of a recipe in the table assessments of the DB
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that indicates if the comments are successfully deleted or not
+     */
+    @Override
+    public boolean deleteComments(long recipeId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Comment> query = currentSession.createQuery("DELETE FROM Comment WHERE recipeId=:recipe");
+        query.setParameter("recipe", recipeId);
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception ee){
+            return false;
+        }
     }
 
     

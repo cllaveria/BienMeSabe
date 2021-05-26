@@ -11,10 +11,15 @@ import com.bienmesabe.rest.domain.RecipeStep;
 import com.bienmesabe.rest.service.RecipeIngredientService;
 import com.bienmesabe.rest.service.RecipeService;
 import com.bienmesabe.rest.service.RecipeStepService;
+import com.bienmesabe.rest.service.UploadFileService;
+import java.io.File;
+import java.nio.file.Files;
 import java.util.List;
+import javax.activation.FileTypeMap;
 import javax.ws.rs.Consumes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +29,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Controller for Recipes // url: http://localhost:8080/api/recipe
@@ -53,6 +60,12 @@ public class RecipeController {
      */
     @Autowired
     private RecipeIngredientService recipeIngredientService;
+    
+    /**
+     * Bean of the upload file service (Interface)
+     */
+    @Autowired
+    private UploadFileService uploadFileService;
     
     /**
      * Method to recover the recipes  // HTTP verb: GET url: http://localhost:8080/api/recipe/getRecipes
@@ -163,6 +176,16 @@ public class RecipeController {
         return recipeService.getRecipesNotActive();
     }
     
+    @GetMapping("/retrieveImage/{path}")
+    public ResponseEntity<byte[]> getImageOfRecipe(@PathVariable String path){
+        File img = new File(path);
+        try{
+            return ResponseEntity.ok().contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(img))).body(Files.readAllBytes(img.toPath()));
+        }catch(Exception ee){
+            return null;
+        }
+        
+    }
     /**
      * Method to create the recipe // HTTP verb: POST url: http://localhost:8080/api/recipe/addRecipe
      * @param recipe object that represents the recipe to persist
@@ -177,6 +200,26 @@ public class RecipeController {
             return createdRecipe;
         }
         return 0L;
+    }
+    
+    /**
+     * Method to create the recipe // HTTP verb: POST url: http://localhost:8080/api/recipe/uploadImageFile
+     * @param file object that represents the image of the recipe to upload
+     * @return a boolean that indicates if the image has been successfully uploaded or not
+     */
+    @PostMapping("/uploadImageFile")
+    @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String uploadImageFile(@RequestParam("file") MultipartFile file){
+        try{
+            String path = uploadFileService.saveImageFile(file);
+            if(path != ""){
+                return path.replace("E:\\Google Drive\\CURSO CFGS DAW\\Practicas\\6 - Semestre 6\\0 - Proyecto\\00_proyecto\\Sergio\\BienMeSabe\\frontend\\public\\","");
+            }else{
+                return "";
+            }
+        }catch(NumberFormatException ee){
+            return "";
+        }
     }
     
     /**
@@ -200,8 +243,6 @@ public class RecipeController {
         return recipeStepService.insertRecipeStep(step);
     }
 
-    
-    
     /**
      * Method to modify the recipe // HTTP verb: PUT url: http://localhost:8080/api/recipe/modifyRecipe
      * @param recipe object that represents the recipe to modify
@@ -269,4 +310,25 @@ public class RecipeController {
         
         return null;
     }
+    
+    /**
+     * Method to delete the recipe ingredients // HTTP verb: DELETE url: http://localhost:8080/api/recipe/deleteRecipeIngredients/{id}
+     * @param id string with the id of the recipe to delete
+     * @return an string that informs the id of the deleted recipe
+     */
+    @DeleteMapping("deleteRecipeIngredients/{id}")
+    public boolean deleteRecipeIngredients(@PathVariable String id){
+        return recipeIngredientService.deleteRecipeIngredients(Long.parseLong(id));
+    }
+    
+    /**
+     * Method to delete the recipe steps // HTTP verb: DELETE url: http://localhost:8080/api/recipe/deleteRecipeSteps/{id}
+     * @param id string with the id of the recipe to delete
+     * @return an string that informs the id of the deleted recipe
+     */
+    @DeleteMapping("deleteRecipeSteps/{id}")
+    public boolean deleteRecipeSteps(@PathVariable String id){
+        return recipeStepService.deleteRecipeSteps(Long.parseLong(id));
+    }
+    
 }
