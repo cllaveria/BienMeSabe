@@ -74,26 +74,6 @@ $(document).ready(function () {
             });
         }
     });
-    /**
-     * @type {jQuery}
-     * @type click
-     * @method on
-     * @listens btn_deleteRecipe - Classe del botó per esborrar receptes.
-     * @descriptionQuan Quan l'usuari polsa sobre el botó de les escombraries aquesta recepta s'esborra.
-     */
-    $('.btn_deleteRecipe').on('click', function () {
-
-        $.ajax({
-            url: 'http://localhost:8080/api/recipe/deleteRecipeById/' + $(this).parent().parent().attr('title'),
-            type: 'DELETE',
-            headers: {
-                'Authorization': $token
-            },
-            success: function () {
-                location.reload();
-            }
-        });
-    });
 
     $.ajax({
         url: $urlUserValoration + $IDuser,
@@ -116,5 +96,68 @@ $(document).ready(function () {
      */
     $('.btn_modifyRecipe').on('click', function () {
         window.location = '/crearReceta?id=' + $(this).parent().parent().attr('title');
+    });
+
+    /**
+     * @type {jQuery}
+     * @type click
+     * @method on
+     * @listens modalDeleteRecipe - Classe del botó per esborrar receptes.
+     * @descriptionQuan Quan l'usuari polsa sobre el botó "Aceptar" del modal de les escombraries aquesta recepta s'esborra.
+     */
+    $('.btn_deleteRecipe').on('click', function () {
+        $('#modalDeleteRecipe').modal('show');
+    });
+    /**
+     * @type {jQuery}
+     * @type click
+     * @method on
+     * @listens modalDeleteRecipe - Classe del botó per esborrar receptes.
+     * @descriptionQuan Quan l'usuari polsa sobre el botó "Aceptar" del modal de les escombraries aquesta recepta s'esborra.
+     */
+    $('.modalDeleteRecipe').on('click', function () {
+        $.ajax({
+            url: 'http://localhost:8080/api/recipe/deleteRecipeSteps/' + $('.nameRec').parent().attr('title'),
+            type: 'DELETE',
+            async: false,
+            headers: {
+                'Authorization': $token
+            }
+        });
+        $.ajax({
+            url: 'http://localhost:8080/api/recipe/deleteRecipeIngredients/' + $('.nameRec').parent().attr('title'),
+            type: 'DELETE',
+            async: false,
+            headers: {
+                'Authorization': $token
+            }
+        });
+        $.ajax({
+            url: 'http://localhost:8080/api/comment/deleteComments/' + $('.nameRec').parent().attr('title'),
+            type: 'DELETE',
+            async: false,
+            headers: {
+                'Authorization': $token
+            }
+        });
+        $.ajax({
+            url: 'http://localhost:8080/api/assessment/deleteAssessments/' + $('.nameRec').parent().attr('title'),
+            type: 'DELETE',
+            async: false,
+            headers: {
+                'Authorization': $token
+            }
+        });
+
+        $.ajax({
+            url: 'http://localhost:8080/api/recipe/deleteRecipeById/' + $('.nameRec').parent().attr('title'),
+            type: 'DELETE',
+            async: false,
+            headers: {
+                'Authorization': $token
+            }
+        });
+        debugger
+        location.reload()
     });
 });

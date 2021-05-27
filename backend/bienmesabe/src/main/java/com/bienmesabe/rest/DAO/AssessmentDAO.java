@@ -41,4 +41,11 @@ public interface AssessmentDAO {
      * @return a boolean that indicates if the assessment is successfully updated or not
      */
     public boolean modifyAssessment(Assessment assessment);
+    
+    /**
+     * Method to delete the assessments of a recipe in the table assessments of the DB
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that indicates if the assessments are successfully deleted or not
+     */
+    public boolean deleteAssessments(long recipeId);
 }

@@ -19,7 +19,7 @@
     <link rel='stylesheet' href='/stylesheets/misRecetas.css' />
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-        </script>
+    </script>
     <script src="../javascripts/token.js"></script>
     <script src="../javascripts/panellAdminValidate.js"></script>
     <script src="../javascripts/insertRecipe.js"></script>
@@ -33,30 +33,48 @@
     <!-- Header -->
     <%- include('./header'); %>
 
-        <!-- Settings -->
-        <div class="settings_container">
-            <div class="d-flex" id="wrapper">
-                <!-- Sidebar-->
-                <%- include('./lateral-menu'); %>
-                    <!-- Page Content-->
-                    <div id="page-content-wrapper">
-                        <div class="container-fluid">
-                            <h1 class="mt-4">Mis recetas</h1>
-                            <button class="button btn_add" id='submit' onclick="location.href='/crearReceta';">Añadir
-                                receta</button>
-                            <div class="tableRec">
-                                <table id='recipes'>
-                                </table>
-                            </div>
-                            <div class="val">
-                            </div>
-                        </div>
+    <!-- Settings -->
+    <div class="settings_container">
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar-->
+            <%- include('./lateral-menu'); %>
+            <!-- Page Content-->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <h1 class="mt-4">Mis recetas</h1>
+                    <button class="button btn_add" id='submit' onclick="location.href='/crearReceta';">Añadir
+                        receta</button>
+                    <div class="tableRec">
+                        <table id='recipes'>
+                        </table>
                     </div>
+                    <div class="val">
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- Footer -->
-        <%- include('./footer'); %>
+    </div>
+    <!-- Modal delete recipe -->
+    <div class="modal fade" id="modalDeleteRecipe" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro que quieres borrar esta receta?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="modalDeleteRecipe button">Aceptar</button>
+                    <button type="button" class="button" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <%- include('./footer'); %>
 </body>
 
 </html>

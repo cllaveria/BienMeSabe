@@ -152,4 +152,23 @@ public class RecipeIngredientDAOImpl implements RecipeIngredientDAO{
         float kcal = getKCalByIngredients(ingredients);
         return updateRecipeKcal(kcal,recipeId);
     }
+
+    /**
+     * Implementation of interface method to delete the recipe ingredients of the recipe in the table recipe ingredient of the DB
+     * @param recipeId  long that represents the id of the recipe to update
+     * @return boolean that represents if the recipe ingredients has been successfully deleted or not
+     */
+    @Override
+    @Transactional
+    public boolean deleteRecipeIngredients(long recipeId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        try{
+            Query<RecipeIngredients> query = currentSession.createQuery("delete RecipeIngredients where recipeId=:recipe");
+            query.setParameter("recipe", recipeId);
+            query.executeUpdate();
+            return true;
+        }catch(Exception ee){
+            return false;
+        }
+    }
 }

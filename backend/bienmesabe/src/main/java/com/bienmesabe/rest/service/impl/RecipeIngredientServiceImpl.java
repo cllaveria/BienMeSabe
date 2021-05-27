@@ -97,6 +97,16 @@ public class RecipeIngredientServiceImpl implements RecipeIngredientService{
     public boolean updateKCALOfRecipe(long recipeId){
         return recipeIngredientDAO.updateKCALOfRecipe(recipeId);
     }
+
+    /**
+     * Implementation of interface method to delete the recipe ingredients of the recipe
+     * @param recipeId  long that represents the id of the recipe to update
+     * @return boolean that represents if the recipe ingredients has been successfully deleted or not
+     */
+    @Override
+    public boolean deleteRecipeIngredients(long recipeId) {
+        return recipeIngredientDAO.deleteRecipeIngredients(recipeId);
+    }
     
     
 }

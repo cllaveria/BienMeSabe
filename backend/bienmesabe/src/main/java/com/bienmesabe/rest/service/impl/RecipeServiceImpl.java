@@ -11,6 +11,8 @@ import com.bienmesabe.rest.domain.RecipeIngredients;
 import com.bienmesabe.rest.service.RecipeService;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -211,6 +213,16 @@ public class RecipeServiceImpl implements RecipeService{
         recipeDAO.modifyRecipe(recipe);
     }
 
+    /**
+     * Implementation of interface method to update the image path of a recipe in the table recipes of the DB
+     * @param path string with the path of the recipe image
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that represents if the path of the recipe image has been successfully updated or not
+     */
+    @Override
+    public boolean updateImageRecipePath(String path, long recipeId) {
+        return recipeDAO.updateImageRecipePath(path, recipeId);
+    }
     /**
      * Implementation of interface method to asign a recipe as active
      * @param id long that represents the id of the recipe

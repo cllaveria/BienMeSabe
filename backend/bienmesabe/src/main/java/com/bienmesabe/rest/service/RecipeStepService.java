@@ -26,4 +26,11 @@ public interface RecipeStepService {
      * @return boolean that represents if the recipe step has been successfully updated or not
      */
     public boolean updateRecipeStep(RecipeStep step);
+    
+    /**
+     * Method to delete the recipe steps of the recipe in the table recipe steps of the DB
+     * @param recipeId  long that represents the id of the recipe to update
+     * @return boolean that represents if the recipe steps has been successfully deleted or not
+     */
+    public boolean deleteRecipeSteps(long recipeId);
 }

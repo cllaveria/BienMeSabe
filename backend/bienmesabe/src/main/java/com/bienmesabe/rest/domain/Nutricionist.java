@@ -5,6 +5,7 @@
  */
 package com.bienmesabe.rest.domain;
 
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -33,13 +34,23 @@ public class Nutricionist extends User{
     private String companyCity;
     @Column(name="COMPANY_TELEPHONE")
     private String companyPhone;
+    @Column(name="NUTRICIONIST_DESCRIPTION")
+    private String nutricionistDescription = "";
+    
+    @Column(name="NUTRICIONIST_ASSESSMENT")
+    private int nutricionistAssessment = 0;
     
     @OneToMany(mappedBy = "nutricionist", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<NutricionistDegree> nutricionistDegree;
+    private List<NutricionistDegree> nutricionistDegree = Collections.EMPTY_LIST;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "NUTRICIONIST_ID")
-    private List<NutricionistAssessment> assessments;
+    private List<NutricionistAssessment> assessments = Collections.EMPTY_LIST;
+    
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "NUTRICIONIST_ID")
+    private List<NutricionistComment> comment = Collections.EMPTY_LIST;
+    
     /**
      * Empty Constructor
      */
@@ -173,6 +184,55 @@ public class Nutricionist extends User{
     public void setAssessments(List<NutricionistAssessment> assessments) {
         this.assessments = assessments;
     }
+    
+    /**
+     * Method to recover the nutricionist assessment
+     * @return an integer that represents the assessment of the nutricionist  
+     */
+    public int getNutricionistAssessment() {
+        return nutricionistAssessment;
+    }
 
+    /**
+     * Method to asign the nutricionist assessment
+     * @param nutricionistAssessment integer that represents the assessment of the nutricionist to set
+     */
+    public void setNutricionistAssessment(int nutricionistAssessment) {
+        this.nutricionistAssessment = nutricionistAssessment;
+    }
+
+    /**
+     * Method to recover the nutricionist comments
+     * @return an integer that represents the comments of the nutricionist  
+     */
+    public List<NutricionistComment> getComment() {
+        return comment;
+    }
+
+    /**
+     * Method to asign the nutricionist comments
+     * @param comment integer that represents the comments of the nutricionist to set
+     */
+    public void setComment(List<NutricionistComment> comment) {
+        this.comment = comment;
+    }
+    
+    /**
+     * Method to recover the nutricionist description
+     * @return an string that represents the description of the nutricionist  
+     */
+    public String getNutricionistDescription() {
+        return nutricionistDescription;
+    }
+
+    /**
+     * Method to asign the nutricionist description
+     * @param nutricionistDescription string that represents the description of the nutricionist  
+     */
+    public void setNutricionistDescription(String nutricionistDescription) {
+        this.nutricionistDescription = nutricionistDescription;
+    }
+
+    
     
 }

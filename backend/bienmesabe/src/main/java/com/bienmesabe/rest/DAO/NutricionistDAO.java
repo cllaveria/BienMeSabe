@@ -65,9 +65,10 @@ public interface NutricionistDAO {
      * @param companyPostalCode string that represents the company postal code of the nutricionist to asign
      * @param companyCity string that represents the company city of the nutricionist to asign
      * @param companyPhone string that represents the company phone of the nutricionist to asign
+     * @param description string that represents the description of the nutricionist to asign
      * @return a boolean that represents if the nutricionist information has been successfully updated or not
      */
-    public Boolean modifyNutricionist(Long nutricionistId, String companyName, String companyDirection, String companyPostalCode, String companyCity, String companyPhone);
+    public Boolean modifyNutricionist(Long nutricionistId, String companyName, String companyDirection, String companyPostalCode, String companyCity, String companyPhone, String description);
     
     /**
      * Method to delete an nutricionist in the table nutricionists of the DB by id

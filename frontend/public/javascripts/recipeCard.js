@@ -567,13 +567,16 @@ $(document).ready(function () {
                         'Authorization': $token
                     },
                     success: function ($insertAssessment) {
+                        console.log($insertAssessment)
                         if($insertAssessment == ''){
                             $.each($saveRecipe.assessments, function ($i, $assessmentsRecipe) {
+                                
                                 if ($assessmentsRecipe.assessmentValue == $score) {
                                     $booleanAssessment = false;
                                     $('#sameAssessment').modal('show');
                                 } else {
                                     $('#updateAssessment').modal('show');
+                                    $booleanAssessment = false;
                                 }
                             });
                         }else{

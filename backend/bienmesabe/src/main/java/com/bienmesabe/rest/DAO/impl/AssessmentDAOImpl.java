@@ -109,7 +109,7 @@ public class AssessmentDAOImpl implements AssessmentDAO{
     }
     
     /**
-     * Method to modify an assessment in the table assessments of the DB
+     * Method to modify an assessment value in the table assessments of the DB
      * @param recipeId long that represents the id of the recipe to update
      * @param assessmentValue integer that represents the value of the assessment to update
      */
@@ -140,6 +140,25 @@ public class AssessmentDAOImpl implements AssessmentDAO{
             List<Assessment> assessmentList = findAllAssessmentsOfRecipe(assessment.getRecipeId());
             int av = getRecipeAssessment(assessmentList);
             updateRecipeAssessmentValue(assessment.getRecipeId(), av);
+            return true;
+        }catch(Exception ee){
+            return false;
+        }
+    }
+
+    /**
+     * Implementation of interface method to delete the assessments of a recipe in the table assessments of the DB
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that indicates if the assessments are successfully deleted or not
+     */
+    @Override
+    @Transactional
+    public boolean deleteAssessments(long recipeId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Assessment> query = currentSession.createQuery("DELETE FROM Assessment WHERE recipeId=:recipe");
+        query.setParameter("recipe", recipeId);
+        try{
+            query.executeUpdate();
             return true;
         }catch(Exception ee){
             return false;

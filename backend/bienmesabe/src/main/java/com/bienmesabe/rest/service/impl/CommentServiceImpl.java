@@ -56,6 +56,16 @@ public class CommentServiceImpl implements CommentService{
         return commentDAO.createComment(comment);
     }
 
+    /**
+     * Implementation of interface method to delete the comments of a recipe
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that indicates if the comments are successfully deleted or not
+     */
+    @Override
+    public boolean deleteComments(long recipeId) {
+        return commentDAO.deleteComments(recipeId);
+    }
+
     
     
 }

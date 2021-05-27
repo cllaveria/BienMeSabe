@@ -41,11 +41,6 @@ public class NutricionistDAOImpl implements NutricionistDAO{
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Nutricionist> query = currentSession.createQuery("from Nutricionist", Nutricionist.class);
         List<Nutricionist> nutricionists = query.getResultList();
-        for(int i =0;i<nutricionists.size();i++){
-            nutricionists.get(i).setPassword("");
-            nutricionists.get(i).setNIF("");
-            nutricionists.get(i).setPhone("");
-        }
         return nutricionists;
     }
 
@@ -59,9 +54,6 @@ public class NutricionistDAOImpl implements NutricionistDAO{
     public Nutricionist findNutricionistById(Long id) {
         Session currentSession = entityManager.unwrap(Session.class);
         Nutricionist nutricionist = currentSession.get(Nutricionist.class, id);
-        nutricionist.setPassword("");
-        nutricionist.setNIF("");
-        nutricionist.setPhone("");
         return nutricionist;
     }
 
@@ -94,11 +86,6 @@ public class NutricionistDAOImpl implements NutricionistDAO{
         query.setParameter("minCP", Integer.parseInt(cpMin));
         query.setParameter("maxCP", Integer.parseInt(cpMax));
         List<Nutricionist> nutricionists = query.getResultList();
-        for(int i =0;i<nutricionists.size();i++){
-            nutricionists.get(i).setPassword("");
-            nutricionists.get(i).setNIF("");
-            nutricionists.get(i).setPhone("");
-        }
         return nutricionists;
     }
 
@@ -128,7 +115,6 @@ public class NutricionistDAOImpl implements NutricionistDAO{
      * @return a long with the id of the persisted nutricionist
      */
     @Override
-    @Transactional
     public Long createNutricionist(Nutricionist nutricionist) {
         Session currentSession = entityManager.unwrap(Session.class);
         
@@ -143,8 +129,13 @@ public class NutricionistDAOImpl implements NutricionistDAO{
             nutricionistInDB = null;
         }
         if(nutricionistInDB==null){
-            Long idGenerado = (Long) currentSession.save(nutricionist); 
-            return idGenerado;
+            try{
+                currentSession.save(nutricionist); 
+                return 1L;
+            }catch(Exception e){
+                return 0L;
+            }
+            
         }
         return 0L;
     }
@@ -157,11 +148,12 @@ public class NutricionistDAOImpl implements NutricionistDAO{
      * @param companyPostalCode string that represents the company postal code of the nutricionist to asign
      * @param companyCity string that represents the company city of the nutricionist to asign
      * @param companyPhone string that represents the company phone of the nutricionist to asign
+     * @param description string that represents the description of the nutricionist to asign
      * @return a boolean that represents if the nutricionist information has been successfully updated or not
      */
     @Override
     @Transactional
-    public Boolean modifyNutricionist(Long nutricionistId, String companyName, String companyDirection, String companyPostalCode, String companyCity, String companyPhone) {
+    public Boolean modifyNutricionist(Long nutricionistId, String companyName, String companyDirection, String companyPostalCode, String companyCity, String companyPhone, String description) {
         Session currentSession = entityManager.unwrap(Session.class);
         try{
             String updates = "update Nutricionist set ";
@@ -171,6 +163,7 @@ public class NutricionistDAOImpl implements NutricionistDAO{
             if(companyPostalCode != null && !companyPostalCode.isEmpty()) updates +=  "companyPostalCode=:newCompanyPostalCode, ";
             if(companyCity != null && !companyCity.isEmpty()) updates +=  "companyCity=:newCompanyCity, ";
             if(companyPhone != null && !companyPhone.isEmpty()) updates +=  "companyPhone=:newCompanyPhone, ";
+            if(description != null && !description.isEmpty()) updates +=  "nutricionistDescription=:description, ";
             
             updates = updates.substring(0, updates.length() -2);
             updates += " WHERE id=:nutricionistId";
@@ -182,6 +175,7 @@ public class NutricionistDAOImpl implements NutricionistDAO{
             if(companyPostalCode != null && !companyPostalCode.isEmpty()) query.setParameter("newCompanyPostalCode", companyPostalCode);
             if(companyCity != null && !companyCity.isEmpty()) query.setParameter("newCompanyCity", companyCity);
             if(companyPhone != null && !companyPhone.isEmpty()) query.setParameter("newCompanyPhone", companyPhone);
+            if(description != null && !description.isEmpty()) query.setParameter("description", description);
             
             query.executeUpdate();
             return true;
