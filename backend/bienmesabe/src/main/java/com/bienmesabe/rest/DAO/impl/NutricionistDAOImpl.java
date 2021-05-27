@@ -8,6 +8,8 @@ package com.bienmesabe.rest.DAO.impl;
 import com.bienmesabe.rest.DAO.NutricionistDAO;
 import com.bienmesabe.rest.domain.Nutricionist;
 import com.bienmesabe.rest.domain.NutricionistAssessment;
+import com.bienmesabe.rest.domain.NutricionistComment;
+import com.bienmesabe.rest.domain.NutricionistDegree;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.Session;
@@ -191,8 +193,47 @@ public class NutricionistDAOImpl implements NutricionistDAO{
     @Override
     @Transactional
     public void deleteNutricionistById(Long id) {
+        deleteNutricionistDegrees(id);
+        deleteNutricionistAssessments(id);
+        deleteNutricionistComments(id);
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Nutricionist> query = currentSession.createQuery("delete from Nutricionist where id=:nutricionistId");
+        query.setParameter("nutricionistId", id);
+        query.executeUpdate();
+    }
+    
+    /**
+     * Method to delete the degrees of the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     */
+    @Transactional
+    public void deleteNutricionistDegrees(Long id){
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<NutricionistDegree> query = currentSession.createQuery("delete from NutricionistDegree where id=:nutricionistId");
+        query.setParameter("nutricionistId", id);
+        query.executeUpdate();
+    }
+    
+    /**
+     * Method to delete the assessments of the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     */
+    @Transactional
+    public void deleteNutricionistAssessments(Long id){
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<NutricionistAssessment> query = currentSession.createQuery("delete from NutricionistAssessment where id=:nutricionistId");
+        query.setParameter("nutricionistId", id);
+        query.executeUpdate();
+    }
+    
+    /**
+     * Method to delete the comments of the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     */
+    @Transactional
+    public void deleteNutricionistComments(Long id){
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<NutricionistComment> query = currentSession.createQuery("delete from NutricionistComment where id=:nutricionistId");
         query.setParameter("nutricionistId", id);
         query.executeUpdate();
     }

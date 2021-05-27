@@ -120,6 +120,9 @@ public class AssessmentDAOImpl implements AssessmentDAO{
         query.setParameter("recipeId", recipeId);
         query.setParameter("assessment", assessmentValue);
         query.executeUpdate();
+//        List<Assessment> assessmentList = findAllAssessmentsOfRecipe(recipeId);
+//        int av = getRecipeAssessment(assessmentList);
+//        updateRecipeAssessmentValue(recipeId, av);
     }
     
     /**

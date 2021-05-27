@@ -7,6 +7,7 @@ package com.bienmesabe.rest.DAO.impl;
 
 import com.bienmesabe.rest.DAO.NutricionistAssessmentDAO;
 import com.bienmesabe.rest.domain.Assessment;
+import com.bienmesabe.rest.domain.Nutricionist;
 import com.bienmesabe.rest.domain.NutricionistAssessment;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -59,9 +60,7 @@ public class NutricionistAssessmentDAOImpl implements NutricionistAssessmentDAO{
         if(assessmentInDB==null){
             try{
                 currentSession.save(assessment); 
-                List<NutricionistAssessment> assessmentList = findAllNutricionistAssessmentsOfNutricionist(assessment.getNutricionistId());
-                int av = getRecipeAssessment(assessmentList);
-                updateRecipeAssessmentValue(assessment.getNutricionistId(), av);
+                
                 return true;
             }catch(Exception ee){
                 return false;
@@ -77,7 +76,7 @@ public class NutricionistAssessmentDAOImpl implements NutricionistAssessmentDAO{
      * @return an integer that represents the medium value of the recipe assessments
      */
     @Transactional
-    public int getRecipeAssessment(List<NutricionistAssessment> assessments){
+    public int getNutricionistAssessment(List<NutricionistAssessment> assessments){
         float res = 0F;
         if(assessments.size() > 0){
             for(NutricionistAssessment assessment : assessments){
@@ -112,12 +111,32 @@ public class NutricionistAssessmentDAOImpl implements NutricionistAssessmentDAO{
      * @param assessmentValue integer that represents the value of the assessment to update
      */
     @Transactional
-    public void updateRecipeAssessmentValue(long nutricionistId, int assessmentValue){
+    public boolean updateRecipeAssessmentValue(long nutricionistId, int assessmentValue){
+        
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<NutricionistAssessment> query = currentSession.createQuery("Update Nutricionist set nutricionistAssessment=:assessment WHERE nutricionistId=:nutricionist");
+        Query<NutricionistAssessment> query = currentSession.createQuery("Update Nutricionist set nutricionistAssessment=:assessment WHERE id=:nutricionist");
         query.setParameter("nutricionist", nutricionistId);
         query.setParameter("assessment", assessmentValue);
-        query.executeUpdate();
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception ee){
+            return false;
+        }
+        
     }
     
+    
+    /**
+     * Implementation of interface method to update the assessment value of the nutricionist
+     * @param nutricionistId long that represents the id of the nutricionist to update
+     * @return a boolean that indicates if the assessment has been updated or not
+     */
+    @Override
+    @Transactional
+    public boolean updateNutricionistAssessment(long nutricionistId){
+        List<NutricionistAssessment> assessmentList = findAllNutricionistAssessmentsOfNutricionist(nutricionistId);
+        int av = getNutricionistAssessment(assessmentList);
+        return updateRecipeAssessmentValue(nutricionistId, av);
+    }
 }
