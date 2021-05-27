@@ -148,7 +148,7 @@ $(document).ready(function () {
                 }
 
             })
-
+            console.log($nutricionist)
             $('#nameNutri').html($nutricionist.name + ' ' + $nutricionist.surname);
             $('#direccion').html($nutricionist.companyDirection);
             $('.descNutri').append($nutricionist.nutricionistDescription);
@@ -157,7 +157,7 @@ $(document).ready(function () {
             $('.score_rec').append($forks);
 
             $.each($nutricionist.nutricionistDegree, function ($i, $nutricionistDegree) {
-                $('#titulacion').html($nutricionistDegree.name)
+                $('#titulacion').append($nutricionistDegree.name+'<br><br>')
             });
 
             $.each($nutricionist.comment, function ($i, $commentsNutricionist) {
@@ -338,7 +338,7 @@ $(document).ready(function () {
 
                 $JSONAssessment = {
                     'nutricionistId': eval($IDnutricionist),
-                    'assessmentValue': $comment,
+                    'assessmentValue': $score,
                     'userId': eval($IDuser)
                 }
 

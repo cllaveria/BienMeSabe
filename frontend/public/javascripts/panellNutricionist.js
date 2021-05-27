@@ -47,28 +47,35 @@ $(document).ready(function () {
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor per emmagatzemar les modificaciones de les dades del nutricionista.
      */
     const $urlModifyDataNutricionist = 'http://localhost:8080/api/nutricionist/';
+    /**
+     * @var $JSNONnutricionistDegree 
+     * @type {JSON}
+     * @description Variable per emmagatzemar en format JSON la titulació del nutricionista.
+     */
+    let $JSNONnutricionistDegree;
+    /** 
+     * @var $titleNutricionist
+     * @type {String}
+     * @description Variable String per emmagatzemar el titul del nutricionista.
+     */
+    let $titleNutricionist;
+    /**
+     * @var $descNuutricionist
+     * @type {String}
+     * @description Variable String per emmagatzemar la descipció del nutricionista.
+     */
+    let $descNutricionist;
     /** 
      * @var $token
      * @description Variable de tipus String per emmagatzemar el token desat en localStorage.
      */
     let $token;
     /** 
-     * @var $titleNutricionist
-     * @type {String}
-     * @description Variable String per emmagatzemar el titul del nutricionista.
-     */
-    let $titleNutricionist
-    /**
-     * @var $descNuutricionist
-     * @type {String}
-     * @description Variable String per emmagatzemar la descipció del nutricionista.
-     */
-    let $descNutricionist
-    /** 
      * @var $IDuser
      * @description Variable de tipus String per emmagatzemar l'ID de l'usuari desat en localStorage.
      */
     let $IDuser;
+    let $IDnutricionist;
 
     if (token() == true) {
         $token = localStorage.getItem('token');
@@ -98,6 +105,7 @@ $(document).ready(function () {
                 'Authorization': $token
             },
             success: function ($nutricionist) {
+                
                 $('.messageErrorNutrist').css('display', 'none');
                 $.ajax({
                     url: $urlSearchNutricionist + $nutricionist,
@@ -106,6 +114,7 @@ $(document).ready(function () {
                         'Authorization': $token
                     },
                     success: function ($nutricionistData) {
+                        $IDnutricionist = $nutricionistData.id;
                         $('.nutrist_cont').append('<div class="nutrist">\
                                         <h5 id="nameNutri">' + $nutricionistData.name + '</h5>\
                                         <i class="far fa-envelope"></i>\
@@ -132,7 +141,6 @@ $(document).ready(function () {
                     'Authorization': $token
                 },
                 success: function ($nutricionists) {
-                    //TODO: Pendiente de hacer lo de la valoración.
                     $('.nutritionists').empty();
                     $('.messageError').css('display', 'none');
                     if ($nutricionists != '') {
@@ -214,6 +222,32 @@ $(document).ready(function () {
                     'Authorization': $token
                 },
                 success: function () {}
+            });
+        }
+
+        if ($titleNutricionist != '') {
+            $JSNONnutricionistDegree = {
+                'nutricionistId': eval($IDuser),
+                'name': $titleNutricionist,
+                'year': null,
+                'school': null,
+                'description': null
+            }
+
+            $JSNONnutricionistDegree = JSON.stringify($JSNONnutricionistDegree);
+            
+            $.ajax({
+                url: 'http://localhost:8080/api/nutricionist/addNutricionistDegree',
+                data: $JSNONnutricionistDegree,
+                type: 'POST',
+                headers: {
+                    'Authorization': $token
+                },
+                contentType: "application/json",
+                dataType: "json",
+                success: function(){
+                    debugger
+                }
             });
         }
     });

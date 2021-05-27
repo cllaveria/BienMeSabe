@@ -28,7 +28,7 @@ $(document).ready(function () {
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor per emmagatzemar les modificaciones de les dades del nutricionista.
      */
     const $urlModifyDataNutricionist = 'http://localhost:8080/api/nutricionist/';
-     /**
+    /**
      * @constant $url 
      * @type {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor.
@@ -70,7 +70,7 @@ $(document).ready(function () {
      * @description Variable per emmagatzemar la nova contrasenya de l'usuari/nutricionista. 
      */
     let $pswrd_2;
-     /** 
+    /** 
      * @var $pswrd_3 
      * @type {String}
      * @description Variable per emmagatzemar la nova contrasenya de l'usuari/nutricionista. 
@@ -129,7 +129,7 @@ $(document).ready(function () {
      * @type {String}
      * @description Variable per emmagatzemar la direcció d'empresa del nutricionista. 
      */
-    
+
     let $direction = '';
     /** 
      * @var $businessPhone 
@@ -155,7 +155,7 @@ $(document).ready(function () {
      * @description Variable de tipus boolean per saber si el nom està introduït correctament.
      */
     let $booleanName = true;
-     /** 
+    /** 
      * @var $booleanSurname 
      * @type {boolean}
      * @description Variable de tipus boolean per saber si el cognom està introduït correctament.
@@ -203,7 +203,7 @@ $(document).ready(function () {
      * @description Variable de tipus boolean per saber si el codi postal està introduït correctament.
      */
     let $booleanPc = true;
-     /** 
+    /** 
      * @var $booleanNif 
      * @type {boolean}
      * @description Variable de tipus boolean per saber si el NIF/DNI, NIE o CIF estan introduïts correctament.
@@ -250,7 +250,7 @@ $(document).ready(function () {
         $token = localStorage.getItem('token');
         $IDuser = localStorage.getItem('id');
     }
-    
+
     $.ajax({
         url: 'http://localhost:8080/api/user/getUserByIdWithAllProperties/' + $IDuser,
         type: 'GET',
@@ -515,6 +515,7 @@ $(document).ready(function () {
                         if ($data.alias == $alias) {
                             changeIconsError($('input_#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
                             $('#iconExcAlias').children().html('El Alias introducido ya está registrado.')
+                            $booleanAlias = false;
                         } else {
                             changeIconsCheck($('#input_alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
                             $booleanAlias = true;
@@ -550,9 +551,9 @@ $(document).ready(function () {
                     success: function (data) {
                         console.log(data)
                         if (data.email == $email) {
-
                             changeIconsError($('#input_email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
-                            $('#iconExcEmail').children().html('El email introducido ya está registrado.')
+                            $('#iconExcEmail').children().html('El email introducido ya está registrado.');
+                            $booleanEmail = false;
                         } else {
                             changeIconsCheck($('#input_email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
                             $booleanEmail = true;
@@ -720,7 +721,7 @@ $(document).ready(function () {
      * @description Botó per fer les verificacions i funcions necessàries per emmagatzemar les dades de l'usuari i del nutricionista.
      */
     $('.btn_save').on('click', () => {
-        let $1, $2, $3, $4, $5, $6, $7, $8, $9, $10;
+        let $1 = true, $2 = true, $3 = true, $4 = true, $5 = true, $6 = true, $7 = true, $8 = true, $9 = true, $10 = true;
 
         if ($name != '' || $surnames != '' || $phone != '') {
 
@@ -799,22 +800,22 @@ $(document).ready(function () {
                 $5 = false;
             }
 
-            if ($city) {
+            if ($city != '') {
                 $concatNutricionst = $concatNutricionst.concat('___city---' + $city);
                 $6 = false;
             }
 
-            if ($direction) {
+            if ($direction != '') {
                 $concatNutricionst = $concatNutricionst.concat('___direction---' + $direction);
                 $7 = false;
             }
 
-            if ($company) {
+            if ($company != '') {
                 $concatNutricionst = $concatNutricionst.concat('___name---' + $company);
                 $8 = false;
             }
 
-            if ($businessPhone) {
+            if ($businessPhone != '') {
                 $concatNutricionst = $concatNutricionst.concat('___phone---' + $businessPhone);
                 $9 = false;
             }
@@ -828,7 +829,6 @@ $(document).ready(function () {
                     },
                     success: function () {}
                 });
-
                 $10 = false;
             }
 
@@ -846,10 +846,8 @@ $(document).ready(function () {
             }
         }
 
-
-
     });
-
+    
     /**
      * @type {jQuery}
      * @type click
@@ -869,17 +867,88 @@ $(document).ready(function () {
      * @description Botó per esborrar el compte de l'usuari o nutricionista, esborrant totes les seves dades de la BBDD.
      */
     $('.btn_deleteAccount').on('click', () => {
-        $.ajax({
-            url: $urlModifyDataUser + 'deleteUserById/' + $IDuser,
-            type: 'DELETE',
-            headers: {
-                'Authorization': $token
-            },
-            success: function () {
-                localStorage.removeItem('id');
-                localStorage.removeItem('token');
-                window.location = '/';
-            }
-        });
+        
+        if ($user.type == 1 || $user.type == 3) {
+            $.ajax({
+                url: $urlModifyDataUser + 'deleteUserById/' + $IDuser,
+                type: 'DELETE',
+                headers: {
+                    'Authorization': $token
+                },
+                success: function () {
+                    localStorage.removeItem('id');
+                    localStorage.removeItem('token');
+                    window.location = '/';
+                }
+            });
+        }else if($user.type == 2){
+
+            $.ajax({
+                url: 'http://localhost:8080/api/recipe/getRecipesOfUser/' + $IDuser,
+                type: 'GET',
+                async: false,
+                headers: {
+                    'Authorization': $token
+                },
+                success: function ($recipes){
+                    $.each($recipes, function($i, $recipe){
+                        $.ajax({
+                            url: 'http://localhost:8080/api/recipe/deleteRecipeSteps/' + $recipe.id,
+                            type: 'DELETE',
+                            async: false,
+                            headers: {
+                                'Authorization': $token
+                            }
+                        });
+                        $.ajax({
+                            url: 'http://localhost:8080/api/recipe/deleteRecipeIngredients/' + $recipe.id,
+                            type: 'DELETE',
+                            async: false,
+                            headers: {
+                                'Authorization': $token
+                            }
+                        });
+                        $.ajax({
+                            url: 'http://localhost:8080/api/comment/deleteComments/' + $recipe.id,
+                            type: 'DELETE',
+                            async: false,
+                            headers: {
+                                'Authorization': $token
+                            }
+                        });
+                        $.ajax({
+                            url: 'http://localhost:8080/api/assessment/deleteAssessments/' + $recipe.id,
+                            type: 'DELETE',
+                            async: false,
+                            headers: {
+                                'Authorization': $token
+                            }
+                        });
+                        $.ajax({
+                            url: 'http://localhost:8080/api/recipe/deleteRecipeById/' + $recipe.id,
+                            type: 'DELETE',
+                            async: false,
+                            headers: {
+                                'Authorization': $token
+                            }
+                        });
+                    });
+                }
+
+            });
+
+            $.ajax({
+                url: $urlModifyDataNutricionist + 'deleteNutricionistById/' + $IDuser,
+                type: 'DELETE',
+                headers: {
+                    'Authorization': $token
+                },
+                success: function () {
+                    localStorage.removeItem('id');
+                    localStorage.removeItem('token');
+                    window.location = '/';
+                }
+            });            
+        }
     });
 });
