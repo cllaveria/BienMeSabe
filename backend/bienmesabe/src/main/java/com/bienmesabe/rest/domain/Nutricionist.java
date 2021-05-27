@@ -41,7 +41,7 @@ public class Nutricionist extends User{
     private int nutricionistAssessment = 0;
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "RECIPE_ID")
+    @JoinColumn(name = "NUTRICIONIST_ID")
     private List<NutricionistDegree> nutricionistDegree = Collections.EMPTY_LIST;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
