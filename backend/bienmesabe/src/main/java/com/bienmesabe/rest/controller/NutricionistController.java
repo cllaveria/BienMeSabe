@@ -152,7 +152,8 @@ public class NutricionistController {
         Nutricionist nutricionist = nutricionistService.findNutricionistById(Long.parseLong(id));
         if(nutricionist != null) {
             boolean res = false;
-            res = nutricionistService.deleteNutricionistAdminContactsMade(Long.parseLong(id));
+            res = nutricionistService.deleteNutricionistUsers(Long.parseLong(id));
+            if(res) res = nutricionistService.deleteNutricionistAdminContactsMade(Long.parseLong(id));
             if(res) res = nutricionistService.deleteNutricionistDegrees(Long.parseLong(id));
             if(res) res = nutricionistService.deleteNutricionistAssessments(Long.parseLong(id));
             if(res) res = nutricionistService.deleteNutricionistComments(Long.parseLong(id));

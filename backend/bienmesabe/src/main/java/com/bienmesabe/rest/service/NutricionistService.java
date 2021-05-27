@@ -110,4 +110,11 @@ public interface NutricionistService {
      * @return a boolean that represents if the comments made for the nutricionist has been successfully updated or not
      */
     public boolean deleteNutricionistAdminContactsMade(Long id);
+    
+    /**
+     * Method to delete the users assigned to the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the users assigned to the nutricionist has been successfully updated or not
+     */
+    public boolean deleteNutricionistUsers(Long id);
 }

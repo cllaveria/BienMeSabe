@@ -13,6 +13,7 @@ import com.bienmesabe.rest.domain.Nutricionist;
 import com.bienmesabe.rest.domain.NutricionistAssessment;
 import com.bienmesabe.rest.domain.NutricionistComment;
 import com.bienmesabe.rest.domain.NutricionistDegree;
+import com.bienmesabe.rest.domain.NutricionistUsers;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.Session;
@@ -211,7 +212,7 @@ public class NutricionistDAOImpl implements NutricionistDAO{
     @Transactional
     public boolean deleteNutricionistDegrees(Long id){
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<NutricionistDegree> query = currentSession.createQuery("delete from NutricionistDegree where id=:nutricionistId");
+        Query<NutricionistDegree> query = currentSession.createQuery("delete from NutricionistDegree where nutricionistId=:nutricionistId");
         query.setParameter("nutricionistId", id);
         try{
             query.executeUpdate();
@@ -231,7 +232,7 @@ public class NutricionistDAOImpl implements NutricionistDAO{
     @Transactional
     public boolean deleteNutricionistAssessments(Long id){
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<NutricionistAssessment> query = currentSession.createQuery("delete from NutricionistAssessment where id=:nutricionistId");
+        Query<NutricionistAssessment> query = currentSession.createQuery("delete from NutricionistAssessment where nutricionistId=:nutricionistId or userId=:nutricionistId");
         query.setParameter("nutricionistId", id);
         try{
             query.executeUpdate();
@@ -250,7 +251,7 @@ public class NutricionistDAOImpl implements NutricionistDAO{
     @Transactional
     public boolean deleteNutricionistComments(Long id){
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<NutricionistComment> query = currentSession.createQuery("delete from NutricionistComment where id=:nutricionistId");
+        Query<NutricionistComment> query = currentSession.createQuery("delete from NutricionistComment where nutricionistId=:nutricionistId or userId=:nutricionistId");
         query.setParameter("nutricionistId", id);
         try{
             query.executeUpdate();
@@ -308,6 +309,25 @@ public class NutricionistDAOImpl implements NutricionistDAO{
     public boolean deleteNutricionistAdminContactsMade(Long id){
         Session currentSession = entityManager.unwrap(Session.class);
         Query<AdminContact> query = currentSession.createQuery("delete from AdminContact where userId=:nutricionistId");
+        query.setParameter("nutricionistId", id);
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    
+    /**
+     * Implementation of interface method to delete the users assigned to the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the users assigned to the nutricionist has been successfully updated or not
+     */
+    @Override
+    @Transactional
+    public boolean deleteNutricionistUsers(Long id){
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<NutricionistUsers> query = currentSession.createQuery("delete from NutricionistUsers where nutricionistId=:nutricionistId");
         query.setParameter("nutricionistId", id);
         try{
             query.executeUpdate();

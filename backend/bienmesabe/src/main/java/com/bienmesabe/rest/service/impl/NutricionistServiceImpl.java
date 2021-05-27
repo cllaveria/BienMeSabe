@@ -199,4 +199,14 @@ public class NutricionistServiceImpl implements NutricionistService {
     public boolean deleteNutricionistAdminContactsMade(Long id){
         return nutricionistDAO.deleteNutricionistAdminContactsMade(id);
     }
+    
+    /**
+     * Implementation of interface method to delete the users assigned to the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the users assigned to the nutricionist has been successfully updated or not
+     */
+    @Override
+    public boolean deleteNutricionistUsers(Long id){
+        return nutricionistDAO.deleteNutricionistUsers(id);
+    }
 }
