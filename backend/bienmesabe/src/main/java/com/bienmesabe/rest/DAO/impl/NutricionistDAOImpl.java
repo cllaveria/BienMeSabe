@@ -6,6 +6,8 @@
 package com.bienmesabe.rest.DAO.impl;
 
 import com.bienmesabe.rest.DAO.NutricionistDAO;
+import com.bienmesabe.rest.domain.Assessment;
+import com.bienmesabe.rest.domain.Comment;
 import com.bienmesabe.rest.domain.Nutricionist;
 import com.bienmesabe.rest.domain.NutricionistAssessment;
 import com.bienmesabe.rest.domain.NutricionistComment;
@@ -193,9 +195,6 @@ public class NutricionistDAOImpl implements NutricionistDAO{
     @Override
     @Transactional
     public void deleteNutricionistById(Long id) {
-        deleteNutricionistDegrees(id);
-        deleteNutricionistAssessments(id);
-        deleteNutricionistComments(id);
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Nutricionist> query = currentSession.createQuery("delete from Nutricionist where id=:nutricionistId");
         query.setParameter("nutricionistId", id);
@@ -203,39 +202,99 @@ public class NutricionistDAOImpl implements NutricionistDAO{
     }
     
     /**
-     * Method to delete the degrees of the nutricionist
+     * Implementation of interface method to delete the degrees of the nutricionist
      * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the nutricionist degrees has been successfully updated or not
      */
+    @Override
     @Transactional
-    public void deleteNutricionistDegrees(Long id){
+    public boolean deleteNutricionistDegrees(Long id){
         Session currentSession = entityManager.unwrap(Session.class);
         Query<NutricionistDegree> query = currentSession.createQuery("delete from NutricionistDegree where id=:nutricionistId");
         query.setParameter("nutricionistId", id);
-        query.executeUpdate();
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+        
     }
     
     /**
-     * Method to delete the assessments of the nutricionist
+     * Implementation of interface method to delete the assessments of the nutricionist
      * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the nutricionist assessments has been successfully updated or not
      */
+    @Override
     @Transactional
-    public void deleteNutricionistAssessments(Long id){
+    public boolean deleteNutricionistAssessments(Long id){
         Session currentSession = entityManager.unwrap(Session.class);
         Query<NutricionistAssessment> query = currentSession.createQuery("delete from NutricionistAssessment where id=:nutricionistId");
         query.setParameter("nutricionistId", id);
-        query.executeUpdate();
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
     
     /**
-     * Method to delete the comments of the nutricionist
+     * Implementation of interface method to delete the comments of the nutricionist
      * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the nutricionist comments has been successfully updated or not
      */
+    @Override
     @Transactional
-    public void deleteNutricionistComments(Long id){
+    public boolean deleteNutricionistComments(Long id){
         Session currentSession = entityManager.unwrap(Session.class);
         Query<NutricionistComment> query = currentSession.createQuery("delete from NutricionistComment where id=:nutricionistId");
         query.setParameter("nutricionistId", id);
-        query.executeUpdate();
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    
+    /**
+     * Implementation of interface method to delete the assessments made for the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the assessments made for the nutricionist has been successfully updated or not
+     */
+    @Override
+    @Transactional
+    public boolean deleteNutricionistAssessmentsMade(Long id){
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Assessment> query = currentSession.createQuery("delete from Assessment where userId=:userId");
+        query.setParameter("userId", id);
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    
+    /**
+     * Implementation of interface method to delete the comments made for the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the comments made for the nutricionist has been successfully updated or not
+     */
+    @Override
+    @Transactional
+    public boolean deleteNutricionistCommentsMade(Long id){
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Comment> query = currentSession.createQuery("delete from Comment where userId=:nutricionistId");
+        query.setParameter("nutricionistId", id);
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
     
 }

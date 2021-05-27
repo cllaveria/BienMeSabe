@@ -151,8 +151,14 @@ public class NutricionistController {
     public String deleteNutricionistById(@PathVariable String id){
         Nutricionist nutricionist = nutricionistService.findNutricionistById(Long.parseLong(id));
         if(nutricionist != null) {
-            nutricionistService.deleteNutricionistById(Long.parseLong(id));
-        return "Deleted nutricionist id - "+id;
+            boolean res = false;
+            res = nutricionistService.deleteNutricionistDegrees(Long.parseLong(id));
+            if(res)res = nutricionistService.deleteNutricionistAssessments(Long.parseLong(id));
+            if(res) res = nutricionistService.deleteNutricionistComments(Long.parseLong(id));
+            if(res) res = nutricionistService.deleteNutricionistAssessmentsMade(Long.parseLong(id));
+            if(res) res = nutricionistService.deleteNutricionistCommentsMade(Long.parseLong(id));      
+            if(res) nutricionistService.deleteNutricionistById(Long.parseLong(id));
+            if(res) return "Deleted nutricionist id - "+id;
         }
         return null;
     }

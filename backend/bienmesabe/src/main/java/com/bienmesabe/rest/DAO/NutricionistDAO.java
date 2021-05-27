@@ -76,5 +76,38 @@ public interface NutricionistDAO {
      */
     public void deleteNutricionistById(Long id);
     
+    /**
+     * Method to delete the degrees of the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the nutricionist degrees has been successfully updated or not
+     */
+    public boolean deleteNutricionistDegrees(Long id);
     
+    /**
+     * Method to delete the assessments of the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the nutricionist assessments has been successfully updated or not
+     */
+    public boolean deleteNutricionistAssessments(Long id);
+    
+    /**
+     * Method to delete the comments of the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the nutricionist comments has been successfully updated or not
+     */
+    public boolean deleteNutricionistComments(Long id);
+    
+    /**
+     * Method to delete the assessments made for the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the assessments made for the nutricionist has been successfully updated or not
+     */
+    public boolean deleteNutricionistAssessmentsMade(Long id);
+    
+    /**
+     * Method to delete the comments made for the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the comments made for the nutricionist has been successfully updated or not
+     */
+    public boolean deleteNutricionistCommentsMade(Long id);
 }
