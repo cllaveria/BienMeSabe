@@ -3,6 +3,7 @@
 
 #page-content-wrapper {
   width: 100%;
+  max-width: 1000px;
   overflow: hidden;
 }
 
@@ -28,15 +29,18 @@ table {
 tr {
   border: solid 1px #a6aa9c;
   padding: 10px;
+  text-align: end;
 }
 
 td {
-  padding: 10px;  
+  padding: 10px; 
+  vertical-align: middle; 
 }
 
 .nameRec {
   float: left;
   cursor: pointer;
+  padding-top: 25px;
 }
 
 .nameRec:hover {
