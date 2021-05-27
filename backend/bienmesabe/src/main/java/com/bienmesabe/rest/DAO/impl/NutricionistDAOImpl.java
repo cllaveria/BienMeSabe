@@ -6,6 +6,7 @@
 package com.bienmesabe.rest.DAO.impl;
 
 import com.bienmesabe.rest.DAO.NutricionistDAO;
+import com.bienmesabe.rest.domain.AdminContact;
 import com.bienmesabe.rest.domain.Assessment;
 import com.bienmesabe.rest.domain.Comment;
 import com.bienmesabe.rest.domain.Nutricionist;
@@ -297,4 +298,22 @@ public class NutricionistDAOImpl implements NutricionistDAO{
         }
     }
     
+    /**
+     * Implementation of interface method to delete the admin contacts made for the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the admin contacts made for the nutricionist has been successfully updated or not
+     */
+    @Override
+    @Transactional
+    public boolean deleteNutricionistAdminContactsMade(Long id){
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<AdminContact> query = currentSession.createQuery("delete from AdminContact where userId=:nutricionistId");
+        query.setParameter("nutricionistId", id);
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
 }

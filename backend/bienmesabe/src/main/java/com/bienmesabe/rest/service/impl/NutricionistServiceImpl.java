@@ -189,4 +189,14 @@ public class NutricionistServiceImpl implements NutricionistService {
     public boolean deleteNutricionistCommentsMade(Long id){
         return nutricionistDAO.deleteNutricionistCommentsMade(id);
     }
+    
+    /**
+     * Implementation of interface method to delete the admin contacts made for the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the admin contacts made for the nutricionist has been successfully updated or not
+     */
+    @Override
+    public boolean deleteNutricionistAdminContactsMade(Long id){
+        return nutricionistDAO.deleteNutricionistAdminContactsMade(id);
+    }
 }
