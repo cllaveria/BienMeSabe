@@ -41,11 +41,29 @@ $(document).ready(function () {
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor per recuperar les dades dels usuaris que tenen el servei del nutricionista.
      */
     const $urlSearchUsersNutricionist = 'http://localhost:8080/api/user/getNutricionistUsers/';
+    /**
+     * @constant $urlModifyDataNutricionist 
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor per emmagatzemar les modificaciones de les dades del nutricionista.
+     */
+    const $urlModifyDataNutricionist = 'http://localhost:8080/api/nutricionist/';
     /** 
      * @var $token
      * @description Variable de tipus String per emmagatzemar el token desat en localStorage.
      */
     let $token;
+    /** 
+     * @var $titleNutricionist
+     * @type {String}
+     * @description Variable String per emmagatzemar el titul del nutricionista.
+     */
+    let $titleNutricionist
+    /**
+     * @var $descNuutricionist
+     * @type {String}
+     * @description Variable String per emmagatzemar la descipció del nutricionista.
+     */
+    let $descNutricionist
     /** 
      * @var $IDuser
      * @description Variable de tipus String per emmagatzemar l'ID de l'usuari desat en localStorage.
@@ -71,7 +89,6 @@ $(document).ready(function () {
 
 
     if ($typeUser != 2) {
-        //TODO: RAUL | Pendiente de que pueda hacer la conexión entre usuarios y nutricionistas.
         $('.nutrist_container').css('display', 'none');
 
         $.ajax({
@@ -157,7 +174,6 @@ $(document).ready(function () {
                 'Authorization': $token
             },
             success: function ($users) {
-                console.log($users)
                 $.each($users, function ($i, $user) {
                     $.ajax({
                         url: $urlUser + $user,
@@ -185,4 +201,20 @@ $(document).ready(function () {
             window.location.href = '/fichaNutri?id=' + $IDuser;
         });
     }
+
+    $('.btn_saveDes').on('click', () => {
+        $titleNutricionist = $('#input_titul').val();
+        $descNutricionist = $('.desc_pas').val();
+
+        if ($descNutricionist != '') {
+            $.ajax({
+                url: $urlModifyDataNutricionist + 'modifyNutricionist/id---' + $IDuser + '___description---' + $descNutricionist,
+                type: 'PUT',
+                headers: {
+                    'Authorization': $token
+                },
+                success: function () {}
+            });
+        }
+    });
 });
