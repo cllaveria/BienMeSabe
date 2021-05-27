@@ -186,7 +186,7 @@ public class RecipeServiceImpl implements RecipeService{
      */
     @Override
     public List<Recipe> getRecipesOfUser(Long userId) {
-        return recipeDAO.getRecipesOfOtherUsers(userId);
+        return recipeDAO.getRecipesOfUser(userId);
     }
     
     @Override
