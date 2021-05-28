@@ -105,7 +105,7 @@ $(document).ready(function () {
     let $userAlias;
     /** 
      * @var $dinner 
-     * @type @{number}
+     * @type {number}
      * @description Variable per emmagatzemar els comensals de l'array.
      */
     let $dinner;

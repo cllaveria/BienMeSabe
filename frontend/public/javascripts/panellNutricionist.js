@@ -246,7 +246,6 @@ $(document).ready(function () {
                 contentType: "application/json",
                 dataType: "json",
                 success: function(){
-                    debugger
                 }
             });
         }
