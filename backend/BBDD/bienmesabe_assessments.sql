@@ -27,8 +27,10 @@ CREATE TABLE `assessments` (
   `RECIPE_ID` bigint NOT NULL,
   `ASSESSMENT` int NOT NULL,
   `USER_ID` bigint NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`),
+  KEY `FK32iyqe1p5xwtjuco3glnw03mq` (`RECIPE_ID`),
+  CONSTRAINT `FK32iyqe1p5xwtjuco3glnw03mq` FOREIGN KEY (`RECIPE_ID`) REFERENCES `recipe` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +39,7 @@ CREATE TABLE `assessments` (
 
 LOCK TABLES `assessments` WRITE;
 /*!40000 ALTER TABLE `assessments` DISABLE KEYS */;
-INSERT INTO `assessments` VALUES (17,2,5,3),(18,2,2,3);
+INSERT INTO `assessments` VALUES (37,2,5,3),(40,2,2,59),(51,2,1,2);
 /*!40000 ALTER TABLE `assessments` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-04 19:44:58
+-- Dump completed on 2021-05-28 21:04:17

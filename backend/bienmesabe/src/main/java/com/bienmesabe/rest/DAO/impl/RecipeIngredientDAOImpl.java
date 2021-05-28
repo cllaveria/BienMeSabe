@@ -127,10 +127,12 @@ public class RecipeIngredientDAOImpl implements RecipeIngredientDAO{
         try{
             Ingredient ingredientR = ingredientDAO.findIngredientById(recipeIngredient.getIngredientId());
             recipeIngredient.setIngredientKCAL(ingredientR.getKcal()*recipeIngredient.getIngredientQTY() /100);
-            Query<RecipeIngredients> query = currentSession.createQuery("Update RecipeIngredients set ingredientQTY=:qty,ingredientUnity=:unity, ingredientKCAL=:kcal WHERE ingredientId=:ingredientId");
+            Query<RecipeIngredients> query = currentSession.createQuery("Update RecipeIngredients set ingredientQTY=:qty,ingredientUnity=:unity, ingredientKCAL=:kcal, ingredientId=:ingredientId, recipeId=:recipeId WHERE id=:id");
             query.setParameter("qty", recipeIngredient.getIngredientQTY());
             query.setParameter("unity", recipeIngredient.getIngredientUnity());
             query.setParameter("kcal", recipeIngredient.getIngredientKCAL());
+            query.setParameter("id", recipeIngredient.getId());
+            query.setParameter("recipeId", recipeIngredient.getRecipeId());
             query.setParameter("ingredientId", recipeIngredient.getIngredientId());
             query.executeUpdate();
             return true;

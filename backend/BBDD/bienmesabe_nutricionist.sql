@@ -29,8 +29,7 @@ CREATE TABLE `nutricionist` (
   `company_phone` varchar(255) DEFAULT NULL,
   `company_postal_code` varchar(255) DEFAULT NULL,
   `id` bigint NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `FKgqx5mxaygd58sjok428xwyp3e` FOREIGN KEY (`id`) REFERENCES `users` (`ID`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-04 19:44:48
+-- Dump completed on 2021-05-28 21:04:17

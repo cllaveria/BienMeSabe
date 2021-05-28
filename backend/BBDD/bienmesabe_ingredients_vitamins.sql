@@ -27,7 +27,9 @@ CREATE TABLE `ingredients_vitamins` (
   `INGREDIENT_ID` bigint DEFAULT NULL,
   `VITAMIN_QTY` decimal(10,6) DEFAULT NULL,
   `VITAMIN_ID` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  KEY `FK5ogrnyr0242msn11mkku743ie` (`VITAMIN_ID`),
+  CONSTRAINT `FK5ogrnyr0242msn11mkku743ie` FOREIGN KEY (`VITAMIN_ID`) REFERENCES `vitamins` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -50,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-04 19:44:49
+-- Dump completed on 2021-05-28 21:04:17

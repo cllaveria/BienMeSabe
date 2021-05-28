@@ -25,7 +25,7 @@ public class Comment implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID", updatable = false, nullable = false)
     private Long id;
-    @Column(name="comment")
+    @Column(name="COMMENT")
     private String commentValue;
     @Column(name="RECIPE_ID")
     private Long recipeId;
