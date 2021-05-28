@@ -64,7 +64,7 @@ public class NutricionistCommentDAOImpl implements NutricionistCommentDAO{
     @Transactional
     public boolean createComment(NutricionistComment comment) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<NutricionistComment> query = currentSession.createQuery("FROM Comment WHERE nutricionistId=:nutricionist and userId=:user", NutricionistComment.class);
+        Query<NutricionistComment> query = currentSession.createQuery("FROM NutricionistComment WHERE nutricionistId=:nutricionist and userId=:user", NutricionistComment.class);
         query.setParameter("nutricionist", comment.getNutricionistId());
         query.setParameter("user", comment.getUserId());
         NutricionistComment commentInDB = new NutricionistComment();

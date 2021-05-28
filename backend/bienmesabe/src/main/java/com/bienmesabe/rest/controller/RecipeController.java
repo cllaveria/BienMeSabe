@@ -154,7 +154,7 @@ public class RecipeController {
      */
     @GetMapping("/getRecipesOfUser/{userId}")
     public List<Recipe> getRecipesOfUser(@PathVariable String userId){
-        return recipeService.getRecipesOfOtherUsers(Long.parseLong(userId));
+        return recipeService.getRecipesOfUser(Long.parseLong(userId));
     }
     
     /**

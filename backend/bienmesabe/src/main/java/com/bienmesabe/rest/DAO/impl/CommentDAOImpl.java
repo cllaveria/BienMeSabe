@@ -88,6 +88,7 @@ public class CommentDAOImpl implements CommentDAO{
      * @return a boolean that indicates if the comments are successfully deleted or not
      */
     @Override
+    @Transactional
     public boolean deleteComments(long recipeId) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Comment> query = currentSession.createQuery("DELETE FROM Comment WHERE recipeId=:recipe");

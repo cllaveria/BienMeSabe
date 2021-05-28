@@ -37,10 +37,9 @@ CREATE TABLE `users` (
   `USER_UPDATEDAT` timestamp NULL DEFAULT NULL,
   `USER_ACTIVE` int NOT NULL DEFAULT '1',
   `token` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `FK_USER_TYPE_USER` (`USER_TYPE`),
-  CONSTRAINT `FK_USER_TYPE_USER` FOREIGN KEY (`USER_TYPE`) REFERENCES `usertypes` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `token_end_validity_date` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +48,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'',NULL,'Raul','Ramos','1234','Starlord','starlord.rrc@gmail.com','650545473',3,'2021-03-17 20:46:04','2021-04-19 17:04:03',1,NULL),(2,'',NULL,'Cristina','Llaveria','1234','Cris','c.llaveria@gmail.com','',3,'2021-04-10 09:58:05','2021-04-19 17:07:40',1,NULL),(3,'46947777G',NULL,'Sergio','Asensio Ruiz','1234','SergioAsensio','serasensio@gmail.com','673308476',3,'2021-04-18 16:54:19','2021-05-01 15:02:44',1,NULL);
+INSERT INTO `users` VALUES (1,'',NULL,'Raul','Ramos','8e5aa8e6e17f55b693dc355c7beded18','Starlord','sergio@ioc.es','650545473',1,'2021-03-17 20:46:04','2021-04-19 17:04:03',1,NULL,NULL),(2,'',NULL,'Admin','','8e5aa8e6e17f55b693dc355c7beded18','Admin','bienmesabedaw@gmail.com',NULL,3,'2021-05-24 13:15:17','2021-05-24 13:15:17',0,NULL,NULL),(3,'',NULL,'Sergio','Asensio Ruiz','8e5aa8e6e17f55b693dc355c7beded18','SergioAsensio','serasensio@gmail.com','',2,'2021-05-16 16:13:16','2021-05-24 12:15:22',1,NULL,NULL),(4,'',NULL,'User1','','8e5aa8e6e17f55b693dc355c7beded18','user1','user1@ioc.es',NULL,1,'2021-05-28 14:45:33','2021-05-28 14:45:33',0,NULL,NULL),(5,'',NULL,'User2','','8e5aa8e6e17f55b693dc355c7beded18','user2','user2@ioc.es',NULL,1,'2021-05-28 14:46:06','2021-05-28 14:46:06',0,NULL,NULL),(68,'C88643952',NULL,'Nutricionista1','','8e5aa8e6e17f55b693dc355c7beded18','nutricionista1','nutricionista1@ioc.es',NULL,2,'2021-05-28 14:47:26','2021-05-28 14:47:26',0,NULL,NULL),(69,'Y5965024B',NULL,'Nutricionista2','','8e5aa8e6e17f55b693dc355c7beded18','nutricionista2','nutricionista2@ioc.es',NULL,2,'2021-05-28 14:48:13','2021-05-28 14:48:13',0,NULL,NULL),(70,'66258030K',NULL,'Nutricionista3','','8e5aa8e6e17f55b693dc355c7beded18','nutricionista3','nutricionista3@ioc.es',NULL,2,'2021-05-28 14:52:06','2021-05-28 14:52:06',0,NULL,NULL),(74,'',NULL,'Sergio','','8e5aa8e6e17f55b693dc355c7beded18','UserIOC','userioc123@ioc.es',NULL,1,'2021-05-28 16:49:59','2021-05-28 16:49:59',0,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -62,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-04 19:44:47
+-- Dump completed on 2021-05-28 21:04:19

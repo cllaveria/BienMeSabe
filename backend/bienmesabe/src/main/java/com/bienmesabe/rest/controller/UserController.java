@@ -6,6 +6,7 @@
 package com.bienmesabe.rest.controller;
 
 
+import com.bienmesabe.rest.DAO.impl.NutricionistAssessmentDAOImpl;
 import com.bienmesabe.rest.domain.AdminContact;
 import com.bienmesabe.rest.domain.NutricionistAssessment;
 import com.bienmesabe.rest.domain.NutricionistComment;
@@ -234,8 +235,11 @@ public class UserController{
     @PostMapping("/createNutricionistAssessment")
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     public Boolean createNutricionistAssessment(@RequestBody NutricionistAssessment assessment){
-        return nutricionistAssessmentService.createNutricionistAssessment(assessment);
-    }
+          boolean res = nutricionistAssessmentService.createNutricionistAssessment(assessment);
+        if (res)
+            return  nutricionistAssessmentService.updateNutricionistAssessment(assessment.getNutricionistId());
+        return false;
+    } 
     
     /**
      * Method to create the nutricionist comment // HTTP verb: POST url: http://localhost:8080/api/user/createNutricionistComment
@@ -342,7 +346,10 @@ public class UserController{
     @PutMapping("/modifyNutricionistAssessment")
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     public Boolean updateNutricionistAssessment(@RequestBody NutricionistAssessment assessment){
-        return nutricionistAssessmentService.modifyAssessment(assessment);
+        boolean res = nutricionistAssessmentService.modifyAssessment(assessment);
+        if (res)
+            return  nutricionistAssessmentService.updateNutricionistAssessment(assessment.getNutricionistId());
+        return false;
     }
 
     /**
