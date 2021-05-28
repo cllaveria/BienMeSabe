@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!-- Bootstrap core JS-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../javascripts/collapseSidebar.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/misRecetas.css' />
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="../javascripts/token.js"></script>
+    <script src="../javascripts/panellAdminValidate.js"></script>
+    <script src="../javascripts/insertRecipe.js"></script>
+    <script src="../javascripts/myRecipes.js"></script>
+    <!-- Encriptador MD5 -->
+    <script src="http://pajhome.org.uk/crypt/md5/2.2/md5-min.js"></script>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include('./header'); %>
+
+    <!-- Settings -->
+    <div class="settings_container">
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar-->
+            <%- include('./lateral-menu'); %>
+            <!-- Page Content-->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <h1 class="mt-4">Mis recetas</h1>
+                    <button class="button btn_add" id='submit' onclick="location.href='/crearReceta';">Añadir
+                        receta</button>
+                    <div class="tableRec">
+                        <table id='recipes'>
+                        </table>
+                    </div>
+                    <div class="val">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal delete recipe -->
+    <div class="modal fade" id="modalDeleteRecipe" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro que quieres borrar esta receta?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="modalDeleteRecipe button">Aceptar</button>
+                    <button type="button" class="button" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <%- include('./footer'); %>
+</body>
+
+</html>

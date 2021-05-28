@@ -35,4 +35,11 @@ public interface CommentService {
      * @return a long with the id of the persisted comment
      */
     public Long createComment(Comment comment);
+    
+    /**
+     * Method to delete the comments of a recipe
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that indicates if the comments are successfully deleted or not
+     */
+    public boolean deleteComments(long recipeId);
 }

@@ -14,6 +14,7 @@ import java.util.List;
  * @version 12/04/2021
  */
 public interface RecipeTypeDAO {
+    
     /**
      * Method to recover the recipe types present in the DB
      * @return a list with the recipe types in the DB

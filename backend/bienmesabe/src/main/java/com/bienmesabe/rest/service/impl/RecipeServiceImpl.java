@@ -11,6 +11,8 @@ import com.bienmesabe.rest.domain.RecipeIngredients;
 import com.bienmesabe.rest.service.RecipeService;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,7 @@ public class RecipeServiceImpl implements RecipeService{
      * Implementation of interface  to recover the recipes ordered by assessment
      * @return a list with the recipes ordered by assessment
      */
+    @Override
     public List<Recipe> getAllRecipesByAssessment(){
         return recipeDAO.getAllRecipesByAssessment();
     }
@@ -186,6 +189,11 @@ public class RecipeServiceImpl implements RecipeService{
         return recipeDAO.getRecipesOfOtherUsers(userId);
     }
     
+    @Override
+    public List<Recipe> getRecipesNotActive() {
+        return recipeDAO.getRecipesNotActive();
+    }
+    
     /**
      * Implementation of interface method to create a recipe
      * @param recipe object that represents the recipe to persist
@@ -206,6 +214,26 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     /**
+     * Implementation of interface method to update the image path of a recipe in the table recipes of the DB
+     * @param path string with the path of the recipe image
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that represents if the path of the recipe image has been successfully updated or not
+     */
+    @Override
+    public boolean updateImageRecipePath(String path, long recipeId) {
+        return recipeDAO.updateImageRecipePath(path, recipeId);
+    }
+    /**
+     * Implementation of interface method to asign a recipe as active
+     * @param id long that represents the id of the recipe
+     * @return a boolean that indicates if the recipe has been successfully set as active or not
+     */
+    @Override
+    public boolean setRecipeAsActive(Long id){
+        return recipeDAO.setRecipeAsActive(id);
+    }
+    
+    /**
      * Implementation of interface method to delete an recipe
      * @param id long with the id of the recipe to delete
      */
@@ -213,6 +241,7 @@ public class RecipeServiceImpl implements RecipeService{
     public void deleteRecipeById(long id) {
         recipeDAO.deleteRecipeById(id);
     }
+    
     /**
      * Implementation of interface method to retian the coincident recipes of both lists
      * @param masterList list of recipes where retain all coincident recipes of the secondary list
@@ -223,6 +252,8 @@ public class RecipeServiceImpl implements RecipeService{
         masterList.retainAll(secondaryList);
         return masterList;
     }
+
+    
 
     
 }

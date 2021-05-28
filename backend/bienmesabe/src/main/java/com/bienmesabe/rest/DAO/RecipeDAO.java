@@ -7,7 +7,6 @@ package com.bienmesabe.rest.DAO;
 
 import com.bienmesabe.rest.domain.Recipe;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Inteface with the methods to retrive the DB data of recipes
@@ -30,7 +29,7 @@ public interface RecipeDAO {
     
     /**
      * Method to recover the ingredient present in the DB by ingredients
-     * @param ingredientsForFilter list with the ingredients that must have the recipe
+     * @param ingredientsForFilter string that represents the list of the ingredients that must have the recipe
      * @return a list with the recipes in the DB filtered by ingredients
      */
     public List<Recipe> getRecipeByIngredients(List<Long> ingredientsForFilter);
@@ -77,6 +76,13 @@ public interface RecipeDAO {
      * @return a list with the recipes in the DB filtered by user
      */
     public List<Recipe> getRecipesOfOtherUsers(Long userId);
+    
+    /**
+     * Method to recover the recipes that are not active
+     * @return a list with the recipes that not are active in the DB
+     */
+    public List<Recipe> getRecipesNotActive();
+    
     /**
      * Method to create a recipe in the table recipes of the DB
      * @param recipe object that represents the recipe to persist
@@ -87,8 +93,24 @@ public interface RecipeDAO {
     /**
      * Method to modify an recipe in the table recipes of the DB
      * @param recipe object that represents the recipe to modify
+     * @return boolean that represents if the recipe has been successfully modified or not
      */
-    public void modifyRecipe(Recipe recipe);
+    public boolean modifyRecipe(Recipe recipe);
+    
+    /**
+     * Method to update the image path of a recipe in the table recipes of the DB
+     * @param path string with the path of the recipe image
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that represents if the path of the recipe image has been successfully updated or not
+     */
+    public boolean updateImageRecipePath(String path, long recipeId);
+    
+    /**
+     * Method to asign a recipe as active
+     * @param id long that represents the id of the recipe to activate
+     * @return boolean that represents if the recipe has been successfully activated or not
+     */
+    public Boolean setRecipeAsActive(Long id);
     
     /**
      * Method to delete an recipe in the table recipes of the DB by id

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!-- Bootstrap core JS-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../javascripts/collapseSidebar.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/panelNutri.css' />
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+    <script src="../javascripts/token.js"></script>
+    <script src="../javascripts/panellAdminValidate.js"></script>
+    <script src="../javascripts/panellNutricionist.js"></script>
+    <!-- Encriptador MD5 -->
+    <script src="http://pajhome.org.uk/crypt/md5/2.2/md5-min.js"></script>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include('./header'); %>
+
+        <!-- Settings -->
+        <div class="settings_container">
+            <div class="d-flex" id="wrapper">
+                <!-- Sidebar-->
+                <%- include('./lateral-menu'); %>
+                    <!-- Page Content-->
+                    <div id="page-content-wrapper">
+                        <div class="container-fluid">
+                            <!-- User page -->
+                            <div class="user_container">
+                                <h1 class="mt-4">Mi nutricionista</h1>
+                                <div class="nutrist_cont">
+                                    <div class="messageError messageErrorNutrist">
+                                        No has contratado los servicios de ningún nutricionista todavía.
+                                    </div>
+                                </div>
+                                <div class="search_nutri">
+                                    <h1>¿Quieres cambiar de nutricionista?</h1>
+                                    <h5 class="h5">Busca tu nutricionista más cercano</h5>
+                                    <div class="postCod">
+                                        <label>Introduce tu código postal</label>
+                                        <input type="text" placeholder="Código postal">
+                                        <button class="button btn_add" id='submit'>BUSCAR</button>
+                                    </div>
+                                </div>
+                                <div class="messageError">
+                                    No se ha encontrado ningun/a nutricionista cerca de tu zona.
+                                </div>
+                                <div class="nutritionists">
+                                </div>
+                            </div>
+
+                            <!-- Nutritionist page -->
+                            <div class="nutrist_container">
+                                <h1 class="mt-4">Mi nutricionista</h1>
+                                <div class="desc_nutri">
+                                    <h1>Preséntate a los usuarios</h1>
+                                    <div class="inputs">
+                                        <label>Titulación</label>
+                                        <input id="input_titul" type="text" placeholder="Introduce tu titulación">
+                                    </div>
+                                    <div class="inputs">
+                                        <label>Descripción</label>
+                                        <textarea class="desc_pas" id="desc_pas_4"
+                                            placeholder="Introduce una descripción sobre ti"></textarea>
+                                    </div>
+                                    <div class="buttons">
+                                        <button class="button btn_saveDes">GUARDAR</button>
+                                        <button class="button btn_see">VER MI
+                                            FICHA</button>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <%- include('./footer'); %>
+</body>
+
+</html>

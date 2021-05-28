@@ -1,0 +1,218 @@
+@import "common.css";
+
+.recipe_container {
+  margin: 80px auto;
+  padding: 80px 0;
+  width: 1000px;
+}
+
+@media (max-width: 1240px) {
+  .recipe_container {
+    width: 850px;
+  }
+}
+
+.top {
+  margin-top: 40px;
+  display: grid;
+  gap: 50px;
+  grid-template-columns: 3fr 1fr;
+  margin-bottom: 35px;
+}
+
+@media (max-width: 1020px) {
+  .recipe_container {
+    width: 620px;
+  }
+
+  .top {
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 700px) {
+  .recipe_container {
+    width: 500px;
+  }
+
+  .top {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 550px) {
+  .recipe_container {
+    width: 300px;
+  }
+}
+
+.selects > .inputs {
+  margin-bottom: 25px;
+  
+}
+
+select,
+option {
+  cursor: pointer;
+}
+
+.inputs {
+  display: grid;
+}
+
+.custom-file-label {
+  border: solid 1px #a6aa9c;
+  background-color: #f0f8ff;
+}
+
+.custom-file-input:focus ~ .custom-file-label {
+  box-shadow: 0 0 0 0.2rem #fca035;
+  border: 0;
+  outline: 0;
+}
+
+label {
+  padding-bottom: 10px;
+}
+
+input,
+textarea,
+select,
+datalist {
+  border: solid 1px #a6aa9c;
+  background-color: #f0f8ff;
+  height: 38px;
+  border-radius: 3px;
+  padding: 6px 12px;
+}
+
+input:focus,
+textarea:focus,
+datalist:focus {
+  box-shadow: 0 0 0 0.2rem #fca035;
+  border: 0;
+  outline: 0;
+}
+
+select:focus {
+  border: solid 2px #fca035;
+  outline: 0;
+}
+
+textarea {
+  min-height: 150px;
+  margin-bottom: 35px;
+}
+
+.ingr_cont,
+.pasos_cont {
+  margin: auto;
+  padding: 10px 50px;
+}
+
+@media (max-width: 1020px) {
+  .ingr_cont,
+  .pasos_cont {
+    padding: 10px 20px;
+  }
+}
+
+.ingredients {
+  display: inline-flex;
+  gap: 30px;
+  width: 100%;
+}
+
+.cantidad {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.quan {
+  width: 150px;
+}
+
+.btn_addIngr,
+.btn_addIngr:focus {
+  margin: 15px auto 35px;
+  display: flow-root;
+  width: fit-content;
+}
+
+.btn_addPasos,
+.btn_addPasos:focus {
+  margin: auto auto 35px;
+  display: flow-root;
+  width: fit-content;
+}
+
+.pasos {
+  display: grid;
+  gap: 50px;
+  grid-template-columns: 3fr 1fr;
+}
+
+@media (max-width: 1020px) {
+  .pasos {
+    gap: 35px;
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .pasos {
+    gap: 0;
+    grid-template-columns: 1fr;
+    margin-bottom: 20px;
+  }
+
+  textarea {
+    margin-bottom: 15px;
+  }
+
+  .ingredients {
+    gap: 20px;
+  }
+
+  .quan {
+    width: 80px;
+  }
+  
+  .dropzone {
+    width: 250px;
+  }
+
+  .inputs.dropzone {
+    justify-self: right;
+  }
+}
+
+@media (max-width: 550px) {
+  .ingredients {
+    display: grid;
+    gap: 10px;
+  }
+}
+
+.desc_pas {
+  min-height: 100px;
+}
+
+.dropzone {
+  align-content: flex-start;
+}
+
+.custom-file-input {
+  cursor: pointer;
+}
+
+.custom-file-label::after {
+  content: url("/images/subir-archivo.svg");
+  width: 40px;
+}
+
+.btn_save {
+  margin: 35px auto;
+  display: block;
+}

@@ -21,6 +21,10 @@ public interface UserDAO {
      */
     public List<User> findAllUsers();
     
+    /**
+     * Method to recover all of the users with all properties present in the DB
+     * @return a list with the users (with all properties) in the DB
+     */
     public List<User> findAllUsersWithAllProperties();
             
     /**
@@ -29,6 +33,13 @@ public interface UserDAO {
      * @return the user in the DB filtered by id
      */
     public User findUserById(Long id);
+    
+    /**
+     * Method to recover the user present in the DB by id
+     * @param id long that represents the id of the users to search
+     * @return the user in the DB filtered by id
+     */
+    public User findUserByIdWithAllProperties(Long id);
     
     /**
      * Method to recover the user present in the DB by name
@@ -51,9 +62,22 @@ public interface UserDAO {
      */
     public User findUserByAlias(String alias);
     
+    /**
+     * Method to authenticate an user by alias
+     * @param alias string that represents the alias of the user
+     * @param pass string that represents the password of the user
+     * @return an object of type user, or a null value if not exists in the DB
+     */
     public User authenticateUserByAlias(String alias, String pass);
     
+    /**
+     * Method to authenticate an user by email
+     * @param email string that represents the email of the user
+     * @param pass string that represents the password of the user
+     * @return an object of type user, or a null value if not exists in the DB
+     */
     public User authenticateUserByEmail(String email, String pass);
+    
     /**
      * Method to create a user in the table users of the DB
      * @param user object that represents the user to persist

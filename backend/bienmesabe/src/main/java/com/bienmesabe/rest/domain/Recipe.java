@@ -8,11 +8,13 @@ package com.bienmesabe.rest.domain;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
@@ -39,9 +41,11 @@ public class Recipe implements Serializable{
     private int type;
     @Column(name="USER_ID")
     private Long userId;
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "recipe_id")
     private List<RecipeIngredients> recipeIngredients;
-    @OneToMany(mappedBy="recipe")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "recipe_id")
     private List<RecipeStep> recipeSteps;
     @Column(name="RECIPE_CREATEDAT")
     @CreationTimestamp
@@ -63,6 +67,14 @@ public class Recipe implements Serializable{
     @Column(name="recipeEndingDescription")
     private String recipeEndingDescription;
     
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "RECIPE_ID")
+    private List<Assessment> assessments;
+    
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "recipe_id")
+    private List<Comment> comments;
+    
     /**
      * Empty Constructor
      */
@@ -78,6 +90,45 @@ public class Recipe implements Serializable{
         this.userId = userId;
     }
 
+    /**
+     * Recipe constructor with the required parameters
+     * @param image string that represents the path of the recipe image
+     * @param name string that represents the name of the recipe
+     * @param preparationVideo string that represents the path of the preparation video of the recipe
+     * @param type integer that represents the type of the recipe
+     * @param userId long that represents the if of the recipe owner
+     * @param recipeIngredients list of the recipe ingredients
+     * @param recipeSteps list of the recipe steps
+     * @param createdAt date of the recipe creation 
+     * @param active boolean that represents if the recipe is active or not
+     * @param recipeDinners integer that indicates the dinners of the recipe
+     * @param recipeKCAL float that indicates the Kcal of the recipe
+     * @param recipeTime integer that represents the time of the recipe preparation
+     * @param recipeDifficult integer that represents de difficult of the recipe preparation (1 to 5)
+     * @param recipeAssessment integer that represents the value of the recipe assessment
+     * @param recipeInitDescription string that represents the initial description of the recipe
+     * @param recipeEndingDescription string that represents the ending description of the recipe
+     */
+    public Recipe(String image, String name, String preparationVideo, int type, Long userId, List<RecipeIngredients> recipeIngredients, List<RecipeStep> recipeSteps, Date createdAt, int active, int recipeDinners, float recipeKCAL, int recipeTime, int recipeDifficult, int recipeAssessment, String recipeInitDescription, String recipeEndingDescription) {
+        this.image = image;
+        this.name = name;
+        this.preparationVideo = preparationVideo;
+        this.type = type;
+        this.userId = userId;
+        this.recipeIngredients = recipeIngredients;
+        this.recipeSteps = recipeSteps;
+        this.createdAt = createdAt;
+        this.active = active;
+        this.recipeDinners = recipeDinners;
+        this.recipeKCAL = recipeKCAL;
+        this.recipeTime = recipeTime;
+        this.recipeDifficult = recipeDifficult;
+        this.recipeAssessment = recipeAssessment;
+        this.recipeInitDescription = recipeInitDescription;
+        this.recipeEndingDescription = recipeEndingDescription;
+    }
+
+    
     /**
      * Method to recover the id of the recipe
      * @return a long that represents the id of the recipe
@@ -348,6 +399,38 @@ public class Recipe implements Serializable{
      */
     public void setRecipeEndingDescription(String recipeEndingDescription) {
         this.recipeEndingDescription = recipeEndingDescription;
+    }
+
+    /**
+     * Méthod to recover the comments of the recipe
+     * @return a list with all commments of the recipe
+     */
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    /**
+     * Méthod to asign the comments of the recipe
+     * @param comments list with all commments of the recipe
+     */
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    /**
+     * Méthod to recover the assessments of the recipe
+     * @return a list with all assessments of the recipe
+     */
+    public List<Assessment> getAssessments() {
+        return assessments;
+    }
+
+    /**
+     * Méthod to asign the assessments of the recipe
+     * @param assessments list with all assessments of the recipe
+     */
+    public void setAssessments(List<Assessment> assessments) {
+        this.assessments = assessments;
     }
     
     

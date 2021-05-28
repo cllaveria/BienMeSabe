@@ -7,10 +7,10 @@ package com.bienmesabe.rest.DAO.impl;
 
 import com.bienmesabe.rest.DAO.NutricionistDAO;
 import com.bienmesabe.rest.domain.Nutricionist;
+import com.bienmesabe.rest.domain.NutricionistAssessment;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -41,11 +41,6 @@ public class NutricionistDAOImpl implements NutricionistDAO{
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Nutricionist> query = currentSession.createQuery("from Nutricionist", Nutricionist.class);
         List<Nutricionist> nutricionists = query.getResultList();
-        for(int i =0;i<nutricionists.size();i++){
-            nutricionists.get(i).setPassword("");
-            nutricionists.get(i).setNIF("");
-            nutricionists.get(i).setPhone("");
-        }
         return nutricionists;
     }
 
@@ -59,27 +54,21 @@ public class NutricionistDAOImpl implements NutricionistDAO{
     public Nutricionist findNutricionistById(Long id) {
         Session currentSession = entityManager.unwrap(Session.class);
         Nutricionist nutricionist = currentSession.get(Nutricionist.class, id);
-        nutricionist.setPassword("");
-        nutricionist.setNIF("");
-        nutricionist.setPhone("");
         return nutricionist;
     }
 
     /**
-     * Implementation of interface method to recover the nutricionists present in the DB by id
+     * Implementation of interface method to recover the nutricionists present in the DB by cp
      * @param cp string that represents the postal code of the nutricionists to search
-     * @return the nutricionist filtered by postal code
+     * @return the list of the nutricionist filtered by postal code
      */
     @Override
     @Transactional
-    public Nutricionist findNutricionistByCP(String cp) {
+    public List<Nutricionist> findNutricionistByCP(String cp) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Nutricionist> query = currentSession.createQuery("FROM Nutricionist WHERE companyPostalCode=:companyPostalCode", Nutricionist.class);
         query.setParameter("companyPostalCode", cp);
-        Nutricionist nutricionist = query.getSingleResult();
-        nutricionist.setPassword("");
-        nutricionist.setNIF("");
-        nutricionist.setPhone("");
+        List<Nutricionist> nutricionist = query.getResultList();
         return nutricionist;
     }
 
@@ -97,21 +86,35 @@ public class NutricionistDAOImpl implements NutricionistDAO{
         query.setParameter("minCP", Integer.parseInt(cpMin));
         query.setParameter("maxCP", Integer.parseInt(cpMax));
         List<Nutricionist> nutricionists = query.getResultList();
-        for(int i =0;i<nutricionists.size();i++){
-            nutricionists.get(i).setPassword("");
-            nutricionists.get(i).setNIF("");
-            nutricionists.get(i).setPhone("");
-        }
         return nutricionists;
     }
 
+    /**
+     * Implementation of interface method to recover the assessment of the nutricionist in the DB
+     * @param id long that represents the id of the nutricionist
+     * @return an integer that represents the value of the assessment of the nutricionist
+     */
+    @Override
+    @Transactional
+    public int getNutricionistAssessment(Long id){
+        float assessment = 0;
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<NutricionistAssessment> query = currentSession.createQuery("FROM NutricionistAssessment WHERE nutricionistId=:id", NutricionistAssessment.class);
+        query.setParameter("id", id);
+        List<NutricionistAssessment> assessments = query.getResultList();
+        for(NutricionistAssessment na : assessments){
+            assessment+= na.getAssessmentValue();
+        }
+        
+        return Math.round(assessment/assessments.size());
+    }
+    
     /**
      * Implementation of interface method to create an nutricionist in the table nutricionists of the DB
      * @param nutricionist object that represents the nutricionist to persist
      * @return a long with the id of the persisted nutricionist
      */
     @Override
-    @Transactional
     public Long createNutricionist(Nutricionist nutricionist) {
         Session currentSession = entityManager.unwrap(Session.class);
         
@@ -126,21 +129,59 @@ public class NutricionistDAOImpl implements NutricionistDAO{
             nutricionistInDB = null;
         }
         if(nutricionistInDB==null){
-            Long idGenerado = (Long) currentSession.save(nutricionist); 
-            return idGenerado;
+            try{
+                currentSession.save(nutricionist); 
+                return 1L;
+            }catch(Exception e){
+                return 0L;
+            }
+            
         }
         return 0L;
     }
 
     /**
      * Implementation of interface method to modify an nutricionist in the table nutricionists of the DB
-     * @param nutricionist object that represents the nutricionist to modify
+     * @param nutricionistId long that represents the id of the nutricionist to modify
+     * @param companyName string that represents the company name of the nutricionist to asign
+     * @param companyDirection string that represents the company direction of the nutricionist to asign
+     * @param companyPostalCode string that represents the company postal code of the nutricionist to asign
+     * @param companyCity string that represents the company city of the nutricionist to asign
+     * @param companyPhone string that represents the company phone of the nutricionist to asign
+     * @param description string that represents the description of the nutricionist to asign
+     * @return a boolean that represents if the nutricionist information has been successfully updated or not
      */
     @Override
     @Transactional
-    public void modifyNutricionist(Nutricionist nutricionist) {
+    public Boolean modifyNutricionist(Long nutricionistId, String companyName, String companyDirection, String companyPostalCode, String companyCity, String companyPhone, String description) {
         Session currentSession = entityManager.unwrap(Session.class);
-        currentSession.saveOrUpdate(nutricionist);
+        try{
+            String updates = "update Nutricionist set ";
+            
+            if(companyName != null && !companyName.isEmpty()) updates +=  "companyName=:newCompanyName, ";
+            if(companyDirection != null && !companyDirection.isEmpty()) updates +=  "companyDirection=:newCompanyDirection, ";
+            if(companyPostalCode != null && !companyPostalCode.isEmpty()) updates +=  "companyPostalCode=:newCompanyPostalCode, ";
+            if(companyCity != null && !companyCity.isEmpty()) updates +=  "companyCity=:newCompanyCity, ";
+            if(companyPhone != null && !companyPhone.isEmpty()) updates +=  "companyPhone=:newCompanyPhone, ";
+            if(description != null && !description.isEmpty()) updates +=  "nutricionistDescription=:description, ";
+            
+            updates = updates.substring(0, updates.length() -2);
+            updates += " WHERE id=:nutricionistId";
+            Query<Nutricionist> query = currentSession.createQuery(updates);
+            query.setParameter("nutricionistId", nutricionistId);
+            
+            if(companyName != null && !companyName.isEmpty()) query.setParameter("newCompanyName", companyName);
+            if(companyDirection != null && !companyDirection.isEmpty()) query.setParameter("newCompanyDirection", companyDirection);
+            if(companyPostalCode != null && !companyPostalCode.isEmpty()) query.setParameter("newCompanyPostalCode", companyPostalCode);
+            if(companyCity != null && !companyCity.isEmpty()) query.setParameter("newCompanyCity", companyCity);
+            if(companyPhone != null && !companyPhone.isEmpty()) query.setParameter("newCompanyPhone", companyPhone);
+            if(description != null && !description.isEmpty()) query.setParameter("description", description);
+            
+            query.executeUpdate();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 
     /**

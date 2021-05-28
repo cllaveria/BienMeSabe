@@ -25,16 +25,24 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 /**
- *
+ * This class defines the security of the app
  * @author RAUL
+ * @version 10/05/2021
  */
-
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
     private final String HEADER = "Authorization";
     private final String PREFIX = "Bearer ";
     private final String SECRET = "BienMeSabeApplicationOfCSRIOC2021M12ProjecteDesenvolupamentAplicacionsWeb";
 
+    /**
+     * Method to recover the assessments
+     * @param request represents the Http request of the servlet
+     * @param response represents the Http response of the servlet
+     * @param chain object that represents the filterchain of the security
+     * @throws javax.servlet.ServletException throwed error of the type ServletException
+     * @throws java.io.IOException throwed error of the type IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         try {
@@ -56,6 +64,11 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         }
     }	
 
+    /**
+     * Method to check if the JWT token has a valid signature
+     * @param request represents the Http request of the servlet
+     * return the claims of the token
+     */
     private Claims validateToken(HttpServletRequest request) {
         String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
         return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
@@ -63,8 +76,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
     /**
      * Authentication method in Spring flow
-     * 
-     * @param claims
+     * @param claims object that represents the Claims needed by Spring to allow or deny the access
      */
     private void setUpSpringAuthentication(Claims claims) {
         @SuppressWarnings("unchecked")
@@ -77,6 +89,12 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
     }
 
+    /**
+     * Method to check if the JWT token has a correct header
+     * @param request represents the Http request of the servlet
+     * @param res represents the Http response of the servlet
+     * return a boolean if the token has a correct header or not
+     */
     private boolean checkJWTToken(HttpServletRequest request, HttpServletResponse res) {
         String authenticationHeader = request.getHeader(HEADER);
         if (authenticationHeader == null || !authenticationHeader.startsWith(PREFIX))

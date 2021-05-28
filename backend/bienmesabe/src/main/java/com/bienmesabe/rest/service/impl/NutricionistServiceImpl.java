@@ -39,7 +39,7 @@ public class NutricionistServiceImpl implements NutricionistService {
     /**
      * Implementation of interface method to recover the nutricionists present in the DB by id
      * @param id long that represents the id of the nutricionist to search
-     * @return the ingredient in the DB filtered by id
+     * @return the nutricionist in the DB filtered by id
      */
     @Override
     public Nutricionist findNutricionistById(Long id) {
@@ -50,12 +50,12 @@ public class NutricionistServiceImpl implements NutricionistService {
     /**
      * Implementation of interface method to recover the nutricionists present in the DB by id
      * @param cp string that represents the postal code of the nutricionists to search
-     * @return the ingredient in the DB filtered by postal code
+     * @return the list of the nutricionists in the DB filtered by postal code
      */
     @Override
-    public Nutricionist findNutricionistByCP(String cp) {
-        Nutricionist nutricionist = nutricionistDAO.findNutricionistByCP(cp);
-        return nutricionist;
+    public List<Nutricionist> findNutricionistByCP(String cp) {
+        List<Nutricionist> nutricionists= nutricionistDAO.findNutricionistByCP(cp);
+        return nutricionists;
     }
 
     /**
@@ -68,6 +68,16 @@ public class NutricionistServiceImpl implements NutricionistService {
     public List<Nutricionist> findNutricionistByCPRange(String cpMin, String cpMax) {
         List<Nutricionist> listNutricionists = nutricionistDAO.findNutricionistByCPRange(cpMin, cpMax);
         return listNutricionists;
+    }
+    
+    /**
+     * Implementation of interface method to recover the assessment of the nutricionist filtered by id
+     * @param id long that represents the id of the nutricionist
+     * @return an integer that represents the assessement of the nutricionist
+     */
+    @Override
+    public int getNutricionistAssessment(String id){
+        return nutricionistDAO.getNutricionistAssessment(Long.parseLong(id));
     }
 
     /**
@@ -86,8 +96,37 @@ public class NutricionistServiceImpl implements NutricionistService {
      * @param nutricionist object that represents the nutricionist to modify
      */
     @Override
-    public void modifyNutricionist(Nutricionist nutricionist) {
-        nutricionistDAO.modifyNutricionist(nutricionist);
+    public void modifyNutricionist(String nutricionist) {
+        Long nutricionistId = 0L;
+        String companyName = "", companyDirection ="", companyPostalCode ="" , companyCity = "", companyPhone = "", description = "";
+        String[] splittedNutricionist = nutricionist.split("___");
+        String[] splittedNutricionistIds = splittedNutricionist[0].split("---");
+        nutricionistId = Long.parseLong(splittedNutricionistIds[1]);
+        for (int i = 1; i<splittedNutricionist.length;i++){
+            String[] spplitedValues = splittedNutricionist[i].split("---");
+            String key = spplitedValues[0];
+            String values = spplitedValues[1];
+            
+            if(key.equals("name")){
+                companyName = values;
+            }
+            if(key.equals("direction")){
+               companyDirection = values;
+            }
+            if(key.equals("postalCode")){
+                companyPostalCode = values;
+            }
+            if(key.equals("city")){
+                companyCity = values;
+            }
+            if(key.equals("phone")){
+                companyPhone = values;
+            }
+            if(key.equals("description")){
+                description = values;
+            }
+        }
+        nutricionistDAO.modifyNutricionist(nutricionistId, companyName, companyDirection, companyPostalCode, companyCity, companyPhone, description);
     }
 
     /**

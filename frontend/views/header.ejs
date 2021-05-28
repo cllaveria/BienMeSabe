@@ -1,50 +1,78 @@
+<script src="../javascripts/dropdownMenu.js"></script>
 <header>
     <nav class="navbar fixed-top navbar-expand-sm navbar-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <img class="logo-toggler" src="/images/bienmesabe-logo.svg" alt="logo" onclick="location.href='/';">
         <div class="collapse navbar-collapse menu" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <div class="items_left">
+                <li class="items_left">
                     <div class="item_block">
                         <i class="fas fa-home item_icon"></i>
-                        <span class="item" type="button" onclick="location.href='/';">INICIO</span>
+                        <span class="item" onclick="location.href='/';">INICIO</span>
                     </div>
                     <div class="item_block">
                         <i class="fas fa-utensils item_icon"></i>
-                        <span class="item" type="button" onclick="location.href='/recetas';">RECETAS</span>
+                        <span class="item" onclick="location.href='/recetas';">RECETAS</span>
                     </div>
                     <div class="item_block">
                         <i class="fas fa-apple-alt item_icon"></i>
-                        <span class="item nutri" type="button"
-                            onclick="location.href='/nutricionistas';">NUTRICIONISTAS</span>
+                        <span class="item nutri" onclick="location.href='/nutricionistas';">NUTRICIONISTAS</span>
                     </div>
-                </div>
+                </li>
             </ul>
             <img class="logo" src="/images/bienmesabe-logo.svg" alt="logo" onclick="location.href='/';">
             <ul class="navbar-nav mr-auto">
-                <div class="items_right">
+                <li class="items_right">
                     <div class="item_block">
                         <i class="fas fa-envelope login_icon cont"></i>
-                        <span class="login contact" type="button" onclick="location.href='/';">CONTACTO</span>
+                        <span class="login contact" onclick="location.href='/contacto';">CONTACTO</span>
                     </div>
                     <div class="item_block" id="register">
                         <i class="fas fa-sign-in-alt login_icon"></i>
-                        <span class="login" type="button" onclick="location.href='/registro';">REGISTRARSE</span>
+                        <span class="login" onclick="location.href='/registro';">REGISTRARSE</span>
                     </div>
-                    <div class="item_block" id="login">
+                    <div class="item_block loginNoShow">
                         <i class="fas fa-user login_icon"></i>
-                        <span class="login" type="button" onclick="location.href='/login';">INICIAR SESIÓN</span>
+                        <span class="login" onclick="location.href='/login';">INICIAR SESIÓN</span>
                     </div>
                     <div class="item_block">
-                        <button class="btn_user" id='submit' onclick="location.href='/panelUsuario';">
+                        <button class="btn_user">
                             <i class="fas fa-user"></i> MI CUENTA
                         </button>
                     </div>
-                </div>
+                    <div class="dropdownMenuResp noShowdropdown">
+                        <div class="item_block">
+                            <span class="login" onclick="location.href='/panelUsuario';">Configuración</span>
+                        </div>
+                        <div class="item_block">
+                            <span class="login" onclick="location.href='/misRecetas';">Mis recetas</span>
+                        </div>
+                        <div class="item_block">
+                            <span class="login" onclick="location.href='/panelNutri';">Nutricionistas</span>
+                        </div>
+                        <div class="item_block">
+                            <button class="button btn_checkOut" style="width: 115px;">DESCONECTAR</button>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
-</header
+    <div class="dropdownMenu noShowdropdown">
+        <a class="list-group-item list-group-item-action menudp" href="/panelUsuario">
+            <p>Configuración</p>
+        </a>
+        <a class="list-group-item list-group-item-action menudp" href="/misRecetas">
+            <p>Mis recetas</p>
+        </a>
+        <a class="list-group-item list-group-item-action menudp" href="/panelNutri">
+            <p>Nutricionistas</p>
+        </a>
+        <div class="list-group-item list-group-item-action menudp">
+            <button class="button btn_checkOut" style="width: 100%;">DESCONECTAR</button>
+        </div>
+    </div>
+</header>

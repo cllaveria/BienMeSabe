@@ -16,106 +16,163 @@
  */
 
 $(document).ready(function () {
-    /** 
-     * @var $name 
-     * @description Variable per emmagatzemar el nom de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $phone  
-     * @description Variable per emmagatzemar el número de telèfon de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $alias 
-     * @description Variable per emmagatzemar l'Àlies de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $email 
-     * @description Variable per emmagatzemar l'email de l'usuari/nutricionista.
-     */
-    /** 
-     * @var $pass  
-     * @description Variable per emmagatzemar la contrasenya de l'usuari/nutricionista. 
-     */
-    /** 
-     * @var $nif 
-     * @description Variable per emmagatzemar el NIF/DNI, NIE o CIF del nutricionista. 
-     */
-    /** 
-     * @var $pc 
-     * @description Variable per emmagatzemar el codi postal de la ciutat del nutricionista. 
-     */
-    /** 
-     * @var $city 
-     * @description Variable per emmagatzemar la ciutat del nutricionista. 
-     */
-    /** 
-     * @var $company 
-     * @description Variable per emmagatzemar el nom d'empresa del nutricionista. 
-     */
-    /** 
-     * @var $direction 
-     * @description Variable per emmagatzemar la direcció d'empresa del nutricionista. 
-     */
-    /** 
-     * @var $businessPhone 
-     * @description Variable per emmagatzemar el número de telèfon d'empresa del nutricionista. 
-     */
-    /** 
-     * @var $booleanNif 
-     * @description Variable de tipus boolean per saber si el NIF/DNI, NIE o CIF estan introduïts correctament.
-     */
-    /** 
-     * @var $booleanName 
-     * @description Variable de tipus boolean per saber si el nom està introduït correctament.
-     */
-    /** 
-     * @var $booleanSurname
-     * @description Variable de tipus boolean per saber si el cognom està introduït correctament.
-     */
-    /** 
-     * @var $booleanPc
-     * @description Variable de tipus boolean per saber si el codi postal està introduït correctament.
-     */
-    /** 
-     * @var $booleanEmail 
-     * @description Variable de tipus boolean per saber si l'email està introduït correctament.
-     */
-    /** 
-     * @var $booleanAlias 
-     * @description Variable de tipus boolean per saber si l'Àlies està introduït correctament.
-     */
-    /** 
-     * @var $booleanPassword 
-     * @description Variable de tipus boolean per saber si el password està introduït correctament.
-     */
-    /** 
-     * @var $booleanCity
-     * @description Variable de tipus boolean per saber si la població està introduït correctament.
-     */
-    /** 
-     * @var $booleaDirection
-     * @description Variable de tipus boolean per saber si la direció està introduït correctament.
-     */
-    /** 
-     * @var $booleanCompany
-     * @description Variable de tipus boolean per saber si el nom de la companyia està introduït correctament.
-     */
-    /** 
-     * @var $booleanBusinessPhone
-     * @description Variable de tipus boolean per saber si el telèfon d'empresa està introduït correctament.
-     */
-    /** 
-     * @var $document 
-     * @description Variable per emmagatzemar el tipus de documentació que ha seleccionat l'usuari, si NIF/DNI, NIE o CIF.
-     */
+
     /**
-     * @constant $url
+     * @constant $url {String}
      * @description Constant per emmagatzemar la ruta de connexió amb el servidor.
      */
-    let $name, $phone, $alias, $email, $pass, $nif, $pc, $city, $company, $direction, $businessPhone;
-    let $booleanName, $booleanSurname, $booleanPhone, $booleanAlias, $booleanEmail, $booleanPassword, $booleanNif, $booleanPc, $booleanCity, $booleanDirection, $booleanCompany, $booleanBusinessPhone;
-    let $document = 'nif';
     const $url = 'http://localhost:8080/api/';
+
+    /** 
+     * @var $name 
+     * @type {String} 
+     * @description Variable per emmagatzemar el nom de l'usuari/nutricionista. 
+     */
+    let $name;
+    /** 
+     * @var $phone 
+     * @type {number} 
+     * @description Variable per emmagatzemar el número de telèfon de l'usuari/nutricionista. 
+     */
+    let $phone;
+    /** 
+     * @var $alias 
+     * @type {String}
+     * @description Variable per emmagatzemar l'Àlies de l'usuari/nutricionista. 
+     */
+    let $alias;
+    /** 
+     * @var $email 
+     * @type {String}
+     * @description Variable per emmagatzemar l'email de l'usuari/nutricionista.
+     */
+    let $email;
+    /** 
+     * @var $pass 
+     * @type {String}
+     * @description Variable per emmagatzemar la contrasenya de l'usuari/nutricionista. 
+     */
+    let $pass;
+    /** 
+     * @var $nif 
+     * @type {String}
+     * @description Variable per emmagatzemar el NIF/DNI, NIE o CIF del nutricionista. 
+     */
+    let $nif;
+    /** 
+     * @var $surnames 
+     * @type {String}
+     * @description Variable per emmagatzemar el cognom de l'usuari/nutricionista. 
+     */
+    let $surnames;
+    /** 
+     * @var $pc 
+     * @type {number}
+     * @description Variable per emmagatzemar el codi postal de la ciutat del nutricionista. 
+     */
+    let $pc;
+    /** 
+     * @var $city 
+     * @type {String}
+     * @description Variable per emmagatzemar la ciutat del nutricionista. 
+     */
+    let $city;
+    /** 
+     * @var $company 
+     * @type {String}
+     * @description Variable per emmagatzemar el nom d'empresa del nutricionista. 
+     */
+    let $company;
+    /** 
+     * @var $direction 
+     * @type {String}
+     * @description Variable per emmagatzemar la direcció d'empresa del nutricionista. 
+     */
+    let $direction;
+    /** 
+     * @var $businessPhone 
+     * @type {boolean}
+     * @description Variable per emmagatzemar el número de telèfon d'empresa del nutricionista. 
+     */
+    let $businessPhone;
+    /** 
+     * @var $booleanName 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el nom està introduït correctament.
+     */
+    let $booleanName;
+    /** 
+     * @var $booleanSurname 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el cognom està introduït correctament.
+     */
+    let $booleanSurname;
+    /** 
+     * @var $booleanPhone 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el teléfon està introduït correctament.
+     */
+    let $booleanPhone;
+    /** 
+     * @var $booleanAlias 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si l'Àlies està introduït correctament.
+     */
+    let $booleanAlias;
+    /** 
+     * @var $booleanEmail 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si l'email està introduït correctament.
+     */
+    let $booleanEmail;
+    /** 
+     * @var $booleanPassword 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el password està introduït correctament.
+     */
+    let $booleanPassword;
+    /** 
+     * @var $booleanNif 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el NIF/DNI, NIE o CIF estan introduïts correctament.
+     */
+    let $booleanNif;
+    /** 
+     * @var $booleanPc 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el codi postal està introduït correctament.
+     */
+    let $booleanPc;
+    /** 
+     * @var $booleanCity 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si la població està introduït correctament.
+     */
+    let $booleanCity;
+    /** 
+     * @var $booleanDirection 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si la direció està introduït correctament.
+     */
+    let $booleanDirection;
+    /** 
+     * @var $booleanCompany 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el nom de la companyia està introduït correctament.
+     */
+    let $booleanCompany;
+    /** 
+     * @var $booleanBusinessPhone 
+     * @type {boolean}
+     * @description Variable de tipus boolean per saber si el telèfon d'empresa està introduït correctament.
+     */
+    let $booleanBusinessPhone;
+    /** 
+     * @var $document 
+     * @type {String}
+     * @description Variable inicialitzada en una String 'nif' per emmagatzemar el tipus de documentació i es modifica segons el que ha seleccionat l'usuari, si NIF/DNI, NIE o CIF.
+     */
+    let $document = 'nif';
 
     /**
      * @type {jQuery}
@@ -146,7 +203,6 @@ $(document).ready(function () {
             if ($surnames.length < 5 || $surnames.length > 100) {
                 changeIconsError($('#surnames'), $('#iconInfoSurnames'), $('#iconExcSurnames'), $('#iconCheckSurnames'));
                 $booleanSurname = false;
-                console.log($booleanSurname)
             } else {
                 changeIconsCheck($('#surnames'), $('#iconInfoSurnames'), $('#iconExcSurnames'), $('#iconCheckSurnames'));
                 $booleanSurname = true;
@@ -198,12 +254,11 @@ $(document).ready(function () {
                 success: function (data) {
                     if (data.alias == $alias) {
                         changeIconsError($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
-                        $('#iconExcAlias').children().html('El Alias introducido ya está registrado.')
+                        $('#iconExcAlias').children().html('El Alias introducido ya está registrado.');
+                    } else {
+                        changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
+                        $booleanAlias = true;
                     }
-                },
-                error: function () {
-                    changeIconsCheck($('#alias'), $('#iconInfoAlias'), $('#iconExcAlias'), $('#iconCheckAlias'));
-                    $booleanAlias = true;
                 }
             });
         }
@@ -227,14 +282,15 @@ $(document).ready(function () {
                 url: $url + 'user/findUserByEmail/' + $email,
                 type: 'GET',
                 success: function (data) {
+                    console.log(data)
                     if (data.email == $email) {
+
                         changeIconsError($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
                         $('#iconExcEmail').children().html('El email introducido ya está registrado.')
+                    } else {
+                        changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
+                        $booleanEmail = true;
                     }
-                },
-                error: function () {
-                    changeIconsCheck($('#email'), $('#iconInfoEmail'), $('#iconExcEmail'), $('#iconCheckEmail'));
-                    $booleanEmail = true;
                 }
             });
         }
@@ -290,7 +346,7 @@ $(document).ready(function () {
      */
     $(document).on('change', '#document', () => {
         $document = $('#document option:selected').val();
-        checkDocument();
+        $booleanNif = checkDocument($document, $('#nif').val().toUpperCase());
     })
 
     /**
@@ -300,7 +356,7 @@ $(document).ready(function () {
      * @description Quan l'usuari surt de l'input NIF es comprova si aquest és correcte i es canvien les classes i les icones corresponents.
      */
     $('#nif').blur(() => {
-        checkDocument();
+        $booleanNif = checkDocument($document, $('#nif').val().toUpperCase());
     });
 
 
@@ -433,7 +489,7 @@ $(document).ready(function () {
         $alias = $('#alias').val();
         $email = $('#email').val();
         $pass = $('#pswrd').val();
-        $nif = $('#nif').val().toUpperCase();;
+        $nif = $('#nif').val().toUpperCase();
         $pc = $('#pc').val();
         $city = $('#city').val();
         $company = $('#company').val();
@@ -462,7 +518,8 @@ $(document).ready(function () {
 
         // Si el checkbox esta seleccionat es recuperen les dades del nutricionista
         if ($('[name="nutritionist"]:checked').val() == 'yes') {
-            $nifEncrypted = hex_md5($nif);
+            //$nifEncrypted = hex_md5($nif);
+            $nif = $('#nif').val().toUpperCase();
         }
 
         if ($('[name="nutritionist"]:checked').val() == 'yes') {
@@ -479,7 +536,7 @@ $(document).ready(function () {
                 $.ajax({
                     url: $url + 'nutricionist/addNutricionist/?',
                     data: {
-                        NIF: $nifEncrypted,
+                        NIF: $nif,
                         password: $passEncrypted,
                         name: $name,
                         email: $email,
@@ -511,7 +568,8 @@ $(document).ready(function () {
                 });
                 e.preventDefault();
             } else {
-                $.ajax($url + 'user/addUser/?', {
+                $.ajax({
+                    url: $url + 'user/addUser/?',
                     data: {
                         NIF: null,
                         password: $passEncrypted,
@@ -539,6 +597,7 @@ $(document).ready(function () {
      * @function loading
      * @description Mostrem gif de càrrega.
      */
+
     function loading() {
         $('#submit').html('<div id="loading"><img style="width:85%;margin-top:-20px;" src="../images/loading.gif" alt="loading" /></div>')
     }
@@ -547,313 +606,22 @@ $(document).ready(function () {
      * @function register
      * @description Redirigim a la pàgina de login una vegada que s'ha completat el registre.
      */
-    function register(){
+    function register() {
         $('.checkIn_container').children().remove()
         $('.checkIn_container').html('<div style="height:300px;font-size:20px;display:flex;align-items: center;text-align: center;"><span style="color:green">Te registraste correctamente. <br>En breve serás redirigido a la página de login.</span></div>');
-        $('.checkIn_container').fadeOut(5000, function(){
+        $('.checkIn_container').fadeOut(5000, function () {
             window.location.href = '../login';
         });
     }
 
     /**
      * @function addRequired
+     * @param {boolean} $boolean 
      * @description Modifiquem el required de les ID nif, pc i city.
      */
     function addRequired($boolean) {
         $('#nif').attr('required', $boolean);
         $('#pc').attr('required', $boolean);
         $('#city').attr('required', $boolean);
-    }
-
-    /**
-     * @function checkDocument
-     * @description Comprova si el NIF/DNI, NIE o CIF introduït és correcte
-     */
-    function checkDocument() {
-        if ($document == 'nif') {
-            if ((checkNif($('#nif').val().toUpperCase())) != true) {
-                changeIconsError($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
-                $('#iconExcNif').children().html('El NIF/DNI introducido no es correcto.');
-                $booleanNif = false;
-            } else {
-                changeIconsCheck($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
-                $booleanNif = true;
-            }
-        } else if ($document == 'nie') {
-            if ((checkNie($('#nif').val().toUpperCase())) != true) {
-                changeIconsError($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
-                $('#iconExcNif').children().html('El NIE introducido no es correcto.');
-                $booleanNif = false;
-            } else {
-                changeIconsCheck($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
-                $booleanNif = true;
-            }
-        } else if ($document == 'cif') {
-            if ((checkCif($('#nif').val().toUpperCase())) != true) {
-                changeIconsError($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
-                $('#iconExcNif').children().html('El CIF introducido no es correcto.');
-                $booleanNif = false;
-            } else {
-                changeIconsCheck($('#nif'), $('#iconInfoNif'), $('#iconExcNif'), $('#iconCheckNif'));
-                $booleanNif = true;
-            }
-        }
-    }
-
-    /**
-     * @function checkNif
-     * @description Comprova si el NIF/DNI introduït és correcte
-     * @param {string} $nif NIF/DNI introduït
-     * @returns {boolean}
-     */
-    function checkNif($nif) {
-        let $letter = ($nif.charAt($nif.length - 1));
-        let $calcNif = $nif.substr(0, 8);
-        let $compareLetter = checkLetter($calcNif);
-        if ($compareLetter != $letter) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * @function checkNie
-     * @description Comprova si el NIE introduït és correcte
-     * @param {string} $nie NIE introduït
-     * @returns {boolean}
-     */
-    function checkNie($nie) {
-        let $insertNumber;
-        let $letter = ($nie.charAt($nie.length - 1));
-        let $initialLetter = ($nie.charAt(0));
-        // Es compara la primera lletra del NIE per a donar-li un valor numèric.
-        switch ($initialLetter) {
-            case 'X':
-                $insertNumber = 0;
-                break;
-            case 'Y':
-                $insertNumber = 1;
-                break;
-            case 'Z':
-                $insertNumber = 2;
-                break;
-        }
-        // Una vegada obtingut el resultat, s'insereix el número resultat a la resta del NIE, però traient el número final.
-        let $calcNie = $insertNumber + $nie.substr(1, 7);
-        let $compareLetter = checkLetter($calcNie);
-        if ($compareLetter != $letter) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * @function checkLetter
-     * @description Realitza el calcul de la numeració per saber si el NIF/NIE o DNI són correctes
-     * @param {number} $numeration numeració del NIF/DNI o NIE
-     * @returns {string}
-     */
-    function checkLetter($numeration) {
-        let $calcNumeration = ($numeration / 23);
-        let $calcNumeration2 = $calcNumeration - Math.trunc($calcNumeration);
-        let $calcNumeration3 = $calcNumeration2 * 23;
-        let $result = Math.round($calcNumeration3);
-        switch ($result) {
-            case 0:
-                return 'T';
-            case 1:
-                return 'R';
-            case 2:
-                return 'W';
-            case 3:
-                return 'A';
-            case 4:
-                return 'G';
-            case 5:
-                return 'M';
-            case 6:
-                return 'Y';
-            case 7:
-                return 'F';
-            case 8:
-                return 'P';
-            case 9:
-                return 'D';
-            case 10:
-                return 'X';
-            case 11:
-                return 'B';
-            case 12:
-                return 'N';
-            case 13:
-                return 'J';
-            case 14:
-                return 'Z';
-            case 15:
-                return 'S';
-            case 16:
-                return 'Q';
-            case 17:
-                return 'V';
-            case 18:
-                return 'H';
-            case 19:
-                return 'L';
-            case 20:
-                return 'C';
-            case 21:
-                return 'K';
-            case 22:
-                return 'E';
-        }
-    }
-
-    /**
-     * @function checkCif
-     * @description Comprova si el CIF introduït és correcte.
-     * @param {string} $cif CIF introduït
-     * @returns {boolean}
-     */
-    function checkCif($cif) {
-        let $pairsSum = 0;
-        let $oddSum = 0;
-        let $firstOddResult = '';
-        let $arrayOrganization = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'U', 'V', 'W'];
-        let $letterOrNumber = $cif.charAt($cif.length - 1);
-        for (let i = 0; i < 10; i++) {
-            // Si el resultat coincideix amb un número, aquest s'avaluarà com a número.
-            if ($letterOrNumber == i) {
-                $letterOrNumber = eval($letterOrNumber);
-            }
-        }
-        let $letterOrganization = $cif.charAt(0);
-        let $coincidence = $.inArray($letterOrganization, $arrayOrganization);
-        // Si no hi ha cap coincidència, el resultat serà -1 i retornarà false.
-        if ($coincidence == -1) {
-            return false;
-        }
-        let $numeration = $cif.substr(1, 7);
-        let $arrayNumeration = $numeration.split('');
-        for (let i = 0; i < $arrayNumeration.length; i++) {
-            if (i % 2 == 0) {
-                $firstOddResult = parseInt($arrayNumeration[i]) * 2;
-                let $x = $firstOddResult.toString().length;
-                if ($x == 2) {
-                    let $innerOddSum = 0;
-                    let $arrayResult = $firstOddResult.toString().split('');
-                    $firstOddResult = 0;
-                    for (let i = 0; i < $arrayResult.length; i++) {
-                        $innerOddSum += parseInt($arrayResult[i]);
-                    }
-                    $firstOddResult += $innerOddSum;
-                }
-                $oddSum += $firstOddResult;
-            } else {
-                $pairsSum += parseInt($arrayNumeration[i]);
-            }
-        }
-        let $semifinalResult = $pairsSum + $oddSum;
-        let $finalNumber = $semifinalResult.toString().charAt(1);
-        let $result = 10 - $finalNumber;
-        if ($result == 10) {
-            $result = $result.toString().charAt(1);
-        }
-        if (typeof ($letterOrNumber) == 'number') {
-            if ($result != parseInt($letterOrNumber)) {
-                return false;
-            } else {
-                return true;
-            }
-        } else if (typeof ($letterOrNumber) == 'string') {
-            switch ($result) {
-                case 0:
-                    $result = 'J';
-                    break;
-                case 1:
-                    $result = 'A';
-                    break;
-                case 2:
-                    $result = 'B'
-                    break;
-                case 3:
-                    $result = 'C';
-                    break;
-                case 4:
-                    $result = 'D';
-                    break;
-                case 5:
-                    $result = 'E';
-                    break;
-                case 6:
-                    $result = 'F';
-                    break;
-                case 7:
-                    $result = 'G';
-                    break;
-                case 8:
-                    $result = 'H';
-                    break;
-                case 9:
-                    $result = 'I';
-                    break;
-                case 10:
-                    $result = 'J';
-                    break;
-            }
-            if ($result != $letterOrNumber) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-    }
-
-    /**
-     * @param {*} input Fa referèncía a l'input que s'està validant.
-     * @param {*} iconInfo Icona d'informació del input.
-     * @param {*} iconExcl Icona d'exclamació del input.
-     * @param {*} iconCheck Icono de check del input.
-     * @description Si la dada de l'input és buida modifica els displays de les icones per passar 
-     * a mostrar la informació i treu la classe error i/o success.
-     */
-    function changeIconsInfo(input, iconInfo, iconExcl, iconCheck) {
-        iconInfo.css("display", "block");
-        iconCheck.css("display", "none");
-        iconExcl.css("display", "none");
-        input.removeClass("error");
-        input.removeClass("success");
-    }
-
-    /**
-     * @param {*} input Fa referèncía a l'input que s'està validant.
-     * @param {*} iconInfo Icona d'informació del input.
-     * @param {*} iconExcl Icona d'exclamació del input.
-     * @param {*} iconCheck Icono de check del input.
-     * @description Si la dada de l'input no és correcta modifica els displays de les icones per passar 
-     * a mostrar l'exclamació i afegeix la classe error a l'input per  mostrar el focus i borders en vermell.
-     */
-    function changeIconsError(input, iconInfo, iconExcl, iconCheck) {
-        iconExcl.css("display", "block");
-        iconInfo.css("display", "none");
-        iconCheck.css("display", "none");
-        input.addClass("error");
-    }
-
-    /**
-     * @param {*} input Fa referèncía a l'input que s'està validant.
-     * @param {*} iconInfo Icona d'informació del input.
-     * @param {*} iconExcl Icona d'exclamació del input.
-     * @param {*} iconCheck Icono de check del input.
-     * @description Si la dada de l'input és correcta modifica els displays de les icones per passar 
-     * a mostrar el check. Treu la classe error de l'input i li afegeix la classe success per mostrar el focus en verd.
-     */
-    function changeIconsCheck(input, iconInfo, iconExcl, iconCheck) {
-        iconCheck.css("display", "block");
-        iconInfo.css("display", "none");
-        iconExcl.css("display", "none");
-        input.removeClass("error");
-        input.addClass("success");
     }
 });

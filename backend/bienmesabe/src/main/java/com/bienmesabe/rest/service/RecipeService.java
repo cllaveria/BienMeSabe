@@ -84,6 +84,14 @@ public interface RecipeService {
      */
     public List<Recipe> getRecipesOfOtherUsers(Long userId);
     
+    
+    /**
+     * Method to recover the recipes that are not active
+     * @return a list with the recipes that are not active
+     */
+    public List<Recipe> getRecipesNotActive();
+            
+            
     /**
      * Method to create a recipe
      * @param recipe object that represents the recipe to persist
@@ -96,6 +104,21 @@ public interface RecipeService {
      * @param recipe object that represents the recipe to modify
      */
     public void modifyRecipe(Recipe recipe);
+    
+    /**
+     * Method to update the image path of a recipe in the table recipes of the DB
+     * @param path string with the path of the recipe image
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that represents if the path of the recipe image has been successfully updated or not
+     */
+    public boolean updateImageRecipePath(String path, long recipeId);
+    
+    /**
+     * Method to asign a recipe as active
+     * @param id long that represents the id of the recipe
+     * @return a boolean that indicates if the recipe has been successfully set as active or not
+     */
+    public boolean setRecipeAsActive(Long id);
     
     /**
      * Method to delete an recipe

@@ -1,26 +1,136 @@
+/**
+ * @fileoverview · Visualització de les receptes insertades en la BBDD. 
+ * 
+ * <p> History</p>
+ * <p> 0.1 - Implementació de la visualització de les receptes</p>
+ *  
+ * @version     0.1
+ * @author      Sergio Asensio Ruiz 
+ * @copyright   bienmesabe.com
+ * 
+ */
+
 $(document).ready(function () {
-
+    /**
+     * @constant $urlAllUsers
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els usuaris.
+     */       
     const $urlAllUsers = 'http://localhost:8080/api/user/getUsers';
+    /**
+     * @constant $urlRecipes
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar totes les receptes.
+     */
     const $urlRecipes = 'http://localhost:8080/api/recipe/getRecipesByType/';
+    /**
+     * @constant $urlType
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els tipus de plats.
+     */
     const $urlType = 'http://localhost:8080/api/recipeTypes/getRecipeTypes';
+    /**
+     * @constant $urlRecipe
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor veure la fitxa de les receptes.
+     */
     const $urlRecipe = 'http://localhost:3000/recetas/ficha?id=';
-
+    /**
+     * @constant $screenSize
+     * @type {String}
+     * @description Constant per emmagatzemar les dimensions de la finestra del navegador.
+     */
     const $screenSize = window.screen.width;
-
+    /** 
+     * @var $countStarters 
+     * @type {number}
+     * @description Variable inicialitzada a 0 per contar les vegades que prenem el botó "VER MÁS" de les receptes de Entrantes.
+     */
+    
     let $countStarters = 0;
+    /** 
+     * @var $countFirsts 
+     * @type {number}
+     * @description Variable inicialitzada a 0 per contar les vegades que prenem el botó "VER MÁS" de les receptes de Primeros.
+     */
     let $countFirsts = 0;
+    /** 
+     * @var $countSeconds 
+     * @type {number}
+     * @description Variable inicialitzada a 0 per contar les vegades que prenem el botó "VER MÁS" de les receptes de Segundos.
+     */
     let $countSeconds = 0;
+    /** 
+     * @var $countDesserts 
+     * @type {number}
+     * @description Variable inicialitzada a 0 per contar les vegades que prenem el botó "VER MÁS" de les receptes de Postres.
+     */
     let $countDesserts = 0;
+    /** 
+     * @var $countCakes 
+     * @type {number}
+     * @description Variable inicialitzada a 0 per contar les vegades que prenem el botó "VER MÁS" de les receptes de Repostería.
+     */
     let $countCakes = 0;
+    /** 
+     * @var $forks 
+     * @type {String}
+     * @description Variable per emmagatzemar la cadena per inserir en el DOM per veure la puntuació mitjana de les receptes.
+     */
     let $forks;
+    /** 
+     * @var $difficult 
+     * @type {String}
+     * @description Variable per emmagatzemar la dificultat de la recepta i mostar-lo per pantalla.
+     */
     let $difficult;
+    /** 
+     * @var $userAlias 
+     * @type {String}
+     * @description Variable per emmagatzemar l'alies de l'usuari que ha creat la recepta i mostrar-lo per pantalla.
+     */
     let $userAlias;
+    /** 
+     * @var $allUsers 
+     * @type {Array}
+     * @description Array per emmagatzemar tots els usuaris de la BBDD.
+     */
     let $allUsers = [];
+    /** 
+     * @var $allPlatesStarters
+     * @type {Array} 
+     * @description Array per emmagatzemar totes les receptes del tipus de plat Entrantes.
+     */
     let $allPlatesStarters = [];
+    /** 
+     * @var $allPlatesFirsts 
+     * @type {Array}
+     * @description Array per emmagatzemar totes les receptes del tipus de plat Primeros.
+     */
     let $allPlatesFirsts = [];
+    /** 
+     * @var $allPlatesSeconds 
+     * @type {Array}
+     * @description Array per emmagatzemar totes les receptes del tipus de plat Segundos
+     */
     let $allPlatesSeconds = [];
+    /** 
+     * @var $allPlatesDesserts 
+     * @type {Array}
+     * @description Array per emmagatzemar totes les receptes del tipus de plat Postres.
+     */
     let $allPlatesDesserts = [];
+    /** 
+     * @var $allPlatesCakes 
+     * @type {Array}
+     * @description Array per emmagatzemar totes les receptes del tipus de plat Repostería.
+     */
     let $allPlatesCakes = [];
+    /** 
+     * @var $allTypePlate 
+     * @type {Array}
+     * @description Array per emmagatzemar tots els tipus de plats.
+     */
     let $allTypePlate = [];
 
     $.ajax({
@@ -47,9 +157,8 @@ $(document).ready(function () {
                     success: function ($recipe) {
                         for (let x = 0; x < $recipe.length; x++) {
                             for (let j = 0; j < $allUsers.length; j++) {
-                                //TODO: BORRAR LO COMENTADO
-                                if ( /* $allUsers[j].id */ $allUsers[j][0] == $recipe[x].userId) {
-                                    $userAlias = /* $allUsers[j].alias */ $allUsers[j][4];
+                                if ($allUsers[j][0] == $recipe[x].userId) {
+                                    $userAlias = $allUsers[j][4];
                                 }
                             }
 
@@ -71,6 +180,7 @@ $(document).ready(function () {
                     }
                 });
             }
+
             if ($screenSize <= 700) {
                 if ($allPlatesStarters.length != 0) {
                     insertPlates(0, 4, $allPlatesStarters, '#starters', 'entrantes');
@@ -107,58 +217,12 @@ $(document).ready(function () {
         }
     });
 
-    function receivePlate($recipe, $userAlias, $forks, $difficult, $typePlate, $classPlate) {
-        $($typePlate).append('<div class="rcp_cnt">\
-                                <a href="' + $urlRecipe + $recipe.id + '">\
-                                    <div class="recipe ' + $classPlate + '">\
-                                        <img src="' + $recipe.image + '" alt="Entrantes" style="width: 100%;">\
-                                        <div class="desc_rec">\
-                                            <h3 id="title">' + $recipe.name + '</h3>\
-                                            <p id="author">' + $userAlias + '</p>\
-                                        </div>\
-                                    </div>\
-                                    <div class="info_rec">\
-                                        <p id="level">Dificultad: ' + $difficult + '</p>\
-                                        <div class="time_rec">\
-                                            <i class="fas fa-clock clock"></i>\
-                                            <p id="time">' + $recipe.recipeTime + ' min</p>\
-                                        </div>\
-                                    </div>\
-                                    ' + $forks + '\
-                                </a>\
-                            </div>');
-    }
-
-    function getForks($forks) {
-        let $insertForks = '<div class="score_rec">';
-        for (let i = 0; i < $forks; i++) {
-            $insertForks = $insertForks.concat('<img src="/images/tenedor-gold.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
-        }
-        if ($forks != 5) {
-            let $numberForks = 5 - $forks;
-            for (let i = 0; i < $numberForks; i++) {
-                $insertForks = $insertForks.concat('<img src="/images/tenedor-black.svg" alt="tenerdor" style="width: 20px; height: 40px;">');
-            }
-        }
-        $insertForks = $insertForks.concat('</div>');
-        return $insertForks;
-    }
-
-    function getDifficult($dificult) {
-        let $insertDificult = '';
-        switch ($dificult) {
-            case 0:
-                return $insertDificult = 'Muy baja';
-            case 1:
-                return $insertDificult = 'Baja';
-            case 2:
-                return $insertDificult = 'Media';
-            case 3:
-                return $insertDificult = 'Difícil';
-            case 4:
-                return $insertDificult = 'Muy difícil';
-        }
-    }
+    /**
+     * @type {jQuery}
+     * @type each
+     * @listens .btn_more - Classe dels botons "VER MÁS" de les receptes.
+     * @description Assignem a cada botó una funció ver veure mes receptes, segons la mida de la pantalla mostrarem de 4 en 4 (per la versió Mobile) o de 6 en 6 (per la versió Desktop i Tablet). 
+     */
     $('.btn_more').each(function () {
         $(this).on('click', () => {
             let $typePlateButton = $(this).siblings()[1].id;
@@ -260,20 +324,53 @@ $(document).ready(function () {
         });
     });
 
+    /**
+     * @function insertPlates
+     * @description Funció per inserir en el DOM les receptes afegides a la BBDD.
+     * @param {number} $count Número mínim per començar el compte en el for.
+     * @param {number} $maxCount Numero màxim per finalitzar el compte en el for.
+     * @param {object} $insertPlates objecte JSON amb les dades de la recepta.
+     * @param {String} $insertTypePlate String amb el tipus de recepta.
+     * @param {String} $insertTypePlateSpanish String amb el tipus de recepta en espanyol.
+     */
+
     function insertPlates($count, $maxCount, $insertPlates, $insertTypePlate, $insertTypePlateSpanish) {
         for (let i = $count; i < $maxCount; i++) {
             for (let j = 0; j < $allUsers.length; j++) {
-                //TODO: BORRAR LO COMENTADO
-                if (/* $allUsers[j].id */ $allUsers[j][0] == $insertPlates[i].userId) {
-                    $userAlias =  /* $allUsers[j].alias */ $allUsers[j][4];
+                if ($allUsers[j][0] == $insertPlates[i].userId) {
+                    $userAlias = $allUsers[j][4];
                 }
             }
             $forks = getForks($insertPlates[i].recipeAssessment);
-            $difficult = getDifficult($insertPlates[i].recipeDifficult)
-            receivePlate($insertPlates[i], $userAlias, $forks, $difficult, $insertTypePlate, $insertTypePlateSpanish);
+            $difficult = getDifficult($insertPlates[i].recipeDifficult);
+
+            $($insertTypePlate).append('<div class="rcp_cnt">\
+                                        <a href="' + $urlRecipe + $insertPlates[i].id + '">\
+                                            <div class="recipe ' + $insertTypePlateSpanish + '">\
+                                                <img src="' + $insertPlates[i].image + '" alt="Entrantes" style="width: 100%;">\
+                                                <div class="desc_rec">\
+                                                    <h3 id="title">' + $insertPlates[i].name + '</h3>\
+                                                    <p id="author">' + $userAlias + '</p>\
+                                                </div>\
+                                            </div>\
+                                            <div class="info_rec">\
+                                                <p id="level">Dificultad: ' + $difficult + '</p>\
+                                                <div class="time_rec">\
+                                                    <i class="fas fa-clock clock"></i>\
+                                                    <p id="time">' + $insertPlates[i].recipeTime + ' min</p>\
+                                                </div>\
+                                            </div>\
+                                            ' + $forks + '\
+                                        </a>\
+                                    </div>');
         }
     }
 
+    /**
+     * @function urlTypePlate
+     * @description Quan polsem sobre el botó "VER MÁS" i s'ha polsat 3 vegades, es redirigeix a la pàgina "filtros".
+     * @param {string} $namePlate nom del plat.
+     */
     function urlTypePlate($namePlate) {
         for (let i = 0; i < $allTypePlate.length; i++) {
             if ($allTypePlate[i].name == $namePlate) {

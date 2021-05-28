@@ -4,7 +4,7 @@
 .carousel {
   height: 530px;
   overflow: hidden;
-  margin-top: 40px auto 0;
+  margin: 40px auto 0;
 }
 
 @media screen and (min-width: 1500px) {
@@ -470,7 +470,6 @@
 
 .desc_rec > h3 {
   font-weight: bold;
-  border: outside 1px;
 }
 
 .info_rec {

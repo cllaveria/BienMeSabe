@@ -7,19 +7,14 @@ package com.bienmesabe.rest.service.impl;
 
 import com.bienmesabe.rest.domain.User;
 import com.bienmesabe.rest.service.TokenService;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
@@ -31,6 +26,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class TokenServiceImpl implements TokenService{
 
+    /**
+     * Method to create the token of the indicated user
+     * @param user object that represents the user
+     * @return a string that contains the token
+     */
     @Override
     public String getJWTToken(User user) {
     		    
@@ -46,7 +46,7 @@ public class TokenServiceImpl implements TokenService{
                                     .map(GrantedAuthority::getAuthority)
                                     .collect(Collectors.toList()))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 3600000))
+                .setExpiration(new Date(System.currentTimeMillis() + 14400000))//4h
                 .signWith(SignatureAlgorithm.HS512,
                         secretKey.getBytes()).compact();
         
@@ -55,6 +55,33 @@ public class TokenServiceImpl implements TokenService{
                 
     }
     
-   
+    /**
+     * Method to check the validity date of the token
+     * @param token string that contains the token
+     * @return a string with the end date of validity of the token
+     */
+    @Override
+    public String methodTokenIsValidDate(String token){
+        String[] chunks = token.split("\\.");
+        
+        Base64.Decoder decoder = Base64.getDecoder();
+        String payload = new String(decoder.decode(chunks[1]));
+        String[] payloadSplitted = payload.split(",");
+        for(String element:payloadSplitted){
+            if(element.contains("exp")){
+                String[] splitted = element.split(":");
+                String dateValue = splitted[1].replace("\"", "");
+                String datValue = dateValue.replace("}", "");
+                Calendar calendar= Calendar.getInstance();
+
+                calendar.setTimeInMillis(Long.parseLong(datValue)*1000);
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                
+                return formatter.format(calendar.getTime());
+            }
+
+        }
+        return "";
+    }
     
 }

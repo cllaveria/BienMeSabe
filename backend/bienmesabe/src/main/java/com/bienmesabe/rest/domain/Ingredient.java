@@ -13,10 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -53,8 +51,9 @@ public class Ingredient implements Serializable{
     private float sugars;
     @Column(name="KCALX100G")
     private float kcal;
-
-    @OneToOne(mappedBy="ingredient")
+    
+    @JoinColumn(name="id")
+    @OneToOne()
     private RecipeIngredients recipeIngredient;
     
     @OneToMany(mappedBy="ingredient")
@@ -300,8 +299,5 @@ public class Ingredient implements Serializable{
     public void setIngredientVitamins(List<IngredientVitamin> ingrtedientVitamins) {
         this.ingredientVitamins = ingrtedientVitamins;
     }
-    
-    
-    
-    
+
 }

@@ -7,13 +7,13 @@ package com.bienmesabe.rest.DAO.impl;
 
 import com.bienmesabe.rest.DAO.CommentDAO;
 import com.bienmesabe.rest.domain.Comment;
-import com.bienmesabe.rest.domain.Ingredient;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Class for implementation of Inteface CommentDAO (repository)
@@ -30,10 +30,11 @@ public class CommentDAOImpl implements CommentDAO{
     private EntityManager entityManager;
     
     /**
-     * Method to recover the comments
+     * Implementation of interface method to recover the comments
      * @return a list with the comments
      */
     @Override
+    @Transactional
     public List<Comment> findAllComments() {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Comment> query = currentSession.createQuery("FROM Comment",Comment.class);
@@ -41,11 +42,12 @@ public class CommentDAOImpl implements CommentDAO{
     }
     
     /**
-     * Method to recover the comments of the recipe present in the DB by name
-     * @param name string that represents the id of the recipe to search
+     * Implementation of interface method to recover the comments of the recipe present in the DB by name
+     * @param recipeId long that represents the id of the recipe to search
      * @return the user in the DB filtered by name
      */
     @Override
+    @Transactional
     public List<Comment> findAllCommentsOfRecipe(Long recipeId) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Comment> query = currentSession.createQuery("FROM Comment WHERE recipeId=:id", Comment.class);
@@ -61,6 +63,7 @@ public class CommentDAOImpl implements CommentDAO{
      * @return a long with the id of the persisted comment
      */
     @Override
+    @Transactional
     public Long createComment(Comment comment) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Comment> query = currentSession.createQuery("FROM Comment WHERE recipeId=:recipe and userId=:user", Comment.class);
@@ -77,6 +80,24 @@ public class CommentDAOImpl implements CommentDAO{
         return idGenerado;
         }
         return 0L;
+    }
+
+    /**
+     * Implementation of interface method to delete the comments of a recipe in the table assessments of the DB
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that indicates if the comments are successfully deleted or not
+     */
+    @Override
+    public boolean deleteComments(long recipeId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Comment> query = currentSession.createQuery("DELETE FROM Comment WHERE recipeId=:recipe");
+        query.setParameter("recipe", recipeId);
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception ee){
+            return false;
+        }
     }
 
     

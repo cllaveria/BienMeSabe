@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: addModifyRecipe.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: addModifyRecipe.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview Visualització segons l'opció escollida en la pàgina "misRecetas", si se selecciona "Añadir receta" es visualitzarà el formulari per afegir una nova recepta, si es polsa el botó de llapis, es modificarà la recepta escollida mostrant en els inputs els valors d'aquesta.
+ * &lt;p> 1) Afegir títol.&lt;/p>
+ * &lt;p> 2) Afegir imatge.&lt;/p>
+ * &lt;p> 3) Afegir descripció inicial.&lt;/p>
+ * &lt;p> 4) Afegir ingredients.&lt;/p>
+ * &lt;p> 5) Afegir els passos a realitzar + imatge.&lt;/p>
+ * &lt;p> 6) Afegir una descripció final.&lt;/p>
+ * 
+ * &lt;p> History&lt;/p>
+ * 0.1 - Implementació de la visualització segons l'opció escollida per l'usuari.  
+ *  
+ * @version     0.1
+ * @author      Sergio Asensio Ruiz 
+ * @copyright   bienmesabe.com
+ * 
+ */
+$(document).ready(function () {
+    /**
+     * @constant $urlRecipe
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor per veure la fitxa de les receptes.
+     */
+    const $urlRecipe = 'http://localhost:8080/api/recipe/getRecipesById/';
+    /**
+     * @constant $urlIngredients
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor i recuperar tots els ingredients.
+     */
+    const $urlIngredients = 'http://localhost:8080/api/ingredient/getIngredients';
+    /**
+     * @constant $urlAddIngredients
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor per desar a la BBDD els ingredients de la nova recepta.
+     */
+    const $urlAddIngredients = 'http://localhost:8080/api/recipe/addIngredient/';
+    /**
+     * @constant $urlAddSteps
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor per desar a la BBDD els passos de la nova recepta.
+     * @contents http://localhost:8080/api/recipe/addRecipeStep/
+     */
+    const $urlAddSteps = 'http://localhost:8080/api/recipe/addRecipeStep/';
+    /**
+     * @constant $urlModifyRecipe
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor per modificar les receptes.
+     */
+    const $urlModifyRecipe = 'http://localhost:8080/api/recipe/modifyRecipe/';
+    /**
+     * @constant $urlAddRecipe
+     * @type {String}
+     * @description Constant per emmagatzemar la ruta de connexió amb el servidor per afegir les receptes.
+     */
+    const $urlAddRecipe = 'http://localhost:8080/api/recipe/addRecipe/';
+    /**
+     * @var $idRecipe
+     * @type {number}
+     * @description Variable per emmagatzemar l'ID de la recepta.
+     */
+    let $idRecipe = (window.location.search).substr(4, );
+    /** 
+     * @var $arrayIngredients
+     * @type {Array} 
+     * @description Array per emmagatzemar els ingredients que es troben a la BBDD registrats de la recepta.
+     */
+    let $arrayIngredients = [];
+    /** 
+     * @var $arrayIngredientsAdd
+     * @type {Array} 
+     * @description Array per emmagatzemar els ingredients de la recepta.
+     */
+    let $arrayIngredientsAdd = [];
+    /** 
+     * @var $arrayStepsAdd
+     * @type {Array} 
+     * @description Array per emmagatzemar els passos de la recepta.
+     */
+    let $arrayStepsAdd = [];
+    /** 
+     * @var $ingredientUnity 
+     * @type {String}
+     * @description Variable per emmagatzemar el tipus d'unitat de l'ingredient. 
+     */
+    let $ingredientUnity;
+    /** 
+     * @var $countModifyRecipeIngredients 
+     * @type {number}
+     * @description Variable per emmagatzemar el compte de les vegades que s'afegeix un nou ingredient en la modificació de la recepta. 
+     */
+    let $countModifyRecipeIngredients = 0;
+    /** 
+     * @var $countAddRecipeIngredients 
+     * @type {number}
+     * @description Variable per emmagatzemar el compte de les vegades que s'afegeix un nou ingredient al afegir una recepta nova. 
+     */
+    let $countAddRecipeIngredients = 6;
+    /** 
+     * @var $countModiyRecipeSteps 
+     * @type {number}
+     * @description Variable per emmagatzemar el compte de les vegades que s'afegeix un nou pas al modificar una recepta.
+     */
+    let $countModiyRecipeSteps = 0;
+    /** 
+     * @var $countAddRecipeSteps 
+     * @type {number}
+     * @description Variable per emmagatzemar el compte de les vegades que s'afegeix un nou pas al afegir una recepta nova.
+     */
+    let $countAddRecipeSteps = 5;
+    /** 
+     * @var $nameRecipe 
+     * @type {String}
+     * @description Variable per emmagatzemar el nom de la recepta. 
+     */
+    let $nameRecipe;
+    /** 
+     * @var $time 
+     * @type {number}
+     * @description Variable per emmagatzemar el temps total per realitzar la recepta. 
+     */
+    let $time;
+    /** 
+     * @var $type 
+     * @type {number}
+     * @description Variable per emmagatzemar el tipus de plat.
+     */
+    let $type;
+    /** 
+     * @var $difficult 
+     * @type {number}
+     * @description Variable per emmagatzemar la dificultat de la recepta.
+     */
+    let $difficult;
+    /** 
+     * @var $JSONrecipe 
+     * @type {JSON}
+     * @description Variable JSON per emmagatzemar les ades de la recepta.
+     */
+    let $JSONrecipe;
+    /** 
+     * @var $descriptionInitRecipe 
+     * @type {String}
+     * @description Variable per emmagatzemar la descripció inicial de la recepta.
+     */
+    let $descriptionInitRecipe;
+    /** 
+     * @var $imageVideoRecipe 
+     * @type {FormData}
+     * @description Variable per emmagatzemar la imatge en format formData.
+     */
+    let $image = new FormData();
+    /** 
+     * @var $endscriptionFinalRecipe 
+     * @type {String}
+     * @description Variable per emmagatzemar la descripció final de la recepta.
+     */
+    let $endescriptionFinalRecipe;
+    /** 
+     * @var $imageVideoRecipe 
+     * @type {String}
+     * @description Variable per emmagatzemar el video de la recepta.
+     */
+    let $imageVideoRecipe;
+    /** 
+     * @var $JSONmodifyRecipe 
+     * @type {JSON}
+     * @description Variable per emmagatzemar la recepta modificada en format JSON.
+     */
+    let $JSONmodifyRecipe;
+    /** 
+     * @var $JSONmodifyingredients 
+     * @type {JSON}
+     * @description Variable per emmagatzemar els ingredients de la recepta.
+     */
+    let $JSONmodifyingredients;
+    /** 
+     * @var $booleanRecipe 
+     * @type {boolean}
+     * @description Variable boolean per saber si l'ingredient està inserit a la recepta quan es realitza una modificació.
+     */
+    let $booleanRecipe = false;
+    /** 
+     * @var $reouteImageRecipe 
+     * @type {boolean}
+     * @description Variable String per emmagatzemar el nom de la imatge principal.
+     */
+    let $reouteImageRecipe;
+    /** 
+     * @var $reouteImageRecipe 
+     * @type {boolean}
+     * @description Variable String per emmagatzemar el nom de la imatge principal.
+     */
+    let $nameImageSteps;
+    /** 
+     * @var $nameImageRecipe 
+     * @type {boolean}
+     * @description Variable String per emmagatzemar eel nom de la imatge dels passos de les receptes.
+     */
+    let $nameImageRecipe;
+    /** 
+     * @var $JSONmodifySteps 
+     * @type {JSON}
+     * @description Variable per emmagatzemar la recepta modificada en format JSON.
+     */
+    let $JSONmodifySteps;
+
+    /** 
+     * @var $token
+     * @type {String}
+     * @description Variable de tipus String per emmagatzemar el token desat en localStorage.
+     */
+    let $token;
+    /** 
+     * @var $IDuser 
+     * @type {String}
+     * @description Variable de tipus String per emmagatzemar l'ID de l'usuari desat en localStorage.
+     */
+    let $IDuser;
+
+    let $boolean = false;
+
+    if (token() == true) {
+        $token = localStorage.getItem('token');
+        $IDuser = localStorage.getItem('id');
+    }
+
+    $.ajax({
+        url: $urlIngredients,
+        type: 'GET',
+        async: false,
+        success: function ($ingredientsRecipe) {
+            $.each($ingredientsRecipe, function ($index, $ingredients) {
+                $arrayIngredients.push($ingredients);
+            });
+        }
+    })
+
+    if ($idRecipe != '') {
+        $.ajax({
+            url: $urlRecipe + $idRecipe,
+            type: 'GET',
+            async: false,
+            headers: {
+                'Authorization': $token
+            },
+            success: function ($recipe) {
+                $JSONrecipe = $recipe
+                $('#inp_name').val($recipe.name)
+                $('#imageVideoRecipe').text(trimImage($recipe.image))
+                $('#inp_description').text($recipe.recipeInitDescription);
+                $('.difficult option[value="' + $recipe.recipeDifficult + '"]').attr("selected", "selected");
+                $('.type option[value="' + $recipe.type + '"]').attr("selected", "selected");
+                $('.time option[value="' + $recipe.recipeTime + '"]').attr("selected", "selected");
+                if ($recipe.recipeIngredients.length > 0) {
+                    $('.ingr_cont').remove();
+                    $.each($recipe.recipeIngredients, function ($indexI, $recipeIngredients) {
+                        $.each($arrayIngredients, function ($indexX, $nameIngredients) {
+                            if ($nameIngredients.id == $recipeIngredients.ingredientId) {
+                                if ($recipeIngredients.ingredientUnity == 'G') {
+                                    $ingredientUnity = '&lt;option value="U">u.&lt;/option>\
+                                                        &lt;option value="G" selected>gr&lt;/option>\
+                                                        &lt;option value="S">chr.&lt;/option>';
+                                } else if ($recipeIngredients.ingredientUnity == 'U') {
+                                    $ingredientUnity = '&lt;option value="U" selected>u.&lt;/option>\
+                                                        &lt;option value="G">gr&lt;/option>\
+                                                        &lt;option value="S">chr.&lt;/option>';
+                                } else if ($recipeIngredients.ingredientUnity == 'S') {
+                                    $ingredientUnity = '&lt;option value="U">u.&lt;/option>\
+                                                        &lt;option value="G">gr&lt;/option>\
+                                                        &lt;option value="S" selected>chr.&lt;/option>';
+                                }
+                                $('#ingredients').append('&lt;div class="ingr_cont">\
+                                                            &lt;div class="ingredients">\
+                                                                &lt;div class="cantidad">\
+                                                                    &lt;select class="ingredient">\
+                                                                        ' + $ingredientUnity + '\
+                                                                    &lt;/select>\
+                                                                    &lt;input class="quan" type="text" placeholder="Cantidad" value="' + $recipeIngredients.ingredientQTY + '">\
+                                                                &lt;/div>\
+                                                                &lt;input list="list_ingredient" name="ingredient" id="inp_ingredient_' + $indexI + '"\
+                                                                placeholder="Introduce un ingrediente esté o no en la lista" value="' + $nameIngredients.name + '" style="width: 100%;">\
+                                                                &lt;datalist id="list_ingredient">&lt;/datalist>\
+                                                            &lt;/div>\
+                                                        &lt;/div>');
+                                $countModifyRecipeIngredients++;
+                            }
+                        });
+                    });
+                }
+                addIngredients($countModifyRecipeIngredients);
+                $.each($arrayIngredients, function ($index, $ingredients) {
+                    $('#list_ingredient').append("&lt;option>" + $ingredients.name + "&lt;/option>");
+                });
+                if ($recipe.recipeSteps.length > 0) {
+                    $('.pasos_cont').remove();
+                    $.each($recipe.recipeSteps, function ($index, $recipeSteps) {
+                        $('#steps').append('&lt;div class="pasos_cont">\
+                                                &lt;div class="pasos">\
+                                                    &lt;div class="inputs">\
+                                                        &lt;label>Descripción paso ' + ($index + 1) + '&lt;/label>\
+                                                        &lt;textarea class="desc_pas" value="' + $recipeSteps.id + '" id="desc_pas_' + $index + '"\
+                                                         placeholder="Introduce la descripción del paso ' + ($index + 1) + '">' + $recipeSteps.stepDescription + '&lt;/textarea>\
+                                                    &lt;/div>\
+                                                    &lt;div class="inputs dropzone">\
+                                                        &lt;label>Imagen paso ' + ($index + 1) + '&lt;/label>\
+                                                        &lt;div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">\
+                                                            &lt;div class="fallback">\
+                                                                &lt;div class="custom-file">\
+                                                                    &lt;input type="file" name="image_pas_' + $index + '" class="custom-file-input" id="dropzoneBasicUpload" multiple="multiple">\
+                                                                    &lt;label class="custom-file-label" id="image_pas_' + $index + '" for="dropzoneBasicUpload">' + trimImage($recipeSteps.image) + '&lt;/label>\
+                                                                &lt;/div>\
+                                                            &lt;/div>\
+                                                        &lt;/div>\
+                                                    &lt;/div>\
+                                                &lt;/div>\
+                                            &lt;/div>');
+                        $countModiyRecipeSteps++;
+                    });
+                }
+                addSteps($countModiyRecipeSteps)
+                $('#inp_descriptionEnding').text($recipe.recipeEndingDescription)
+            }
+        });
+
+
+    } else {
+        addIngredients($countAddRecipeIngredients);
+        addSteps($countAddRecipeSteps)
+        $.each($arrayIngredients, function ($index, $ingredients) {
+            $('#list_ingredient').append("&lt;option>" + $ingredients.name + "&lt;/option>");
+        });
+    }
+
+
+    /**
+     * @function trimImage
+     * @param {number} $image 
+     * @description Retallem la ruta de la imatge per quedar-nos només amb el nom de l'arxiu a pujar.
+     */
+    function trimImage($image) {
+        if ($image != null) {
+            return ($image).substr(7, );
+        } else {
+            return;
+        }
+
+    }
+
+    /**
+     * @function addIngredients
+     * @param {number} $addIngredients 
+     * @description Afegim al DOM les caselles per poder afegir els ingredients per realitzar la recepta.
+     */
+    function addIngredients($addIngredients) {
+        $('.btn_addIngr').on('click', () => {
+            $('#ingredients').append('&lt;div class="ingr_cont">\
+                                        &lt;div class="ingredients">\
+                                            &lt;div class="cantidad">\
+                                            &lt;select class="ingredient">\
+                                                &lt;option value="U">u.&lt;/option>\
+                                                &lt;option value="G">gr&lt;/option>\
+                                                &lt;option value="S">chr.&lt;/option>\
+                                            &lt;/select>\
+                                                &lt;input class="quan" type="text" placeholder="Cantidad">\
+                                            &lt;/div>\
+                                            &lt;input list="list_ingredient" name="ingredient" id="inp_ingredient_' + $addIngredients + '"\
+                                            placeholder="Introduce un ingrediente esté o no en la lista" style="width: 100%;">\
+                                            &lt;datalist id="list_ingredient">&lt;/datalist>\
+                                        &lt;/div>\
+                                    &lt;/div>');
+            $addIngredients++;
+        });
+    }
+    /**
+     * @function addSteps
+     * @param {number} $addSteps 
+     * @description Afegim al DOM les caselles per poder afegir els passos per realitzar la recepta.
+     */
+    function addSteps($addSteps) {
+        $('.btn_addPasos').on('click', () => {
+            if ($addSteps &lt; 10) {
+                $('#steps').append('&lt;div class="pasos_cont">\
+                                                    &lt;div class="pasos">\
+                                                        &lt;div class="inputs">\
+                                                            &lt;label>Descripción paso ' + ($addSteps + 1) + '&lt;/label>\
+                                                            &lt;textarea class="desc_pas" id="desc_pas_' + $addSteps + '" type="text"\
+                                                             placeholder="Introduce la descripción del paso ' + ($addSteps + 1) + '">&lt;/textarea>\
+                                                        &lt;/div>\
+                                                        &lt;div class="inputs dropzone">\
+                                                            &lt;label>Imagen paso ' + ($addSteps + 1) + '&lt;/label>\
+                                                            &lt;div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">\
+                                                                &lt;div class="fallback">\
+                                                                    &lt;div class="custom-file">\
+                                                                        &lt;input type="file" class="custom-file-input" name="image_pas_' + $addSteps + '"  id="dropzoneBasicUpload" multiple="multiple">\
+                                                                        &lt;label class="custom-file-label" id="imageStep" id="image_pas_' + $addSteps + '" for="dropzoneBasicUpload">&lt;/label>\
+                                                                    &lt;/div>\
+                                                                &lt;/div>\
+                                                            &lt;/div>\
+                                                        &lt;/div>\
+                                                    &lt;/div>\
+                                                &lt;/div>');
+                $addSteps++;
+            }
+        });
+    }
+
+    /**
+     * @type {jQuery}
+     * @type click
+     * @method on
+     * @listens btn_save - Classe del botó per afegir o modificar la recepta.
+     * @description Quan l'usuair polsa sobre el botó "Guardar" es modifica o s'afegeix la recepta, segons l'opció escollida en la página "misRecetas".
+     */
+    console.log($JSONrecipe)
+    $('.btn_save').on('click', () => {
+        $image = new FormData();
+        $nameRecipe = $('#inp_name').val();
+        $image.append('file', $('input[name="imageVideoRecipe"')[0].files[0]);
+        $descriptionInitRecipe = $('#inp_description').val();
+        $time = $('.time option:selected').val();
+        $difficult = $('.difficult option:selected').val();
+        $type = $('.type option:selected').val();
+
+        $('.ingredients').each(function () {
+            $arrayIngredientsAdd.push([$(this).find('.ingredient option:selected').val(), $(this).find('.quan').val(), $(this).find('input[name=ingredient]').val()]);
+
+        });
+
+        $('.pasos_cont').each(function () {
+            $arrayStepsAdd.push([$(this).find('.desc_pas').val(), $(this).find('.desc_pas').attr('value')]);
+        });
+
+        $endescriptionFinalRecipe = $('#inp_descriptionEnding').val();
+
+        if ($idRecipe != '') {
+
+            $boolean = true;
+
+            if ($image.get('file') != 'undefined') {
+                $.ajax({
+                    url: 'http://localhost:8080/api/recipe/uploadImageFile/',
+                    type: 'POST',
+                    async: false,
+                    data: $image,
+                    contentType: 'multipart/form-data',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'Authorization': $token
+                    },
+                    success: function ($exit) {
+                        $reouteImageRecipe = $exit;
+                    }
+                });
+                $nameImageRecipe = $image.get('file').name
+            } else {
+                $nameImageRecipe = $('#imageVideoRecipe').text();
+            }
+
+            $JSONmodifyRecipe = {
+                'id': eval($JSONrecipe.id),
+                'image': '/media/' + $nameImageRecipe,
+                'name': $nameRecipe,
+                'preparationVideo': null,
+                'type': eval($type),
+                'recipeDinners': eval($JSONrecipe.recipeDinners),
+                'recipeTime': eval($time),
+                'recipeDifficult': eval($difficult),
+                'recipeEndingDescription': $endescriptionFinalRecipe,
+                'recipeInitDescription': $descriptionInitRecipe
+            };
+            $JSONmodifyRecipe = JSON.stringify($JSONmodifyRecipe)
+            $.ajax({
+                url: $urlModifyRecipe,
+                type: 'PUT',
+                data: $JSONmodifyRecipe,
+                headers: {
+                    'Authorization': $token
+                },
+                contentType: "application/json",
+                dataType: "json",
+                success: function () {}
+            });
+
+            let $booleanAddRecipe;
+            $.each($arrayIngredientsAdd, function ($i, $newIngredients) {
+                $.each($arrayIngredients, function ($x, $ingredientsArray) {
+                    if ($ingredientsArray.name == $newIngredients[2]) {
+                        $booleanAddRecipe = false;
+                        console.log($JSONrecipe.recipeIngredients.length)
+                        if ($JSONrecipe.recipeIngredients == 0) {
+                            $.ajax({
+                                url: $urlAddIngredients + 'recipe---' + $JSONrecipe.id + '___id---' + $ingredientsArray.id + '___qty---' + $newIngredients[1] + '___unity---' + $newIngredients[0],
+                                type: 'POST',
+                                async: false,
+                                headers: {
+                                    'Authorization': $token
+                                }
+                            });
+                        } else {
+                            $booleanRecipe = false;
+                            $booleanAddRecipe = false;
+                            if ($JSONrecipe.recipeIngredients[$i].ingredientQTY != $newIngredients[1] || $JSONrecipe.recipeIngredients[$i].ingredientUnity != $newIngredients[0] || $JSONrecipe.recipeIngredients[$i].ingredientId != $ingredientsArray.id) {
+                                debugger
+                                $JSONmodifyingredients = {
+                                    'id': eval($JSONrecipe.recipeIngredients[$i].id),
+                                    'ingredientId': eval($ingredientsArray.id),
+                                    'ingredientQTY': eval($newIngredients[1]),
+                                    'ingredientUnity': $newIngredients[0],
+                                    'recipeId': eval($JSONrecipe.id)
+                                }
+                                $JSONmodifyingredients = JSON.stringify($JSONmodifyingredients)
+                                $.ajax({
+                                    url: 'http://localhost:8080/api/recipe/modifyRecipeIngredient/',
+                                    type: 'PUT',
+                                    data: $JSONmodifyingredients,
+                                    headers: {
+                                        'Authorization': $token
+                                    },
+                                    contentType: "application/json",
+                                    dataType: "json",
+                                    success: function () {}
+                                });
+                                $booleanAddRecipe = true;
+                            } else {
+                                $.each($JSONrecipe.recipeIngredients, function ($j, $ingredientsRecipeComp) {
+                                    if ($ingredientsRecipeComp.ingredientId == $ingredientsArray.id) {
+                                        $booleanRecipe = true;
+                                    }
+                                });
+                                if ($booleanRecipe == false &amp;&amp; $booleanAddRecipe == false) {
+                                    $.ajax({
+                                        url: $urlAddIngredients + 'recipe---' + $JSONrecipe.id + '___id---' + $ingredientsArray.id + '___qty---' + $newIngredients[1] + '___unity---' + $newIngredients[0],
+                                        type: 'POST',
+                                        async: false,
+                                        headers: {
+                                            'Authorization': $token
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+
+            $.each($JSONrecipe.recipeSteps, function ($x, $stepsRecipe) {
+                for (let i = 0; i &lt; 10; i++) {
+                    if ($stepsRecipe.stepDescription.length > 1) {
+                        let $newImage = new FormData();
+                        $newImage.append('file', $('input[name="image_pas_' + $x + '"')[0].files[0]);
+                        if ($newImage.get('file') != 'undefined') {
+                            $.ajax({
+                                url: 'http://localhost:8080/api/recipe/uploadImageFile/',
+                                type: 'POST',
+                                async: false,
+                                data: $newImage,
+                                contentType: 'multipart/form-data',
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                headers: {
+                                    'Authorization': $token
+                                },
+                                success: function ($exit) {
+                                    $reouteImageRecipe = $exit;
+                                }
+                            });
+                            $nameImageSteps = $newImage.get('file').name;
+
+                        } else {
+                            $nameImageSteps = $('#image_pas_' + $x + '').text();
+                        }
+
+                        $JSONmodifySteps = {
+                            'id': eval($stepsRecipe.id),
+                            'image': '/media/' + $nameImageSteps,
+                            'recipeId': eval($stepsRecipe.recipeId),
+                            'stepDescription': $arrayStepsAdd[$x][0]
+                        }
+
+                        $JSONmodifySteps = JSON.stringify($JSONmodifySteps)
+                        $.ajax({
+                            url: 'http://localhost:8080/api/recipe/modifyRecipeStep',
+                            type: 'PUT',
+                            data: $JSONmodifySteps,
+                            headers: {
+                                'Authorization': $token
+                            },
+                            contentType: "application/json",
+                            dataType: "json",
+                            success: function () {}
+                        });
+                    }
+                }
+            });
+
+            if ($arrayStepsAdd.length != $JSONrecipe.recipeSteps.length) {
+                for (let i = $JSONrecipe.recipeSteps.length; i &lt; $arrayStepsAdd.length; i++) {
+                    if ($arrayStepsAdd[i][0].length > 1) {
+                        $JSONmodifySteps = {
+                            'stepDescription': $arrayStepsAdd[i][0],
+                            'recipeId': eval($JSONrecipe.id),
+                            'image': null
+                        }
+
+                        $JSONmodifySteps = JSON.stringify($JSONmodifySteps)
+
+                        $.ajax({
+                            url: $urlAddSteps,
+                            type: 'POST',
+                            async: false,
+                            data: $JSONmodifySteps,
+                            headers: {
+                                'Authorization': $token
+                            },
+                            contentType: "application/json",
+                            dataType: "json",
+                            success: function () {}
+                        });
+                    }
+                }
+            }
+        } else {
+            if ($nameRecipe != '' &amp;&amp; $image.get('file') != 'undefined') {
+                $.ajax({
+                    url: 'http://localhost:8080/api/recipe/uploadImageFile/',
+                    type: 'POST',
+                    async: false,
+                    data: $image,
+                    contentType: 'multipart/form-data',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'Authorization': $token
+                    },
+                    success: function ($exit) {
+                        $reouteImageRecipe = $exit;
+                    }
+                });
+                $JSONmodifyRecipe = {
+                    'name': $nameRecipe,
+                    'recipeEndingDescription': $endescriptionFinalRecipe,
+                    'image': '/media/' + $image.get('file').name,
+                    'recipeInitDescription': $descriptionInitRecipe,
+                    'userId': eval($IDuser),
+                    'active': eval(1),
+                    'recipeAssessment': eval(0),
+                    'recipeDifficult': eval($difficult),
+                    'recipeDinners': eval(1),
+                    'recipeTime': eval($time),
+                    'type': eval($type),
+                };
+
+                $JSONmodifyRecipe = JSON.stringify($JSONmodifyRecipe);
+                $.ajax({
+                    url: $urlAddRecipe,
+                    type: 'POST',
+                    data: $JSONmodifyRecipe,
+                    async: false,
+                    headers: {
+                        'Authorization': $token
+                    },
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function ($inserRecipe) {
+                        $.each($arrayIngredientsAdd, function ($i, $ingredientsAdd) {
+                            $.each($arrayIngredients, function ($x, $IngredientsName) {
+                                if ($ingredientsAdd[2] == $IngredientsName.name) {
+                                    $.ajax({
+                                        url: $urlAddIngredients + 'recipe---' + $inserRecipe + '___id---' + $IngredientsName.id + '___qty---' + $ingredientsAdd[1] + '___unity---' + $ingredientsAdd[0],
+                                        type: 'POST',
+                                        async: false,
+                                        headers: {
+                                            'Authorization': $token
+                                        }
+                                    });
+                                }
+                            });
+                        });
+
+                        $.each($arrayStepsAdd, function ($i, $stepsAdd) {
+                            if ($stepsAdd[0].length > 0) {
+                                let $newImage = new FormData();
+                                $newImage.append('file', $('input[name="image_pas_' + $i + '"')[0].files[0]);
+                                $.ajax({
+                                    url: 'http://localhost:8080/api/recipe/uploadImageFile/',
+                                    type: 'POST',
+                                    async: false,
+                                    data: $newImage,
+                                    contentType: 'multipart/form-data',
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    headers: {
+                                        'Authorization': $token
+                                    },
+                                    success: function ($exit) {
+                                        $reouteImageRecipe = $exit;
+                                    }
+                                });
+
+                                if ($stepsAdd[0].length > 1) {
+
+                                    $JSONmodifySteps = {
+                                        'stepDescription': $stepsAdd[0],
+                                        'recipeId': eval($inserRecipe),
+                                        'image': '/media/' + $newImage.get('file').name,
+                                    }
+                                }
+
+                                $JSONmodifySteps = JSON.stringify($JSONmodifySteps)
+
+                                $.ajax({
+                                    url: $urlAddSteps,
+                                    type: 'POST',
+                                    async: false,
+                                    data: $JSONmodifySteps,
+                                    headers: {
+                                        'Authorization': $token
+                                    },
+                                    contentType: "application/json",
+                                    dataType: "json",
+                                    success: function () {}
+                                });
+                            }
+                        });
+                    }
+                });
+                $('#addRecipe').modal('show');
+            } else {
+                $('#modalAddComment').modal('show');
+            }
+        }
+        if ($boolean == true) {
+            $('#addRecipe').modal('show');
+        }
+    });
+
+    $('.btn_checkIn').on('click', () => {
+        window.location.href = '/misRecetas';
+    })
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#$alias">$alias</a></li><li><a href="global.html#$allPlatesCakes">$allPlatesCakes</a></li><li><a href="global.html#$allPlatesDesserts">$allPlatesDesserts</a></li><li><a href="global.html#$allPlatesFirsts">$allPlatesFirsts</a></li><li><a href="global.html#$allPlatesSeconds">$allPlatesSeconds</a></li><li><a href="global.html#$allPlatesStarters">$allPlatesStarters</a></li><li><a href="global.html#$allRecipes">$allRecipes</a></li><li><a href="global.html#$allTypePlate">$allTypePlate</a></li><li><a href="global.html#$allUsers">$allUsers</a></li><li><a href="global.html#$arrayDate">$arrayDate</a></li><li><a href="global.html#$arrayHours">$arrayHours</a></li><li><a href="global.html#$arrayIngredients">$arrayIngredients</a></li><li><a href="global.html#$arrayIngredientsAdd">$arrayIngredientsAdd</a></li><li><a href="global.html#$arrayRecipe">$arrayRecipe</a></li><li><a href="global.html#$arrayStepsAdd">$arrayStepsAdd</a></li><li><a href="global.html#$arrayValidityToken">$arrayValidityToken</a></li><li><a href="global.html#$boolean">$boolean</a></li><li><a href="global.html#$booleanAlias">$booleanAlias</a></li><li><a href="global.html#$booleanAssessment">$booleanAssessment</a></li><li><a href="global.html#$booleanBusinessPhone">$booleanBusinessPhone</a></li><li><a href="global.html#$booleanCity">$booleanCity</a></li><li><a href="global.html#$booleanComment">$booleanComment</a></li><li><a href="global.html#$booleanCompany">$booleanCompany</a></li><li><a href="global.html#$booleanDirection">$booleanDirection</a></li><li><a href="global.html#$booleanEmail">$booleanEmail</a></li><li><a href="global.html#$booleanName">$booleanName</a></li><li><a href="global.html#$booleanNif">$booleanNif</a></li><li><a href="global.html#$booleanPassword">$booleanPassword</a></li><li><a href="global.html#$booleanPassword_1">$booleanPassword_1</a></li><li><a href="global.html#$booleanPassword_2">$booleanPassword_2</a></li><li><a href="global.html#$booleanPassword_3">$booleanPassword_3</a></li><li><a href="global.html#$booleanPc">$booleanPc</a></li><li><a href="global.html#$booleanPhone">$booleanPhone</a></li><li><a href="global.html#$booleanRecipe">$booleanRecipe</a></li><li><a href="global.html#$booleanSurname">$booleanSurname</a></li><li><a href="global.html#$businessPhone">$businessPhone</a></li><li><a href="global.html#$carbohidrates">$carbohidrates</a></li><li><a href="global.html#$city">$city</a></li><li><a href="global.html#$collapse">$collapse</a></li><li><a href="global.html#$comment">$comment</a></li><li><a href="global.html#$company">$company</a></li><li><a href="global.html#$concat">$concat</a></li><li><a href="global.html#$concatNutricionst">$concatNutricionst</a></li><li><a href="global.html#$count">$count</a></li><li><a href="global.html#$countAddRecipeIngredients">$countAddRecipeIngredients</a></li><li><a href="global.html#$countAddRecipeSteps">$countAddRecipeSteps</a></li><li><a href="global.html#$countCakes">$countCakes</a></li><li><a href="global.html#$countDesserts">$countDesserts</a></li><li><a href="global.html#$countFirsts">$countFirsts</a></li><li><a href="global.html#$countModifyRecipeIngredients">$countModifyRecipeIngredients</a></li><li><a href="global.html#$countModiyRecipeSteps">$countModiyRecipeSteps</a></li><li><a href="global.html#$countRecipe">$countRecipe</a></li><li><a href="global.html#$countSeconds">$countSeconds</a></li><li><a href="global.html#$countStarters">$countStarters</a></li><li><a href="global.html#$date">$date</a></li><li><a href="global.html#$dateModify">$dateModify</a></li><li><a href="global.html#$descNuutricionist">$descNuutricionist</a></li><li><a href="global.html#$descriptionInitRecipe">$descriptionInitRecipe</a></li><li><a href="global.html#$difficult">$difficult</a></li><li><a href="global.html#$dinner">$dinner</a></li><li><a href="global.html#$dinners">$dinners</a></li><li><a href="global.html#$direction">$direction</a></li><li><a href="global.html#$document">$document</a></li><li><a href="global.html#$email">$email</a></li><li><a href="global.html#$endscriptionFinalRecipe">$endscriptionFinalRecipe</a></li><li><a href="global.html#$fat">$fat</a></li><li><a href="global.html#$fiber">$fiber</a></li><li><a href="global.html#$forks">$forks</a></li><li><a href="global.html#$heading">$heading</a></li><li><a href="global.html#$idNutricionist">$idNutricionist</a></li><li><a href="global.html#$IDnutricionist">$IDnutricionist</a></li><li><a href="global.html#$idRecipe">$idRecipe</a></li><li><a href="global.html#$IDuser">$IDuser</a></li><li><a href="global.html#$imageVideoRecipe">$imageVideoRecipe</a></li><li><a href="global.html#$ingredient">$ingredient</a></li><li><a href="global.html#$ingredientId">$ingredientId</a></li><li><a href="global.html#$ingredients">$ingredients</a></li><li><a href="global.html#$ingredientUnity">$ingredientUnity</a></li><li><a href="global.html#$JSNONnutricionistDegree">$JSNONnutricionistDegree</a></li><li><a href="global.html#$JSONAssessment">$JSONAssessment</a></li><li><a href="global.html#$JSONComment">$JSONComment</a></li><li><a href="global.html#$JSONmodifyingredients">$JSONmodifyingredients</a></li><li><a href="global.html#$JSONmodifyRecipe">$JSONmodifyRecipe</a></li><li><a href="global.html#$JSONmodifySteps">$JSONmodifySteps</a></li><li><a href="global.html#$JSONrecipe">$JSONrecipe</a></li><li><a href="global.html#$latestRecipes">$latestRecipes</a></li><li><a href="global.html#$localToken">$localToken</a></li><li><a href="global.html#$login">$login</a></li><li><a href="global.html#$monoinsaturated">$monoinsaturated</a></li><li><a href="global.html#$name">$name</a></li><li><a href="global.html#$nameImageRecipe">$nameImageRecipe</a></li><li><a href="global.html#$nameRecipe">$nameRecipe</a></li><li><a href="global.html#$nif">$nif</a></li><li><a href="global.html#$numberPersons">$numberPersons</a></li><li><a href="global.html#$pass">$pass</a></li><li><a href="global.html#$pc">$pc</a></li><li><a href="global.html#$phone">$phone</a></li><li><a href="global.html#$polyinsaturated">$polyinsaturated</a></li><li><a href="global.html#$proteins">$proteins</a></li><li><a href="global.html#$pswrd">$pswrd</a></li><li><a href="global.html#$pswrd_1">$pswrd_1</a></li><li><a href="global.html#$pswrd_2">$pswrd_2</a></li><li><a href="global.html#$pswrd_3">$pswrd_3</a></li><li><a href="global.html#$receivedData">$receivedData</a></li><li><a href="global.html#$recipePlates">$recipePlates</a></li><li><a href="global.html#$reouteImageRecipe">$reouteImageRecipe</a></li><li><a href="global.html#$satured">$satured</a></li><li><a href="global.html#$score">$score</a></li><li><a href="global.html#$screenSize">$screenSize</a></li><li><a href="global.html#$searchFilters">$searchFilters</a></li><li><a href="global.html#$searchId">$searchId</a></li><li><a href="global.html#$searchLatestRecipes">$searchLatestRecipes</a></li><li><a href="global.html#$sodium">$sodium</a></li><li><a href="global.html#$sugars">$sugars</a></li><li><a href="global.html#$surnames">$surnames</a></li><li><a href="global.html#$time">$time</a></li><li><a href="global.html#$titleNutricionist">$titleNutricionist</a></li><li><a href="global.html#$token">$token</a></li><li><a href="global.html#$totalDinner">$totalDinner</a></li><li><a href="global.html#$totalRecipes">$totalRecipes</a></li><li><a href="global.html#$type">$type</a></li><li><a href="global.html#$typePlate">$typePlate</a></li><li><a href="global.html#$url">$url</a></li><li><a href="global.html#$urlAddAssessment">$urlAddAssessment</a></li><li><a href="global.html#$urlAddComment">$urlAddComment</a></li><li><a href="global.html#$urlAddIngredients">$urlAddIngredients</a></li><li><a href="global.html#$urlAddNutricionist">$urlAddNutricionist</a></li><li><a href="global.html#$urlAddRecipe">$urlAddRecipe</a></li><li><a href="global.html#$urlAddSteps">$urlAddSteps</a></li><li><a href="global.html#$urlAllUsers">$urlAllUsers</a></li><li><a href="global.html#$urlIngredients">$urlIngredients</a></li><li><a href="global.html#$urlLatestRecipes">$urlLatestRecipes</a></li><li><a href="global.html#$urlLogin">$urlLogin</a></li><li><a href="global.html#$urlModifyAssessment">$urlModifyAssessment</a></li><li><a href="global.html#$urlModifyDataNutricionist">$urlModifyDataNutricionist</a></li><li><a href="global.html#$urlModifyDataUser">$urlModifyDataUser</a></li><li><a href="global.html#$urlModifyRecipe">$urlModifyRecipe</a></li><li><a href="global.html#$urlOrderByAssessment">$urlOrderByAssessment</a></li><li><a href="global.html#$urlRecipe">$urlRecipe</a></li><li><a href="global.html#$urlRecipes">$urlRecipes</a></li><li><a href="global.html#$urlRemoveNutricionist">$urlRemoveNutricionist</a></li><li><a href="global.html#$urlSearch">$urlSearch</a></li><li><a href="global.html#$urlSearchPlate">$urlSearchPlate</a></li><li><a href="global.html#$urlSearchUsersNutricionist">$urlSearchUsersNutricionist</a></li><li><a href="global.html#$urlSerachNutricionist">$urlSerachNutricionist</a></li><li><a href="global.html#$urlSerachNutricionistCP">$urlSerachNutricionistCP</a></li><li><a href="global.html#$urlType">$urlType</a></li><li><a href="global.html#$urlTypePlate">$urlTypePlate</a></li><li><a href="global.html#$urlUser">$urlUser</a></li><li><a href="global.html#$urlUserValoration">$urlUserValoration</a></li><li><a href="global.html#$user">$user</a></li><li><a href="global.html#$userAlias">$userAlias</a></li><li><a href="global.html#$valueEnergMax">$valueEnergMax</a></li><li><a href="global.html#$valueEnergMin">$valueEnergMin</a></li><li><a href="global.html#addIngredients">addIngredients</a></li><li><a href="global.html#addRequired">addRequired</a></li><li><a href="global.html#addSteps">addSteps</a></li><li><a href="global.html#assingCollapseHeading">assingCollapseHeading</a></li><li><a href="global.html#blur">blur</a></li><li><a href="global.html#changeIconsCheck">changeIconsCheck</a></li><li><a href="global.html#changeIconsError">changeIconsError</a></li><li><a href="global.html#changeIconsInfo">changeIconsInfo</a></li><li><a href="global.html#checkCif">checkCif</a></li><li><a href="global.html#checkDocument">checkDocument</a></li><li><a href="global.html#checkLetter">checkLetter</a></li><li><a href="global.html#checkNie">checkNie</a></li><li><a href="global.html#checkNif">checkNif</a></li><li><a href="global.html#checkTypePlate">checkTypePlate</a></li><li><a href="global.html#each">each</a></li><li><a href="global.html#getDificult">getDificult</a></li><li><a href="global.html#getForks">getForks</a></li><li><a href="global.html#insertForks">insertForks</a></li><li><a href="global.html#insertIngredients">insertIngredients</a></li><li><a href="global.html#insertPlates">insertPlates</a></li><li><a href="global.html#insertRecipe">insertRecipe</a></li><li><a href="global.html#insertSteps">insertSteps</a></li><li><a href="global.html#loading">loading</a></li><li><a href="global.html#on">on</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#token">token</a></li><li><a href="global.html#trimImage">trimImage</a></li><li><a href="global.html#urlTypePlate">urlTypePlate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri May 28 2021 18:50:30 GMT+0200 (hora de verano de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

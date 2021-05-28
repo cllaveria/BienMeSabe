@@ -27,11 +27,40 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/panelUsuario', function(req, res, next) {
-  res.render('panelUsuario', { title: 'modificar datos' });
+  res.render('panelUsuario', { title: 'Modificar datos' });
+});
+
+router.get('/panelAdministrador', function(req, res, next) {
+  res.render('panelAdministrador', { title: 'Panel de Administrador' });
+});
+
+router.get('/misRecetas', function(req, res, next) {
+  res.render('misRecetas', { title: 'Mis recetas' });
+});
+
+router.get('/crearReceta', function(req, res, next) {
+  res.render('crearReceta', { title: 'Crear receta' });
+});
+
+router.get('/panelNutri', function(req, res, next) {
+  res.render('panelNutri', { title: 'Nutricionistas' });
 });
 
 router.get('/recetas/ficha', function(req, res, next) {
-  res.render('ficha', { title: 'ficha receta' });
+  res.render('ficha', { title: 'Ficha receta' });
 });
+
+router.get('/fichaNutri', function(req, res, next) {
+  res.render('fichaNutri', { title: 'Ficha nutricionista' });
+});
+
+router.get('/politica-privacidad', function(req, res, next) {
+  res.render('politica-privacidad', { title: 'Política de privacidad' });
+});
+
+router.get('/contacto', function(req, res, next) {
+  res.render('contacto', { title: 'Contacto' });
+});
+
 
 module.exports = router;

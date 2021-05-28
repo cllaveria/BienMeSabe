@@ -6,7 +6,6 @@
 package com.bienmesabe.rest.service;
 
 import com.bienmesabe.rest.domain.Assessment;
-import com.bienmesabe.rest.domain.Comment;
 import java.util.List;
 
 /**
@@ -17,8 +16,8 @@ import java.util.List;
 public interface AssessmentService {
     
     /**
-     * Method to recover the comments
-     * @return a list with the comments
+     * Method to recover the assessments
+     * @return a list with the assessments
      */
     public List<Assessment> findAllAssessments();
     
@@ -28,10 +27,25 @@ public interface AssessmentService {
      * @return a list with the comments of the recipe
      */
     public List<Assessment> findAllAssessmentsOfRecipe(Long recipeId);
+    
     /**
      * Method to create an assessment in the table assessments of the DB
      * @param assessment object that represents the assessment to persist
      * @return a long with the id of the persisted assessment
      */
     public Long createAssessment(Assessment assessment);
+    
+    /**
+     * Method to modify an assessment
+     * @param data string that represents the attributes of the assessment
+     * @return a boolean that represents if the assessment has been successfully updated or not
+     */
+    public Boolean modifyAssessment(String data);
+    
+    /**
+     * Method to delete the assessments of a recipe
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that indicates if the assessments are successfully deleted or not
+     */
+    public boolean deleteAssessments(long recipeId);
 }

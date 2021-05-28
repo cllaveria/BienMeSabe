@@ -5,7 +5,9 @@
  */
 package com.bienmesabe.rest.service.impl;
 
+import com.bienmesabe.rest.DAO.RecipeDAO;
 import com.bienmesabe.rest.DAO.UserDAO;
+import com.bienmesabe.rest.domain.Recipe;
 import com.bienmesabe.rest.domain.User;
 import com.bienmesabe.rest.service.TokenService;
 import com.bienmesabe.rest.service.UserService;
@@ -27,6 +29,15 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserDAO userDAO;
     
+    /**
+     * Bean of the recipe repository (Interface)
+     */
+    @Autowired
+    private RecipeDAO recipeDAO;
+    
+    /**
+     * Bean of the token service (Interface)
+     */
     @Autowired 
     private TokenService tokenService;
     
@@ -47,6 +58,16 @@ public class UserServiceImpl implements UserService{
     @Override
     public User findUserById(Long id) {
         return userDAO.findUserById(id);
+    }
+    
+    /**
+     * Implementation of interface method to recover the user by id
+     * @param id long that represents the id of the users to search
+     * @return the user filtered by id
+     */
+    @Override
+    public User findUserByIdWithAllProperties(Long id) {
+        return userDAO.findUserByIdWithAllProperties(id);
     }
 
     /**
@@ -70,6 +91,32 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
+     * Implementation of interface method to recover the user valoration
+     * @param id  long that represents the id of the users to search
+     * @return an integer that represents the valoration of the user
+     */
+    @Override
+    public int getUserValoration(long id){
+        float value = 0;
+        int counter = 0;
+        List<Recipe> recipeList = recipeDAO.getRecipesOfUser(id);
+        for(Recipe recipe : recipeList){
+            if(recipe.getRecipeAssessment() > 0){
+                value += recipe.getRecipeAssessment();
+                counter++;
+            }
+                
+        }
+        if(counter > 0){
+            value = value / counter;
+            return Math.round(value);
+        }else{
+            return 0;
+        }
+        
+    }
+    
+    /**
      * Implementation of interface method to recover the user by alias
      * @param alias string that represents the alias of the users to search
      * @return the user filtered by alias
@@ -79,6 +126,11 @@ public class UserServiceImpl implements UserService{
        return userDAO.findUserByAlias(alias);
     }
         
+    /**
+     * Implementation of interface method to authenticate an user
+     * @param data string that contains the information of the user to do the authentication
+     * @return an object that represents the user
+     */
     @Override
     public User authenticateUser(String data){
         User result = new User();
@@ -102,6 +154,7 @@ public class UserServiceImpl implements UserService{
         if(result != null){
             String token = tokenService.getJWTToken(result);
             result.setToken(token);
+            result.setTokenEndValidityDate(tokenService.methodTokenIsValidDate(token));
             return result;
         }
         return null;

@@ -1,0 +1,96 @@
+@import "common.css";
+@import "panelUsuario.css";
+
+#page-content-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  overflow: hidden;
+}
+
+.btn_add,
+.btn_add:focus {
+  margin: 40px auto;
+  display: block;
+  width: 150px;
+  float: right;
+}
+
+.tableRec {
+  width: 100%;
+  overflow-y: hidden;
+}
+
+table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+tr {
+  border: solid 1px #a6aa9c;
+  padding: 10px;
+  text-align: end;
+}
+
+td {
+  padding: 10px; 
+  vertical-align: middle; 
+}
+
+.nameRec {
+  float: left;
+  cursor: pointer;
+  padding-top: 25px;
+}
+
+.nameRec:hover {
+  color: #fca035; 
+}
+
+@media screen and (max-width: 1020px) {
+  td {
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 280px;
+  }
+
+  .nameRec {
+    text-overflow: ellipsis;
+  }
+}
+
+.icon {
+  cursor: pointer;
+}
+.icon:hover {
+  cursor: pointer;
+  color: #fca035;
+}
+
+.val {
+  align-items: center;
+  display: inline-flex;
+  margin-top: 40px;
+  float: right;
+  gap: 15px;
+}
+.val > p {
+  padding-bottom: 0;
+}
+
+@media screen and (max-width: 700px) {
+  .btn_add,
+  .btn_add:focus,
+  .val {
+    float: none;
+  }
+
+  table {
+    width: 450px;
+  }
+
+  td {
+    white-space: nowrap;
+    max-width: 200px;
+  }
+}

@@ -31,6 +31,7 @@ public class Assessment implements Serializable{
     
     @Column(name="RECIPE_ID")
     private Long recipeId;
+    
     @Column(name="USER_ID")
     private long userId;
 
@@ -72,7 +73,7 @@ public class Assessment implements Serializable{
      * Method to recover the assessment value
      * @return a string that represents the assessment value
      */
-        public int getAssessmentValue() {
+    public int getAssessmentValue() {
         return assessmentValue;
     }
 

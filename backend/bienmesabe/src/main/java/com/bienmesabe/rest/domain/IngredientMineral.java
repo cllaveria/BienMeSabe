@@ -13,7 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -27,14 +27,15 @@ public class IngredientMineral implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID", updatable = false, nullable = false)
-    @JoinColumn(name="id")
+    //@JoinColumn(name="ID")
     private Long id;
     
     @Column(name="MINERAL_QTY")
     private float qty;
-    //@ManyToOne
-    @Column(name="MINERAL_ID")
-    private String mineralId;
+    
+    @OneToOne
+    @JoinColumn(name="mineral_id")
+    private Mineral mineral;
 
     @ManyToOne
     @JoinColumn(name="INGREDIENT_ID")
@@ -49,23 +50,19 @@ public class IngredientMineral implements Serializable{
     /**
      * IngredientVitamin Constructor with the required parameters
      * @param ingredientId long that represents the id of the ingredient
-     * @param mineralId long that represents the id of the mineral
      */
-    public IngredientMineral(Long ingredientId, String mineralId) {
+    public IngredientMineral(Long ingredientId) {
         this.ingredient.setId(ingredientId);
-        this.mineralId = mineralId;
     }
 
     /**
      * IngredientVitamin Constructor with the required parameters
      * @param ingredientId long that represents the id of the ingredient
      * @param qty float that represents the quantity of the ingredient mineral
-     * @param mineralId long that represents the id of the mineral
      */
-    public IngredientMineral(Long ingredientId, float qty, String mineralId) {
+    public IngredientMineral(Long ingredientId, float qty) {
         this.ingredient.setId(ingredientId);
         this.qty = qty;
-        this.mineralId = mineralId;
     }
 
     /**
@@ -115,22 +112,24 @@ public class IngredientMineral implements Serializable{
     public void setQty(float qty) {
         this.qty = qty;
     }
-
+    
     /**
-     * Method to recover the id of the mineral
-     * @return a long that represents the id of the mineral
+     * Method to recover the mineral for the ingredient
+     * @return an object that represents the mineral for the ingredient
      */
-    public String getMineralId() {
-        return mineralId;
+    public Mineral getMineral() {
+        return mineral;
     }
 
     /**
-     * Method to asign the id of the mineral
-     * @param mineralId long that represents the id of the mineral to asign
+     * Method to asign the mineral for the ingredient
+     * @param mineral object that represents the mineral for the ingredient
      */
-    public void setMineralId(String mineralId) {
-        this.mineralId = mineralId;
+    public void setMineral(Mineral mineral) {
+        this.mineral = mineral;
     }
+
+    
     
     
 }

@@ -8,9 +8,9 @@ package com.bienmesabe.rest.DAO.impl;
 import com.bienmesabe.rest.DAO.RecipeDAO;
 import com.bienmesabe.rest.domain.Recipe;
 import com.bienmesabe.rest.domain.RecipeIngredients;
+import com.bienmesabe.rest.domain.RecipeStep;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.query.Query;
@@ -41,27 +41,21 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Transactional
     public List<Recipe> getAllRecipes() {
         Session currentSession = entityManager.unwrap(Session.class);
-        
-        Query<Recipe> query = currentSession.createQuery("from Recipe order by createdAt desc", Recipe.class);
-        
+        Query<Recipe> query = currentSession.createQuery("from Recipe r where r.active=1 order by createdAt desc", Recipe.class);       
         List<Recipe> recipes = query.getResultList();
-        
         return recipes;
     }
     
     /**
-     * Method to recover the recipes present in the DB ordered by assessment
+     * Implementation of interface method to recover the recipes present in the DB ordered by assessment
      * @return a list with the recipes in the DB ordered by assessment
      */
     @Override
     @Transactional
     public List<Recipe> getAllRecipesByAssessment(){
         Session currentSession = entityManager.unwrap(Session.class);
-        
         Query<Recipe> query = currentSession.createQuery("from Recipe order by recipeAssessment desc", Recipe.class);
-        
         List<Recipe> recipes = query.getResultList();
-        
         return recipes;
     }
     
@@ -138,6 +132,7 @@ public class RecipeDAOImpl implements RecipeDAO {
      * @return a list with the recipes in the DB filtered by dinners
      */
     @Override
+    @Transactional
     public List<Recipe> getRecipesByDinners(int dinners) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Recipe> query = currentSession.createQuery("from Recipe where recipeDinners=:dinners");
@@ -165,6 +160,7 @@ public class RecipeDAOImpl implements RecipeDAO {
      * @return the recipes in the DB filtered by user id
      */
     @Override
+    @Transactional
     public List<Recipe> getRecipesOfOtherUsers(Long userId) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Recipe> query = currentSession.createQuery("from Recipe where userId<>:userId");
@@ -179,6 +175,7 @@ public class RecipeDAOImpl implements RecipeDAO {
      * @return the recipes in the DB filtered by user id
      */
     @Override
+    @Transactional
     public List<Recipe> getRecipesOfUser(Long userId) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Recipe> query = currentSession.createQuery("from Recipe where userId=:userId");
@@ -187,6 +184,19 @@ public class RecipeDAOImpl implements RecipeDAO {
         return recipes;
     }
     
+    /**
+     * Implementation of interface method to recover the recipes that are not active
+     * @return a list with the recipes that not are active in the DB
+     */
+    @Override
+    @Transactional
+    public List<Recipe> getRecipesNotActive(){
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Recipe> query = currentSession.createQuery("from Recipe r where r.active=0");
+        List<Recipe> recipes = query.getResultList();
+        return recipes;
+    }
+
     /**
      * Implementation of interface method to create a recipe in the table recipes of the DB
      * @param recipe object that represents the recipe to persist
@@ -203,12 +213,73 @@ public class RecipeDAOImpl implements RecipeDAO {
     /**
      * Implementation of interface method to modify an recipe in the table recipes of the DB
      * @param recipe object that represents the recipe to modify
+     * @return boolean that represents if the recipe is correctly modified or not
      */
     @Override
     @Transactional
-    public void modifyRecipe(Recipe recipe) {
+    public boolean modifyRecipe(Recipe recipe) {
         Session currentSession = entityManager.unwrap(Session.class);
-        currentSession.saveOrUpdate(recipe); 
+
+        Query<Recipe> query = currentSession.createQuery("update Recipe set image=:newImage, name=:newName, preparationVideo=:video, type=:recipeType, recipeDinners=:dinners, recipeTime=:time, recipeDifficult=:difficult,recipeInitDescription=:initDescription, recipeEndingDescription=:endingDescription  where id=:recipeId");
+        query.setParameter("newImage", recipe.getImage());
+        query.setParameter("newName", recipe.getName());
+        query.setParameter("video", recipe.getPreparationVideo());
+        query.setParameter("recipeType", recipe.getType());
+        query.setParameter("dinners", recipe.getRecipeDinners());
+        query.setParameter("time", recipe.getRecipeTime());
+        query.setParameter("difficult", recipe.getRecipeDifficult());
+        query.setParameter("initDescription", recipe.getRecipeInitDescription());
+        query.setParameter("endingDescription", recipe.getRecipeEndingDescription());
+        query.setParameter("recipeId", recipe.getId());
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception ee){
+            return false;
+        }
+    }
+
+    /**
+     * Implementation of interface method to update the image path of a recipe in the table recipes of the DB
+     * @param path string with the path of the recipe image
+     * @param recipeId long that represents the id of the recipe
+     * @return a boolean that represents if the path of the recipe image has been successfully updated or not
+     */
+    @Override
+    public boolean updateImageRecipePath(String path, long recipeId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        Query<Recipe> query = currentSession.createQuery("update Recipe set image=:newImage where id=:recipeId");
+        query.setParameter("newImage", path);
+        query.setParameter("recipeId", recipeId);
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception ee){
+            return false;
+        }
+    }
+    
+    /**
+     * Implementation of interface method to set active a recipe in the table recipes by id
+     * @param id long with the id of the recipe to activate
+     * @return boolean that represents if the recipe is correctly activated or not
+     */
+    @Override
+    @Transactional
+    public Boolean setRecipeAsActive(Long id){
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        Query<Recipe> query = currentSession.createQuery("update from Recipe r set active=1 where id=:recipeId");
+
+        query.setParameter("recipeId", id);
+        try{
+            query.executeUpdate();
+            return true;
+        }catch(Exception ee){
+            return false;
+        }
+        
     }
 
     /**
@@ -219,12 +290,11 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Transactional
     public void deleteRecipeById(long id) {
         Session currentSession = entityManager.unwrap(Session.class);
-
         Query<Recipe> query = currentSession.createQuery("delete from Recipe where id=:recipeId");
-
         query.setParameter("recipeId", id);
         query.executeUpdate();
     }
+
 
     
 
