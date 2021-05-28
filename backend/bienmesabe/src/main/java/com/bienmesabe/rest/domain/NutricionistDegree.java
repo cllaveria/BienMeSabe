@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -38,8 +37,9 @@ public class NutricionistDegree implements Serializable {
     @Column(name="degree_description")
     private String description;
 
-    @ManyToOne
-    private Nutricionist nutricionist;
+    @Column(name="NUTRICIONIST_ID")
+    private long nutricionistId;
+    
     
     /**
      * Empty constructor
@@ -141,4 +141,21 @@ public class NutricionistDegree implements Serializable {
         this.description = description;
     }
 
+    /**
+     * Méthod to recover the nutricionist id of the degree
+     * @return an long that represents the nutricionist id of the degree
+     */
+    public long getNutricionistId() {
+        return nutricionistId;
+    }
+
+    /**
+     * Méthod to asign the id of the nutricionist
+     * @param nutricionistId long that represents the id of the nutricionist
+     */
+    public void setNutricionistId(long nutricionistId) {
+        this.nutricionistId = nutricionistId;
+    }
+
+    
 }

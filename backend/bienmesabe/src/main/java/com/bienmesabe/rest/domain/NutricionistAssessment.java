@@ -31,6 +31,7 @@ public class NutricionistAssessment implements Serializable{
     
     @Column(name="NUTRICIONIST_ID")
     private Long nutricionistId;
+    
     @Column(name="USER_ID")
     private long userId;
 

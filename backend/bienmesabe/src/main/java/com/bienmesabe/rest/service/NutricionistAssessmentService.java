@@ -27,4 +27,11 @@ public interface NutricionistAssessmentService {
      * @return a boolean that indicates if the nutricionist assessment is successfully updated or not
      */
     public boolean modifyAssessment(NutricionistAssessment assessment);
+    
+    /**
+     * Method to update the assessment value of the nutricionist
+     * @param nutricionistId long that represents the id of the nutricionist to update
+     * @return a boolean that indicates if the assessment has been updated or not
+     */
+    public boolean updateNutricionistAssessment(long nutricionistId);
 }

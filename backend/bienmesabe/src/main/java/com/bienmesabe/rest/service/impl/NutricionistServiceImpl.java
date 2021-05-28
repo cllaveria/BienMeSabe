@@ -138,4 +138,75 @@ public class NutricionistServiceImpl implements NutricionistService {
         nutricionistDAO.deleteNutricionistById(id);
     }
     
+    
+    /**
+     * Implementation of interface method to delete the degrees of the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the nutricionist degrees has been successfully updated or not
+     */
+    @Override
+    public boolean deleteNutricionistDegrees(Long id){
+        return nutricionistDAO.deleteNutricionistDegrees(id);
+        
+    }
+    
+    /**
+     * Implementation of interface method to delete the assessments of the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the nutricionist assessments has been successfully updated or not
+     */
+    @Override
+    public boolean deleteNutricionistAssessments(Long id){
+        return nutricionistDAO.deleteNutricionistAssessments(id);
+    }
+    
+    /**
+     * Implementation of interface method to delete the comments of the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the nutricionist comments has been successfully updated or not
+     */
+    @Override
+    public boolean deleteNutricionistComments(Long id){
+        return nutricionistDAO.deleteNutricionistComments(id);
+    }
+    
+    /**
+     * Implementation of interface method to delete the assessments made for the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the assessments made for the nutricionist has been successfully updated or not
+     */
+    @Override
+    public boolean deleteNutricionistAssessmentsMade(Long id){
+        return nutricionistDAO.deleteNutricionistAssessmentsMade(id);
+    }
+    
+    /**
+     * Implementation of interface method to delete the comments made for the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the comments made for the nutricionist has been successfully updated or not
+     */
+    @Override
+    public boolean deleteNutricionistCommentsMade(Long id){
+        return nutricionistDAO.deleteNutricionistCommentsMade(id);
+    }
+    
+    /**
+     * Implementation of interface method to delete the admin contacts made for the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the admin contacts made for the nutricionist has been successfully updated or not
+     */
+    @Override
+    public boolean deleteNutricionistAdminContactsMade(Long id){
+        return nutricionistDAO.deleteNutricionistAdminContactsMade(id);
+    }
+    
+    /**
+     * Implementation of interface method to delete the users assigned to the nutricionist
+     * @param id long with the id of the nutricionist to delete
+     * @return a boolean that represents if the users assigned to the nutricionist has been successfully updated or not
+     */
+    @Override
+    public boolean deleteNutricionistUsers(Long id){
+        return nutricionistDAO.deleteNutricionistUsers(id);
+    }
 }

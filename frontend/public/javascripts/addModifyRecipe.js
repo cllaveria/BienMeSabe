@@ -502,7 +502,6 @@ $(document).ready(function () {
                             $booleanRecipe = false;
                             $booleanAddRecipe = false;
                             if ($JSONrecipe.recipeIngredients[$i].ingredientQTY != $newIngredients[1] || $JSONrecipe.recipeIngredients[$i].ingredientUnity != $newIngredients[0] || $JSONrecipe.recipeIngredients[$i].ingredientId != $ingredientsArray.id) {
-                                debugger
                                 $JSONmodifyingredients = {
                                     'id': eval($JSONrecipe.recipeIngredients[$i].id),
                                     'ingredientId': eval($ingredientsArray.id),

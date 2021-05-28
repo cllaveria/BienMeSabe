@@ -29,9 +29,10 @@ CREATE TABLE `nutricionists` (
   `COMPANY_POSTAL_CODE` varchar(10) NOT NULL,
   `COMPANY_CITY` varchar(45) DEFAULT NULL,
   `COMPANY_TELEPHONE` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `nutricionist_assessment` int DEFAULT NULL,
+  `nutricionist_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `FK1fa154qdn4l8fl0pycmtcneak` FOREIGN KEY (`ID`) REFERENCES `users` (`ID`),
-  CONSTRAINT `fk_user_id_nutricionist` FOREIGN KEY (`ID`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK1fa154qdn4l8fl0pycmtcneak` FOREIGN KEY (`ID`) REFERENCES `users` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -41,7 +42,7 @@ CREATE TABLE `nutricionists` (
 
 LOCK TABLES `nutricionists` WRITE;
 /*!40000 ALTER TABLE `nutricionists` DISABLE KEYS */;
-INSERT INTO `nutricionists` VALUES (3,'Sergio','Sergio','08391','Sergio','673308476');
+INSERT INTO `nutricionists` VALUES (3,'Sergio','Ripollet','08291','Ripollet','673308476',4,'Mi nombre es Sergio Asensio Ruiz y soy nutricionista desde hace 25 años, con una amplia experiencia en el sector.'),(68,'','Ripollet','08291','Ripollet','',0,''),(69,'','Ripollet','08291','Ripollet','',0,''),(70,'','Tiana','08391','Tiana','',0,'');
 /*!40000 ALTER TABLE `nutricionists` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-04 19:44:47
+-- Dump completed on 2021-05-28 21:04:19

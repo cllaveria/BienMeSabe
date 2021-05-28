@@ -30,7 +30,7 @@ CREATE TABLE `recipesteps` (
   PRIMARY KEY (`STEP_ID`),
   KEY `FKlm7xl8bcrq3of6wrfq0kv65xy` (`RECIPE_ID`),
   CONSTRAINT `FKlm7xl8bcrq3of6wrfq0kv65xy` FOREIGN KEY (`RECIPE_ID`) REFERENCES `recipe` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `recipesteps` (
 
 LOCK TABLES `recipesteps` WRITE;
 /*!40000 ALTER TABLE `recipesteps` DISABLE KEYS */;
-INSERT INTO `recipesteps` VALUES (1,1,'PONER ACEITE EN LA SARTÉN',NULL),(2,1,'ENCENDER EL FUEGO',NULL),(3,1,'ESPERAR A QUE EL ACEITE SE CALIENTE',NULL),(4,1,'CASCAR EL HUEVO',NULL),(5,1,'INTRODUCIR EL HUEVO EN LA SARTÉN',NULL),(6,1,'SALPICAR EL HUEVO CON EL ACEITE',NULL),(7,1,'RETIRAR EL HUEVO, APAGAR EL FUEGO Y PRESENTAR',NULL),(8,2,'Freímos las patatas','/media/huevos-estrellados-paso-1.jpg'),(9,2,'Añadimos el jamón a las patatas','/media/huevos-estrellados-paso-2.jpg'),(10,2,'Freímos los huevos','/media/huevos-estrellados-paso-3.jpg'),(11,2,'Rompemos los huevos estrellados','/media/huevos-estrellados-paso-4.jpg');
+INSERT INTO `recipesteps` VALUES (8,2,'Freímos las patatas','/media/huevos-estrellados-paso-1.jpg'),(9,2,'Añadimos el jamón a las patatas','/media/huevos-estrellados-paso-2.jpg'),(10,2,'Freímos los huevos','/media/huevos-estrellados-paso-3.jpg'),(11,2,'Rompemos los huevos estrellados','/media/huevos-estrellados-paso-4.jpg');
 /*!40000 ALTER TABLE `recipesteps` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-04 19:44:47
+-- Dump completed on 2021-05-28 21:04:19
