@@ -68,10 +68,14 @@ td {
 }
 
 .val {
+  align-items: center;
   display: inline-flex;
   margin-top: 40px;
   float: right;
   gap: 15px;
+}
+.val > p {
+  padding-bottom: 0;
 }
 
 @media screen and (max-width: 700px) {

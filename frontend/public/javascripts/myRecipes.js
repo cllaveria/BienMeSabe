@@ -62,7 +62,6 @@ $(document).ready(function () {
         success: function ($latestRecipes) {
             $.each($latestRecipes, function ($index, $recipe) {
                 if ($recipe.userId == $IDuser) {
-                    console.log($recipe)
                     $forks = getForks($recipe.recipeAssessment);
                     $('#recipes').append('<tr title="' + $recipe.id + '">\
                                             <td class="nameRec" ><a href="http://localhost:3000/recetas/ficha?id=' + $recipe.id + '">' + $recipe.name + '</a></td>\

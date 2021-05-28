@@ -489,7 +489,7 @@ $(document).ready(function () {
         $alias = $('#alias').val();
         $email = $('#email').val();
         $pass = $('#pswrd').val();
-        $nif = $('#nif').val().toUpperCase();;
+        $nif = $('#nif').val().toUpperCase();
         $pc = $('#pc').val();
         $city = $('#city').val();
         $company = $('#company').val();
@@ -518,7 +518,8 @@ $(document).ready(function () {
 
         // Si el checkbox esta seleccionat es recuperen les dades del nutricionista
         if ($('[name="nutritionist"]:checked').val() == 'yes') {
-            $nifEncrypted = hex_md5($nif);
+            //$nifEncrypted = hex_md5($nif);
+            $nif = $('#nif').val().toUpperCase();
         }
 
         if ($('[name="nutritionist"]:checked').val() == 'yes') {
@@ -535,7 +536,7 @@ $(document).ready(function () {
                 $.ajax({
                     url: $url + 'nutricionist/addNutricionist/?',
                     data: {
-                        NIF: $nifEncrypted,
+                        NIF: $nif,
                         password: $passEncrypted,
                         name: $name,
                         email: $email,

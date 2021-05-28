@@ -17,29 +17,33 @@ $(document).ready(function () {
         $IDuser = localStorage.getItem('id');
     }
 
-    $.ajax({
-        url: 'http://localhost:8080/api/user/getUserByIdWithAllProperties/' + $IDuser,
-        type: 'GET',
-        async: false,
-        headers: {
-            'Authorization': $token
-        },
-        success: function ($userAjax) {
-            if ($userAjax.type == 3) {
-                $('.dropdownMenu').prepend('<a class="list-group-item list-group-item-action menudp" href="/panelAdministrador">\
-                                             <p>Administración</p>\
-                                         </a>')
-
-                $('.dropdownMenuResp').prepend('<div class="item_block">\
-                                                    <span class="login" onclick="location.href=\'/panelAdministrador\';">Administración</span>\
-                                                </div>');
+    if($IDuser != undefined){
+        $.ajax({
+            url: 'http://localhost:8080/api/user/getUserByIdWithAllProperties/' + $IDuser,
+            type: 'GET',
+            async: false,
+            headers: {
+                'Authorization': $token
+            },
+            success: function ($userAjax) {
+                if ($userAjax.type == 3) {
+                    $('.dropdownMenu').prepend('<a class="list-group-item list-group-item-action menudp" href="/panelAdministrador">\
+                                                 <p>Administración</p>\
+                                             </a>')
+    
+                    $('.dropdownMenuResp').prepend('<div class="item_block">\
+                                                        <span class="login" onclick="location.href=\'/panelAdministrador\';">Administración</span>\
+                                                    </div>');
+                }
             }
-        }
-    });
+        });
+    
+        $(".btn_user").click(function (e) {
+            e.preventDefault();
+            $(".dropdownMenu").toggleClass("noShowdropdown");
+            $(".dropdownMenuResp").toggleClass("noShowdropdown");
+        });
+    }
 
-    $(".btn_user").click(function (e) {
-        e.preventDefault();
-        $(".dropdownMenu").toggleClass("noShowdropdown");
-        $(".dropdownMenuResp").toggleClass("noShowdropdown");
-    });
+    
 });

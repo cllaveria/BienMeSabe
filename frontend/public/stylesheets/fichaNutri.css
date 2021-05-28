@@ -73,7 +73,7 @@ h5 {
   justify-content: center;
 }
 
-.input_comment > textarea {
+.input_comment>textarea {
   width: 500px;
   min-height: 150px;
   background-color: #f0f8ff;
@@ -82,7 +82,7 @@ h5 {
   direction: ltr;
 }
 
-.input_comment > textarea:focus {
+.input_comment>textarea:focus {
   border: solid 2px #fca035;
   outline: 0;
 }
@@ -94,7 +94,7 @@ h5 {
 }
 
 .forkValue:hover,
-.forkValue:hover ~ .forkValue {
+.forkValue:hover~.forkValue {
   content: url("/images/tenedor-gold.svg");
 }
 
@@ -120,7 +120,7 @@ h5 {
     width: 400px;
   }
 
-  .input_comment > textarea {
+  .input_comment>textarea {
     width: 300px;
   }
 }
@@ -138,7 +138,8 @@ h5 {
   display: flex;
 }
 
-.btn_fire {
+.btn_fire,
+.btn_fire:focus {
   width: fit-content;
   padding: 5px;
   margin-left: 40px;
